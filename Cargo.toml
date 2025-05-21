@@ -7,7 +7,8 @@ edition = "2021"
 links = "flint"
 authors = ["Pierre Lairez"]
 license = "MIT"
-keywords = ["external-ffi-bindings", "mathematics"]
+categories = ["external-ffi-bindings", "mathematics"]
+keywords = ["computer-algebra"]
 
 [features]
 force-bindgen = ["dep:bindgen", "dep:regex"]
