@@ -1,6 +1,6 @@
 # flint3-sys
 
-FLINT bindings for the Rust programming language using [bindgen](https://github.com/rust-lang/rust-bindgen).
+[FLINT](https://flintlib.org/) bindings for the Rust programming language, using [bindgen](https://github.com/rust-lang/rust-bindgen).
 
 Since the FLINT API evolves quickly, this crate always compiles FLINT from source and never attempts to use a system library.
 
