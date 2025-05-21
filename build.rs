@@ -32,6 +32,24 @@ struct Conf {
     flint_lib_dir: PathBuf,    // $OUT_DIR/lib, idem
 }
 
+macro_rules! cmd {
+    ($cmd: expr) => {
+        let mut cmd = $cmd;
+        let cmd_string = format!("{:?}", cmd);
+        let exit = cmd
+            .output()
+            .context(format!("Command {} did not execute normally", cmd_string))?;
+        if !exit.status.success() {
+            anyhow::bail!(
+                "Command failed\nCommand: {}\n===== stdout\n{}===== stderr\n{}\n",
+                cmd_string,
+                String::from_utf8_lossy(&exit.stdout),
+                String::from_utf8_lossy(&exit.stderr),
+            )
+        }
+    };
+}
+
 impl Conf {
     fn new() -> Self {
         let out_dir = PathBuf::from(std::env::var("OUT_DIR").unwrap())
@@ -51,21 +69,19 @@ impl Conf {
     fn build_flint(&self) -> Result<()> {
         let flint_root_dir = self.out_dir.join("flint");
 
-        Command::new("cp")
-            .arg("--recursive")
-            .arg("--archive")   // avoids to trigger unnecessary rebuild
+        let mut cp = Command::new("cp");
+        cp.arg("--recursive")
+            .arg("--archive") // avoids to trigger unnecessary rebuild
             .arg("--update")
             .arg("flint")
-            .arg(&self.out_dir)
-            .output()
-            .context("Could not copy FLINT source tree")?;
+            .arg(&self.out_dir);
+        cmd! { cp }
 
         if !flint_root_dir.join("configure").is_file() {
-            Command::new("sh")
-                .current_dir(&flint_root_dir)
-                .arg("./bootstrap.sh")
-                .output()
-                .context("FLINT compilation: ./bootstrap.sh failed")?;
+            let mut bootstrap = Command::new("sh");
+            bootstrap.current_dir(&flint_root_dir).arg("./bootstrap.sh");
+
+            cmd! { bootstrap }
         }
 
         if !flint_root_dir.join("Makefile").is_file() {
@@ -90,24 +106,19 @@ impl Conf {
                     ));
             }
 
-            configure
-                .output()
-                .context("FLINT compilation: ./configure failed")?;
+            cmd! { configure }
         }
 
         if !flint_root_dir.join("libflint.a").is_file() {
-            Command::new("make")
-                .current_dir(&flint_root_dir)
-                .arg("-j")
-                .output()
-                .context("FLINT compilation: make failed")?;
+            let mut make = Command::new("make");
+            make.current_dir(&flint_root_dir).arg("-j");
+            cmd! { make }
         }
 
-        Command::new("make")
-            .current_dir(&flint_root_dir)
-            .arg("install")
-            .output()
-            .context("FLINT compilation: make install failed")?;
+        let mut make_install = Command::new("make");
+        make_install.current_dir(&flint_root_dir).arg("install");
+
+        cmd! { make_install };
 
         println!("cargo::metadata=LIB_DIR={}", self.flint_lib_dir.display());
         println!(
@@ -145,18 +156,17 @@ impl Conf {
             "cargo::rerun-if-changed={}",
             &self.bindgen_extern_c.display()
         );
-        Command::new("cp")
-            .arg("--archive")
+        let mut cp = Command::new("cp");
+        cp.arg("--archive")
             .arg("./bindgen/flint.rs")
-            .arg(&self.bindgen_flint_rs)
-            .output()
-            .context("Failed to copy `bindgen/flint.rs`")?;
-        Command::new("cp")
-            .arg("--archive")
+            .arg(&self.bindgen_flint_rs);
+        cmd! { cp };
+
+        let mut cp = Command::new("cp");
+        cp.arg("--archive")
             .arg("./bindgen/extern.c")
-            .arg(&self.bindgen_extern_c)
-            .output()
-            .context("Failed to copy `bindgen/extern.c`")?;
+            .arg(&self.bindgen_extern_c);
+        cmd! { cp };
         Ok(())
     }
 }
@@ -319,7 +329,6 @@ fn main() -> Result<()> {
         conf.flint_lib_dir.display()
     );
 
-
     ////////////////////////
     // binding generation //
     ////////////////////////
@@ -330,7 +339,6 @@ fn main() -> Result<()> {
 
     anyhow::ensure!(conf.bindgen_extern_c.is_file(), "Cannot find `extern.c`");
     anyhow::ensure!(conf.bindgen_flint_rs.is_file(), "Cannot find `flint.rs`");
-
 
     ////////////////////////////////
     // Compiling inline functions //
