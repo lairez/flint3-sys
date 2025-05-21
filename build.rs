@@ -124,7 +124,8 @@ fn main() -> Result<()> {
 
     cc::Build::new()
         .file(&extern_fp)
-        .flags(["-lflint", "-lgmp", "-lmpfr", "-Wno-unused-parameter"])
+        .flags(["-lflint", "-lgmp", "-lmpfr"])
+        .flags(["-Wno-old-style-declaration", "-Wno-unused-parameter", "-Wno-sign-compare"])
         .try_compile("extern")?;
 
     println!("cargo:rustc-link-lib=static=extern");
