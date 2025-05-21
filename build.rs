@@ -1,7 +1,4 @@
-use std::{
-    path::{Path, PathBuf},
-    process::Command,
-};
+use std::{path::PathBuf, process::Command};
 
 use anyhow::{Context, Result};
 
@@ -54,7 +51,8 @@ impl Conf {
         let flint_root_dir = self.out_dir.join("flint");
 
         Command::new("cp")
-            .arg("-r")
+            .arg("--recursive")
+            .arg("--archive")
             .arg("--update")
             .arg("flint")
             .arg(&self.out_dir)
@@ -70,14 +68,28 @@ impl Conf {
         }
 
         if !flint_root_dir.join("Makefile").is_file() {
-            Command::new("bash")
+            let mut configure = Command::new("bash");
+
+            configure
                 .current_dir(&flint_root_dir)
                 .arg("./configure")
                 .arg("--prefix")
                 .arg(&self.out_dir)
-                .arg("--disable-shared") // it is not advised to generate dynamic libraries in crates
-                //.arg(format!("--with-gmp={}", gmp_mpfr_dir.display()))
-                //.arg(format!("--with-mpfr={}", gmp_mpfr_dir.display()))
+                .arg("--disable-shared"); // it is not advised to generate dynamic libraries in crates
+
+            if cfg!(feature = "gmp-mpfr-sys") {
+                configure
+                    .arg(format!(
+                        "--with-gmp-lib={}",
+                        std::env::var("DEP_GMP_LIB_DIR")?
+                    ))
+                    .arg(format!(
+                        "--with-gmp-include={}",
+                        std::env::var("DEP_GMP_INCLUDE_DIR")?
+                    ));
+            }
+
+            configure
                 .output()
                 .context("FLINT compilation: ./configure failed")?;
         }
@@ -97,7 +109,10 @@ impl Conf {
             .context("FLINT compilation: make install failed")?;
 
         println!("cargo::metadata=LIB={}", self.flint_lib_dir.display());
-        println!("cargo::metadata=INCLUDE={}", self.flint_include_dir.display());
+        println!(
+            "cargo::metadata=INCLUDE={}",
+            self.flint_include_dir.display()
+        );
 
         Ok(())
     }
@@ -113,7 +128,6 @@ impl Conf {
             ])
             .try_compile("extern")?;
 
-        println!("cargo:rustc-link-lib=static=extern");
         Ok(())
     }
 }
@@ -121,11 +135,25 @@ impl Conf {
 #[cfg(not(feature = "rerun-bindgen"))]
 impl Conf {
     fn bindgen(&self) -> Result<()> {
-        println!("cargo::rerun-if-changed={}", &self.bindgen_flint_rs.display());
-        println!("cargo::rerun-if-changed={}", &self.bindgen_extern_c.display());
-        std::fs::copy(&Path::new("./bindgen/flint.rs"), &self.bindgen_flint_rs)
+        println!(
+            "cargo::rerun-if-changed={}",
+            &self.bindgen_flint_rs.display()
+        );
+        println!(
+            "cargo::rerun-if-changed={}",
+            &self.bindgen_extern_c.display()
+        );
+        Command::new("cp")
+            .arg("--archive")
+            .arg("./bindgen/flint.rs")
+            .arg(&self.bindgen_flint_rs)
+            .output()
             .context("Failed to copy `bindgen/flint.rs`")?;
-        std::fs::copy(&Path::new("./bindgen/extern.c"), &self.bindgen_extern_c)
+        Command::new("cp")
+            .arg("--archive")
+            .arg("./bindgen/extern.c")
+            .arg(&self.bindgen_extern_c)
+            .output()
             .context("Failed to copy `bindgen/extern.c`")?;
         Ok(())
     }
@@ -183,11 +211,11 @@ impl Conf {
             // .parse_callbacks(Box::new(bindgen::CargoCallbacks::new())) // useful to echo some cargo:rerun
             .derive_default(false) // useful to avoid too many MaybeUninit
             .derive_copy(false) // nothing (?) in FLINT is Copy
-            .derive_debug(false)   // useless
+            .derive_debug(false) // useless
             .wrap_static_fns(true) // deal with inline functions
             .wrap_static_fns_path(&self.bindgen_extern_c) // idem
             .generate_cstr(true) // recommended by bindgen's doc
-            .merge_extern_blocks(true)  // why would we not?
+            .merge_extern_blocks(true) // why would we not?
             .blocklist_function("__.*") // block internal items
             .blocklist_var("__.*") // block internal items
             .rust_target(bindgen::RustTarget::stable(82, 0).ok().unwrap())
@@ -210,8 +238,6 @@ impl Conf {
             std::fs::copy(&self.bindgen_extern_c, &Path::new("./bindgen/extern.c")).context(
                 format!("Failed to copy `{}`", self.bindgen_extern_c.display()),
             )?;
-            println!("cargo::rerun-if-changed=bindgen/flint.rs");
-            println!("cargo::rerun-if-changed=bindgen/extern.c");
         }
 
         Ok(())
@@ -220,8 +246,6 @@ impl Conf {
 
 fn main() -> Result<()> {
     let conf = Conf::new();
-
-
 
     conf.build_flint()?;
 
@@ -235,14 +259,21 @@ fn main() -> Result<()> {
         "Compilation is successful, but `libflint.a` is not where it should"
     );
 
+    println!("cargo::rustc-link-lib=flint");
+    println!(
+        "cargo::rustc-link-search=native={}",
+        conf.flint_lib_dir.display()
+    );
 
     conf.bindgen()?;
 
     anyhow::ensure!(conf.bindgen_extern_c.is_file(), "Cannot find `extern.c`");
     anyhow::ensure!(conf.bindgen_flint_rs.is_file(), "Cannot find `flint.rs`");
 
-
     conf.build_extern()?;
+
+    println!("cargo::rustc-link-lib=gmp");
+    println!("cargo::rustc-link-lib=mpfr");
 
     Ok(())
 }
