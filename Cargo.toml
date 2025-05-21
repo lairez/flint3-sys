@@ -2,11 +2,12 @@
 name = "flint3-sys"
 description = "Rust bindings to the FLINT C library"
 version = "3.2.2"
+repository = "https://github.com/lairez/flint3-sys"
 edition = "2021"
 links = "flint"
 authors = ["Pierre Lairez"]
 license = "MIT"
-
+keywords = ["external-ffi-bindings", "mathematics"]
 
 [features]
 force-bindgen = ["dep:bindgen", "dep:regex"]
