@@ -108,9 +108,9 @@ impl Conf {
             .output()
             .context("FLINT compilation: make install failed")?;
 
-        println!("cargo::metadata=LIB={}", self.flint_lib_dir.display());
+        println!("cargo::metadata=LIB_DIR={}", self.flint_lib_dir.display());
         println!(
-            "cargo::metadata=INCLUDE={}",
+            "cargo::metadata=INCLUDE_DIR={}",
             self.flint_include_dir.display()
         );
 
@@ -232,10 +232,10 @@ impl Conf {
         // so that the use downstream do not have to run bindgen themselves.
         println!("cargo::rerun-if-env-changed=SAVE_BINDGEN_IN_SOURCE");
         if std::env::var("SAVE_BINDGEN_IN_SOURCE").is_ok() {
-            std::fs::copy(&self.bindgen_flint_rs, &Path::new("./bindgen/flint.rs")).context(
+            std::fs::copy(&self.bindgen_flint_rs, &std::path::Path::new("./bindgen/flint.rs")).context(
                 format!("Failed to copy `{}`", self.bindgen_flint_rs.display()),
             )?;
-            std::fs::copy(&self.bindgen_extern_c, &Path::new("./bindgen/extern.c")).context(
+            std::fs::copy(&self.bindgen_extern_c, &std::path::Path::new("./bindgen/extern.c")).context(
                 format!("Failed to copy `{}`", self.bindgen_extern_c.display()),
             )?;
         }
