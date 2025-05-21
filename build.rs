@@ -1,13 +1,8 @@
-use std::{
-    collections::HashSet,
-    ffi::OsStr,
-    path::{Path, PathBuf},
-};
+use std::path::{Path, PathBuf};
 
-use anyhow::Result;
-use anyhow::{anyhow, bail};
-use bindgen::RustTarget;
+use anyhow::{Result, Context};
 
+#[cfg(feature = "rerun-bindgen")]
 static SKIP_HEADERS: &[&str] = &[
     "NTL-interface.h",
     "crt_helpers.h",
@@ -28,7 +23,10 @@ static SKIP_HEADERS: &[&str] = &[
 ];
 
 // Compute the list of all Flint headers (minus the one we skip)
+#[cfg(feature = "rerun-bindgen")]
 fn flint_headers() -> Result<Vec<PathBuf>> {
+    use std::{collections::HashSet, ffi::OsStr};
+
     let lib = pkg_config::probe_library("flint")?;
 
     let mut flint_header_dir = None;
@@ -42,9 +40,9 @@ fn flint_headers() -> Result<Vec<PathBuf>> {
 
     // This is most probably `/usr/include/flint`
     let flint_header_dir =
-        flint_header_dir.ok_or(anyhow!("Cannot find the Flint header directory"))?;
+        flint_header_dir.context("Cannot find the Flint header directory")?;
     if !flint_header_dir.is_dir() {
-        bail!("Cannot find the Flint header directory")
+        anyhow::bail!("Cannot find the Flint header directory")
     }
 
     // Now, list all the headers in `/usr/include/flint/`
@@ -76,9 +74,6 @@ fn main() -> Result<()> {
     // Target directory of `cargo build`
     let out_path = PathBuf::from(std::env::var("OUT_DIR").unwrap());
 
-    // All relevant Flint headers
-    let headers: Vec<_> = flint_headers()?;
-
     // Target file for bindgen's --wrap-static
     // https://github.com/rust-lang/rust-bindgen/discussions/2405
     let extern_fp = out_path.join("extern.c");
@@ -90,33 +85,57 @@ fn main() -> Result<()> {
     // bindgen //
     /////////////
 
-    let mut builder = bindgen::Builder::default();
-    for header in headers {
-        let h = header.to_str().ok_or(anyhow!("Non unicode path"))?;
-        builder = builder.allowlist_file(h).header(h);
-        // We are using bindgen in allowlisting mode, see
-        // https://rust-lang.github.io/rust-bindgen/allowlisting.html
-        // This avoids bringing all of GMP in the binding
-    }
-    let bindings = builder
-        .parse_callbacks(Box::new(bindgen::CargoCallbacks::new())) // useful to echo some cargo:rerun
-        .derive_default(true)                                      // useful to avoid too many MaybeUninit
-        .derive_copy(false)                                        // nothing (?) in Flint is Copy
-        .derive_debug(false)
-        .wrap_static_fns(true) // deal with inline functions
-        .wrap_static_fns_path(&extern_fp) // idem
-        .generate_cstr(true) // recommended by bindgen's doc
-        .merge_extern_blocks(true)
-        .blocklist_function("__.*") // block internal items
-        .blocklist_var("__.*") // block internal items
-        .rust_target(RustTarget::stable(82, 0).ok().unwrap())
-        // There are still issues with 2024 edition
-        // https://github.com/rust-lang/rust-bindgen/issues/3180
-        .rust_edition(bindgen::RustEdition::Edition2021)
-        .formatter(bindgen::Formatter::Prettyplease)
-        .generate()?;
+    #[cfg(feature = "rerun-bindgen")]
+    {
+        // All relevant Flint headers
+        let headers: Vec<_> = flint_headers()?;
 
-    bindings.write_to_file(out_fp)?;
+        let mut builder = bindgen::Builder::default();
+        for header in headers {
+            let h = header.to_str().context("Non unicode path")?;
+            builder = builder.allowlist_file(h).header(h);
+            // We are using bindgen in allowlisting mode, see
+            // https://rust-lang.github.io/rust-bindgen/allowlisting.html
+            // This avoids bringing all of GMP in the binding
+        }
+        let bindings = builder
+            .parse_callbacks(Box::new(bindgen::CargoCallbacks::new())) // useful to echo some cargo:rerun
+            .derive_default(true) // useful to avoid too many MaybeUninit
+            .derive_copy(false) // nothing (?) in Flint is Copy
+            .derive_debug(false)
+            .wrap_static_fns(true) // deal with inline functions
+            .wrap_static_fns_path(&extern_fp) // idem
+            .generate_cstr(true) // recommended by bindgen's doc
+            .merge_extern_blocks(true)
+            .blocklist_function("__.*") // block internal items
+            .blocklist_var("__.*") // block internal items
+            .rust_target(bindgen::RustTarget::stable(82, 0).ok().unwrap())
+            // There are still issues with 2024 edition
+            // https://github.com/rust-lang/rust-bindgen/issues/3180
+            .rust_edition(bindgen::RustEdition::Edition2021)
+            .formatter(bindgen::Formatter::Prettyplease)
+            .generate()?;
+
+        bindings.write_to_file(&out_fp)?;
+
+        println!("cargo::rerun-if-env-changed=SAVE_BINDGEN_IN_SOURCE");
+        if std::env::var("SAVE_BINDGEN_IN_SOURCE").is_ok() {
+            std::fs::copy(&out_fp, &Path::new("./bindgen/flint.rs"))
+                .context(format!("Failed to copy `{}`", out_fp.display()))?;
+            std::fs::copy(&extern_fp, &Path::new("./bindgen/extern.c"))
+                .context(format!("Failed to copy `{}`", extern_fp.display()))?;
+            println!("cargo::rerun-if-changed=bindgen/flint.rs");
+            println!("cargo::rerun-if-changed=bindgen/extern.c");
+        }
+    }
+
+    #[cfg(not(feature = "rerun-bindgen"))]
+    {
+        std::fs::copy(&Path::new("./bindgen/flint.rs"), &out_fp)
+            .context("Failed to copy `bindgen/flint.rs`")?;
+        std::fs::copy(&Path::new("./bindgen/extern.c"), &extern_fp)
+            .context("Failed to copy `bindgen/extern.c`")?;
+    }
 
     /////////////////////////////
     // compilation of extern.c //
@@ -125,7 +144,11 @@ fn main() -> Result<()> {
     cc::Build::new()
         .file(&extern_fp)
         .flags(["-lflint", "-lgmp", "-lmpfr"])
-        .flags(["-Wno-old-style-declaration", "-Wno-unused-parameter", "-Wno-sign-compare"])
+        .flags([
+            "-Wno-old-style-declaration",
+            "-Wno-unused-parameter",
+            "-Wno-sign-compare",
+        ])
         .try_compile("extern")?;
 
     println!("cargo:rustc-link-lib=static=extern");

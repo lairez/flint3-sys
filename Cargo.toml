@@ -5,15 +5,16 @@ edition = "2021"
 
 [features]
 build-gmp = ["dep:gmp-mpfr-sys"]
+rerun-bindgen = ["dep:bindgen"]
 
 [dependencies]
 gmp-mpfr-sys = { version = "1.6.4", optional = true }
 
 [build-dependencies]
 anyhow = "1.0.98"
-bindgen = "0.71.1"
+bindgen = { version = "0.71.1", optional = true }
 cc = "1.2.23"
 pkg-config = "0.3.32"
 
 [profile.dev]
-opt-level = 1                   # build is too slow with opt-level = 0
+opt-level = 1
