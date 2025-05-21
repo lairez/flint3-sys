@@ -205,7 +205,7 @@ impl Conf {
             std::fs::copy(&self.bindgen_flint_rs, &Path::new("./bindgen/flint.rs")).context(
                 format!("Failed to copy `{}`", self.bindgen_flint_rs.display()),
             )?;
-            std::fs::copy(&self.bindgen_extern_c, &Path::new("./bindgen/flint.rs")).context(
+            std::fs::copy(&self.bindgen_extern_c, &Path::new("./bindgen/extern.c")).context(
                 format!("Failed to copy `{}`", self.bindgen_extern_c.display()),
             )?;
             println!("cargo::rerun-if-changed=bindgen/flint.rs");
