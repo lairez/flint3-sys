@@ -2,62 +2,68 @@
 
 FLINT bindings for the Rust programming language using [bindgen](https://github.com/rust-lang/rust-bindgen).
 
-Since the API of FLINT evolves quickly, this crate always compile FLINT from source, it never tries to use a system library.
+Since the FLINT API evolves quickly, this crate always compiles FLINT from source and never attempts to use a system library.
 
 ## Versioning
 
-Versioning follows exactly FLINT's versions.
+This crate follows FLINT's versioning exactly.
 
-## Optional features
+## Optional Features
 
-    * `gmp-mpfr-sys` activates a dependency to the crate [gmp-mpfr-sys](https://crates.io/crates/gmp-mpfr-sys) and build FLINT against the libraries *gmp* and *mpfr* compiled by this crate. If this feature is *not* enabled, there is a system dependency on *gmp* and *mpfr*.
-      
-    * `force-bindgen` depends on [bindgen](https://github.com/rust-lang/rust-bindgen) as a build dependency and regenerate the bindings. This is useful for maintenance, see below.
+- `gmp-mpfr-sys`: Enables a dependency on the [gmp-mpfr-sys](https://crates.io/crates/gmp-mpfr-sys) crate and builds FLINT against GMP and MPFR libraries compiled by it. If this feature is **not** enabled, there is a system dependency on GMP and MPFR.
+
+- `force-bindgen`: Adds [bindgen](https://github.com/rust-lang/rust-bindgen) as a build dependency and regenerates the bindings. Useful for maintenance (see below).
 
 ## Metadata
 
-This crate passes some metadata to its dependents:
+This crate passes the following metadata to its dependents:
 
-    * `DEP_FLINT_LIB_DIR` contains the path of the directory containing `libflint.a`. 
-    * `DEP_FLINT_INCLUDE_DIR` contains the path directory containing FLINT's header, such as `DEP_FLINT_INCLUDE_DIR/flint/flint.h`.
+- `DEP_FLINT_LIB_DIR`: Path to the directory containing `libflint.a`.
+- `DEP_FLINT_INCLUDE_DIR`: Path to the directory containing FLINT headers, such as `DEP_FLINT_INCLUDE_DIR/flint/flint.h`.
 
-This is useful for a crate that needs to compile a C library which depends on FLINT. The mechanism is described in the [Cargo book](https://doc.rust-lang.org/cargo/reference/build-scripts.html#the-links-manifest-key).
+This is useful for crates that need to compile a C library depending on FLINT. See the [Cargo book](https://doc.rust-lang.org/cargo/reference/build-scripts.html#the-links-manifest-key) for more details.
 
 ## Licensing
 
-This crate is published under the MIT license.
-Note that FLINT itself is published under the LGPLv3 license.
+This crate is distributed under the MIT license.  
+Note that FLINT itself is licensed under the LGPLv3.
 
 ## Architecture
 
-Making a `*-sys` crate involves some choices, as explained by [Kornel](https://kornel.ski/rust-sys-crate).
+Creating a `*-sys` crate involves several design decisions, as outlined by [Kornel](https://kornel.ski/rust-sys-crate).
 
-### Build from source?
+### Build from Source?
 
-FLINT is available in many package manager, so it would make sense to use the system library when available. Using *pkg-config* this is not difficult.
-But does it make sense? Yes, this avoids compiling FLINT, but the API of FLINT is not very stable. So if we build against the system library, we need to run *bindgen* against the system headers. Not only this is slower than compiling FLINT (because not multithreaded), but it also means that the *flint3-sys* crate does not have a predictable API. Also, FLINT benefits from AVX2 instructions and many binary distributions of FLINT are compiled without them.
-For all theses reasons, we build FLINT from source.
+While FLINT is available via many package managers, using the system library can introduce issues due to FLINT's unstable API.
 
-As for the dependencies of FLINT, *gmp* and *mpfr*, we can compile them from source, using the feature *gmp-mpfr-sys*, or using the system library. For performance, it makes sense to compile from source. *flint3-sys* does not expose any part of the API of these dependencies.
+Using *pkg-config* to link against a system-installed FLINT is straightforward, but building against it requires running *bindgen* on the system headers. This:
+
+    - Is slower (since *bindgen* is not multithreaded),
+    - Results in unpredictable APIs,
+    - May miss AVX2 optimizations, which are often not enabled in precompiled packages.
+
+For these reasons, this crate builds FLINT from source.
+
+For FLINT's dependencies (GMP and MPFR), you may choose to compile them from source (using the *gmp-mpfr-sys* feature) or rely on the system libraries. Compiling from source typically yields better performance.  
+Note: *flint3-sys* does not expose any part of the GMP or MPFR APIs.
 
 ### *bindgen* in `build.rs`?
 
-We can either run *bindgen* upstream and ship the resulting files in the repo, or run it in the build script.
-The first option is much faster, so this is the default.
-But it may cause some desynchronization issues.
-Indeed, the headers from which *bindgen* generated the bindings are not the headers that YOU will have on your computer after building FLINT.
-Indeed, parts of these headers are generated by FLINT's `./configure` script.
-For this reason, the configuration constants like `FLINT_HAVE_FFT_SMALL` make no sense.
+There are two approaches:
 
-That being said, the `force-bindgen` crate features forces a call to *bindgen*.
+    1. Run *bindgen* upstream and ship the generated bindings.
+    2. Run *bindgen* in the build script.
+
+By default, the first option is used as it's much faster. However, it may lead to desynchronization: the headers used to generate the bindings are not necessarily the ones you'll have after building FLINT. Parts of FLINT's headers are generated by its `./configure` script, so constants like `FLINT_HAVE_FFT_SMALL` might not match.
+
+To regenerate bindings manually, enable the *force-bindgen* feature.
 
 ## Maintenance
 
-If it happens that you want to change the version of FLINT that is bundled, here is the procedure.
+To update the bundled version of FLINT:
 
-    1. Update the git submodule `./flint` appropriately.
-    2. Run `KEEP_BINDGEN_OUTPUT=1 cargo build -F force-bindgen`. This will update the files `./bindgen/flint.rs` and `./bindgen/extern.c`.
-    3. Test everything you can.
+    1. Update the `./flint` submodule.
+    2. Run `KEEP_BINDGEN_OUTPUT=1 cargo build -F force-bindgen` to regenerate `./bindgen/flint.rs` and `./bindgen/extern.c`.
+    3. Test thoroughly.
     4. Commit the changes.
-    
-    
+
