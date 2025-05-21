@@ -1,11 +1,13 @@
 [package]
-name = "flint_bindings"
-version = "3.3.0"
+name = "flint3-sys"
+version = "3.2.2"
 edition = "2021"
 links = "flint"
+authors = ["Pierre Lairez"]
+license = "MIT"
+
 
 [features]
-build-gmp = ["dep:gmp-mpfr-sys"]
 rerun-bindgen = ["dep:bindgen"]
 gmp-mpfr-sys = ["dep:gmp-mpfr-sys"]
 
@@ -16,7 +18,3 @@ gmp-mpfr-sys = { version = "1.6.4", optional = true }
 anyhow = "1.0.98"
 bindgen = { version = "0.71.1", optional = true }
 cc = "1.2.23"
-pkg-config = "0.3.32"
-
-[profile.dev]
-opt-level = 1
