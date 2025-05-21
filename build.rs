@@ -61,15 +61,15 @@ impl Conf {
             .context("Could not copy FLINT source tree")?;
 
         if !flint_root_dir.join("configure").is_file() {
-            Command::new("bash")
+            Command::new("sh")
                 .current_dir(&flint_root_dir)
-                .arg("bootstrap.sh")
+                .arg("./bootstrap.sh")
                 .output()
                 .context("FLINT compilation: ./bootstrap.sh failed")?;
         }
 
         if !flint_root_dir.join("Makefile").is_file() {
-            let mut configure = Command::new("bash");
+            let mut configure = Command::new("sh");
 
             configure
                 .current_dir(&flint_root_dir)
