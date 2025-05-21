@@ -321,13 +321,22 @@ fn main() -> Result<()> {
     );
 
     // Instruct cargo that he has to link against libflint.a and its dependencies.
+    // The order seems to be important with some linkers...
     println!("cargo::rustc-link-lib=flint");
-    println!("cargo::rustc-link-lib=gmp");
     println!("cargo::rustc-link-lib=mpfr");
+    println!("cargo::rustc-link-lib=gmp");
     println!(
         "cargo::rustc-link-search=native={}",
         conf.flint_lib_dir.display()
     );
+
+    if cfg!(feature = "gmp-mpfr-sys") {
+        // I am not completely sure that this is useful
+        println!(
+            "cargo::rustc-link-search=native={}",
+            std::env::var("DEP_GMP_LIB_DIR")?
+        );
+    }
 
     ////////////////////////
     // binding generation //
