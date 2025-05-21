@@ -1,5 +1,6 @@
 [package]
 name = "flint3-sys"
+description = "Rust bindings to the FLINT C library"
 version = "3.2.2"
 edition = "2021"
 links = "flint"
