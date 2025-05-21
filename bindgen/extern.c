@@ -1,163 +1,164 @@
-#include "/usr/include/flint/acb.h"
-#include "/usr/include/flint/acb_calc.h"
-#include "/usr/include/flint/acb_dft.h"
-#include "/usr/include/flint/acb_dirichlet.h"
-#include "/usr/include/flint/acb_elliptic.h"
-#include "/usr/include/flint/acb_hypgeom.h"
-#include "/usr/include/flint/acb_mat.h"
-#include "/usr/include/flint/acb_modular.h"
-#include "/usr/include/flint/acb_poly.h"
-#include "/usr/include/flint/acb_theta.h"
-#include "/usr/include/flint/acb_types.h"
-#include "/usr/include/flint/acf.h"
-#include "/usr/include/flint/acf_types.h"
-#include "/usr/include/flint/aprcl.h"
-#include "/usr/include/flint/arb.h"
-#include "/usr/include/flint/arb_calc.h"
-#include "/usr/include/flint/arb_fmpz_poly.h"
-#include "/usr/include/flint/arb_fpwrap.h"
-#include "/usr/include/flint/arb_hypgeom.h"
-#include "/usr/include/flint/arb_mat.h"
-#include "/usr/include/flint/arb_poly.h"
-#include "/usr/include/flint/arb_types.h"
-#include "/usr/include/flint/arf.h"
-#include "/usr/include/flint/arf_types.h"
-#include "/usr/include/flint/arith.h"
-#include "/usr/include/flint/bernoulli.h"
-#include "/usr/include/flint/bool_mat.h"
-#include "/usr/include/flint/ca.h"
-#include "/usr/include/flint/ca_ext.h"
-#include "/usr/include/flint/ca_field.h"
-#include "/usr/include/flint/ca_mat.h"
-#include "/usr/include/flint/ca_poly.h"
-#include "/usr/include/flint/ca_types.h"
-#include "/usr/include/flint/ca_vec.h"
-#include "/usr/include/flint/calcium.h"
-#include "/usr/include/flint/d_mat.h"
-#include "/usr/include/flint/d_vec.h"
-#include "/usr/include/flint/dirichlet.h"
-#include "/usr/include/flint/dlog.h"
-#include "/usr/include/flint/double_extras.h"
-#include "/usr/include/flint/double_interval.h"
-#include "/usr/include/flint/fexpr.h"
-#include "/usr/include/flint/fexpr_builtin.h"
-#include "/usr/include/flint/fft.h"
-#include "/usr/include/flint/flint-config.h"
-#include "/usr/include/flint/flint-mparam.h"
-#include "/usr/include/flint/flint.h"
-#include "/usr/include/flint/fmpq.h"
-#include "/usr/include/flint/fmpq_mat.h"
-#include "/usr/include/flint/fmpq_mpoly.h"
-#include "/usr/include/flint/fmpq_mpoly_factor.h"
-#include "/usr/include/flint/fmpq_poly.h"
-#include "/usr/include/flint/fmpq_types.h"
-#include "/usr/include/flint/fmpq_vec.h"
-#include "/usr/include/flint/fmpz.h"
-#include "/usr/include/flint/fmpz_extras.h"
-#include "/usr/include/flint/fmpz_factor.h"
-#include "/usr/include/flint/fmpz_lll.h"
-#include "/usr/include/flint/fmpz_mat.h"
-#include "/usr/include/flint/fmpz_mod.h"
-#include "/usr/include/flint/fmpz_mod_mat.h"
-#include "/usr/include/flint/fmpz_mod_mpoly.h"
-#include "/usr/include/flint/fmpz_mod_mpoly_factor.h"
-#include "/usr/include/flint/fmpz_mod_poly.h"
-#include "/usr/include/flint/fmpz_mod_poly_factor.h"
-#include "/usr/include/flint/fmpz_mod_types.h"
-#include "/usr/include/flint/fmpz_mod_vec.h"
-#include "/usr/include/flint/fmpz_mpoly.h"
-#include "/usr/include/flint/fmpz_mpoly_factor.h"
-#include "/usr/include/flint/fmpz_mpoly_q.h"
-#include "/usr/include/flint/fmpz_poly.h"
-#include "/usr/include/flint/fmpz_poly_factor.h"
-#include "/usr/include/flint/fmpz_poly_mat.h"
-#include "/usr/include/flint/fmpz_poly_q.h"
-#include "/usr/include/flint/fmpz_types.h"
-#include "/usr/include/flint/fmpz_vec.h"
-#include "/usr/include/flint/fmpzi.h"
-#include "/usr/include/flint/fq.h"
-#include "/usr/include/flint/fq_default.h"
-#include "/usr/include/flint/fq_default_mat.h"
-#include "/usr/include/flint/fq_default_poly.h"
-#include "/usr/include/flint/fq_default_poly_factor.h"
-#include "/usr/include/flint/fq_embed.h"
-#include "/usr/include/flint/fq_embed_templates.h"
-#include "/usr/include/flint/fq_mat.h"
-#include "/usr/include/flint/fq_mat_templates.h"
-#include "/usr/include/flint/fq_nmod.h"
-#include "/usr/include/flint/fq_nmod_embed.h"
-#include "/usr/include/flint/fq_nmod_mat.h"
-#include "/usr/include/flint/fq_nmod_mpoly.h"
-#include "/usr/include/flint/fq_nmod_mpoly_factor.h"
-#include "/usr/include/flint/fq_nmod_poly.h"
-#include "/usr/include/flint/fq_nmod_poly_factor.h"
-#include "/usr/include/flint/fq_nmod_types.h"
-#include "/usr/include/flint/fq_nmod_vec.h"
-#include "/usr/include/flint/fq_poly.h"
-#include "/usr/include/flint/fq_poly_factor.h"
-#include "/usr/include/flint/fq_poly_factor_templates.h"
-#include "/usr/include/flint/fq_poly_templates.h"
-#include "/usr/include/flint/fq_templates.h"
-#include "/usr/include/flint/fq_types.h"
-#include "/usr/include/flint/fq_vec.h"
-#include "/usr/include/flint/fq_vec_templates.h"
-#include "/usr/include/flint/fq_zech.h"
-#include "/usr/include/flint/fq_zech_embed.h"
-#include "/usr/include/flint/fq_zech_mat.h"
-#include "/usr/include/flint/fq_zech_mpoly.h"
-#include "/usr/include/flint/fq_zech_mpoly_factor.h"
-#include "/usr/include/flint/fq_zech_poly.h"
-#include "/usr/include/flint/fq_zech_poly_factor.h"
-#include "/usr/include/flint/fq_zech_types.h"
-#include "/usr/include/flint/fq_zech_vec.h"
-#include "/usr/include/flint/gr.h"
-#include "/usr/include/flint/gr_generic.h"
-#include "/usr/include/flint/gr_mat.h"
-#include "/usr/include/flint/gr_mpoly.h"
-#include "/usr/include/flint/gr_poly.h"
-#include "/usr/include/flint/gr_special.h"
-#include "/usr/include/flint/gr_types.h"
-#include "/usr/include/flint/gr_vec.h"
-#include "/usr/include/flint/hypgeom.h"
-#include "/usr/include/flint/limb_types.h"
-#include "/usr/include/flint/long_extras.h"
-#include "/usr/include/flint/longlong.h"
-#include "/usr/include/flint/longlong_asm_gnu.h"
-#include "/usr/include/flint/mag.h"
-#include "/usr/include/flint/mpf-impl.h"
-#include "/usr/include/flint/mpn_mod.h"
-#include "/usr/include/flint/mpoly.h"
-#include "/usr/include/flint/mpoly_types.h"
-#include "/usr/include/flint/n_poly.h"
-#include "/usr/include/flint/n_poly_types.h"
-#include "/usr/include/flint/nf.h"
-#include "/usr/include/flint/nf_elem.h"
-#include "/usr/include/flint/nfloat.h"
-#include "/usr/include/flint/nmod.h"
-#include "/usr/include/flint/nmod_mat.h"
-#include "/usr/include/flint/nmod_mpoly.h"
-#include "/usr/include/flint/nmod_mpoly_factor.h"
-#include "/usr/include/flint/nmod_poly.h"
-#include "/usr/include/flint/nmod_poly_factor.h"
-#include "/usr/include/flint/nmod_poly_mat.h"
-#include "/usr/include/flint/nmod_types.h"
-#include "/usr/include/flint/nmod_vec.h"
-#include "/usr/include/flint/padic.h"
-#include "/usr/include/flint/padic_mat.h"
-#include "/usr/include/flint/padic_poly.h"
-#include "/usr/include/flint/padic_types.h"
-#include "/usr/include/flint/partitions.h"
-#include "/usr/include/flint/perm.h"
-#include "/usr/include/flint/profiler.h"
-#include "/usr/include/flint/qadic.h"
-#include "/usr/include/flint/qfb.h"
-#include "/usr/include/flint/qqbar.h"
-#include "/usr/include/flint/qsieve.h"
-#include "/usr/include/flint/templates.h"
-#include "/usr/include/flint/test_helpers.h"
-#include "/usr/include/flint/thread_pool.h"
-#include "/usr/include/flint/thread_support.h"
-#include "/usr/include/flint/ulong_extras.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/acb_calc.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/acb_dft.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/acb_dirichlet.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/acb_elliptic.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/acb.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/acb_hypgeom.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/acb_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/acb_modular.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/acb_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/acb_theta.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/acb_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/acf.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/acf_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/aprcl.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/arb_calc.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/arb_fmpz_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/arb_fpwrap.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/arb.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/arb_hypgeom.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/arb_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/arb_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/arb_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/arf.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/arf_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/arith.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/bernoulli.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/bool_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/ca_ext.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/ca_field.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/ca.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/calcium.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/ca_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/ca_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/ca_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/ca_vec.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/config.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/dirichlet.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/dlog.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/d_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/double_extras.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/double_interval.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/d_vec.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fexpr_builtin.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fexpr.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fft.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/flint-config.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/flint.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/flint-mparam.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpq.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpq_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpq_mpoly_factor.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpq_mpoly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpq_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpq_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpq_vec.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_extras.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_factor.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpzi.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_lll.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_mod.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_mod_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_mod_mpoly_factor.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_mod_mpoly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_mod_poly_factor.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_mod_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_mod_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_mod_vec.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_mpoly_factor.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_mpoly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_mpoly_q.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_poly_factor.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_poly_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_poly_q.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fmpz_vec.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_default.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_default_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_default_poly_factor.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_default_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_embed.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_embed_templates.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_mat_templates.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_nmod_embed.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_nmod.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_nmod_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_nmod_mpoly_factor.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_nmod_mpoly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_nmod_poly_factor.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_nmod_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_nmod_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_nmod_vec.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_poly_factor.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_poly_factor_templates.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_poly_templates.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_templates.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_vec.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_vec_templates.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_zech_embed.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_zech.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_zech_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_zech_mpoly_factor.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_zech_mpoly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_zech_poly_factor.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_zech_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_zech_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/fq_zech_vec.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/gr_generic.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/gr.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/gr_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/gr_mpoly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/gr_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/gr_special.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/gr_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/gr_vec.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/hypgeom.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/limb_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/long_extras.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/longlong_asm_gnu.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/longlong.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/mag.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/mpf-impl.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/mpn_mod.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/mpoly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/mpoly_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/nf_elem.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/nf.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/nfloat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/nmod.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/nmod_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/nmod_mpoly_factor.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/nmod_mpoly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/nmod_poly_factor.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/nmod_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/nmod_poly_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/nmod_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/nmod_vec.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/n_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/n_poly_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/padic.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/padic_mat.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/padic_poly.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/padic_types.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/partitions.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/perm.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/profiler.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/qadic.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/qfb.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/qqbar.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/qsieve.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/templates.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/test_helpers.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/thread_pool.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/thread_support.h"
+#include "/home/lairez/@cista/forge/2025/code/flint-sys/target/debug/build/flint_bindings-6eedef8bf124c72f/out/include/flint/ulong_extras.h"
 
 // Static wrappers
 
@@ -777,6 +778,9 @@ void ca_ext_init_set__extern(ca_ext_t res, const ca_ext_t x, ca_ctx_t ctx) { ca_
 slong ca_ext_nargs__extern(const ca_ext_t x, ca_ctx_t ctx) { return ca_ext_nargs(x, ctx); }
 void ca_ext_get_arg__extern(ca_t res, const ca_ext_t x, slong i, ca_ctx_t ctx) { ca_ext_get_arg(res, x, i, ctx); }
 ulong ca_ext_hash__extern(const ca_ext_t x, ca_ctx_t ctx) { return ca_ext_hash(x, ctx); }
+void calcium_stream_init_str__extern(gr_stream_t out) { calcium_stream_init_str(out); }
+void calcium_write_free__extern(gr_stream_t out, char *s) { calcium_write_free(out, s); }
+void truth_print__extern(truth_t t) { truth_print(t); }
 ca_ptr ca_mat_entry_ptr__extern(ca_mat_t mat, slong i, slong j) { return ca_mat_entry_ptr(mat, i, j); }
 void ca_mat_swap__extern(ca_mat_t mat1, ca_mat_t mat2, ca_ctx_t ctx) { ca_mat_swap(mat1, mat2, ctx); }
 void ca_mat_window_clear__extern(ca_mat_t window, ca_ctx_t ctx) { ca_mat_window_clear(window, ctx); }
@@ -810,9 +814,6 @@ void ca_poly_one__extern(ca_poly_t poly, ca_ctx_t ctx) { ca_poly_one(poly, ctx);
 void ca_poly_mul_ca__extern(ca_poly_t res, const ca_poly_t poly, const ca_t c, ca_ctx_t ctx) { ca_poly_mul_ca(res, poly, c, ctx); }
 void ca_poly_div_ca__extern(ca_poly_t res, const ca_poly_t poly, const ca_t c, ca_ctx_t ctx) { ca_poly_div_ca(res, poly, c, ctx); }
 void ca_poly_div_fmpz__extern(ca_poly_t res, const ca_poly_t poly, const fmpz_t c, ca_ctx_t ctx) { ca_poly_div_fmpz(res, poly, c, ctx); }
-void calcium_stream_init_str__extern(gr_stream_t out) { calcium_stream_init_str(out); }
-void calcium_write_free__extern(gr_stream_t out, char *s) { calcium_write_free(out, s); }
-void truth_print__extern(truth_t t) { truth_print(t); }
 slong d_mat_nrows__extern(const d_mat_t mat) { return d_mat_nrows(mat); }
 slong d_mat_ncols__extern(const d_mat_t mat) { return d_mat_ncols(mat); }
 void d_mat_swap_entrywise__extern(d_mat_t mat1, d_mat_t mat2) { d_mat_swap_entrywise(mat1, mat2); }
@@ -822,7 +823,6 @@ int d_is_nan__extern(double x) { return d_is_nan(x); }
 double d_mul_2exp_inrange__extern(double x, int i) { return d_mul_2exp_inrange(x, i); }
 double d_mul_2exp_inrange2__extern(double x, int i) { return d_mul_2exp_inrange2(x, i); }
 double d_mul_2exp__extern(double x, int i) { return d_mul_2exp(x, i); }
-void _d_vec_mul_2exp__extern(double *res, const double *x, slong len, int e) { _d_vec_mul_2exp(res, x, len, e); }
 di_t di_interval__extern(double a, double b) { return di_interval(a, b); }
 double _di_below__extern(double x) { return _di_below(x); }
 double _di_above__extern(double x) { return _di_above(x); }
@@ -838,6 +838,7 @@ double di_fast_ubound_radius__extern(di_t x) { return di_fast_ubound_radius(x); 
 void di_print__extern(di_t x) { di_print(x); }
 double d_randtest2__extern(flint_rand_t state) { return d_randtest2(state); }
 di_t di_randtest__extern(flint_rand_t state) { return di_randtest(state); }
+void _d_vec_mul_2exp__extern(double *res, const double *x, slong len, int e) { _d_vec_mul_2exp(res, x, len, e); }
 const char * fexpr_builtin_name__extern(slong n) { return fexpr_builtin_name(n); }
 slong fexpr_builtin_length__extern(void) { return fexpr_builtin_length(); }
 void mpn_addmod_2expp1_1__extern(mp_limb_t *r, mp_size_t limbs, mp_limb_signed_t c) { mpn_addmod_2expp1_1(r, limbs, c); }
@@ -899,6 +900,24 @@ void fmpq_mpoly_factor_get_constant_fmpq__extern(fmpq_t c, const fmpq_mpoly_fact
 void fmpq_mpoly_factor_get_base__extern(fmpq_mpoly_t p, const fmpq_mpoly_factor_t f, slong i, const fmpq_mpoly_ctx_t ctx) { fmpq_mpoly_factor_get_base(p, f, i, ctx); }
 void fmpq_mpoly_factor_swap_base__extern(fmpq_mpoly_t p, fmpq_mpoly_factor_t f, slong i, const fmpq_mpoly_ctx_t ctx) { fmpq_mpoly_factor_swap_base(p, f, i, ctx); }
 slong fmpq_mpoly_factor_get_exp_si__extern(fmpq_mpoly_factor_t f, slong i, const fmpq_mpoly_ctx_t UNUSED_ctx) { return fmpq_mpoly_factor_get_exp_si(f, i, UNUSED_ctx); }
+void fmpzi_init__extern(fmpzi_t x) { fmpzi_init(x); }
+void fmpzi_clear__extern(fmpzi_t x) { fmpzi_clear(x); }
+int fmpzi_equal__extern(const fmpzi_t x, const fmpzi_t y) { return fmpzi_equal(x, y); }
+void fmpzi_zero__extern(fmpzi_t x) { fmpzi_zero(x); }
+void fmpzi_one__extern(fmpzi_t x) { fmpzi_one(x); }
+void fmpzi_set__extern(fmpzi_t res, const fmpzi_t x) { fmpzi_set(res, x); }
+void fmpzi_conj__extern(fmpzi_t res, const fmpzi_t x) { fmpzi_conj(res, x); }
+void fmpzi_swap__extern(fmpzi_t x, fmpzi_t y) { fmpzi_swap(x, y); }
+void fmpzi_set_si_si__extern(fmpzi_t res, slong a, slong b) { fmpzi_set_si_si(res, a, b); }
+void fmpzi_randtest__extern(fmpzi_t res, flint_rand_t state, flint_bitcnt_t bits) { fmpzi_randtest(res, state, bits); }
+int fmpzi_is_unit__extern(const fmpzi_t x) { return fmpzi_is_unit(x); }
+int fmpzi_is_zero__extern(const fmpzi_t x) { return fmpzi_is_zero(x); }
+int fmpzi_is_one__extern(const fmpzi_t x) { return fmpzi_is_one(x); }
+void fmpzi_norm__extern(fmpz_t res, const fmpzi_t x) { fmpzi_norm(res, x); }
+void fmpzi_neg__extern(fmpzi_t res, const fmpzi_t x) { fmpzi_neg(res, x); }
+void fmpzi_add__extern(fmpzi_t res, const fmpzi_t x, const fmpzi_t y) { fmpzi_add(res, x, y); }
+void fmpzi_sub__extern(fmpzi_t res, const fmpzi_t x, const fmpzi_t y) { fmpzi_sub(res, x, y); }
+void fmpzi_canonicalise_unit__extern(fmpzi_t res, const fmpzi_t x) { fmpzi_canonicalise_unit(res, x); }
 mpf * mpf_mat_entry__extern(const mpf_mat_t mat, slong i, slong j) { return mpf_mat_entry(mat, i, j); }
 const fmpz * fmpz_mod_ctx_modulus__extern(const fmpz_mod_ctx_t ctx) { return fmpz_mod_ctx_modulus(ctx); }
 void fmpz_mod_add__extern(fmpz_t a, const fmpz_t b, const fmpz_t c, const fmpz_mod_ctx_t ctx) { fmpz_mod_add(a, b, c, ctx); }
@@ -922,6 +941,25 @@ void fmpz_mod_mat_swap_rows__extern(fmpz_mod_mat_t mat, slong *perm, slong r, sl
 void fmpz_mod_mat_invert_rows__extern(fmpz_mod_mat_t mat, slong *perm, const fmpz_mod_ctx_t UNUSED_ctx) { fmpz_mod_mat_invert_rows(mat, perm, UNUSED_ctx); }
 void fmpz_mod_mat_swap_cols__extern(fmpz_mod_mat_t mat, slong *perm, slong r, slong s, const fmpz_mod_ctx_t UNUSED_ctx) { fmpz_mod_mat_swap_cols(mat, perm, r, s, UNUSED_ctx); }
 void fmpz_mod_mat_invert_cols__extern(fmpz_mod_mat_t mat, slong *perm, const fmpz_mod_ctx_t UNUSED_ctx) { fmpz_mod_mat_invert_cols(mat, perm, UNUSED_ctx); }
+void fmpz_mod_poly_init__extern(fmpz_mod_poly_t poly, const fmpz_mod_ctx_t UNUSED_ctx) { fmpz_mod_poly_init(poly, UNUSED_ctx); }
+void fmpz_mod_poly_fit_length__extern(fmpz_mod_poly_t poly, slong len, const fmpz_mod_ctx_t UNUSED_ctx) { fmpz_mod_poly_fit_length(poly, len, UNUSED_ctx); }
+void _fmpz_mod_poly_normalise__extern(fmpz_mod_poly_t poly) { _fmpz_mod_poly_normalise(poly); }
+slong fmpz_mod_poly_length__extern(const fmpz_mod_poly_t poly, const fmpz_mod_ctx_t UNUSED_ctx) { return fmpz_mod_poly_length(poly, UNUSED_ctx); }
+slong fmpz_mod_poly_degree__extern(const fmpz_mod_poly_t poly, const fmpz_mod_ctx_t UNUSED_ctx) { return fmpz_mod_poly_degree(poly, UNUSED_ctx); }
+fmpz * fmpz_mod_poly_lead__extern(const fmpz_mod_poly_t poly, const fmpz_mod_ctx_t UNUSED_ctx) { return fmpz_mod_poly_lead(poly, UNUSED_ctx); }
+int fmpz_mod_poly_is_monic__extern(const fmpz_mod_poly_t f, const fmpz_mod_ctx_t UNUSED_ctx) { return fmpz_mod_poly_is_monic(f, UNUSED_ctx); }
+int fmpz_mod_poly_is_one__extern(const fmpz_mod_poly_t poly, const fmpz_mod_ctx_t UNUSED_ctx) { return fmpz_mod_poly_is_one(poly, UNUSED_ctx); }
+void fmpz_mod_poly_swap__extern(fmpz_mod_poly_t poly1, fmpz_mod_poly_t poly2, const fmpz_mod_ctx_t UNUSED_ctx) { fmpz_mod_poly_swap(poly1, poly2, UNUSED_ctx); }
+void fmpz_mod_poly_zero__extern(fmpz_mod_poly_t poly, const fmpz_mod_ctx_t UNUSED_ctx) { fmpz_mod_poly_zero(poly, UNUSED_ctx); }
+slong _fmpz_mod_poly_gcd_f__extern(fmpz_t f, fmpz *G, const fmpz *A, slong lenA, const fmpz *B, slong lenB, const fmpz_mod_ctx_t ctx) { return _fmpz_mod_poly_gcd_f(f, G, A, lenA, B, lenB, ctx); }
+void fmpz_mod_poly_gcd_f__extern(fmpz_t f, fmpz_mod_poly_t G, const fmpz_mod_poly_t A, const fmpz_mod_poly_t B, const fmpz_mod_ctx_t ctx) { fmpz_mod_poly_gcd_f(f, G, A, B, ctx); }
+slong _fmpz_mod_poly_xgcd_f__extern(fmpz_t f, fmpz *G, fmpz *S, fmpz *T, const fmpz *A, slong lenA, const fmpz *B, slong lenB, const fmpz_t invB, const fmpz_mod_ctx_t ctx) { return _fmpz_mod_poly_xgcd_f(f, G, S, T, A, lenA, B, lenB, invB, ctx); }
+void fmpz_mod_poly_xgcd_f__extern(fmpz_t f, fmpz_mod_poly_t G, fmpz_mod_poly_t S, fmpz_mod_poly_t T, const fmpz_mod_poly_t A, const fmpz_mod_poly_t B, const fmpz_mod_ctx_t ctx) { fmpz_mod_poly_xgcd_f(f, G, S, T, A, B, ctx); }
+void fmpz_mod_mat_charpoly__extern(fmpz_mod_poly_t p, const fmpz_mod_mat_t M, const fmpz_mod_ctx_t ctx) { fmpz_mod_mat_charpoly(p, M, ctx); }
+const fmpz * fmpz_mod_berlekamp_massey_points__extern(const fmpz_mod_berlekamp_massey_t B) { return fmpz_mod_berlekamp_massey_points(B); }
+slong fmpz_mod_berlekamp_massey_point_count__extern(const fmpz_mod_berlekamp_massey_t B) { return fmpz_mod_berlekamp_massey_point_count(B); }
+const fmpz_mod_poly_struct * fmpz_mod_berlekamp_massey_V_poly__extern(const fmpz_mod_berlekamp_massey_t B) { return fmpz_mod_berlekamp_massey_V_poly(B); }
+const fmpz_mod_poly_struct * fmpz_mod_berlekamp_massey_R_poly__extern(const fmpz_mod_berlekamp_massey_t B) { return fmpz_mod_berlekamp_massey_R_poly(B); }
 slong fmpz_mod_mpoly_ctx_nvars__extern(const fmpz_mod_mpoly_ctx_t ctx) { return fmpz_mod_mpoly_ctx_nvars(ctx); }
 ordering_t fmpz_mod_mpoly_ctx_ord__extern(const fmpz_mod_mpoly_ctx_t ctx) { return fmpz_mod_mpoly_ctx_ord(ctx); }
 const fmpz * fmpz_mod_mpoly_ctx_modulus__extern(const fmpz_mod_mpoly_ctx_t ctx) { return fmpz_mod_mpoly_ctx_modulus(ctx); }
@@ -948,25 +986,6 @@ slong fmpz_mod_mpoly_univar_get_term_exp_si__extern(fmpz_mod_mpoly_univar_t A, s
 void fmpz_mod_mpoly_univar_get_term_coeff__extern(fmpz_mod_mpoly_t c, const fmpz_mod_mpoly_univar_t A, slong i, const fmpz_mod_mpoly_ctx_t ctx) { fmpz_mod_mpoly_univar_get_term_coeff(c, A, i, ctx); }
 void fmpz_mod_mpoly_univar_swap_term_coeff__extern(fmpz_mod_mpoly_t c, fmpz_mod_mpoly_univar_t A, slong i, const fmpz_mod_mpoly_ctx_t ctx) { fmpz_mod_mpoly_univar_swap_term_coeff(c, A, i, ctx); }
 void _fmpz_mod_mpoly_clear_dense_mock__extern(fmpz_mod_poly_t D) { _fmpz_mod_mpoly_clear_dense_mock(D); }
-void fmpz_mod_poly_init__extern(fmpz_mod_poly_t poly, const fmpz_mod_ctx_t UNUSED_ctx) { fmpz_mod_poly_init(poly, UNUSED_ctx); }
-void fmpz_mod_poly_fit_length__extern(fmpz_mod_poly_t poly, slong len, const fmpz_mod_ctx_t UNUSED_ctx) { fmpz_mod_poly_fit_length(poly, len, UNUSED_ctx); }
-void _fmpz_mod_poly_normalise__extern(fmpz_mod_poly_t poly) { _fmpz_mod_poly_normalise(poly); }
-slong fmpz_mod_poly_length__extern(const fmpz_mod_poly_t poly, const fmpz_mod_ctx_t UNUSED_ctx) { return fmpz_mod_poly_length(poly, UNUSED_ctx); }
-slong fmpz_mod_poly_degree__extern(const fmpz_mod_poly_t poly, const fmpz_mod_ctx_t UNUSED_ctx) { return fmpz_mod_poly_degree(poly, UNUSED_ctx); }
-fmpz * fmpz_mod_poly_lead__extern(const fmpz_mod_poly_t poly, const fmpz_mod_ctx_t UNUSED_ctx) { return fmpz_mod_poly_lead(poly, UNUSED_ctx); }
-int fmpz_mod_poly_is_monic__extern(const fmpz_mod_poly_t f, const fmpz_mod_ctx_t UNUSED_ctx) { return fmpz_mod_poly_is_monic(f, UNUSED_ctx); }
-int fmpz_mod_poly_is_one__extern(const fmpz_mod_poly_t poly, const fmpz_mod_ctx_t UNUSED_ctx) { return fmpz_mod_poly_is_one(poly, UNUSED_ctx); }
-void fmpz_mod_poly_swap__extern(fmpz_mod_poly_t poly1, fmpz_mod_poly_t poly2, const fmpz_mod_ctx_t UNUSED_ctx) { fmpz_mod_poly_swap(poly1, poly2, UNUSED_ctx); }
-void fmpz_mod_poly_zero__extern(fmpz_mod_poly_t poly, const fmpz_mod_ctx_t UNUSED_ctx) { fmpz_mod_poly_zero(poly, UNUSED_ctx); }
-slong _fmpz_mod_poly_gcd_f__extern(fmpz_t f, fmpz *G, const fmpz *A, slong lenA, const fmpz *B, slong lenB, const fmpz_mod_ctx_t ctx) { return _fmpz_mod_poly_gcd_f(f, G, A, lenA, B, lenB, ctx); }
-void fmpz_mod_poly_gcd_f__extern(fmpz_t f, fmpz_mod_poly_t G, const fmpz_mod_poly_t A, const fmpz_mod_poly_t B, const fmpz_mod_ctx_t ctx) { fmpz_mod_poly_gcd_f(f, G, A, B, ctx); }
-slong _fmpz_mod_poly_xgcd_f__extern(fmpz_t f, fmpz *G, fmpz *S, fmpz *T, const fmpz *A, slong lenA, const fmpz *B, slong lenB, const fmpz_t invB, const fmpz_mod_ctx_t ctx) { return _fmpz_mod_poly_xgcd_f(f, G, S, T, A, lenA, B, lenB, invB, ctx); }
-void fmpz_mod_poly_xgcd_f__extern(fmpz_t f, fmpz_mod_poly_t G, fmpz_mod_poly_t S, fmpz_mod_poly_t T, const fmpz_mod_poly_t A, const fmpz_mod_poly_t B, const fmpz_mod_ctx_t ctx) { fmpz_mod_poly_xgcd_f(f, G, S, T, A, B, ctx); }
-void fmpz_mod_mat_charpoly__extern(fmpz_mod_poly_t p, const fmpz_mod_mat_t M, const fmpz_mod_ctx_t ctx) { fmpz_mod_mat_charpoly(p, M, ctx); }
-const fmpz * fmpz_mod_berlekamp_massey_points__extern(const fmpz_mod_berlekamp_massey_t B) { return fmpz_mod_berlekamp_massey_points(B); }
-slong fmpz_mod_berlekamp_massey_point_count__extern(const fmpz_mod_berlekamp_massey_t B) { return fmpz_mod_berlekamp_massey_point_count(B); }
-const fmpz_mod_poly_struct * fmpz_mod_berlekamp_massey_V_poly__extern(const fmpz_mod_berlekamp_massey_t B) { return fmpz_mod_berlekamp_massey_V_poly(B); }
-const fmpz_mod_poly_struct * fmpz_mod_berlekamp_massey_R_poly__extern(const fmpz_mod_berlekamp_massey_t B) { return fmpz_mod_berlekamp_massey_R_poly(B); }
 void fmpz_mod_mpoly_factor_init__extern(fmpz_mod_mpoly_factor_t f, const fmpz_mod_mpoly_ctx_t UNUSED_ctx) { fmpz_mod_mpoly_factor_init(f, UNUSED_ctx); }
 slong fmpz_mod_mpoly_factor_length__extern(const fmpz_mod_mpoly_factor_t f, const fmpz_mod_mpoly_ctx_t UNUSED_ctx) { return fmpz_mod_mpoly_factor_length(f, UNUSED_ctx); }
 void fmpz_mod_mpoly_factor_get_constant_fmpz__extern(fmpz_t c, const fmpz_mod_mpoly_factor_t f, const fmpz_mod_mpoly_ctx_t UNUSED_ctx) { fmpz_mod_mpoly_factor_get_constant_fmpz(c, f, UNUSED_ctx); }
@@ -1045,28 +1064,6 @@ void fmpz_poly_q_neg__extern(fmpz_poly_q_t rop, const fmpz_poly_q_t op) { fmpz_p
 int fmpz_poly_q_is_zero__extern(const fmpz_poly_q_t op) { return fmpz_poly_q_is_zero(op); }
 int fmpz_poly_q_is_one__extern(const fmpz_poly_q_t op) { return fmpz_poly_q_is_one(op); }
 int fmpz_poly_q_equal__extern(const fmpz_poly_q_t op1, const fmpz_poly_q_t op2) { return fmpz_poly_q_equal(op1, op2); }
-void fmpzi_init__extern(fmpzi_t x) { fmpzi_init(x); }
-void fmpzi_clear__extern(fmpzi_t x) { fmpzi_clear(x); }
-int fmpzi_equal__extern(const fmpzi_t x, const fmpzi_t y) { return fmpzi_equal(x, y); }
-void fmpzi_zero__extern(fmpzi_t x) { fmpzi_zero(x); }
-void fmpzi_one__extern(fmpzi_t x) { fmpzi_one(x); }
-void fmpzi_set__extern(fmpzi_t res, const fmpzi_t x) { fmpzi_set(res, x); }
-void fmpzi_conj__extern(fmpzi_t res, const fmpzi_t x) { fmpzi_conj(res, x); }
-void fmpzi_swap__extern(fmpzi_t x, fmpzi_t y) { fmpzi_swap(x, y); }
-void fmpzi_set_si_si__extern(fmpzi_t res, slong a, slong b) { fmpzi_set_si_si(res, a, b); }
-void fmpzi_randtest__extern(fmpzi_t res, flint_rand_t state, flint_bitcnt_t bits) { fmpzi_randtest(res, state, bits); }
-int fmpzi_is_unit__extern(const fmpzi_t x) { return fmpzi_is_unit(x); }
-int fmpzi_is_zero__extern(const fmpzi_t x) { return fmpzi_is_zero(x); }
-int fmpzi_is_one__extern(const fmpzi_t x) { return fmpzi_is_one(x); }
-void fmpzi_norm__extern(fmpz_t res, const fmpzi_t x) { fmpzi_norm(res, x); }
-void fmpzi_neg__extern(fmpzi_t res, const fmpzi_t x) { fmpzi_neg(res, x); }
-void fmpzi_add__extern(fmpzi_t res, const fmpzi_t x, const fmpzi_t y) { fmpzi_add(res, x, y); }
-void fmpzi_sub__extern(fmpzi_t res, const fmpzi_t x, const fmpzi_t y) { fmpzi_sub(res, x, y); }
-void fmpzi_canonicalise_unit__extern(fmpzi_t res, const fmpzi_t x) { fmpzi_canonicalise_unit(res, x); }
-const fmpz_mod_poly_struct * fq_ctx_modulus__extern(const fq_ctx_t ctx) { return fq_ctx_modulus(ctx); }
-slong fq_ctx_degree__extern(const fq_ctx_t ctx) { return fq_ctx_degree(ctx); }
-const fmpz * fq_ctx_prime__extern(const fq_ctx_t ctx) { return fq_ctx_prime(ctx); }
-int fq_is_primitive__extern(const fq_t op, const fq_ctx_t ctx) { return fq_is_primitive(op, ctx); }
 void nmod_poly_init_mod__extern(nmod_poly_t poly, const nmod_t mod) { nmod_poly_init_mod(poly, mod); }
 void nmod_poly_set_mod__extern(nmod_poly_t poly, const nmod_t mod) { nmod_poly_set_mod(poly, mod); }
 void _nmod_poly_set_length__extern(nmod_poly_t poly, slong len) { _nmod_poly_set_length(poly, len); }
@@ -1094,6 +1091,10 @@ const ulong * nmod_berlekamp_massey_points__extern(const nmod_berlekamp_massey_t
 slong nmod_berlekamp_massey_point_count__extern(const nmod_berlekamp_massey_t B) { return nmod_berlekamp_massey_point_count(B); }
 const nmod_poly_struct * nmod_berlekamp_massey_V_poly__extern(const nmod_berlekamp_massey_t B) { return nmod_berlekamp_massey_V_poly(B); }
 const nmod_poly_struct * nmod_berlekamp_massey_R_poly__extern(const nmod_berlekamp_massey_t B) { return nmod_berlekamp_massey_R_poly(B); }
+const fmpz_mod_poly_struct * fq_ctx_modulus__extern(const fq_ctx_t ctx) { return fq_ctx_modulus(ctx); }
+slong fq_ctx_degree__extern(const fq_ctx_t ctx) { return fq_ctx_degree(ctx); }
+const fmpz * fq_ctx_prime__extern(const fq_ctx_t ctx) { return fq_ctx_prime(ctx); }
+int fq_is_primitive__extern(const fq_t op, const fq_ctx_t ctx) { return fq_is_primitive(op, ctx); }
 const nmod_poly_struct * fq_nmod_ctx_modulus__extern(const fq_nmod_ctx_t ctx) { return fq_nmod_ctx_modulus(ctx); }
 slong fq_nmod_ctx_degree__extern(const fq_nmod_ctx_t ctx) { return fq_nmod_ctx_degree(ctx); }
 ulong fq_nmod_ctx_prime__extern(const fq_nmod_ctx_t ctx) { return fq_nmod_ctx_prime(ctx); }
@@ -1442,6 +1443,7 @@ void fq_default_mat_solve_triu__extern(fq_default_mat_t X, const fq_default_mat_
 int fq_default_mat_solve__extern(fq_default_mat_t X, const fq_default_mat_t A, const fq_default_mat_t C, const fq_default_ctx_t ctx) { return fq_default_mat_solve(X, A, C, ctx); }
 int fq_default_mat_can_solve__extern(fq_default_mat_t X, const fq_default_mat_t A, const fq_default_mat_t B, const fq_default_ctx_t ctx) { return fq_default_mat_can_solve(X, A, B, ctx); }
 void fq_default_mat_similarity__extern(fq_default_mat_t A, slong r, fq_default_t d, const fq_default_ctx_t ctx) { fq_default_mat_similarity(A, r, d, ctx); }
+void nmod_poly_factor_swap__extern(nmod_poly_factor_t a, nmod_poly_factor_t b) { nmod_poly_factor_swap(a, b); }
 slong fq_poly_length__extern(const fq_poly_t poly, const fq_ctx_t UNUSED_ctx) { return fq_poly_length(poly, UNUSED_ctx); }
 slong fq_poly_degree__extern(const fq_poly_t poly, const fq_ctx_t UNUSED_ctx) { return fq_poly_degree(poly, UNUSED_ctx); }
 fq_struct * fq_poly_lead__extern(const fq_poly_t poly, const fq_ctx_t UNUSED_ctx) { return fq_poly_lead(poly, UNUSED_ctx); }
@@ -1538,7 +1540,6 @@ char * fq_default_poly_get_str_pretty__extern(const fq_default_poly_t poly, cons
 char * fq_default_poly_get_str__extern(const fq_default_poly_t poly, const fq_default_ctx_t ctx) { return fq_default_poly_get_str(poly, ctx); }
 void fq_default_mat_charpoly__extern(fq_default_poly_t p, const fq_default_mat_t M, const fq_default_ctx_t ctx) { fq_default_mat_charpoly(p, M, ctx); }
 void fq_default_mat_minpoly__extern(fq_default_poly_t p, const fq_default_mat_t X, const fq_default_ctx_t ctx) { fq_default_mat_minpoly(p, X, ctx); }
-void nmod_poly_factor_swap__extern(nmod_poly_factor_t a, nmod_poly_factor_t b) { nmod_poly_factor_swap(a, b); }
 void fq_default_poly_factor_init__extern(fq_default_poly_factor_t fac, const fq_default_ctx_t ctx) { fq_default_poly_factor_init(fac, ctx); }
 void fq_default_poly_factor_clear__extern(fq_default_poly_factor_t fac, const fq_default_ctx_t ctx) { fq_default_poly_factor_clear(fac, ctx); }
 void fq_default_poly_factor_realloc__extern(fq_default_poly_factor_t fac, slong alloc, const fq_default_ctx_t ctx) { fq_default_poly_factor_realloc(fac, alloc, ctx); }
@@ -2050,6 +2051,88 @@ void mpoly_get_monomial_si__extern(slong *user_exps, const ulong *poly_exps, fli
 ulong mpoly_get_monomial_var_exp_ui__extern(const ulong *poly_exps, slong var, flint_bitcnt_t bits, const mpoly_ctx_t mctx) { return mpoly_get_monomial_var_exp_ui(poly_exps, var, bits, mctx); }
 slong mpoly_get_monomial_var_exp_si__extern(const ulong *poly_exps, slong var, flint_bitcnt_t bits, const mpoly_ctx_t mctx) { return mpoly_get_monomial_var_exp_si(poly_exps, var, bits, mctx); }
 void _slong_array_fit_length__extern(slong **array, slong *alloc, slong len) { _slong_array_fit_length(array, alloc, len); }
+void nfloat_init__extern(nfloat_ptr res, gr_ctx_t ctx) { nfloat_init(res, ctx); }
+void nfloat_clear__extern(nfloat_ptr res, gr_ctx_t ctx) { nfloat_clear(res, ctx); }
+int _nfloat_ctx_set_real_prec__extern(gr_ctx_t ctx, slong prec) { return _nfloat_ctx_set_real_prec(ctx, prec); }
+int _nfloat_ctx_get_real_prec__extern(slong *res, gr_ctx_t ctx) { return _nfloat_ctx_get_real_prec(res, ctx); }
+int nfloat_zero__extern(nfloat_ptr res, gr_ctx_t ctx) { return nfloat_zero(res, ctx); }
+truth_t nfloat_is_zero__extern(nfloat_srcptr x, gr_ctx_t ctx) { return nfloat_is_zero(x, ctx); }
+int _nfloat_set_mpn_2exp__extern(nfloat_ptr res, nn_srcptr x, slong xn, slong exp, int xsgnbit, gr_ctx_t ctx) { return _nfloat_set_mpn_2exp(res, x, xn, exp, xsgnbit, ctx); }
+int nfloat_set_mpn_2exp__extern(nfloat_ptr res, nn_srcptr x, slong xn, slong exp, int xsgnbit, gr_ctx_t ctx) { return nfloat_set_mpn_2exp(res, x, xn, exp, xsgnbit, ctx); }
+int nfloat_1_set_2_2exp__extern(nfloat_ptr res, ulong x1, ulong x0, slong exp, int xsgnbit, gr_ctx_t ctx) { return nfloat_1_set_2_2exp(res, x1, x0, exp, xsgnbit, ctx); }
+int nfloat_1_set_3_2exp__extern(nfloat_ptr res, ulong x2, ulong x1, ulong x0, slong exp, int xsgnbit, gr_ctx_t ctx) { return nfloat_1_set_3_2exp(res, x2, x1, x0, exp, xsgnbit, ctx); }
+int nfloat_2_set_3_2exp__extern(nfloat_ptr res, ulong x2, ulong x1, ulong x0, slong exp, int xsgnbit, gr_ctx_t ctx) { return nfloat_2_set_3_2exp(res, x2, x1, x0, exp, xsgnbit, ctx); }
+int nfloat_2_set_4_2exp__extern(nfloat_ptr res, ulong x3, ulong x2, ulong x1, ulong x0, slong exp, int xsgnbit, gr_ctx_t ctx) { return nfloat_2_set_4_2exp(res, x3, x2, x1, x0, exp, xsgnbit, ctx); }
+void nfloat_complex_init__extern(nfloat_complex_ptr res, gr_ctx_t ctx) { nfloat_complex_init(res, ctx); }
+void nfloat_complex_clear__extern(nfloat_complex_ptr res, gr_ctx_t ctx) { nfloat_complex_clear(res, ctx); }
+int nfloat_complex_zero__extern(nfloat_complex_ptr res, gr_ctx_t ctx) { return nfloat_complex_zero(res, ctx); }
+ulong * nmod_mpoly_term_coeff_ref__extern(nmod_mpoly_t A, slong i, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpoly_term_coeff_ref(A, i, UNUSED_ctx); }
+n_poly_struct * evil_cast_nmod_poly_to_n_poly__extern(nmod_poly_struct *a) { return evil_cast_nmod_poly_to_n_poly(a); }
+const n_poly_struct * evil_const_cast_nmod_poly_to_n_poly__extern(const nmod_poly_struct *a) { return evil_const_cast_nmod_poly_to_n_poly(a); }
+n_poly_struct ** nmod_poly_stack_request_poly__extern(nmod_poly_stack_t S, slong k) { return nmod_poly_stack_request_poly(S, k); }
+n_poly_struct * nmod_poly_stack_take_top_poly__extern(nmod_poly_stack_t S) { return nmod_poly_stack_take_top_poly(S); }
+void nmod_poly_stack_give_back_poly__extern(nmod_poly_stack_t S, slong k) { nmod_poly_stack_give_back_poly(S, k); }
+slong nmod_poly_stack_size_poly__extern(const nmod_poly_stack_t S) { return nmod_poly_stack_size_poly(S); }
+nmod_mpolyun_struct ** nmod_poly_stack_request_mpolyun__extern(nmod_poly_stack_t S, slong k) { return nmod_poly_stack_request_mpolyun(S, k); }
+nmod_mpolyun_struct * nmod_poly_stack_take_top_mpolyun__extern(nmod_poly_stack_t S) { return nmod_poly_stack_take_top_mpolyun(S); }
+void nmod_poly_stack_give_back_mpolyun__extern(nmod_poly_stack_t S, slong k) { nmod_poly_stack_give_back_mpolyun(S, k); }
+slong nmod_poly_stack_size_mpolyun__extern(const nmod_poly_stack_t S) { return nmod_poly_stack_size_mpolyun(S); }
+nmod_mpolyn_struct ** nmod_poly_stack_request_mpolyn__extern(nmod_poly_stack_t S, slong k) { return nmod_poly_stack_request_mpolyn(S, k); }
+nmod_mpolyn_struct * nmod_poly_stack_take_top_mpolyn__extern(nmod_poly_stack_t S) { return nmod_poly_stack_take_top_mpolyn(S); }
+void nmod_poly_stack_give_back_mpolyn__extern(nmod_poly_stack_t S, slong k) { nmod_poly_stack_give_back_mpolyn(S, k); }
+slong nmod_poly_stack_size_mpolyn__extern(const nmod_poly_stack_t S) { return nmod_poly_stack_size_mpolyn(S); }
+slong nmod_mpoly_ctx_nvars__extern(const nmod_mpoly_ctx_t ctx) { return nmod_mpoly_ctx_nvars(ctx); }
+ordering_t nmod_mpoly_ctx_ord__extern(const nmod_mpoly_ctx_t ctx) { return nmod_mpoly_ctx_ord(ctx); }
+ulong nmod_mpoly_ctx_modulus__extern(const nmod_mpoly_ctx_t ctx) { return nmod_mpoly_ctx_modulus(ctx); }
+void nmod_mpoly_init__extern(nmod_mpoly_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_init(A, UNUSED_ctx); }
+void nmod_mpoly_clear__extern(nmod_mpoly_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_clear(A, UNUSED_ctx); }
+void _nmod_mpoly_fit_length__extern(ulong **coeffs, slong *coeffs_alloc, ulong **exps, slong *exps_alloc, slong N, slong length) { _nmod_mpoly_fit_length(coeffs, coeffs_alloc, exps, exps_alloc, N, length); }
+void _nmod_mpoly_set_length__extern(nmod_mpoly_t A, slong newlen, const nmod_mpoly_ctx_t UNUSED_ctx) { _nmod_mpoly_set_length(A, newlen, UNUSED_ctx); }
+void nmod_mpoly_truncate__extern(nmod_mpoly_t A, slong newlen, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_truncate(A, newlen, UNUSED_ctx); }
+void nmod_mpoly_swap__extern(nmod_mpoly_t A, nmod_mpoly_t B, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_swap(A, B, UNUSED_ctx); }
+void nmod_mpoly_zero__extern(nmod_mpoly_t A, const nmod_mpoly_ctx_t ctx) { nmod_mpoly_zero(A, ctx); }
+void nmod_mpoly_one__extern(nmod_mpoly_t A, const nmod_mpoly_ctx_t ctx) { nmod_mpoly_one(A, ctx); }
+int nmod_mpoly_is_zero__extern(const nmod_mpoly_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpoly_is_zero(A, UNUSED_ctx); }
+int nmod_mpoly_is_one__extern(const nmod_mpoly_t A, const nmod_mpoly_ctx_t ctx) { return nmod_mpoly_is_one(A, ctx); }
+ulong nmod_mpoly_leadcoeff__extern(nmod_mpoly_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpoly_leadcoeff(A, UNUSED_ctx); }
+slong nmod_mpoly_length__extern(const nmod_mpoly_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpoly_length(A, UNUSED_ctx); }
+void nmod_mpoly_divexact__extern(nmod_mpoly_t Q, const nmod_mpoly_t A, const nmod_mpoly_t B, const nmod_mpoly_ctx_t ctx) { nmod_mpoly_divexact(Q, A, B, ctx); }
+int nmod_mpoly_sqrt__extern(nmod_mpoly_t Q, const nmod_mpoly_t A, const nmod_mpoly_ctx_t ctx) { return nmod_mpoly_sqrt(Q, A, ctx); }
+int nmod_mpoly_is_square__extern(const nmod_mpoly_t A, const nmod_mpoly_ctx_t ctx) { return nmod_mpoly_is_square(A, ctx); }
+void nmod_mpoly_univar_zero__extern(nmod_mpoly_univar_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_univar_zero(A, UNUSED_ctx); }
+void nmod_mpoly_univar_swap__extern(nmod_mpoly_univar_t A, nmod_mpoly_univar_t B, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_univar_swap(A, B, UNUSED_ctx); }
+slong nmod_mpoly_univar_length__extern(const nmod_mpoly_univar_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpoly_univar_length(A, UNUSED_ctx); }
+void nmod_mpoly_univar_get_term_coeff__extern(nmod_mpoly_t c, const nmod_mpoly_univar_t A, slong i, const nmod_mpoly_ctx_t ctx) { nmod_mpoly_univar_get_term_coeff(c, A, i, ctx); }
+void nmod_mpoly_univar_swap_term_coeff__extern(nmod_mpoly_t c, nmod_mpoly_univar_t A, slong i, const nmod_mpoly_ctx_t ctx) { nmod_mpoly_univar_swap_term_coeff(c, A, i, ctx); }
+void nmod_mpolyd_swap__extern(nmod_mpolyd_t poly1, nmod_mpolyd_t poly2) { nmod_mpolyd_swap(poly1, poly2); }
+void nmod_mpolyu_swap__extern(nmod_mpolyu_t A, nmod_mpolyu_t B, const nmod_mpoly_ctx_t UNUSED_uctx) { nmod_mpolyu_swap(A, B, UNUSED_uctx); }
+void nmod_mpolyu_zero__extern(nmod_mpolyu_t A, const nmod_mpoly_ctx_t UNUSED_uctx) { nmod_mpolyu_zero(A, UNUSED_uctx); }
+ulong nmod_mpolyu_leadcoeff__extern(nmod_mpolyu_t A, const nmod_mpoly_ctx_t ctx) { return nmod_mpolyu_leadcoeff(A, ctx); }
+ulong nmod_mpolyn_leadcoeff__extern(nmod_mpolyn_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpolyn_leadcoeff(A, UNUSED_ctx); }
+n_poly_struct * nmod_mpolyn_leadcoeff_poly__extern(nmod_mpolyn_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpolyn_leadcoeff_poly(A, UNUSED_ctx); }
+void nmod_mpolyun_swap__extern(nmod_mpolyun_t A, nmod_mpolyun_t B) { nmod_mpolyun_swap(A, B); }
+ulong nmod_mpolyun_leadcoeff__extern(nmod_mpolyun_t A, const nmod_mpoly_ctx_t ctx) { return nmod_mpolyun_leadcoeff(A, ctx); }
+n_poly_struct * nmod_mpolyun_leadcoeff_poly__extern(nmod_mpolyun_t A, const nmod_mpoly_ctx_t ctx) { return nmod_mpolyun_leadcoeff_poly(A, ctx); }
+void nmod_mpoly_factor_init__extern(nmod_mpoly_factor_t f, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_factor_init(f, UNUSED_ctx); }
+slong nmod_mpoly_factor_length__extern(const nmod_mpoly_factor_t f, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpoly_factor_length(f, UNUSED_ctx); }
+ulong nmod_mpoly_factor_get_constant_ui__extern(const nmod_mpoly_factor_t f, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpoly_factor_get_constant_ui(f, UNUSED_ctx); }
+void nmod_mpoly_factor_get_base__extern(nmod_mpoly_t p, const nmod_mpoly_factor_t f, slong i, const nmod_mpoly_ctx_t ctx) { nmod_mpoly_factor_get_base(p, f, i, ctx); }
+void nmod_mpoly_factor_swap_base__extern(nmod_mpoly_t p, nmod_mpoly_factor_t f, slong i, const nmod_mpoly_ctx_t ctx) { nmod_mpoly_factor_swap_base(p, f, i, ctx); }
+int nmod_mpoly_factor_matches__extern(const nmod_mpoly_t a, const nmod_mpoly_factor_t f, const nmod_mpoly_ctx_t ctx) { return nmod_mpoly_factor_matches(a, f, ctx); }
+void nmod_mpoly_factor_swap__extern(nmod_mpoly_factor_t f, nmod_mpoly_factor_t g, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_factor_swap(f, g, UNUSED_ctx); }
+void nmod_mpoly_factor_one__extern(nmod_mpoly_factor_t f, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_factor_one(f, UNUSED_ctx); }
+void nmod_mpolyv_init__extern(nmod_mpolyv_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpolyv_init(A, UNUSED_ctx); }
+void nmod_mpolyv_swap__extern(nmod_mpolyv_t A, nmod_mpolyv_t B, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpolyv_swap(A, B, UNUSED_ctx); }
+nmod_poly_struct * nmod_poly_mat_entry__extern(const nmod_poly_mat_t mat, slong i, slong j) { return nmod_poly_mat_entry(mat, i, j); }
+slong nmod_poly_mat_nrows__extern(const nmod_poly_mat_t mat) { return nmod_poly_mat_nrows(mat); }
+slong nmod_poly_mat_ncols__extern(const nmod_poly_mat_t mat) { return nmod_poly_mat_ncols(mat); }
+void nmod_poly_mat_swap__extern(nmod_poly_mat_t mat1, nmod_poly_mat_t mat2) { nmod_poly_mat_swap(mat1, mat2); }
+void nmod_poly_mat_swap_entrywise__extern(nmod_poly_mat_t mat1, nmod_poly_mat_t mat2) { nmod_poly_mat_swap_entrywise(mat1, mat2); }
+void nmod_poly_mat_truncate__extern(nmod_poly_mat_t pmat, long len) { nmod_poly_mat_truncate(pmat, len); }
+ulong nmod_poly_mat_modulus__extern(const nmod_poly_mat_t mat) { return nmod_poly_mat_modulus(mat); }
+int nmod_poly_mat_is_empty__extern(const nmod_poly_mat_t mat) { return nmod_poly_mat_is_empty(mat); }
+int nmod_poly_mat_is_square__extern(const nmod_poly_mat_t mat) { return nmod_poly_mat_is_square(mat); }
+slong nmod_poly_mat_degree__extern(const nmod_poly_mat_t pmat) { return nmod_poly_mat_degree(pmat); }
 nn_ptr _nmod_vec_init__extern(slong len) { return _nmod_vec_init(len); }
 void _nmod_vec_clear__extern(nn_ptr vec) { _nmod_vec_clear(vec); }
 void _nmod_vec_zero__extern(nn_ptr vec, slong len) { _nmod_vec_zero(vec, len); }
@@ -2158,88 +2241,6 @@ n_polyun_struct ** n_polyun_stack_request__extern(n_polyun_stack_t S, slong k) {
 n_polyun_struct * n_polyun_stack_take_top__extern(n_polyun_stack_t S) { return n_polyun_stack_take_top(S); }
 void n_polyun_stack_give_back__extern(n_polyun_stack_t S, slong k) { n_polyun_stack_give_back(S, k); }
 slong n_polyun_stack_size__extern(const n_polyun_stack_t S) { return n_polyun_stack_size(S); }
-void nfloat_init__extern(nfloat_ptr res, gr_ctx_t ctx) { nfloat_init(res, ctx); }
-void nfloat_clear__extern(nfloat_ptr res, gr_ctx_t ctx) { nfloat_clear(res, ctx); }
-int _nfloat_ctx_set_real_prec__extern(gr_ctx_t ctx, slong prec) { return _nfloat_ctx_set_real_prec(ctx, prec); }
-int _nfloat_ctx_get_real_prec__extern(slong *res, gr_ctx_t ctx) { return _nfloat_ctx_get_real_prec(res, ctx); }
-int nfloat_zero__extern(nfloat_ptr res, gr_ctx_t ctx) { return nfloat_zero(res, ctx); }
-truth_t nfloat_is_zero__extern(nfloat_srcptr x, gr_ctx_t ctx) { return nfloat_is_zero(x, ctx); }
-int _nfloat_set_mpn_2exp__extern(nfloat_ptr res, nn_srcptr x, slong xn, slong exp, int xsgnbit, gr_ctx_t ctx) { return _nfloat_set_mpn_2exp(res, x, xn, exp, xsgnbit, ctx); }
-int nfloat_set_mpn_2exp__extern(nfloat_ptr res, nn_srcptr x, slong xn, slong exp, int xsgnbit, gr_ctx_t ctx) { return nfloat_set_mpn_2exp(res, x, xn, exp, xsgnbit, ctx); }
-int nfloat_1_set_2_2exp__extern(nfloat_ptr res, ulong x1, ulong x0, slong exp, int xsgnbit, gr_ctx_t ctx) { return nfloat_1_set_2_2exp(res, x1, x0, exp, xsgnbit, ctx); }
-int nfloat_1_set_3_2exp__extern(nfloat_ptr res, ulong x2, ulong x1, ulong x0, slong exp, int xsgnbit, gr_ctx_t ctx) { return nfloat_1_set_3_2exp(res, x2, x1, x0, exp, xsgnbit, ctx); }
-int nfloat_2_set_3_2exp__extern(nfloat_ptr res, ulong x2, ulong x1, ulong x0, slong exp, int xsgnbit, gr_ctx_t ctx) { return nfloat_2_set_3_2exp(res, x2, x1, x0, exp, xsgnbit, ctx); }
-int nfloat_2_set_4_2exp__extern(nfloat_ptr res, ulong x3, ulong x2, ulong x1, ulong x0, slong exp, int xsgnbit, gr_ctx_t ctx) { return nfloat_2_set_4_2exp(res, x3, x2, x1, x0, exp, xsgnbit, ctx); }
-void nfloat_complex_init__extern(nfloat_complex_ptr res, gr_ctx_t ctx) { nfloat_complex_init(res, ctx); }
-void nfloat_complex_clear__extern(nfloat_complex_ptr res, gr_ctx_t ctx) { nfloat_complex_clear(res, ctx); }
-int nfloat_complex_zero__extern(nfloat_complex_ptr res, gr_ctx_t ctx) { return nfloat_complex_zero(res, ctx); }
-ulong * nmod_mpoly_term_coeff_ref__extern(nmod_mpoly_t A, slong i, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpoly_term_coeff_ref(A, i, UNUSED_ctx); }
-n_poly_struct * evil_cast_nmod_poly_to_n_poly__extern(nmod_poly_struct *a) { return evil_cast_nmod_poly_to_n_poly(a); }
-const n_poly_struct * evil_const_cast_nmod_poly_to_n_poly__extern(const nmod_poly_struct *a) { return evil_const_cast_nmod_poly_to_n_poly(a); }
-n_poly_struct ** nmod_poly_stack_request_poly__extern(nmod_poly_stack_t S, slong k) { return nmod_poly_stack_request_poly(S, k); }
-n_poly_struct * nmod_poly_stack_take_top_poly__extern(nmod_poly_stack_t S) { return nmod_poly_stack_take_top_poly(S); }
-void nmod_poly_stack_give_back_poly__extern(nmod_poly_stack_t S, slong k) { nmod_poly_stack_give_back_poly(S, k); }
-slong nmod_poly_stack_size_poly__extern(const nmod_poly_stack_t S) { return nmod_poly_stack_size_poly(S); }
-nmod_mpolyun_struct ** nmod_poly_stack_request_mpolyun__extern(nmod_poly_stack_t S, slong k) { return nmod_poly_stack_request_mpolyun(S, k); }
-nmod_mpolyun_struct * nmod_poly_stack_take_top_mpolyun__extern(nmod_poly_stack_t S) { return nmod_poly_stack_take_top_mpolyun(S); }
-void nmod_poly_stack_give_back_mpolyun__extern(nmod_poly_stack_t S, slong k) { nmod_poly_stack_give_back_mpolyun(S, k); }
-slong nmod_poly_stack_size_mpolyun__extern(const nmod_poly_stack_t S) { return nmod_poly_stack_size_mpolyun(S); }
-nmod_mpolyn_struct ** nmod_poly_stack_request_mpolyn__extern(nmod_poly_stack_t S, slong k) { return nmod_poly_stack_request_mpolyn(S, k); }
-nmod_mpolyn_struct * nmod_poly_stack_take_top_mpolyn__extern(nmod_poly_stack_t S) { return nmod_poly_stack_take_top_mpolyn(S); }
-void nmod_poly_stack_give_back_mpolyn__extern(nmod_poly_stack_t S, slong k) { nmod_poly_stack_give_back_mpolyn(S, k); }
-slong nmod_poly_stack_size_mpolyn__extern(const nmod_poly_stack_t S) { return nmod_poly_stack_size_mpolyn(S); }
-slong nmod_mpoly_ctx_nvars__extern(const nmod_mpoly_ctx_t ctx) { return nmod_mpoly_ctx_nvars(ctx); }
-ordering_t nmod_mpoly_ctx_ord__extern(const nmod_mpoly_ctx_t ctx) { return nmod_mpoly_ctx_ord(ctx); }
-ulong nmod_mpoly_ctx_modulus__extern(const nmod_mpoly_ctx_t ctx) { return nmod_mpoly_ctx_modulus(ctx); }
-void nmod_mpoly_init__extern(nmod_mpoly_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_init(A, UNUSED_ctx); }
-void nmod_mpoly_clear__extern(nmod_mpoly_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_clear(A, UNUSED_ctx); }
-void _nmod_mpoly_fit_length__extern(ulong **coeffs, slong *coeffs_alloc, ulong **exps, slong *exps_alloc, slong N, slong length) { _nmod_mpoly_fit_length(coeffs, coeffs_alloc, exps, exps_alloc, N, length); }
-void _nmod_mpoly_set_length__extern(nmod_mpoly_t A, slong newlen, const nmod_mpoly_ctx_t UNUSED_ctx) { _nmod_mpoly_set_length(A, newlen, UNUSED_ctx); }
-void nmod_mpoly_truncate__extern(nmod_mpoly_t A, slong newlen, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_truncate(A, newlen, UNUSED_ctx); }
-void nmod_mpoly_swap__extern(nmod_mpoly_t A, nmod_mpoly_t B, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_swap(A, B, UNUSED_ctx); }
-void nmod_mpoly_zero__extern(nmod_mpoly_t A, const nmod_mpoly_ctx_t ctx) { nmod_mpoly_zero(A, ctx); }
-void nmod_mpoly_one__extern(nmod_mpoly_t A, const nmod_mpoly_ctx_t ctx) { nmod_mpoly_one(A, ctx); }
-int nmod_mpoly_is_zero__extern(const nmod_mpoly_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpoly_is_zero(A, UNUSED_ctx); }
-int nmod_mpoly_is_one__extern(const nmod_mpoly_t A, const nmod_mpoly_ctx_t ctx) { return nmod_mpoly_is_one(A, ctx); }
-ulong nmod_mpoly_leadcoeff__extern(nmod_mpoly_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpoly_leadcoeff(A, UNUSED_ctx); }
-slong nmod_mpoly_length__extern(const nmod_mpoly_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpoly_length(A, UNUSED_ctx); }
-void nmod_mpoly_divexact__extern(nmod_mpoly_t Q, const nmod_mpoly_t A, const nmod_mpoly_t B, const nmod_mpoly_ctx_t ctx) { nmod_mpoly_divexact(Q, A, B, ctx); }
-int nmod_mpoly_sqrt__extern(nmod_mpoly_t Q, const nmod_mpoly_t A, const nmod_mpoly_ctx_t ctx) { return nmod_mpoly_sqrt(Q, A, ctx); }
-int nmod_mpoly_is_square__extern(const nmod_mpoly_t A, const nmod_mpoly_ctx_t ctx) { return nmod_mpoly_is_square(A, ctx); }
-void nmod_mpoly_univar_zero__extern(nmod_mpoly_univar_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_univar_zero(A, UNUSED_ctx); }
-void nmod_mpoly_univar_swap__extern(nmod_mpoly_univar_t A, nmod_mpoly_univar_t B, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_univar_swap(A, B, UNUSED_ctx); }
-slong nmod_mpoly_univar_length__extern(const nmod_mpoly_univar_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpoly_univar_length(A, UNUSED_ctx); }
-void nmod_mpoly_univar_get_term_coeff__extern(nmod_mpoly_t c, const nmod_mpoly_univar_t A, slong i, const nmod_mpoly_ctx_t ctx) { nmod_mpoly_univar_get_term_coeff(c, A, i, ctx); }
-void nmod_mpoly_univar_swap_term_coeff__extern(nmod_mpoly_t c, nmod_mpoly_univar_t A, slong i, const nmod_mpoly_ctx_t ctx) { nmod_mpoly_univar_swap_term_coeff(c, A, i, ctx); }
-void nmod_mpolyd_swap__extern(nmod_mpolyd_t poly1, nmod_mpolyd_t poly2) { nmod_mpolyd_swap(poly1, poly2); }
-void nmod_mpolyu_swap__extern(nmod_mpolyu_t A, nmod_mpolyu_t B, const nmod_mpoly_ctx_t UNUSED_uctx) { nmod_mpolyu_swap(A, B, UNUSED_uctx); }
-void nmod_mpolyu_zero__extern(nmod_mpolyu_t A, const nmod_mpoly_ctx_t UNUSED_uctx) { nmod_mpolyu_zero(A, UNUSED_uctx); }
-ulong nmod_mpolyu_leadcoeff__extern(nmod_mpolyu_t A, const nmod_mpoly_ctx_t ctx) { return nmod_mpolyu_leadcoeff(A, ctx); }
-ulong nmod_mpolyn_leadcoeff__extern(nmod_mpolyn_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpolyn_leadcoeff(A, UNUSED_ctx); }
-n_poly_struct * nmod_mpolyn_leadcoeff_poly__extern(nmod_mpolyn_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpolyn_leadcoeff_poly(A, UNUSED_ctx); }
-void nmod_mpolyun_swap__extern(nmod_mpolyun_t A, nmod_mpolyun_t B) { nmod_mpolyun_swap(A, B); }
-ulong nmod_mpolyun_leadcoeff__extern(nmod_mpolyun_t A, const nmod_mpoly_ctx_t ctx) { return nmod_mpolyun_leadcoeff(A, ctx); }
-n_poly_struct * nmod_mpolyun_leadcoeff_poly__extern(nmod_mpolyun_t A, const nmod_mpoly_ctx_t ctx) { return nmod_mpolyun_leadcoeff_poly(A, ctx); }
-void nmod_mpoly_factor_init__extern(nmod_mpoly_factor_t f, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_factor_init(f, UNUSED_ctx); }
-slong nmod_mpoly_factor_length__extern(const nmod_mpoly_factor_t f, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpoly_factor_length(f, UNUSED_ctx); }
-ulong nmod_mpoly_factor_get_constant_ui__extern(const nmod_mpoly_factor_t f, const nmod_mpoly_ctx_t UNUSED_ctx) { return nmod_mpoly_factor_get_constant_ui(f, UNUSED_ctx); }
-void nmod_mpoly_factor_get_base__extern(nmod_mpoly_t p, const nmod_mpoly_factor_t f, slong i, const nmod_mpoly_ctx_t ctx) { nmod_mpoly_factor_get_base(p, f, i, ctx); }
-void nmod_mpoly_factor_swap_base__extern(nmod_mpoly_t p, nmod_mpoly_factor_t f, slong i, const nmod_mpoly_ctx_t ctx) { nmod_mpoly_factor_swap_base(p, f, i, ctx); }
-int nmod_mpoly_factor_matches__extern(const nmod_mpoly_t a, const nmod_mpoly_factor_t f, const nmod_mpoly_ctx_t ctx) { return nmod_mpoly_factor_matches(a, f, ctx); }
-void nmod_mpoly_factor_swap__extern(nmod_mpoly_factor_t f, nmod_mpoly_factor_t g, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_factor_swap(f, g, UNUSED_ctx); }
-void nmod_mpoly_factor_one__extern(nmod_mpoly_factor_t f, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpoly_factor_one(f, UNUSED_ctx); }
-void nmod_mpolyv_init__extern(nmod_mpolyv_t A, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpolyv_init(A, UNUSED_ctx); }
-void nmod_mpolyv_swap__extern(nmod_mpolyv_t A, nmod_mpolyv_t B, const nmod_mpoly_ctx_t UNUSED_ctx) { nmod_mpolyv_swap(A, B, UNUSED_ctx); }
-nmod_poly_struct * nmod_poly_mat_entry__extern(const nmod_poly_mat_t mat, slong i, slong j) { return nmod_poly_mat_entry(mat, i, j); }
-slong nmod_poly_mat_nrows__extern(const nmod_poly_mat_t mat) { return nmod_poly_mat_nrows(mat); }
-slong nmod_poly_mat_ncols__extern(const nmod_poly_mat_t mat) { return nmod_poly_mat_ncols(mat); }
-void nmod_poly_mat_swap__extern(nmod_poly_mat_t mat1, nmod_poly_mat_t mat2) { nmod_poly_mat_swap(mat1, mat2); }
-void nmod_poly_mat_swap_entrywise__extern(nmod_poly_mat_t mat1, nmod_poly_mat_t mat2) { nmod_poly_mat_swap_entrywise(mat1, mat2); }
-void nmod_poly_mat_truncate__extern(nmod_poly_mat_t pmat, long len) { nmod_poly_mat_truncate(pmat, len); }
-ulong nmod_poly_mat_modulus__extern(const nmod_poly_mat_t mat) { return nmod_poly_mat_modulus(mat); }
-int nmod_poly_mat_is_empty__extern(const nmod_poly_mat_t mat) { return nmod_poly_mat_is_empty(mat); }
-int nmod_poly_mat_is_square__extern(const nmod_poly_mat_t mat) { return nmod_poly_mat_is_square(mat); }
-slong nmod_poly_mat_degree__extern(const nmod_poly_mat_t pmat) { return nmod_poly_mat_degree(pmat); }
 fmpz * padic_unit__extern(const padic_t x) { return padic_unit(x); }
 slong padic_get_val__extern(const padic_t x) { return padic_get_val(x); }
 slong padic_get_prec__extern(const padic_t x) { return padic_get_prec(x); }
