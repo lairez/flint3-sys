@@ -138,11 +138,11 @@ impl Conf {
 impl Conf {
     fn bindgen(&self) -> Result<()> {
         println!(
-            "cargo::force-if-changed={}",
+            "cargo::rerun-if-changed={}",
             &self.bindgen_flint_rs.display()
         );
         println!(
-            "cargo::force-if-changed={}",
+            "cargo::rerun-if-changed={}",
             &self.bindgen_extern_c.display()
         );
         Command::new("cp")
@@ -265,7 +265,7 @@ impl Conf {
         // The maintenaire of `flint-ffi-sys` may use the environment variable
         // KEEP_BINDGEN_OUTPUT to save the result of bindgen and release it,
         // so that the use downstream do not have to run bindgen themselves.
-        println!("cargo::force-if-env-changed=KEEP_BINDGEN_OUTPUT");
+        println!("cargo::rerun-if-env-changed=KEEP_BINDGEN_OUTPUT");
         if std::env::var("KEEP_BINDGEN_OUTPUT").is_ok() {
             std::fs::copy(
                 &self.bindgen_flint_rs,
