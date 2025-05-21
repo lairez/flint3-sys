@@ -1,4 +1,4 @@
-use std::{path::PathBuf, process::Command};
+use std::{io::Write, path::PathBuf, process::Command};
 
 use anyhow::{Context, Result};
 
@@ -120,6 +120,7 @@ impl Conf {
     fn build_extern(&self) -> Result<()> {
         cc::Build::new()
             .file(&self.bindgen_extern_c)
+            .include(&self.flint_include_dir)
             .flags(["-lflint", "-lgmp", "-lmpfr"])
             .flags([
                 "-Wno-old-style-declaration",
@@ -200,20 +201,27 @@ impl Conf {
         let headers: Vec<_> = self.flint_headers()?;
 
         let mut builder = bindgen::Builder::default();
-        for header in headers {
+        for header in &headers {
             let h = header.to_str().context("Non unicode path")?;
             builder = builder.allowlist_file(h).header(h);
             // We are using bindgen in allowlisting mode, see
             // https://rust-lang.github.io/rust-bindgen/allowlisting.html
             // This avoids bringing all of GMP in the binding
         }
+
+        let extern_tmp = self.out_dir.join("extern-abs.c");
+
+        // It will probably never be the case, but bindgen does not create the
+        // file if there are no inline fuctions. So we make sure it is created.
+        std::fs::write(&extern_tmp, b"")?;
+
         let bindings = builder
             // .parse_callbacks(Box::new(bindgen::CargoCallbacks::new())) // useful to echo some cargo:rerun
             .derive_default(false) // useful to avoid too many MaybeUninit
             .derive_copy(false) // nothing (?) in FLINT is Copy
             .derive_debug(false) // useless
             .wrap_static_fns(true) // deal with inline functions
-            .wrap_static_fns_path(&self.bindgen_extern_c) // idem
+            .wrap_static_fns_path(&extern_tmp) // idem
             .generate_cstr(true) // recommended by bindgen's doc
             .merge_extern_blocks(true) // why would we not?
             .blocklist_function("__.*") // block internal items
@@ -227,17 +235,53 @@ impl Conf {
 
         bindings.write_to_file(&self.bindgen_flint_rs)?;
 
+        {
+            // The file `extern-abs.c` contains #include directives with absolute
+            // paths, we need to relativize them.
+            use std::io::Write;
+            let mut extern_rel = std::io::BufWriter::new(
+                std::fs::File::create(&self.bindgen_extern_c).context("Cannot open `extern.c`")?,
+            );
+
+            let include_re = regex::Regex::new(r##"^#include\s+".+(flint/[^/]+\.h)""##)?;
+
+            // This is the file where bindgen outputs the inline functions.
+            let extern_tmp = std::fs::read_to_string(&extern_tmp)
+                .context(format!("Cannot read `{}`", extern_tmp.display()))?;
+
+            for line in extern_tmp.lines() {
+                match include_re.captures(&line) {
+                    Some(capt) => writeln!(
+                        extern_rel,
+                        r##"#include "{}""##,
+                        capt.get(1).context("no capturing group")?.as_str()
+                    )?,
+                    None => writeln!(extern_rel, "{line}")?,
+                }
+            }
+        }
+
         // The maintenaire of `flint-ffi-sys` may use the environment variable
         // SAVE_BINDGEN_IN_SOURCE to save the result of bindgen and release it,
         // so that the use downstream do not have to run bindgen themselves.
         println!("cargo::rerun-if-env-changed=SAVE_BINDGEN_IN_SOURCE");
         if std::env::var("SAVE_BINDGEN_IN_SOURCE").is_ok() {
-            std::fs::copy(&self.bindgen_flint_rs, &std::path::Path::new("./bindgen/flint.rs")).context(
-                format!("Failed to copy `{}`", self.bindgen_flint_rs.display()),
-            )?;
-            std::fs::copy(&self.bindgen_extern_c, &std::path::Path::new("./bindgen/extern.c")).context(
-                format!("Failed to copy `{}`", self.bindgen_extern_c.display()),
-            )?;
+            std::fs::copy(
+                &self.bindgen_flint_rs,
+                &std::path::Path::new("./bindgen/flint.rs"),
+            )
+            .context(format!(
+                "Failed to copy `{}`",
+                self.bindgen_flint_rs.display()
+            ))?;
+            std::fs::copy(
+                &self.bindgen_extern_c,
+                &std::path::Path::new("./bindgen/extern.c"),
+            )
+            .context(format!(
+                "Failed to copy `{}`",
+                self.bindgen_extern_c.display()
+            ))?;
         }
 
         Ok(())

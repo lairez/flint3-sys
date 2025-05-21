@@ -651,15 +651,6 @@ const _: () = {
         "Offset of field: _IO_FILE::_unused2",
     ][::std::mem::offset_of!(_IO_FILE, _unused2) - 196usize];
 };
-impl Default for _IO_FILE {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 impl _IO_FILE {
     #[inline]
     pub fn _flags2(&self) -> ::std::os::raw::c_int {
@@ -749,15 +740,6 @@ const _: () = {
         "Offset of field: flint_rand_struct::__randval2",
     ][::std::mem::offset_of!(flint_rand_struct, __randval2) - 16usize];
 };
-impl Default for flint_rand_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type flint_rand_t = [flint_rand_struct; 1usize];
 pub const flint_err_t_FLINT_ERROR: flint_err_t = 0;
 pub const flint_err_t_FLINT_OVERFLOW: flint_err_t = 1;
@@ -769,7 +751,6 @@ pub const flint_err_t_FLINT_INEXACT: flint_err_t = 6;
 pub const flint_err_t_FLINT_TEST_FAIL: flint_err_t = 7;
 pub type flint_err_t = ::std::os::raw::c_uint;
 #[repr(C)]
-#[derive(Default)]
 pub struct nmod_t {
     pub n: ulong,
     pub ninv: ulong,
@@ -786,7 +767,6 @@ const _: () = {
 pub type fmpz = slong;
 pub type fmpz_t = [fmpz; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct fmpq {
     pub num: fmpz,
     pub den: fmpz,
@@ -800,7 +780,6 @@ const _: () = {
 };
 pub type fmpq_t = [fmpq; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct mantissa_noptr_struct {
     pub d: [ulong; 2usize],
 }
@@ -836,15 +815,6 @@ const _: () = {
         "Offset of field: mantissa_ptr_struct::d",
     ][::std::mem::offset_of!(mantissa_ptr_struct, d) - 8usize];
 };
-impl Default for mantissa_ptr_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct mantissa_struct {
     pub noptr: __BindgenUnionField<mantissa_noptr_struct>,
@@ -862,15 +832,6 @@ const _: () = {
         "Offset of field: mantissa_struct::ptr",
     ][::std::mem::offset_of!(mantissa_struct, ptr) - 0usize];
 };
-impl Default for mantissa_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct arf_struct {
     pub exp: fmpz,
@@ -889,15 +850,6 @@ const _: () = {
     ][::std::mem::offset_of!(arf_struct, size) - 8usize];
     ["Offset of field: arf_struct::d"][::std::mem::offset_of!(arf_struct, d) - 16usize];
 };
-impl Default for arf_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type arf_t = [arf_struct; 1usize];
 pub type arf_ptr = *mut arf_struct;
 pub type arf_srcptr = *const arf_struct;
@@ -921,20 +873,10 @@ const _: () = {
         "Offset of field: arf_interval_struct::b",
     ][::std::mem::offset_of!(arf_interval_struct, b) - 32usize];
 };
-impl Default for arf_interval_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type arf_interval_t = [arf_interval_struct; 1usize];
 pub type arf_interval_ptr = *mut arf_interval_struct;
 pub type arf_interval_srcptr = *const arf_interval_struct;
 #[repr(C)]
-#[derive(Default)]
 pub struct mag_struct {
     pub exp: fmpz,
     pub man: ulong,
@@ -969,15 +911,6 @@ const _: () = {
         "Offset of field: arb_struct::rad",
     ][::std::mem::offset_of!(arb_struct, rad) - 32usize];
 };
-impl Default for arb_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type arb_t = [arb_struct; 1usize];
 pub type arb_ptr = *mut arb_struct;
 pub type arb_srcptr = *const arb_struct;
@@ -1005,15 +938,6 @@ const _: () = {
         "Offset of field: arb_mat_struct::rows",
     ][::std::mem::offset_of!(arb_mat_struct, rows) - 24usize];
 };
-impl Default for arb_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type arb_mat_t = [arb_mat_struct; 1usize];
 #[repr(C)]
 pub struct arb_poly_struct {
@@ -1035,15 +959,6 @@ const _: () = {
         "Offset of field: arb_poly_struct::length",
     ][::std::mem::offset_of!(arb_poly_struct, length) - 16usize];
 };
-impl Default for arb_poly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type arb_poly_t = [arb_poly_struct; 1usize];
 #[repr(C)]
 pub struct acb_struct {
@@ -1061,15 +976,6 @@ const _: () = {
         "Offset of field: acb_struct::imag",
     ][::std::mem::offset_of!(acb_struct, imag) - 48usize];
 };
-impl Default for acb_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_t = [acb_struct; 1usize];
 pub type acb_ptr = *mut acb_struct;
 pub type acb_srcptr = *const acb_struct;
@@ -1097,15 +1003,6 @@ const _: () = {
         "Offset of field: acb_mat_struct::rows",
     ][::std::mem::offset_of!(acb_mat_struct, rows) - 24usize];
 };
-impl Default for acb_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_mat_t = [acb_mat_struct; 1usize];
 #[repr(C)]
 pub struct acb_poly_struct {
@@ -1127,15 +1024,6 @@ const _: () = {
         "Offset of field: acb_poly_struct::length",
     ][::std::mem::offset_of!(acb_poly_struct, length) - 16usize];
 };
-impl Default for acb_poly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_poly_t = [acb_poly_struct; 1usize];
 pub type acb_calc_func_t = ::std::option::Option<
     unsafe extern "C" fn(
@@ -1147,7 +1035,6 @@ pub type acb_calc_func_t = ::std::option::Option<
     ) -> ::std::os::raw::c_int,
 >;
 #[repr(C)]
-#[derive(Default)]
 pub struct acb_calc_integrate_opt_struct {
     pub deg_limit: slong,
     pub eval_limit: slong,
@@ -1181,7 +1068,6 @@ const _: () = {
 };
 pub type acb_calc_integrate_opt_t = [acb_calc_integrate_opt_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct n_factor_t {
     pub num: ::std::os::raw::c_int,
     pub exp: [::std::os::raw::c_int; 15usize],
@@ -1239,15 +1125,6 @@ const _: () = {
         "Offset of field: n_primes_struct::sieve",
     ][::std::mem::offset_of!(n_primes_struct, sieve) - 56usize];
 };
-impl Default for n_primes_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type n_primes_t = [n_primes_struct; 1usize];
 pub type mp_limb_t = ::std::os::raw::c_ulong;
 pub type mp_limb_signed_t = ::std::os::raw::c_long;
@@ -1271,15 +1148,6 @@ const _: () = {
         "Offset of field: __mpz_struct::_mp_d",
     ][::std::mem::offset_of!(__mpz_struct, _mp_d) - 8usize];
 };
-impl Default for __mpz_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type mpz_t = [__mpz_struct; 1usize];
 pub type mp_ptr = *mut mp_limb_t;
 pub type mp_srcptr = *const mp_limb_t;
@@ -1301,15 +1169,6 @@ const _: () = {
         "Offset of field: __mpq_struct::_mp_den",
     ][::std::mem::offset_of!(__mpq_struct, _mp_den) - 16usize];
 };
-impl Default for __mpq_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type mpq_t = [__mpq_struct; 1usize];
 #[repr(C)]
 pub struct __mpf_struct {
@@ -1335,15 +1194,6 @@ const _: () = {
         "Offset of field: __mpf_struct::_mp_d",
     ][::std::mem::offset_of!(__mpf_struct, _mp_d) - 16usize];
 };
-impl Default for __mpf_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type mpf_t = [__mpf_struct; 1usize];
 pub type mpz_ptr = *mut __mpz_struct;
 #[repr(C)]
@@ -1364,15 +1214,6 @@ const _: () = {
     ][::std::mem::offset_of!(zz_struct, size) - 4usize];
     ["Offset of field: zz_struct::ptr"][::std::mem::offset_of!(zz_struct, ptr) - 8usize];
 };
-impl Default for zz_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type zz_ptr = *mut zz_struct;
 pub type zz_srcptr = *const zz_struct;
 #[repr(C)]
@@ -1407,15 +1248,6 @@ const _: () = {
         "Offset of field: fmpz_factor_struct::num",
     ][::std::mem::offset_of!(fmpz_factor_struct, num) - 32usize];
 };
-impl Default for fmpz_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_factor_t = [fmpz_factor_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_preinvn_struct {
@@ -1441,15 +1273,6 @@ const _: () = {
         "Offset of field: fmpz_preinvn_struct::norm",
     ][::std::mem::offset_of!(fmpz_preinvn_struct, norm) - 16usize];
 };
-impl Default for fmpz_preinvn_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_preinvn_t = [fmpz_preinvn_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_poly_struct {
@@ -1473,15 +1296,6 @@ const _: () = {
         "Offset of field: fmpz_poly_struct::length",
     ][::std::mem::offset_of!(fmpz_poly_struct, length) - 16usize];
 };
-impl Default for fmpz_poly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_poly_t = [fmpz_poly_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_poly_factor_struct {
@@ -1515,15 +1329,6 @@ const _: () = {
         "Offset of field: fmpz_poly_factor_struct::alloc",
     ][::std::mem::offset_of!(fmpz_poly_factor_struct, alloc) - 32usize];
 };
-impl Default for fmpz_poly_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_poly_factor_t = [fmpz_poly_factor_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mat_struct {
@@ -1549,15 +1354,6 @@ const _: () = {
         "Offset of field: fmpz_mat_struct::rows",
     ][::std::mem::offset_of!(fmpz_mat_struct, rows) - 24usize];
 };
-impl Default for fmpz_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mat_t = [fmpz_mat_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_poly_mat_struct {
@@ -1587,15 +1383,6 @@ const _: () = {
         "Offset of field: fmpz_poly_mat_struct::rows",
     ][::std::mem::offset_of!(fmpz_poly_mat_struct, rows) - 24usize];
 };
-impl Default for fmpz_poly_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_poly_mat_t = [fmpz_poly_mat_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mpoly_struct {
@@ -1627,15 +1414,6 @@ const _: () = {
         "Offset of field: fmpz_mpoly_struct::bits",
     ][::std::mem::offset_of!(fmpz_mpoly_struct, bits) - 32usize];
 };
-impl Default for fmpz_mpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mpoly_t = [fmpz_mpoly_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mpoly_factor_struct {
@@ -1673,15 +1451,6 @@ const _: () = {
         "Offset of field: fmpz_mpoly_factor_struct::alloc",
     ][::std::mem::offset_of!(fmpz_mpoly_factor_struct, alloc) - 40usize];
 };
-impl Default for fmpz_mpoly_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mpoly_factor_t = [fmpz_mpoly_factor_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_poly_q_struct {
@@ -1703,15 +1472,6 @@ const _: () = {
         "Offset of field: fmpz_poly_q_struct::den",
     ][::std::mem::offset_of!(fmpz_poly_q_struct, den) - 8usize];
 };
-impl Default for fmpz_poly_q_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_poly_q_t = [fmpz_poly_q_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mpoly_q_struct {
@@ -1733,18 +1493,8 @@ const _: () = {
         "Offset of field: fmpz_mpoly_q_struct::den",
     ][::std::mem::offset_of!(fmpz_mpoly_q_struct, den) - 40usize];
 };
-impl Default for fmpz_mpoly_q_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mpoly_q_t = [fmpz_mpoly_q_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct fmpzi_struct {
     pub a: fmpz,
     pub b: fmpz,
@@ -1762,7 +1512,6 @@ const _: () = {
 };
 pub type fmpzi_t = [fmpzi_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct _fmpz_multi_CRT_instr {
     pub a_idx: slong,
     pub b_idx: slong,
@@ -1862,18 +1611,8 @@ const _: () = {
         "Offset of field: fmpz_multi_CRT_struct::good",
     ][::std::mem::offset_of!(fmpz_multi_CRT_struct, good) - 104usize];
 };
-impl Default for fmpz_multi_CRT_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_multi_CRT_t = [fmpz_multi_CRT_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct _fmpz_multi_mod_instr {
     pub in_idx: slong,
     pub out_idx: slong,
@@ -1945,18 +1684,8 @@ const _: () = {
         "Offset of field: fmpz_multi_mod_struct::good",
     ][::std::mem::offset_of!(fmpz_multi_mod_struct, good) - 64usize];
 };
-impl Default for fmpz_multi_mod_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_multi_mod_t = [fmpz_multi_mod_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct crt_lut_entry {
     pub mod_: nmod_t,
     pub i0: ulong,
@@ -1981,7 +1710,6 @@ const _: () = {
     ][::std::mem::offset_of!(crt_lut_entry, i2) - 40usize];
 };
 #[repr(C)]
-#[derive(Default)]
 pub struct mod_lut_entry {
     pub mod_: nmod_t,
     pub mod0: nmod_t,
@@ -2075,15 +1803,6 @@ const _: () = {
         "Offset of field: fmpz_comb_struct::num_primes",
     ][::std::mem::offset_of!(fmpz_comb_struct, num_primes) - 280usize];
 };
-impl Default for fmpz_comb_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_comb_t = [fmpz_comb_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_comb_temp_struct {
@@ -2113,15 +1832,6 @@ const _: () = {
         "Offset of field: fmpz_comb_temp_struct::T",
     ][::std::mem::offset_of!(fmpz_comb_temp_struct, T) - 24usize];
 };
-impl Default for fmpz_comb_temp_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_comb_temp_t = [fmpz_comb_temp_struct; 1usize];
 pub const arf_rnd_t_ARF_RND_DOWN: arf_rnd_t = 0;
 pub const arf_rnd_t_ARF_RND_UP: arf_rnd_t = 1;
@@ -2130,7 +1840,6 @@ pub const arf_rnd_t_ARF_RND_CEIL: arf_rnd_t = 3;
 pub const arf_rnd_t_ARF_RND_NEAR: arf_rnd_t = 4;
 pub type arf_rnd_t = ::std::os::raw::c_uint;
 #[repr(C)]
-#[derive(Default)]
 pub struct crt_struct {
     pub num: ::std::os::raw::c_int,
     pub n: nmod_t,
@@ -2186,15 +1895,6 @@ const _: () = {
         "Offset of field: acb_dft_cyc_struct::cyc",
     ][::std::mem::offset_of!(acb_dft_cyc_struct, cyc) - 32usize];
 };
-impl Default for acb_dft_cyc_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_dft_cyc_t = [acb_dft_cyc_struct; 1usize];
 #[repr(C)]
 pub struct acb_dft_rad2_struct {
@@ -2228,15 +1928,6 @@ const _: () = {
         "Offset of field: acb_dft_rad2_struct::z",
     ][::std::mem::offset_of!(acb_dft_rad2_struct, z) - 32usize];
 };
-impl Default for acb_dft_rad2_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_dft_rad2_t = [acb_dft_rad2_struct; 1usize];
 #[repr(C)]
 pub struct acb_dft_bluestein_struct {
@@ -2270,15 +1961,6 @@ const _: () = {
         "Offset of field: acb_dft_bluestein_struct::rad2",
     ][::std::mem::offset_of!(acb_dft_bluestein_struct, rad2) - 32usize];
 };
-impl Default for acb_dft_bluestein_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_dft_bluestein_t = [acb_dft_bluestein_struct; 1usize];
 #[repr(C)]
 pub struct acb_dft_prod_struct {
@@ -2304,15 +1986,6 @@ const _: () = {
         "Offset of field: acb_dft_prod_struct::cyc",
     ][::std::mem::offset_of!(acb_dft_prod_struct, cyc) - 16usize];
 };
-impl Default for acb_dft_prod_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_dft_prod_t = [acb_dft_prod_struct; 1usize];
 #[repr(C)]
 pub struct acb_dft_crt_struct {
@@ -2342,15 +2015,6 @@ const _: () = {
         "Offset of field: acb_dft_crt_struct::cyc",
     ][::std::mem::offset_of!(acb_dft_crt_struct, cyc) - 408usize];
 };
-impl Default for acb_dft_crt_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_dft_crt_t = [acb_dft_crt_struct; 1usize];
 #[repr(C)]
 pub struct acb_dft_naive_struct {
@@ -2384,15 +2048,6 @@ const _: () = {
         "Offset of field: acb_dft_naive_struct::dz",
     ][::std::mem::offset_of!(acb_dft_naive_struct, dz) - 32usize];
 };
-impl Default for acb_dft_naive_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_dft_naive_t = [acb_dft_naive_struct; 1usize];
 #[repr(C)]
 pub struct acb_dft_pre_struct {
@@ -2437,15 +2092,6 @@ const _: () = {
         "Offset of field: acb_dft_pre_struct__bindgen_ty_1::bluestein",
     ][::std::mem::offset_of!(acb_dft_pre_struct__bindgen_ty_1, bluestein) - 0usize];
 };
-impl Default for acb_dft_pre_struct__bindgen_ty_1 {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
     [
@@ -2464,15 +2110,6 @@ const _: () = {
         "Offset of field: acb_dft_pre_struct::t",
     ][::std::mem::offset_of!(acb_dft_pre_struct, t) - 16usize];
 };
-impl Default for acb_dft_pre_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_dft_pre_t = [acb_dft_pre_struct; 1usize];
 #[repr(C)]
 pub struct acb_dft_step_struct {
@@ -2510,15 +2147,6 @@ const _: () = {
         "Offset of field: acb_dft_step_struct::pre",
     ][::std::mem::offset_of!(acb_dft_step_struct, pre) - 40usize];
 };
-impl Default for acb_dft_step_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub const DFT_NAIVE: _bindgen_ty_13 = 0;
 pub const DFT_CYC: _bindgen_ty_13 = 1;
 pub const DFT_PROD: _bindgen_ty_13 = 2;
@@ -2556,15 +2184,6 @@ const _: () = {
         "Offset of field: n_ecm_s::prime_table",
     ][::std::mem::offset_of!(n_ecm_s, prime_table) - 56usize];
 };
-impl Default for n_ecm_s {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type n_ecm_t = [n_ecm_s; 1usize];
 #[repr(C)]
 pub struct nmod_mat_struct {
@@ -2594,15 +2213,6 @@ const _: () = {
         "Offset of field: nmod_mat_struct::mod_",
     ][::std::mem::offset_of!(nmod_mat_struct, mod_) - 32usize];
 };
-impl Default for nmod_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_mat_t = [nmod_mat_struct; 1usize];
 #[repr(C)]
 pub struct nmod_poly_struct {
@@ -2630,15 +2240,6 @@ const _: () = {
         "Offset of field: nmod_poly_struct::mod_",
     ][::std::mem::offset_of!(nmod_poly_struct, mod_) - 24usize];
 };
-impl Default for nmod_poly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_poly_t = [nmod_poly_struct; 1usize];
 #[repr(C)]
 pub struct nmod_poly_factor_struct {
@@ -2668,15 +2269,6 @@ const _: () = {
         "Offset of field: nmod_poly_factor_struct::alloc",
     ][::std::mem::offset_of!(nmod_poly_factor_struct, alloc) - 24usize];
 };
-impl Default for nmod_poly_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_poly_factor_t = [nmod_poly_factor_struct; 1usize];
 #[repr(C)]
 pub struct nmod_poly_mat_struct {
@@ -2710,15 +2302,6 @@ const _: () = {
         "Offset of field: nmod_poly_mat_struct::modulus",
     ][::std::mem::offset_of!(nmod_poly_mat_struct, modulus) - 32usize];
 };
-impl Default for nmod_poly_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_poly_mat_t = [nmod_poly_mat_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpoly_struct {
@@ -2754,15 +2337,6 @@ const _: () = {
         "Offset of field: nmod_mpoly_struct::exps_alloc",
     ][::std::mem::offset_of!(nmod_mpoly_struct, exps_alloc) - 40usize];
 };
-impl Default for nmod_mpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_mpoly_t = [nmod_mpoly_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpoly_factor_struct {
@@ -2796,18 +2370,8 @@ const _: () = {
         "Offset of field: nmod_mpoly_factor_struct::alloc",
     ][::std::mem::offset_of!(nmod_mpoly_factor_struct, alloc) - 32usize];
 };
-impl Default for nmod_mpoly_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_mpoly_factor_t = [nmod_mpoly_factor_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct nmod_discrete_log_pohlig_hellman_table_entry_struct {
     pub gammapow: ulong,
     pub cm: ulong,
@@ -2899,15 +2463,6 @@ const _: () = {
     ][::std::mem::offset_of!(nmod_discrete_log_pohlig_hellman_entry_struct, table)
         - 80usize];
 };
-impl Default for nmod_discrete_log_pohlig_hellman_entry_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct nmod_discrete_log_pohlig_hellman_struct {
     pub mod_: nmod_t,
@@ -2943,15 +2498,6 @@ const _: () = {
     ][::std::mem::offset_of!(nmod_discrete_log_pohlig_hellman_struct, entries)
         - 48usize];
 };
-impl Default for nmod_discrete_log_pohlig_hellman_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_discrete_log_pohlig_hellman_t = [nmod_discrete_log_pohlig_hellman_struct; 1usize];
 pub const DLOG_MODPE: _bindgen_ty_14 = 0;
 pub const DLOG_CRT: _bindgen_ty_14 = 1;
@@ -2962,7 +2508,6 @@ pub const DLOG_23: _bindgen_ty_14 = 5;
 pub type _bindgen_ty_14 = ::std::os::raw::c_uint;
 pub type dlog_preconn_ptr = *mut dlog_precomp_struct;
 #[repr(C)]
-#[derive(Default)]
 pub struct dlog_1modpe_struct {
     pub inv1p: ulong,
     pub invloga1: ulong,
@@ -3021,15 +2566,6 @@ const _: () = {
         "Offset of field: dlog_modpe_struct::modpe",
     ][::std::mem::offset_of!(dlog_modpe_struct, modpe) - 64usize];
 };
-impl Default for dlog_modpe_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type dlog_modpe_t = [dlog_modpe_struct; 1usize];
 #[repr(C)]
 pub struct dlog_table_struct {
@@ -3049,18 +2585,8 @@ const _: () = {
         "Offset of field: dlog_table_struct::table",
     ][::std::mem::offset_of!(dlog_table_struct, table) - 8usize];
 };
-impl Default for dlog_table_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type dlog_table_t = [dlog_table_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct apow {
     pub k: ulong,
     pub ak: ulong,
@@ -3103,18 +2629,8 @@ const _: () = {
         "Offset of field: dlog_bsgs_struct::table",
     ][::std::mem::offset_of!(dlog_bsgs_struct, table) - 48usize];
 };
-impl Default for dlog_bsgs_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type dlog_bsgs_t = [dlog_bsgs_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct dlog_rho_struct {
     pub a: ulong,
     pub n: nmod_t,
@@ -3171,15 +2687,6 @@ const _: () = {
         "Offset of field: dlog_crt_struct::pre",
     ][::std::mem::offset_of!(dlog_crt_struct, pre) - 72usize];
 };
-impl Default for dlog_crt_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type dlog_crt_t = [dlog_crt_struct; 1usize];
 #[repr(C)]
 pub struct dlog_power_struct {
@@ -3211,15 +2718,6 @@ const _: () = {
         "Offset of field: dlog_power_struct::pre",
     ][::std::mem::offset_of!(dlog_power_struct, pre) - 48usize];
 };
-impl Default for dlog_power_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type dlog_power_t = [dlog_power_struct; 1usize];
 pub type dlog_order23_t = [ulong; 1usize];
 #[repr(C)]
@@ -3265,15 +2763,6 @@ const _: () = {
         "Offset of field: dlog_precomp_struct__bindgen_ty_1::order23",
     ][::std::mem::offset_of!(dlog_precomp_struct__bindgen_ty_1, order23) - 0usize];
 };
-impl Default for dlog_precomp_struct__bindgen_ty_1 {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
     [
@@ -3292,15 +2781,6 @@ const _: () = {
         "Offset of field: dlog_precomp_struct::t",
     ][::std::mem::offset_of!(dlog_precomp_struct, t) - 16usize];
 };
-impl Default for dlog_precomp_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type dlog_precomp_t = [dlog_precomp_struct; 1usize];
 #[repr(C)]
 pub struct dirichlet_prime_group_struct {
@@ -3338,15 +2818,6 @@ const _: () = {
         "Offset of field: dirichlet_prime_group_struct::dlog",
     ][::std::mem::offset_of!(dirichlet_prime_group_struct, dlog) - 72usize];
 };
-impl Default for dirichlet_prime_group_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct dirichlet_group_struct {
     pub q: ulong,
@@ -3403,15 +2874,6 @@ const _: () = {
         "Offset of field: dirichlet_group_struct::PHI",
     ][::std::mem::offset_of!(dirichlet_group_struct, PHI) - 96usize];
 };
-impl Default for dirichlet_group_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type dirichlet_group_t = [dirichlet_group_struct; 1usize];
 #[repr(C)]
 pub struct dirichlet_char_struct {
@@ -3433,15 +2895,6 @@ const _: () = {
         "Offset of field: dirichlet_char_struct::log",
     ][::std::mem::offset_of!(dirichlet_char_struct, log) - 8usize];
 };
-impl Default for dirichlet_char_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type dirichlet_char_t = [dirichlet_char_struct; 1usize];
 #[repr(C)]
 pub struct acb_dirichlet_hurwitz_precomp_struct {
@@ -3483,15 +2936,6 @@ const _: () = {
         "Offset of field: acb_dirichlet_hurwitz_precomp_struct::K",
     ][::std::mem::offset_of!(acb_dirichlet_hurwitz_precomp_struct, K) - 144usize];
 };
-impl Default for acb_dirichlet_hurwitz_precomp_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_dirichlet_hurwitz_precomp_t = [acb_dirichlet_hurwitz_precomp_struct; 1usize];
 #[repr(C)]
 pub struct acb_dirichlet_roots_struct {
@@ -3533,15 +2977,6 @@ const _: () = {
         "Offset of field: acb_dirichlet_roots_struct::use_pow",
     ][::std::mem::offset_of!(acb_dirichlet_roots_struct, use_pow) - 136usize];
 };
-impl Default for acb_dirichlet_roots_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_dirichlet_roots_t = [acb_dirichlet_roots_struct; 1usize];
 #[repr(C)]
 pub struct acb_dirichlet_platt_c_precomp_struct {
@@ -3571,15 +3006,6 @@ const _: () = {
         "Offset of field: acb_dirichlet_platt_c_precomp_struct::Xb",
     ][::std::mem::offset_of!(acb_dirichlet_platt_c_precomp_struct, Xb) - 64usize];
 };
-impl Default for acb_dirichlet_platt_c_precomp_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_dirichlet_platt_c_precomp_t = [acb_dirichlet_platt_c_precomp_struct; 1usize];
 #[repr(C)]
 pub struct acb_dirichlet_platt_i_precomp_struct {
@@ -3601,15 +3027,6 @@ const _: () = {
         "Offset of field: acb_dirichlet_platt_i_precomp_struct::c2",
     ][::std::mem::offset_of!(acb_dirichlet_platt_i_precomp_struct, c2) - 48usize];
 };
-impl Default for acb_dirichlet_platt_i_precomp_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_dirichlet_platt_i_precomp_t = [acb_dirichlet_platt_i_precomp_struct; 1usize];
 #[repr(C)]
 pub struct acb_dirichlet_platt_ws_precomp_struct {
@@ -3631,15 +3048,6 @@ const _: () = {
         "Offset of field: acb_dirichlet_platt_ws_precomp_struct::pre_i",
     ][::std::mem::offset_of!(acb_dirichlet_platt_ws_precomp_struct, pre_i) - 112usize];
 };
-impl Default for acb_dirichlet_platt_ws_precomp_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_dirichlet_platt_ws_precomp_t = [acb_dirichlet_platt_ws_precomp_struct; 1usize];
 #[repr(C)]
 pub struct fmpq_mat_struct {
@@ -3665,15 +3073,6 @@ const _: () = {
         "Offset of field: fmpq_mat_struct::rows",
     ][::std::mem::offset_of!(fmpq_mat_struct, rows) - 24usize];
 };
-impl Default for fmpq_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpq_mat_t = [fmpq_mat_struct; 1usize];
 #[repr(C)]
 pub struct fmpq_poly_struct {
@@ -3701,15 +3100,6 @@ const _: () = {
         "Offset of field: fmpq_poly_struct::den",
     ][::std::mem::offset_of!(fmpq_poly_struct, den) - 24usize];
 };
-impl Default for fmpq_poly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpq_poly_t = [fmpq_poly_struct; 1usize];
 #[repr(C)]
 pub struct fmpq_mpoly_struct {
@@ -3729,15 +3119,6 @@ const _: () = {
         "Offset of field: fmpq_mpoly_struct::zpoly",
     ][::std::mem::offset_of!(fmpq_mpoly_struct, zpoly) - 16usize];
 };
-impl Default for fmpq_mpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpq_mpoly_t = [fmpq_mpoly_struct; 1usize];
 #[repr(C)]
 pub struct fmpq_mpoly_factor_struct {
@@ -3771,18 +3152,8 @@ const _: () = {
         "Offset of field: fmpq_mpoly_factor_struct::alloc",
     ][::std::mem::offset_of!(fmpq_mpoly_factor_struct, alloc) - 40usize];
 };
-impl Default for fmpq_mpoly_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpq_mpoly_factor_t = [fmpq_mpoly_factor_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct psl2z_struct {
     pub a: fmpz,
     pub b: fmpz,
@@ -3871,15 +3242,6 @@ const _: () = {
         "Offset of field: acb_theta_eld_struct::box_",
     ][::std::mem::offset_of!(acb_theta_eld_struct, box_) - 96usize];
 };
-impl Default for acb_theta_eld_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acb_theta_eld_t = [acb_theta_eld_struct; 1usize];
 pub type acb_theta_naive_worker_t = ::std::option::Option<
     unsafe extern "C" fn(
@@ -3924,15 +3286,6 @@ const _: () = {
         "Offset of field: acf_struct::imag",
     ][::std::mem::offset_of!(acf_struct, imag) - 32usize];
 };
-impl Default for acf_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type acf_t = [acf_struct; 1usize];
 pub type acf_ptr = *mut acf_struct;
 pub type acf_srcptr = *const acf_struct;
@@ -3997,15 +3350,6 @@ const _: () = {
         "Offset of field: fmpz_mod_ctx::ninv_huge",
     ][::std::mem::offset_of!(fmpz_mod_ctx, ninv_huge) - 104usize];
 };
-impl Default for fmpz_mod_ctx {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_ctx_struct = fmpz_mod_ctx;
 pub type fmpz_mod_ctx_t = [fmpz_mod_ctx_struct; 1usize];
 pub type fmpz_mod_mat_struct = fmpz_mat_struct;
@@ -4034,15 +3378,6 @@ const _: () = {
         "Offset of field: fmpz_mod_poly_struct::length",
     ][::std::mem::offset_of!(fmpz_mod_poly_struct, length) - 16usize];
 };
-impl Default for fmpz_mod_poly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_poly_t = [fmpz_mod_poly_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_poly_factor_struct {
@@ -4072,15 +3407,6 @@ const _: () = {
         "Offset of field: fmpz_mod_poly_factor_struct::alloc",
     ][::std::mem::offset_of!(fmpz_mod_poly_factor_struct, alloc) - 24usize];
 };
-impl Default for fmpz_mod_poly_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_poly_factor_t = [fmpz_mod_poly_factor_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpoly_struct {
@@ -4118,15 +3444,6 @@ const _: () = {
         "Offset of field: fmpz_mod_mpoly_struct::exps_alloc",
     ][::std::mem::offset_of!(fmpz_mod_mpoly_struct, exps_alloc) - 40usize];
 };
-impl Default for fmpz_mod_mpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_mpoly_t = [fmpz_mod_mpoly_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpoly_factor_struct {
@@ -4160,15 +3477,6 @@ const _: () = {
         "Offset of field: fmpz_mod_mpoly_factor_struct::alloc",
     ][::std::mem::offset_of!(fmpz_mod_mpoly_factor_struct, alloc) - 32usize];
 };
-impl Default for fmpz_mod_mpoly_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_mpoly_factor_t = [fmpz_mod_mpoly_factor_struct; 1usize];
 #[repr(C)]
 pub struct _aprcl_config {
@@ -4198,15 +3506,6 @@ const _: () = {
         "Offset of field: _aprcl_config::qs_used",
     ][::std::mem::offset_of!(_aprcl_config, qs_used) - 240usize];
 };
-impl Default for _aprcl_config {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type aprcl_config = [_aprcl_config; 1usize];
 #[repr(C)]
 pub struct _unity_zpq {
@@ -4228,15 +3527,6 @@ const _: () = {
         "Offset of field: _unity_zpq::ctx",
     ][::std::mem::offset_of!(_unity_zpq, ctx) - 24usize];
 };
-impl Default for _unity_zpq {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type unity_zpq = [_unity_zpq; 1usize];
 #[repr(C)]
 pub struct _unity_zp {
@@ -4260,15 +3550,6 @@ const _: () = {
         "Offset of field: _unity_zp::ctx",
     ][::std::mem::offset_of!(_unity_zp, ctx) - 40usize];
 };
-impl Default for _unity_zp {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type unity_zp = [_unity_zp; 1usize];
 pub const primality_test_status_UNKNOWN: primality_test_status = 0;
 pub const primality_test_status_PRIME: primality_test_status = 1;
@@ -4285,7 +3566,6 @@ pub type arb_calc_func_t = ::std::option::Option<
     ) -> ::std::os::raw::c_int,
 >;
 #[repr(C)]
-#[derive(Default)]
 pub struct complex_double {
     pub real: f64,
     pub imag: f64,
@@ -4302,7 +3582,6 @@ const _: () = {
     ][::std::mem::offset_of!(complex_double, imag) - 8usize];
 };
 #[repr(C)]
-#[derive(Default)]
 pub struct arb_hypgeom_gamma_coeff_t {
     pub exp: ::std::os::raw::c_short,
     pub tab_pos: ::std::os::raw::c_short,
@@ -4364,15 +3643,6 @@ const _: () = {
         "Offset of field: trig_prod_struct::cos_q",
     ][::std::mem::offset_of!(trig_prod_struct, cos_q) - 536usize];
 };
-impl Default for trig_prod_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type trig_prod_t = [trig_prod_struct; 1usize];
 #[repr(C)]
 pub struct bernoulli_rev_struct {
@@ -4418,15 +3688,6 @@ const _: () = {
         "Offset of field: bernoulli_rev_struct::n",
     ][::std::mem::offset_of!(bernoulli_rev_struct, n) - 136usize];
 };
-impl Default for bernoulli_rev_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type bernoulli_rev_t = [bernoulli_rev_struct; 1usize];
 #[repr(C)]
 pub struct bool_mat_struct {
@@ -4452,15 +3713,6 @@ const _: () = {
         "Offset of field: bool_mat_struct::rows",
     ][::std::mem::offset_of!(bool_mat_struct, rows) - 24usize];
 };
-impl Default for bool_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type bool_mat_t = [bool_mat_struct; 1usize];
 pub type fq_nmod_t = nmod_poly_t;
 pub type fq_nmod_struct = nmod_poly_struct;
@@ -4512,15 +3764,6 @@ const _: () = {
         "Offset of field: fq_nmod_ctx_struct::var",
     ][::std::mem::offset_of!(fq_nmod_ctx_struct, var) - 152usize];
 };
-impl Default for fq_nmod_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_nmod_ctx_t = [fq_nmod_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_mat_struct {
@@ -4550,15 +3793,6 @@ const _: () = {
         "Offset of field: fq_nmod_mat_struct::rows",
     ][::std::mem::offset_of!(fq_nmod_mat_struct, rows) - 24usize];
 };
-impl Default for fq_nmod_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_nmod_mat_t = [fq_nmod_mat_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_poly_struct {
@@ -4584,15 +3818,6 @@ const _: () = {
         "Offset of field: fq_nmod_poly_struct::length",
     ][::std::mem::offset_of!(fq_nmod_poly_struct, length) - 16usize];
 };
-impl Default for fq_nmod_poly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_nmod_poly_t = [fq_nmod_poly_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_poly_factor_struct {
@@ -4622,15 +3847,6 @@ const _: () = {
         "Offset of field: fq_nmod_poly_factor_struct::alloc",
     ][::std::mem::offset_of!(fq_nmod_poly_factor_struct, alloc) - 24usize];
 };
-impl Default for fq_nmod_poly_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_nmod_poly_factor_t = [fq_nmod_poly_factor_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_mpoly_struct {
@@ -4668,15 +3884,6 @@ const _: () = {
         "Offset of field: fq_nmod_mpoly_struct::exps_alloc",
     ][::std::mem::offset_of!(fq_nmod_mpoly_struct, exps_alloc) - 40usize];
 };
-impl Default for fq_nmod_mpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_nmod_mpoly_t = [fq_nmod_mpoly_struct; 1usize];
 #[repr(C)]
 pub struct n_poly_struct {
@@ -4698,15 +3905,6 @@ const _: () = {
         "Offset of field: n_poly_struct::length",
     ][::std::mem::offset_of!(n_poly_struct, length) - 16usize];
 };
-impl Default for n_poly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type n_poly_t = [n_poly_struct; 1usize];
 pub type n_fq_poly_struct = n_poly_struct;
 pub type n_fq_poly_t = n_poly_t;
@@ -4730,15 +3928,6 @@ const _: () = {
         "Offset of field: n_bpoly_struct::length",
     ][::std::mem::offset_of!(n_bpoly_struct, length) - 16usize];
 };
-impl Default for n_bpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type n_bpoly_t = [n_bpoly_struct; 1usize];
 pub type n_fq_bpoly_struct = n_bpoly_struct;
 pub type n_fq_bpoly_t = n_bpoly_t;
@@ -4762,15 +3951,6 @@ const _: () = {
         "Offset of field: n_tpoly_struct::length",
     ][::std::mem::offset_of!(n_tpoly_struct, length) - 16usize];
 };
-impl Default for n_tpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type n_tpoly_t = [n_tpoly_struct; 1usize];
 pub type n_fq_tpoly_struct = n_tpoly_struct;
 pub type n_fq_tpoly_t = n_tpoly_t;
@@ -4798,15 +3978,6 @@ const _: () = {
         "Offset of field: n_polyu_struct::alloc",
     ][::std::mem::offset_of!(n_polyu_struct, alloc) - 24usize];
 };
-impl Default for n_polyu_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type n_polyu_t = [n_polyu_struct; 1usize];
 pub type n_fq_polyu_struct = n_polyu_struct;
 pub type n_fq_polyu_t = n_polyu_t;
@@ -4834,15 +4005,6 @@ const _: () = {
         "Offset of field: n_polyun_struct::alloc",
     ][::std::mem::offset_of!(n_polyun_struct, alloc) - 24usize];
 };
-impl Default for n_polyun_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type n_polyun_t = [n_polyun_struct; 1usize];
 pub type n_fq_polyun_struct = n_polyun_struct;
 pub type n_fq_polyun_t = n_polyun_t;
@@ -4870,15 +4032,6 @@ const _: () = {
         "Offset of field: n_poly_stack_struct::top",
     ][::std::mem::offset_of!(n_poly_stack_struct, top) - 16usize];
 };
-impl Default for n_poly_stack_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type n_poly_stack_t = [n_poly_stack_struct; 1usize];
 #[repr(C)]
 pub struct n_bpoly_stack_struct {
@@ -4904,15 +4057,6 @@ const _: () = {
         "Offset of field: n_bpoly_stack_struct::top",
     ][::std::mem::offset_of!(n_bpoly_stack_struct, top) - 16usize];
 };
-impl Default for n_bpoly_stack_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type n_bpoly_stack_t = [n_bpoly_stack_struct; 1usize];
 #[repr(C)]
 pub struct n_poly_bpoly_stack_struct {
@@ -4934,15 +4078,6 @@ const _: () = {
         "Offset of field: n_poly_bpoly_stack_struct::bpoly_stack",
     ][::std::mem::offset_of!(n_poly_bpoly_stack_struct, bpoly_stack) - 24usize];
 };
-impl Default for n_poly_bpoly_stack_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type n_poly_bpoly_stack_t = [n_poly_bpoly_stack_struct; 1usize];
 #[repr(C)]
 pub struct nmod_eval_interp_struct {
@@ -4988,15 +4123,6 @@ const _: () = {
         "Offset of field: nmod_eval_interp_struct::w",
     ][::std::mem::offset_of!(nmod_eval_interp_struct, w) - 56usize];
 };
-impl Default for nmod_eval_interp_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_eval_interp_t = [nmod_eval_interp_struct; 1usize];
 pub const ordering_t_ORD_LEX: ordering_t = 0;
 pub const ordering_t_ORD_DEGLEX: ordering_t = 1;
@@ -5040,15 +4166,6 @@ const _: () = {
         "Offset of field: mpoly_ctx_struct::lut_fix_bits",
     ][::std::mem::offset_of!(mpoly_ctx_struct, lut_fix_bits) - 544usize];
 };
-impl Default for mpoly_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type mpoly_ctx_t = [mpoly_ctx_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpoly_ctx_struct {
@@ -5070,15 +4187,6 @@ const _: () = {
         "Offset of field: nmod_mpoly_ctx_struct::mod_",
     ][::std::mem::offset_of!(nmod_mpoly_ctx_struct, mod_) - 608usize];
 };
-impl Default for nmod_mpoly_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_mpoly_ctx_t = [nmod_mpoly_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mpoly_ctx_struct {
@@ -5096,15 +4204,6 @@ const _: () = {
         "Offset of field: fmpz_mpoly_ctx_struct::minfo",
     ][::std::mem::offset_of!(fmpz_mpoly_ctx_struct, minfo) - 0usize];
 };
-impl Default for fmpz_mpoly_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mpoly_ctx_t = [fmpz_mpoly_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fmpq_mpoly_ctx_struct {
@@ -5122,15 +4221,6 @@ const _: () = {
         "Offset of field: fmpq_mpoly_ctx_struct::zctx",
     ][::std::mem::offset_of!(fmpq_mpoly_ctx_struct, zctx) - 0usize];
 };
-impl Default for fmpq_mpoly_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpq_mpoly_ctx_t = [fmpq_mpoly_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpoly_ctx_struct {
@@ -5152,15 +4242,6 @@ const _: () = {
         "Offset of field: fmpz_mod_mpoly_ctx_struct::ffinfo",
     ][::std::mem::offset_of!(fmpz_mod_mpoly_ctx_struct, ffinfo) - 608usize];
 };
-impl Default for fmpz_mod_mpoly_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_mpoly_ctx_t = [fmpz_mod_mpoly_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_mpoly_ctx_struct {
@@ -5182,15 +4263,6 @@ const _: () = {
         "Offset of field: fq_nmod_mpoly_ctx_struct::fqctx",
     ][::std::mem::offset_of!(fq_nmod_mpoly_ctx_struct, fqctx) - 608usize];
 };
-impl Default for fq_nmod_mpoly_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_nmod_mpoly_ctx_t = [fq_nmod_mpoly_ctx_struct; 1usize];
 #[repr(C)]
 pub struct _bindgen_ty_15 {
@@ -5379,15 +4451,6 @@ const _: () = {
         "Offset of field: _bindgen_ty_15::length",
     ][::std::mem::offset_of!(_bindgen_ty_15, length) - 144usize];
 };
-impl Default for _bindgen_ty_15 {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type mpoly_void_ring_t = [_bindgen_ty_15; 1usize];
 #[repr(C)]
 pub struct mpoly_gcd_info_struct {
@@ -5550,15 +4613,6 @@ const _: () = {
         "Offset of field: mpoly_gcd_info_struct::data",
     ][::std::mem::offset_of!(mpoly_gcd_info_struct, data) - 280usize];
 };
-impl Default for mpoly_gcd_info_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type mpoly_gcd_info_t = [mpoly_gcd_info_struct; 1usize];
 #[repr(C)]
 pub struct mpoly_compression_struct {
@@ -5620,15 +4674,6 @@ const _: () = {
         "Offset of field: mpoly_compression_struct::is_irred",
     ][::std::mem::offset_of!(mpoly_compression_struct, is_irred) - 80usize];
 };
-impl Default for mpoly_compression_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type mpoly_compression_t = [mpoly_compression_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpolyn_struct {
@@ -5662,15 +4707,6 @@ const _: () = {
         "Offset of field: nmod_mpolyn_struct::bits",
     ][::std::mem::offset_of!(nmod_mpolyn_struct, bits) - 32usize];
 };
-impl Default for nmod_mpolyn_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_mpolyn_t = [nmod_mpolyn_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpolyun_struct {
@@ -5704,15 +4740,6 @@ const _: () = {
         "Offset of field: nmod_mpolyun_struct::bits",
     ][::std::mem::offset_of!(nmod_mpolyun_struct, bits) - 32usize];
 };
-impl Default for nmod_mpolyun_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_mpolyun_t = [nmod_mpolyun_struct; 1usize];
 pub const nmod_gcds_ret_t_nmod_gcds_success: nmod_gcds_ret_t = 0;
 pub const nmod_gcds_ret_t_nmod_gcds_form_main_degree_too_high: nmod_gcds_ret_t = 1;
@@ -5750,15 +4777,6 @@ const _: () = {
         "Offset of field: fmpz_mpoly_univar_struct::length",
     ][::std::mem::offset_of!(fmpz_mpoly_univar_struct, length) - 24usize];
 };
-impl Default for fmpz_mpoly_univar_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mpoly_univar_t = [fmpz_mpoly_univar_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mpolyd_struct {
@@ -5796,15 +4814,6 @@ const _: () = {
         "Offset of field: fmpz_mpolyd_struct::coeffs",
     ][::std::mem::offset_of!(fmpz_mpolyd_struct, coeffs) - 40usize];
 };
-impl Default for fmpz_mpolyd_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mpolyd_t = [fmpz_mpolyd_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mpoly_vec_struct {
@@ -5830,15 +4839,6 @@ const _: () = {
         "Offset of field: fmpz_mpoly_vec_struct::length",
     ][::std::mem::offset_of!(fmpz_mpoly_vec_struct, length) - 16usize];
 };
-impl Default for fmpz_mpoly_vec_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mpoly_vec_t = [fmpz_mpoly_vec_struct; 1usize];
 #[repr(C)]
 pub struct _fmpz_mpoly_stripe_struct {
@@ -5900,15 +4900,6 @@ const _: () = {
         "Offset of field: _fmpz_mpoly_stripe_struct::flint_small",
     ][::std::mem::offset_of!(_fmpz_mpoly_stripe_struct, flint_small) - 84usize];
 };
-impl Default for _fmpz_mpoly_stripe_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mpoly_stripe_struct = _fmpz_mpoly_stripe_struct;
 pub type fmpz_mpoly_stripe_t = [fmpz_mpoly_stripe_struct; 1usize];
 #[repr(C)]
@@ -5931,15 +4922,6 @@ const _: () = {
         "Offset of field: fmpz_mpolyd_ctx_struct::perm",
     ][::std::mem::offset_of!(fmpz_mpolyd_ctx_struct, perm) - 8usize];
 };
-impl Default for fmpz_mpolyd_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mpolyd_ctx_t = [fmpz_mpolyd_ctx_struct; 1usize];
 #[repr(C)]
 pub struct _bindgen_ty_16 {
@@ -5965,15 +4947,6 @@ const _: () = {
         "Offset of field: _bindgen_ty_16::tmp",
     ][::std::mem::offset_of!(_bindgen_ty_16, tmp) - 24usize];
 };
-impl Default for _bindgen_ty_16 {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_pow_cache_t = [_bindgen_ty_16; 1usize];
 #[repr(C)]
 pub struct fmpz_mpoly_geobucket {
@@ -5999,15 +4972,6 @@ const _: () = {
         "Offset of field: fmpz_mpoly_geobucket::length",
     ][::std::mem::offset_of!(fmpz_mpoly_geobucket, length) - 2560usize];
 };
-impl Default for fmpz_mpoly_geobucket {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mpoly_geobucket_struct = fmpz_mpoly_geobucket;
 pub type fmpz_mpoly_geobucket_t = [fmpz_mpoly_geobucket_struct; 1usize];
 pub const truth_t_T_TRUE: truth_t = 0;
@@ -6040,15 +5004,6 @@ const _: () = {
         "Offset of field: gr_stream_struct::alloc",
     ][::std::mem::offset_of!(gr_stream_struct, alloc) - 24usize];
 };
-impl Default for gr_stream_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type gr_stream_t = [gr_stream_struct; 1usize];
 pub type gr_funcptr = ::std::option::Option<
     unsafe extern "C" fn() -> ::std::os::raw::c_int,
@@ -6081,15 +5036,6 @@ const _: () = {
         "Offset of field: gr_ctx_struct::size_limit",
     ][::std::mem::offset_of!(gr_ctx_struct, size_limit) - 72usize];
 };
-impl Default for gr_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type gr_ctx_t = [gr_ctx_struct; 1usize];
 pub type gr_ptr = *mut ::std::os::raw::c_void;
 pub type gr_srcptr = *const ::std::os::raw::c_void;
@@ -6114,15 +5060,6 @@ const _: () = {
         "Offset of field: gr_vec_struct::length",
     ][::std::mem::offset_of!(gr_vec_struct, length) - 16usize];
 };
-impl Default for gr_vec_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type gr_vec_t = [gr_vec_struct; 1usize];
 #[repr(C)]
 pub struct gr_mat_struct {
@@ -6148,15 +5085,6 @@ const _: () = {
         "Offset of field: gr_mat_struct::rows",
     ][::std::mem::offset_of!(gr_mat_struct, rows) - 24usize];
 };
-impl Default for gr_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type gr_mat_t = [gr_mat_struct; 1usize];
 #[repr(C)]
 pub struct gr_poly_struct {
@@ -6178,15 +5106,6 @@ const _: () = {
         "Offset of field: gr_poly_struct::length",
     ][::std::mem::offset_of!(gr_poly_struct, length) - 16usize];
 };
-impl Default for gr_poly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type gr_poly_t = [gr_poly_struct; 1usize];
 #[repr(C)]
 pub struct fexpr_struct {
@@ -6204,15 +5123,6 @@ const _: () = {
         "Offset of field: fexpr_struct::alloc",
     ][::std::mem::offset_of!(fexpr_struct, alloc) - 8usize];
 };
-impl Default for fexpr_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fexpr_t = [fexpr_struct; 1usize];
 pub type fexpr_ptr = *mut fexpr_struct;
 pub type fexpr_srcptr = *const fexpr_struct;
@@ -6238,15 +5148,6 @@ const _: () = {
         "Offset of field: fexpr_vec_struct::length",
     ][::std::mem::offset_of!(fexpr_vec_struct, length) - 16usize];
 };
-impl Default for fexpr_vec_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fexpr_vec_t = [fexpr_vec_struct; 1usize];
 #[repr(C)]
 pub struct qqbar_struct {
@@ -6264,21 +5165,11 @@ const _: () = {
         "Offset of field: qqbar_struct::enclosure",
     ][::std::mem::offset_of!(qqbar_struct, enclosure) - 24usize];
 };
-impl Default for qqbar_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type qqbar_t = [qqbar_struct; 1usize];
 pub type qqbar_ptr = *mut qqbar_struct;
 pub type qqbar_srcptr = *const qqbar_struct;
 /// 2x2 integer matrix
 #[repr(C)]
-#[derive(Default)]
 pub struct _fmpz_mat22_struct {
     pub _11: fmpz_t,
     pub _12: fmpz_t,
@@ -6312,7 +5203,6 @@ const _: () = {
 };
 pub type _fmpz_mat22_t = [_fmpz_mat22_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct _ui_mat22_struct {
     pub _11: ulong,
     pub _12: ulong,
@@ -6380,19 +5270,9 @@ const _: () = {
         "Offset of field: _fmpq_cfrac_list_struct::want_alt_sum",
     ][::std::mem::offset_of!(_fmpq_cfrac_list_struct, want_alt_sum) - 40usize];
 };
-impl Default for _fmpq_cfrac_list_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type _fmpq_cfrac_list_t = [_fmpq_cfrac_list_struct; 1usize];
 /// ball for closed interval [left, right]
 #[repr(C)]
-#[derive(Default)]
 pub struct _fmpq_ball_struct {
     pub left_num: fmpz_t,
     pub left_den: fmpz_t,
@@ -6443,15 +5323,6 @@ const _: () = {
         "Offset of field: fmpz_poly_powers_precomp_struct::len",
     ][::std::mem::offset_of!(fmpz_poly_powers_precomp_struct, len) - 8usize];
 };
-impl Default for fmpz_poly_powers_precomp_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_poly_powers_precomp_t = [fmpz_poly_powers_precomp_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_poly_mul_precache_struct {
@@ -6493,15 +5364,6 @@ const _: () = {
         "Offset of field: fmpz_poly_mul_precache_struct::poly2",
     ][::std::mem::offset_of!(fmpz_poly_mul_precache_struct, poly2) - 48usize];
 };
-impl Default for fmpz_poly_mul_precache_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_poly_mul_precache_t = [fmpz_poly_mul_precache_struct; 1usize];
 #[repr(C)]
 pub struct fmpq_poly_powers_precomp_struct {
@@ -6523,15 +5385,6 @@ const _: () = {
         "Offset of field: fmpq_poly_powers_precomp_struct::len",
     ][::std::mem::offset_of!(fmpq_poly_powers_precomp_struct, len) - 8usize];
 };
-impl Default for fmpq_poly_powers_precomp_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpq_poly_powers_precomp_t = [fmpq_poly_powers_precomp_struct; 1usize];
 #[repr(C)]
 pub struct nf_struct {
@@ -6558,15 +5411,6 @@ const _: () = {
         "Offset of field: nf_struct__bindgen_ty_1::qq",
     ][::std::mem::offset_of!(nf_struct__bindgen_ty_1, qq) - 0usize];
 };
-impl Default for nf_struct__bindgen_ty_1 {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct nf_struct__bindgen_ty_2 {
     pub qq: __BindgenUnionField<fmpq_poly_powers_precomp_t>,
@@ -6588,15 +5432,6 @@ const _: () = {
         "Offset of field: nf_struct__bindgen_ty_2::zz",
     ][::std::mem::offset_of!(nf_struct__bindgen_ty_2, zz) - 0usize];
 };
-impl Default for nf_struct__bindgen_ty_2 {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
     ["Size of nf_struct"][::std::mem::size_of::<nf_struct>() - 112usize];
@@ -6615,18 +5450,8 @@ const _: () = {
         "Offset of field: nf_struct::flag",
     ][::std::mem::offset_of!(nf_struct, flag) - 104usize];
 };
-impl Default for nf_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nf_t = [nf_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct lnf_elem_struct {
     pub num: fmpz_t,
     pub den: fmpz_t,
@@ -6644,7 +5469,6 @@ const _: () = {
 };
 pub type lnf_elem_t = [lnf_elem_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct qnf_elem_struct {
     pub num: [fmpz; 3usize],
     pub den: fmpz_t,
@@ -6682,15 +5506,6 @@ const _: () = {
         "Offset of field: nf_elem_struct::qelem",
     ][::std::mem::offset_of!(nf_elem_struct, qelem) - 0usize];
 };
-impl Default for nf_elem_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nf_elem_t = [nf_elem_struct; 1usize];
 pub const calcium_func_code_CA_QQBar: calcium_func_code = 0;
 pub const calcium_func_code_CA_Neg: calcium_func_code = 1;
@@ -6761,15 +5576,6 @@ const _: () = {
         "Offset of field: ca_elem_struct::mpoly_q",
     ][::std::mem::offset_of!(ca_elem_struct, mpoly_q) - 0usize];
 };
-impl Default for ca_elem_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct ca_struct {
     pub field: ulong,
@@ -6786,15 +5592,6 @@ const _: () = {
         "Offset of field: ca_struct::elem",
     ][::std::mem::offset_of!(ca_struct, elem) - 8usize];
 };
-impl Default for ca_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type ca_t = [ca_struct; 1usize];
 pub type ca_ptr = *mut ca_struct;
 pub type ca_srcptr = *const ca_struct;
@@ -6814,15 +5611,6 @@ const _: () = {
         "Offset of field: ca_ext_qqbar::nf",
     ][::std::mem::offset_of!(ca_ext_qqbar, nf) - 120usize];
 };
-impl Default for ca_ext_qqbar {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct ca_ext_func_data {
     pub args: *mut ca_struct,
@@ -6853,15 +5641,6 @@ const _: () = {
         "Offset of field: ca_ext_func_data::qqbar",
     ][::std::mem::offset_of!(ca_ext_func_data, qqbar) - 120usize];
 };
-impl Default for ca_ext_func_data {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct ca_ext_struct {
     pub head: calcium_func_code,
@@ -6890,15 +5669,6 @@ const _: () = {
         "Offset of field: ca_ext_struct__bindgen_ty_1::func_data",
     ][::std::mem::offset_of!(ca_ext_struct__bindgen_ty_1, func_data) - 0usize];
 };
-impl Default for ca_ext_struct__bindgen_ty_1 {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
     ["Size of ca_ext_struct"][::std::mem::size_of::<ca_ext_struct>() - 152usize];
@@ -6916,15 +5686,6 @@ const _: () = {
         "Offset of field: ca_ext_struct::data",
     ][::std::mem::offset_of!(ca_ext_struct, data) - 24usize];
 };
-impl Default for ca_ext_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type ca_ext_t = [ca_ext_struct; 1usize];
 pub type ca_ext_ptr = *mut ca_ext_struct;
 pub type ca_ext_srcptr = *const ca_ext_struct;
@@ -6960,15 +5721,6 @@ const _: () = {
         "Offset of field: ca_ext_cache_struct::hash_table",
     ][::std::mem::offset_of!(ca_ext_cache_struct, hash_table) - 32usize];
 };
-impl Default for ca_ext_cache_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type ca_ext_cache_t = [ca_ext_cache_struct; 1usize];
 #[repr(C)]
 pub struct ca_field_struct {
@@ -6994,15 +5746,6 @@ const _: () = {
         "Offset of field: ca_field_struct::hash",
     ][::std::mem::offset_of!(ca_field_struct, hash) - 40usize];
 };
-impl Default for ca_field_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type ca_field_t = [ca_field_struct; 1usize];
 pub type ca_field_ptr = *mut ca_field_struct;
 pub type ca_field_srcptr = *const ca_field_struct;
@@ -7038,15 +5781,6 @@ const _: () = {
         "Offset of field: ca_field_cache_struct::hash_table",
     ][::std::mem::offset_of!(ca_field_cache_struct, hash_table) - 32usize];
 };
-impl Default for ca_field_cache_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type ca_field_cache_t = [ca_field_cache_struct; 1usize];
 #[repr(C)]
 pub struct ca_ctx_struct {
@@ -7084,15 +5818,6 @@ const _: () = {
         "Offset of field: ca_ctx_struct::options",
     ][::std::mem::offset_of!(ca_ctx_struct, options) - 112usize];
 };
-impl Default for ca_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type ca_ctx_t = [ca_ctx_struct; 1usize];
 #[repr(C)]
 pub struct ca_factor_struct {
@@ -7120,15 +5845,6 @@ const _: () = {
         "Offset of field: ca_factor_struct::alloc",
     ][::std::mem::offset_of!(ca_factor_struct, alloc) - 24usize];
 };
-impl Default for ca_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type ca_factor_t = [ca_factor_struct; 1usize];
 #[repr(C)]
 pub struct ca_vec_struct {
@@ -7150,15 +5866,6 @@ const _: () = {
         "Offset of field: ca_vec_struct::length",
     ][::std::mem::offset_of!(ca_vec_struct, length) - 16usize];
 };
-impl Default for ca_vec_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type ca_vec_t = [ca_vec_struct; 1usize];
 #[repr(C)]
 pub struct ca_mat_struct {
@@ -7184,15 +5891,6 @@ const _: () = {
         "Offset of field: ca_mat_struct::rows",
     ][::std::mem::offset_of!(ca_mat_struct, rows) - 24usize];
 };
-impl Default for ca_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type ca_mat_t = [ca_mat_struct; 1usize];
 #[repr(C)]
 pub struct ca_poly_struct {
@@ -7214,15 +5912,6 @@ const _: () = {
         "Offset of field: ca_poly_struct::length",
     ][::std::mem::offset_of!(ca_poly_struct, length) - 16usize];
 };
-impl Default for ca_poly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type ca_poly_t = [ca_poly_struct; 1usize];
 pub const CA_OPT_VERBOSE: _bindgen_ty_17 = 0;
 pub const CA_OPT_PRINT_FLAGS: _bindgen_ty_17 = 1;
@@ -7265,15 +5954,6 @@ const _: () = {
         "Offset of field: ca_poly_vec_struct::alloc",
     ][::std::mem::offset_of!(ca_poly_vec_struct, alloc) - 16usize];
 };
-impl Default for ca_poly_vec_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type ca_poly_vec_t = [ca_poly_vec_struct; 1usize];
 #[repr(C)]
 pub struct d_mat_struct {
@@ -7299,15 +5979,6 @@ const _: () = {
         "Offset of field: d_mat_struct::rows",
     ][::std::mem::offset_of!(d_mat_struct, rows) - 24usize];
 };
-impl Default for d_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type d_mat_t = [d_mat_struct; 1usize];
 #[repr(C)]
 pub struct double_uint64_u {
@@ -7326,17 +5997,7 @@ const _: () = {
         "Offset of field: double_uint64_u::i",
     ][::std::mem::offset_of!(double_uint64_u, i) - 0usize];
 };
-impl Default for double_uint64_u {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
-#[derive(Default)]
 pub struct di_t {
     pub a: f64,
     pub b: f64,
@@ -7857,15 +6518,6 @@ const _: () = {
         "Offset of field: fexpr_symbol_info::latex_writer",
     ][::std::mem::offset_of!(fexpr_symbol_info, latex_writer) - 24usize];
 };
-impl Default for fexpr_symbol_info {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct fmpq_mpoly_univar_struct {
     pub coeffs: *mut fmpq_mpoly_struct,
@@ -7894,15 +6546,6 @@ const _: () = {
         "Offset of field: fmpq_mpoly_univar_struct::length",
     ][::std::mem::offset_of!(fmpq_mpoly_univar_struct, length) - 24usize];
 };
-impl Default for fmpq_mpoly_univar_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpq_mpoly_univar_t = [fmpq_mpoly_univar_struct; 1usize];
 #[repr(C)]
 pub struct ecm_s {
@@ -7944,15 +6587,6 @@ const _: () = {
         "Offset of field: ecm_s::normbits",
     ][::std::mem::offset_of!(ecm_s, normbits) - 96usize];
 };
-impl Default for ecm_s {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type ecm_t = [ecm_s; 1usize];
 pub type mpf = __mpf_struct;
 #[repr(C)]
@@ -7983,15 +6617,6 @@ const _: () = {
         "Offset of field: mpf_mat_struct::rows",
     ][::std::mem::offset_of!(mpf_mat_struct, rows) - 32usize];
 };
-impl Default for mpf_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type mpf_mat_t = [mpf_mat_struct; 1usize];
 pub const rep_type_GRAM: rep_type = 0;
 pub const rep_type_Z_BASIS: rep_type = 1;
@@ -8023,15 +6648,6 @@ const _: () = {
         "Offset of field: fmpz_lll_struct::gt",
     ][::std::mem::offset_of!(fmpz_lll_struct, gt) - 20usize];
 };
-impl Default for fmpz_lll_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_lll_t = [fmpz_lll_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_gram_union {
@@ -8054,18 +6670,8 @@ const _: () = {
         "Offset of field: fmpz_gram_union::exactSP",
     ][::std::mem::offset_of!(fmpz_gram_union, exactSP) - 0usize];
 };
-impl Default for fmpz_gram_union {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_gram_t = [fmpz_gram_union; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct fmpz_mod_discrete_log_pohlig_hellman_table_entry_struct {
     pub gammapow: fmpz_t,
     pub cm: ulong,
@@ -8161,15 +6767,6 @@ const _: () = {
     ][::std::mem::offset_of!(fmpz_mod_discrete_log_pohlig_hellman_entry_struct, table)
         - 80usize];
 };
-impl Default for fmpz_mod_discrete_log_pohlig_hellman_entry_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct fmpz_mod_discrete_log_pohlig_hellman_struct {
     pub fpctx: fmpz_mod_ctx_t,
@@ -8212,18 +6809,8 @@ const _: () = {
     ][::std::mem::offset_of!(fmpz_mod_discrete_log_pohlig_hellman_struct, entries)
         - 144usize];
 };
-impl Default for fmpz_mod_discrete_log_pohlig_hellman_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_discrete_log_pohlig_hellman_t = [fmpz_mod_discrete_log_pohlig_hellman_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct fmpz_mod_poly_res_struct {
     pub res: fmpz_t,
     pub lc: fmpz_t,
@@ -8276,15 +6863,6 @@ const _: () = {
         "Offset of field: fmpz_mod_poly_frobenius_powers_2exp_struct::len",
     ][::std::mem::offset_of!(fmpz_mod_poly_frobenius_powers_2exp_struct, len) - 8usize];
 };
-impl Default for fmpz_mod_poly_frobenius_powers_2exp_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_poly_frobenius_powers_2exp_t = [fmpz_mod_poly_frobenius_powers_2exp_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_poly_frobenius_powers_struct {
@@ -8306,15 +6884,6 @@ const _: () = {
         "Offset of field: fmpz_mod_poly_frobenius_powers_struct::len",
     ][::std::mem::offset_of!(fmpz_mod_poly_frobenius_powers_struct, len) - 8usize];
 };
-impl Default for fmpz_mod_poly_frobenius_powers_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_poly_frobenius_powers_t = [fmpz_mod_poly_frobenius_powers_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_poly_matrix_precompute_arg_t {
@@ -8348,15 +6917,6 @@ const _: () = {
         "Offset of field: fmpz_mod_poly_matrix_precompute_arg_t::ctx",
     ][::std::mem::offset_of!(fmpz_mod_poly_matrix_precompute_arg_t, ctx) - 32usize];
 };
-impl Default for fmpz_mod_poly_matrix_precompute_arg_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct fmpz_mod_poly_compose_mod_precomp_preinv_arg_t {
     pub A: *mut fmpz_mat_struct,
@@ -8399,15 +6959,6 @@ const _: () = {
     ][::std::mem::offset_of!(fmpz_mod_poly_compose_mod_precomp_preinv_arg_t, ctx)
         - 40usize];
 };
-impl Default for fmpz_mod_poly_compose_mod_precomp_preinv_arg_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct fmpz_mod_poly_radix_struct {
     pub V: *mut fmpz,
@@ -8448,15 +6999,6 @@ const _: () = {
         "Offset of field: fmpz_mod_poly_radix_struct::invL",
     ][::std::mem::offset_of!(fmpz_mod_poly_radix_struct, invL) - 48usize];
 };
-impl Default for fmpz_mod_poly_radix_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_poly_radix_t = [fmpz_mod_poly_radix_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_berlekamp_massey_struct {
@@ -8502,15 +7044,6 @@ const _: () = {
         "Offset of field: fmpz_mod_berlekamp_massey_struct::points",
     ][::std::mem::offset_of!(fmpz_mod_berlekamp_massey_struct, points) - 152usize];
 };
-impl Default for fmpz_mod_berlekamp_massey_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_berlekamp_massey_t = [fmpz_mod_berlekamp_massey_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpoly_univar_struct {
@@ -8540,15 +7073,6 @@ const _: () = {
         "Offset of field: fmpz_mod_mpoly_univar_struct::length",
     ][::std::mem::offset_of!(fmpz_mod_mpoly_univar_struct, length) - 24usize];
 };
-impl Default for fmpz_mod_mpoly_univar_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_mpoly_univar_t = [fmpz_mod_mpoly_univar_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpoly_geobucket {
@@ -8574,15 +7098,6 @@ const _: () = {
         "Offset of field: fmpz_mod_mpoly_geobucket::length",
     ][::std::mem::offset_of!(fmpz_mod_mpoly_geobucket, length) - 3072usize];
 };
-impl Default for fmpz_mod_mpoly_geobucket {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_mpoly_geobucket_struct = fmpz_mod_mpoly_geobucket;
 pub type fmpz_mod_mpoly_geobucket_t = [fmpz_mod_mpoly_geobucket_struct; 1usize];
 #[repr(C)]
@@ -8609,15 +7124,6 @@ const _: () = {
         "Offset of field: fmpz_mod_bpoly_struct::length",
     ][::std::mem::offset_of!(fmpz_mod_bpoly_struct, length) - 16usize];
 };
-impl Default for fmpz_mod_bpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_bpoly_t = [fmpz_mod_bpoly_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_tpoly_struct {
@@ -8643,15 +7149,6 @@ const _: () = {
         "Offset of field: fmpz_mod_tpoly_struct::length",
     ][::std::mem::offset_of!(fmpz_mod_tpoly_struct, length) - 16usize];
 };
-impl Default for fmpz_mod_tpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_tpoly_t = [fmpz_mod_tpoly_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_polyu_struct {
@@ -8681,15 +7178,6 @@ const _: () = {
         "Offset of field: fmpz_mod_polyu_struct::alloc",
     ][::std::mem::offset_of!(fmpz_mod_polyu_struct, alloc) - 24usize];
 };
-impl Default for fmpz_mod_polyu_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_polyu_t = [fmpz_mod_polyu_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_polyun_struct {
@@ -8719,15 +7207,6 @@ const _: () = {
         "Offset of field: fmpz_mod_polyun_struct::length",
     ][::std::mem::offset_of!(fmpz_mod_polyun_struct, length) - 24usize];
 };
-impl Default for fmpz_mod_polyun_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_polyun_t = [fmpz_mod_polyun_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpolyu_struct {
@@ -8761,15 +7240,6 @@ const _: () = {
         "Offset of field: fmpz_mod_mpolyu_struct::bits",
     ][::std::mem::offset_of!(fmpz_mod_mpolyu_struct, bits) - 32usize];
 };
-impl Default for fmpz_mod_mpolyu_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_mpolyu_t = [fmpz_mod_mpolyu_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpolyn_struct {
@@ -8803,15 +7273,6 @@ const _: () = {
         "Offset of field: fmpz_mod_mpolyn_struct::bits",
     ][::std::mem::offset_of!(fmpz_mod_mpolyn_struct, bits) - 32usize];
 };
-impl Default for fmpz_mod_mpolyn_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_mpolyn_t = [fmpz_mod_mpolyn_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_poly_stack_struct {
@@ -8837,15 +7298,6 @@ const _: () = {
         "Offset of field: fmpz_mod_poly_stack_struct::top",
     ][::std::mem::offset_of!(fmpz_mod_poly_stack_struct, top) - 16usize];
 };
-impl Default for fmpz_mod_poly_stack_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_poly_stack_t = [fmpz_mod_poly_stack_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_bpoly_stack_struct {
@@ -8871,15 +7323,6 @@ const _: () = {
         "Offset of field: fmpz_mod_bpoly_stack_struct::top",
     ][::std::mem::offset_of!(fmpz_mod_bpoly_stack_struct, top) - 16usize];
 };
-impl Default for fmpz_mod_bpoly_stack_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_bpoly_stack_t = [fmpz_mod_bpoly_stack_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_polyun_stack_struct {
@@ -8905,15 +7348,6 @@ const _: () = {
         "Offset of field: fmpz_mod_polyun_stack_struct::top",
     ][::std::mem::offset_of!(fmpz_mod_polyun_stack_struct, top) - 16usize];
 };
-impl Default for fmpz_mod_polyun_stack_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_polyun_stack_t = [fmpz_mod_polyun_stack_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpolyn_stack_struct {
@@ -8943,15 +7377,6 @@ const _: () = {
         "Offset of field: fmpz_mod_mpolyn_stack_struct::bits",
     ][::std::mem::offset_of!(fmpz_mod_mpolyn_stack_struct, bits) - 24usize];
 };
-impl Default for fmpz_mod_mpolyn_stack_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_mpolyn_stack_t = [fmpz_mod_mpolyn_stack_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_poly_bpoly_stack_struct {
@@ -8973,15 +7398,6 @@ const _: () = {
         "Offset of field: fmpz_mod_poly_bpoly_stack_struct::bpoly_stack",
     ][::std::mem::offset_of!(fmpz_mod_poly_bpoly_stack_struct, bpoly_stack) - 24usize];
 };
-impl Default for fmpz_mod_poly_bpoly_stack_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_poly_bpoly_stack_t = [fmpz_mod_poly_bpoly_stack_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_poly_polyun_stack_struct {
@@ -9003,15 +7419,6 @@ const _: () = {
         "Offset of field: fmpz_mod_poly_polyun_stack_struct::polyun_stack",
     ][::std::mem::offset_of!(fmpz_mod_poly_polyun_stack_struct, polyun_stack) - 24usize];
 };
-impl Default for fmpz_mod_poly_polyun_stack_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_poly_polyun_stack_t = [fmpz_mod_poly_polyun_stack_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_poly_polyun_mpolyn_stack_struct {
@@ -9040,15 +7447,6 @@ const _: () = {
     ][::std::mem::offset_of!(fmpz_mod_poly_polyun_mpolyn_stack_struct, mpolyn_stack)
         - 48usize];
 };
-impl Default for fmpz_mod_poly_polyun_mpolyn_stack_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_poly_polyun_mpolyn_stack_t = [fmpz_mod_poly_polyun_mpolyn_stack_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpolyv_struct {
@@ -9074,15 +7472,6 @@ const _: () = {
         "Offset of field: fmpz_mod_mpolyv_struct::length",
     ][::std::mem::offset_of!(fmpz_mod_mpolyv_struct, length) - 16usize];
 };
-impl Default for fmpz_mod_mpolyv_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_mpolyv_t = [fmpz_mod_mpolyv_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpoly_pfrac_struct {
@@ -9177,15 +7566,6 @@ const _: () = {
         "Offset of field: fmpz_mod_mpoly_pfrac_struct::R",
     ][::std::mem::offset_of!(fmpz_mod_mpoly_pfrac_struct, R) - 232usize];
 };
-impl Default for fmpz_mod_mpoly_pfrac_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mod_mpoly_pfrac_t = [fmpz_mod_mpoly_pfrac_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_poly_interval_poly_arg_t {
@@ -9231,15 +7611,6 @@ const _: () = {
         "Offset of field: fmpz_mod_poly_interval_poly_arg_t::m",
     ][::std::mem::offset_of!(fmpz_mod_poly_interval_poly_arg_t, m) - 56usize];
 };
-impl Default for fmpz_mod_poly_interval_poly_arg_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct zassenhaus_prune_struct {
     pub deg: slong,
@@ -9276,15 +7647,6 @@ const _: () = {
         "Offset of field: zassenhaus_prune_struct::alloc",
     ][::std::mem::offset_of!(zassenhaus_prune_struct, alloc) - 40usize];
 };
-impl Default for zassenhaus_prune_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type zassenhaus_prune_t = [zassenhaus_prune_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mpolyv_struct {
@@ -9310,15 +7672,6 @@ const _: () = {
         "Offset of field: fmpz_mpolyv_struct::length",
     ][::std::mem::offset_of!(fmpz_mpolyv_struct, length) - 16usize];
 };
-impl Default for fmpz_mpolyv_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mpolyv_t = [fmpz_mpolyv_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_poly_pfrac_struct {
@@ -9412,15 +7765,6 @@ const _: () = {
         "Offset of field: fmpz_poly_pfrac_struct::B_inv",
     ][::std::mem::offset_of!(fmpz_poly_pfrac_struct, B_inv) - 352usize];
 };
-impl Default for fmpz_poly_pfrac_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_poly_pfrac_t = [fmpz_poly_pfrac_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mpoly_pfrac_struct {
@@ -9502,15 +7846,6 @@ const _: () = {
         "Offset of field: fmpz_mpoly_pfrac_struct::uni_c",
     ][::std::mem::offset_of!(fmpz_mpoly_pfrac_struct, uni_c) - 496usize];
 };
-impl Default for fmpz_mpoly_pfrac_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_mpoly_pfrac_t = [fmpz_mpoly_pfrac_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_bpoly_struct {
@@ -9534,15 +7869,6 @@ const _: () = {
         "Offset of field: fmpz_bpoly_struct::length",
     ][::std::mem::offset_of!(fmpz_bpoly_struct, length) - 16usize];
 };
-impl Default for fmpz_bpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_bpoly_t = [fmpz_bpoly_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_tpoly_struct {
@@ -9566,18 +7892,8 @@ const _: () = {
         "Offset of field: fmpz_tpoly_struct::length",
     ][::std::mem::offset_of!(fmpz_tpoly_struct, length) - 16usize];
 };
-impl Default for fmpz_tpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fmpz_tpoly_t = [fmpz_tpoly_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct nmod_poly_res_struct {
     pub res: ulong,
     pub lc: ulong,
@@ -9638,15 +7954,6 @@ const _: () = {
         "Offset of field: nmod_poly_matrix_precompute_arg_t::poly2inv",
     ][::std::mem::offset_of!(nmod_poly_matrix_precompute_arg_t, poly2inv) - 24usize];
 };
-impl Default for nmod_poly_matrix_precompute_arg_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct nmod_poly_compose_mod_precomp_preinv_arg_t {
     pub A: *mut nmod_mat_struct,
@@ -9682,15 +7989,6 @@ const _: () = {
     ][::std::mem::offset_of!(nmod_poly_compose_mod_precomp_preinv_arg_t, poly3inv)
         - 32usize];
 };
-impl Default for nmod_poly_compose_mod_precomp_preinv_arg_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct _nmod_poly_multi_crt_prog_instr {
     pub a_idx: slong,
@@ -9723,15 +8021,6 @@ const _: () = {
         "Offset of field: _nmod_poly_multi_crt_prog_instr::modulus",
     ][::std::mem::offset_of!(_nmod_poly_multi_crt_prog_instr, modulus) - 72usize];
 };
-impl Default for _nmod_poly_multi_crt_prog_instr {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct nmod_poly_multi_crt_struct {
     pub prog: *mut _nmod_poly_multi_crt_prog_instr,
@@ -9772,15 +8061,6 @@ const _: () = {
         "Offset of field: nmod_poly_multi_crt_struct::good",
     ][::std::mem::offset_of!(nmod_poly_multi_crt_struct, good) - 48usize];
 };
-impl Default for nmod_poly_multi_crt_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_poly_multi_crt_t = [nmod_poly_multi_crt_struct; 1usize];
 #[repr(C)]
 pub struct nmod_berlekamp_massey_struct {
@@ -9826,15 +8106,6 @@ const _: () = {
         "Offset of field: nmod_berlekamp_massey_struct::points",
     ][::std::mem::offset_of!(nmod_berlekamp_massey_struct, points) - 296usize];
 };
-impl Default for nmod_berlekamp_massey_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_berlekamp_massey_t = [nmod_berlekamp_massey_struct; 1usize];
 pub type fq_t = fmpz_poly_t;
 pub type fq_struct = fmpz_poly_struct;
@@ -9882,15 +8153,6 @@ const _: () = {
         "Offset of field: fq_ctx_struct::var",
     ][::std::mem::offset_of!(fq_ctx_struct, var) - 192usize];
 };
-impl Default for fq_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_ctx_t = [fq_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fq_mat_struct {
@@ -9916,15 +8178,6 @@ const _: () = {
         "Offset of field: fq_mat_struct::rows",
     ][::std::mem::offset_of!(fq_mat_struct, rows) - 24usize];
 };
-impl Default for fq_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_mat_t = [fq_mat_struct; 1usize];
 #[repr(C)]
 pub struct fq_poly_struct {
@@ -9946,15 +8199,6 @@ const _: () = {
         "Offset of field: fq_poly_struct::length",
     ][::std::mem::offset_of!(fq_poly_struct, length) - 16usize];
 };
-impl Default for fq_poly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_poly_t = [fq_poly_struct; 1usize];
 #[repr(C)]
 pub struct fq_poly_factor_struct {
@@ -9984,18 +8228,8 @@ const _: () = {
         "Offset of field: fq_poly_factor_struct::alloc",
     ][::std::mem::offset_of!(fq_poly_factor_struct, alloc) - 24usize];
 };
-impl Default for fq_poly_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_poly_factor_t = [fq_poly_factor_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct fq_zech_struct {
     pub value: ulong,
 }
@@ -10068,15 +8302,6 @@ const _: () = {
         "Offset of field: fq_zech_ctx_struct::is_conway",
     ][::std::mem::offset_of!(fq_zech_ctx_struct, is_conway) - 84usize];
 };
-impl Default for fq_zech_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_ctx_t = [fq_zech_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mat_struct {
@@ -10106,15 +8331,6 @@ const _: () = {
         "Offset of field: fq_zech_mat_struct::rows",
     ][::std::mem::offset_of!(fq_zech_mat_struct, rows) - 24usize];
 };
-impl Default for fq_zech_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_mat_t = [fq_zech_mat_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_poly_struct {
@@ -10140,15 +8356,6 @@ const _: () = {
         "Offset of field: fq_zech_poly_struct::length",
     ][::std::mem::offset_of!(fq_zech_poly_struct, length) - 16usize];
 };
-impl Default for fq_zech_poly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_poly_t = [fq_zech_poly_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_poly_factor_struct {
@@ -10178,15 +8385,6 @@ const _: () = {
         "Offset of field: fq_zech_poly_factor_struct::alloc",
     ][::std::mem::offset_of!(fq_zech_poly_factor_struct, alloc) - 24usize];
 };
-impl Default for fq_zech_poly_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_poly_factor_t = [fq_zech_poly_factor_struct; 1usize];
 pub const gr_method_GR_METHOD_CTX_WRITE: gr_method = 0;
 pub const gr_method_GR_METHOD_CTX_CLEAR: gr_method = 1;
@@ -10747,15 +8945,6 @@ const _: () = {
         "Offset of field: gr_method_tab_input::function",
     ][::std::mem::offset_of!(gr_method_tab_input, function) - 8usize];
 };
-impl Default for gr_method_tab_input {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub const gr_which_structure_GR_CTX_FMPZ: gr_which_structure = 0;
 pub const gr_which_structure_GR_CTX_FMPQ: gr_which_structure = 1;
 pub const gr_which_structure_GR_CTX_FMPZI: gr_which_structure = 2;
@@ -11517,15 +9706,6 @@ const _: () = {
         "Offset of field: polynomial_ctx_t::var",
     ][::std::mem::offset_of!(polynomial_ctx_t, var) - 16usize];
 };
-impl Default for polynomial_ctx_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct series_mod_ctx_t {
     pub base_ring: *mut gr_ctx_struct,
@@ -11548,17 +9728,7 @@ const _: () = {
         "Offset of field: series_mod_ctx_t::var",
     ][::std::mem::offset_of!(series_mod_ctx_t, var) - 16usize];
 };
-impl Default for series_mod_ctx_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
-#[derive(Default)]
 pub struct gr_series_ctx_struct {
     pub prec: slong,
 }
@@ -11595,15 +9765,6 @@ const _: () = {
         "Offset of field: series_ctx_t::var",
     ][::std::mem::offset_of!(series_ctx_t, var) - 16usize];
 };
-impl Default for series_ctx_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct vector_ctx_t {
     pub base_ring: *mut gr_ctx_struct,
@@ -11624,15 +9785,6 @@ const _: () = {
         "Offset of field: vector_ctx_t::n",
     ][::std::mem::offset_of!(vector_ctx_t, n) - 16usize];
 };
-impl Default for vector_ctx_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct matrix_ctx_t {
     pub base_ring: *mut gr_ctx_struct,
@@ -11657,15 +9809,6 @@ const _: () = {
         "Offset of field: matrix_ctx_t::ncols",
     ][::std::mem::offset_of!(matrix_ctx_t, ncols) - 24usize];
 };
-impl Default for matrix_ctx_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct fq_default_struct {
     pub fq: __BindgenUnionField<fq_t>,
@@ -11697,15 +9840,6 @@ const _: () = {
         "Offset of field: fq_default_struct::fmpz_mod",
     ][::std::mem::offset_of!(fq_default_struct, fmpz_mod) - 0usize];
 };
-impl Default for fq_default_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_default_t = [fq_default_struct; 1usize];
 pub type fq_default_ctx_struct = gr_ctx_struct;
 pub type fq_default_ctx_t = [fq_default_ctx_struct; 1usize];
@@ -11733,17 +9867,7 @@ const _: () = {
         "Offset of field: _gr_fmpz_mod_ctx_struct::a",
     ][::std::mem::offset_of!(_gr_fmpz_mod_ctx_struct, a) - 16usize];
 };
-impl Default for _gr_fmpz_mod_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
-#[derive(Default)]
 pub struct _gr_nmod_ctx_struct {
     pub nmod: nmod_t,
     pub a: ulong,
@@ -11796,15 +9920,6 @@ const _: () = {
         "Offset of field: fq_default_mat_struct::fmpz_mod",
     ][::std::mem::offset_of!(fq_default_mat_struct, fmpz_mod) - 0usize];
 };
-impl Default for fq_default_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_default_mat_t = [fq_default_mat_struct; 1usize];
 #[repr(C)]
 pub struct nmod_poly_interval_poly_arg_t {
@@ -11846,15 +9961,6 @@ const _: () = {
         "Offset of field: nmod_poly_interval_poly_arg_t::m",
     ][::std::mem::offset_of!(nmod_poly_interval_poly_arg_t, m) - 48usize];
 };
-impl Default for nmod_poly_interval_poly_arg_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct fq_default_poly_struct {
     pub fq: __BindgenUnionField<fq_poly_t>,
@@ -11888,15 +9994,6 @@ const _: () = {
         "Offset of field: fq_default_poly_struct::fmpz_mod",
     ][::std::mem::offset_of!(fq_default_poly_struct, fmpz_mod) - 0usize];
 };
-impl Default for fq_default_poly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_default_poly_t = [fq_default_poly_struct; 1usize];
 #[repr(C)]
 pub struct fq_default_poly_factor_struct {
@@ -11931,15 +10028,6 @@ const _: () = {
         "Offset of field: fq_default_poly_factor_struct::fmpz_mod",
     ][::std::mem::offset_of!(fq_default_poly_factor_struct, fmpz_mod) - 0usize];
 };
-impl Default for fq_default_poly_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_default_poly_factor_t = [fq_default_poly_factor_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_mpoly_univar_struct {
@@ -11969,15 +10057,6 @@ const _: () = {
         "Offset of field: fq_nmod_mpoly_univar_struct::length",
     ][::std::mem::offset_of!(fq_nmod_mpoly_univar_struct, length) - 24usize];
 };
-impl Default for fq_nmod_mpoly_univar_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_nmod_mpoly_univar_t = [fq_nmod_mpoly_univar_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_mpolyu_struct {
@@ -12011,15 +10090,6 @@ const _: () = {
         "Offset of field: fq_nmod_mpolyu_struct::bits",
     ][::std::mem::offset_of!(fq_nmod_mpolyu_struct, bits) - 32usize];
 };
-impl Default for fq_nmod_mpolyu_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_nmod_mpolyu_t = [fq_nmod_mpolyu_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_mpolyn_struct {
@@ -12053,15 +10123,6 @@ const _: () = {
         "Offset of field: fq_nmod_mpolyn_struct::bits",
     ][::std::mem::offset_of!(fq_nmod_mpolyn_struct, bits) - 32usize];
 };
-impl Default for fq_nmod_mpolyn_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_nmod_mpolyn_t = [fq_nmod_mpolyn_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_mpolyun_struct {
@@ -12095,15 +10156,6 @@ const _: () = {
         "Offset of field: fq_nmod_mpolyun_struct::bits",
     ][::std::mem::offset_of!(fq_nmod_mpolyun_struct, bits) - 32usize];
 };
-impl Default for fq_nmod_mpolyun_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_nmod_mpolyun_t = [fq_nmod_mpolyun_struct; 1usize];
 #[repr(C)]
 pub struct bad_fq_nmod_embed {
@@ -12151,15 +10203,6 @@ const _: () = {
         "Offset of field: bad_fq_nmod_embed::sm_to_lg_mat",
     ][::std::mem::offset_of!(bad_fq_nmod_embed, sm_to_lg_mat) - 240usize];
 };
-impl Default for bad_fq_nmod_embed {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type bad_fq_nmod_embed_struct = bad_fq_nmod_embed;
 pub type bad_fq_nmod_embed_t = [bad_fq_nmod_embed_struct; 1usize];
 #[repr(C)]
@@ -12194,15 +10237,6 @@ const _: () = {
         "Offset of field: bad_fq_nmod_mpoly_embed_chooser::p",
     ][::std::mem::offset_of!(bad_fq_nmod_mpoly_embed_chooser, p) - 32usize];
 };
-impl Default for bad_fq_nmod_mpoly_embed_chooser {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type bad_fq_nmod_mpoly_embed_chooser_struct = bad_fq_nmod_mpoly_embed_chooser;
 pub type bad_fq_nmod_mpoly_embed_chooser_t = [bad_fq_nmod_mpoly_embed_chooser_struct; 1usize];
 #[repr(C)]
@@ -12229,15 +10263,6 @@ const _: () = {
         "Offset of field: fq_nmod_mpoly_geobucket::length",
     ][::std::mem::offset_of!(fq_nmod_mpoly_geobucket, length) - 3072usize];
 };
-impl Default for fq_nmod_mpoly_geobucket {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_nmod_mpoly_geobucket_struct = fq_nmod_mpoly_geobucket;
 pub type fq_nmod_mpoly_geobucket_t = [fq_nmod_mpoly_geobucket_struct; 1usize];
 #[repr(C)]
@@ -12272,15 +10297,6 @@ const _: () = {
         "Offset of field: fq_nmod_mpoly_factor_struct::alloc",
     ][::std::mem::offset_of!(fq_nmod_mpoly_factor_struct, alloc) - 72usize];
 };
-impl Default for fq_nmod_mpoly_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_nmod_mpoly_factor_t = [fq_nmod_mpoly_factor_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_mpolyv_struct {
@@ -12306,15 +10322,6 @@ const _: () = {
         "Offset of field: fq_nmod_mpolyv_struct::length",
     ][::std::mem::offset_of!(fq_nmod_mpolyv_struct, length) - 16usize];
 };
-impl Default for fq_nmod_mpolyv_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_nmod_mpolyv_t = [fq_nmod_mpolyv_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_mpoly_pfrac_struct {
@@ -12409,15 +10416,6 @@ const _: () = {
         "Offset of field: fq_nmod_mpoly_pfrac_struct::R",
     ][::std::mem::offset_of!(fq_nmod_mpoly_pfrac_struct, R) - 232usize];
 };
-impl Default for fq_nmod_mpoly_pfrac_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_nmod_mpoly_pfrac_t = [fq_nmod_mpoly_pfrac_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpoly_ctx_struct {
@@ -12439,15 +10437,6 @@ const _: () = {
         "Offset of field: fq_zech_mpoly_ctx_struct::fqctx",
     ][::std::mem::offset_of!(fq_zech_mpoly_ctx_struct, fqctx) - 608usize];
 };
-impl Default for fq_zech_mpoly_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_mpoly_ctx_t = [fq_zech_mpoly_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpoly_struct {
@@ -12481,15 +10470,6 @@ const _: () = {
         "Offset of field: fq_zech_mpoly_struct::bits",
     ][::std::mem::offset_of!(fq_zech_mpoly_struct, bits) - 32usize];
 };
-impl Default for fq_zech_mpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_mpoly_t = [fq_zech_mpoly_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpoly_univar_struct {
@@ -12519,15 +10499,6 @@ const _: () = {
         "Offset of field: fq_zech_mpoly_univar_struct::length",
     ][::std::mem::offset_of!(fq_zech_mpoly_univar_struct, length) - 24usize];
 };
-impl Default for fq_zech_mpoly_univar_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_mpoly_univar_t = [fq_zech_mpoly_univar_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpolyu_struct {
@@ -12561,15 +10532,6 @@ const _: () = {
         "Offset of field: fq_zech_mpolyu_struct::bits",
     ][::std::mem::offset_of!(fq_zech_mpolyu_struct, bits) - 32usize];
 };
-impl Default for fq_zech_mpolyu_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_mpolyu_t = [fq_zech_mpolyu_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpolyn_struct {
@@ -12603,15 +10565,6 @@ const _: () = {
         "Offset of field: fq_zech_mpolyn_struct::bits",
     ][::std::mem::offset_of!(fq_zech_mpolyn_struct, bits) - 32usize];
 };
-impl Default for fq_zech_mpolyn_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_mpolyn_t = [fq_zech_mpolyn_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpolyun_struct {
@@ -12645,15 +10598,6 @@ const _: () = {
         "Offset of field: fq_zech_mpolyun_struct::bits",
     ][::std::mem::offset_of!(fq_zech_mpolyun_struct, bits) - 32usize];
 };
-impl Default for fq_zech_mpolyun_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_mpolyun_t = [fq_zech_mpolyun_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpoly_geobucket {
@@ -12675,15 +10619,6 @@ const _: () = {
         "Offset of field: fq_zech_mpoly_geobucket::length",
     ][::std::mem::offset_of!(fq_zech_mpoly_geobucket, length) - 1280usize];
 };
-impl Default for fq_zech_mpoly_geobucket {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_mpoly_geobucket_struct = fq_zech_mpoly_geobucket;
 pub type fq_zech_mpoly_geobucket_t = [fq_zech_mpoly_geobucket_struct; 1usize];
 #[repr(C)]
@@ -12710,15 +10645,6 @@ const _: () = {
         "Offset of field: fq_zech_bpoly_struct::length",
     ][::std::mem::offset_of!(fq_zech_bpoly_struct, length) - 16usize];
 };
-impl Default for fq_zech_bpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_bpoly_t = [fq_zech_bpoly_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_tpoly_struct {
@@ -12744,15 +10670,6 @@ const _: () = {
         "Offset of field: fq_zech_tpoly_struct::length",
     ][::std::mem::offset_of!(fq_zech_tpoly_struct, length) - 16usize];
 };
-impl Default for fq_zech_tpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_tpoly_t = [fq_zech_tpoly_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_polyu_struct {
@@ -12782,15 +10699,6 @@ const _: () = {
         "Offset of field: fq_zech_polyu_struct::alloc",
     ][::std::mem::offset_of!(fq_zech_polyu_struct, alloc) - 24usize];
 };
-impl Default for fq_zech_polyu_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_polyu_t = [fq_zech_polyu_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_polyun_struct {
@@ -12820,15 +10728,6 @@ const _: () = {
         "Offset of field: fq_zech_polyun_struct::alloc",
     ][::std::mem::offset_of!(fq_zech_polyun_struct, alloc) - 24usize];
 };
-impl Default for fq_zech_polyun_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_polyun_t = [fq_zech_polyun_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpoly_factor_struct {
@@ -12862,15 +10761,6 @@ const _: () = {
         "Offset of field: fq_zech_mpoly_factor_struct::alloc",
     ][::std::mem::offset_of!(fq_zech_mpoly_factor_struct, alloc) - 32usize];
 };
-impl Default for fq_zech_mpoly_factor_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_mpoly_factor_t = [fq_zech_mpoly_factor_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpolyv_struct {
@@ -12896,15 +10786,6 @@ const _: () = {
         "Offset of field: fq_zech_mpolyv_struct::length",
     ][::std::mem::offset_of!(fq_zech_mpolyv_struct, length) - 16usize];
 };
-impl Default for fq_zech_mpolyv_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_mpolyv_t = [fq_zech_mpolyv_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpoly_pfrac_struct {
@@ -12995,15 +10876,6 @@ const _: () = {
         "Offset of field: fq_zech_mpoly_pfrac_struct::R",
     ][::std::mem::offset_of!(fq_zech_mpoly_pfrac_struct, R) - 208usize];
 };
-impl Default for fq_zech_mpoly_pfrac_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type fq_zech_mpoly_pfrac_t = [fq_zech_mpoly_pfrac_struct; 1usize];
 pub type gr_method_mat_unary_op_get_scalar = ::std::option::Option<
     unsafe extern "C" fn(
@@ -13161,15 +11033,6 @@ const _: () = {
         "Offset of field: gr_mpoly_struct::exps_alloc",
     ][::std::mem::offset_of!(gr_mpoly_struct, exps_alloc) - 40usize];
 };
-impl Default for gr_mpoly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type gr_mpoly_t = [gr_mpoly_struct; 1usize];
 #[repr(C)]
 pub struct _gr_mpoly_ctx_struct {
@@ -13195,15 +11058,6 @@ const _: () = {
         "Offset of field: _gr_mpoly_ctx_struct::vars",
     ][::std::mem::offset_of!(_gr_mpoly_ctx_struct, vars) - 16usize];
 };
-impl Default for _gr_mpoly_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type gr_mpoly_ctx_struct = gr_ctx_struct;
 pub type gr_mpoly_ctx_t = [gr_mpoly_ctx_struct; 1usize];
 pub type gr_poly_roots_op = ::std::option::Option<
@@ -13283,15 +11137,6 @@ const _: () = {
         "Offset of field: hypgeom_struct::MK",
     ][::std::mem::offset_of!(hypgeom_struct, MK) - 136usize];
 };
-impl Default for hypgeom_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type hypgeom_t = [hypgeom_struct; 1usize];
 #[repr(C)]
 pub struct _mpn_mod_ctx_struct {
@@ -13329,15 +11174,6 @@ const _: () = {
         "Offset of field: _mpn_mod_ctx_struct::is_prime",
     ][::std::mem::offset_of!(_mpn_mod_ctx_struct, is_prime) - 400usize];
 };
-impl Default for _mpn_mod_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct mpoly_heap_t {
     pub i: ulong,
@@ -13358,15 +11194,6 @@ const _: () = {
         "Offset of field: mpoly_heap_t::next",
     ][::std::mem::offset_of!(mpoly_heap_t, next) - 16usize];
 };
-impl Default for mpoly_heap_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct mpoly_nheap_t {
     pub i: ulong,
@@ -13391,15 +11218,6 @@ const _: () = {
         "Offset of field: mpoly_nheap_t::p",
     ][::std::mem::offset_of!(mpoly_nheap_t, p) - 24usize];
 };
-impl Default for mpoly_nheap_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct mpoly_heap1_s {
     pub exp: ulong,
@@ -13416,15 +11234,6 @@ const _: () = {
         "Offset of field: mpoly_heap1_s::next",
     ][::std::mem::offset_of!(mpoly_heap1_s, next) - 8usize];
 };
-impl Default for mpoly_heap1_s {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct mpoly_heap_s {
     pub exp: *mut ulong,
@@ -13441,17 +11250,7 @@ const _: () = {
         "Offset of field: mpoly_heap_s::next",
     ][::std::mem::offset_of!(mpoly_heap_s, next) - 8usize];
 };
-impl Default for mpoly_heap_s {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
-#[derive(Default)]
 pub struct mpoly_rbnode_ui_struct {
     pub key: ulong,
     pub up: slong,
@@ -13519,18 +11318,8 @@ const _: () = {
         "Offset of field: mpoly_rbtree_ui_struct::data_size",
     ][::std::mem::offset_of!(mpoly_rbtree_ui_struct, data_size) - 40usize];
 };
-impl Default for mpoly_rbtree_ui_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type mpoly_rbtree_ui_t = [mpoly_rbtree_ui_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct mpoly_rbnode_fmpz_struct {
     pub key: fmpz_t,
     pub up: slong,
@@ -13598,15 +11387,6 @@ const _: () = {
         "Offset of field: mpoly_rbtree_fmpz_struct::data_size",
     ][::std::mem::offset_of!(mpoly_rbtree_fmpz_struct, data_size) - 40usize];
 };
-impl Default for mpoly_rbtree_fmpz_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type mpoly_rbtree_fmpz_t = [mpoly_rbtree_fmpz_struct; 1usize];
 #[repr(C)]
 pub struct mpoly_univar_struct {
@@ -13636,15 +11416,6 @@ const _: () = {
         "Offset of field: mpoly_univar_struct::alloc",
     ][::std::mem::offset_of!(mpoly_univar_struct, alloc) - 24usize];
 };
-impl Default for mpoly_univar_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type mpoly_univar_t = [mpoly_univar_struct; 1usize];
 #[repr(C)]
 pub struct string_with_length_struct {
@@ -13666,15 +11437,6 @@ const _: () = {
         "Offset of field: string_with_length_struct::str_len",
     ][::std::mem::offset_of!(string_with_length_struct, str_len) - 8usize];
 };
-impl Default for string_with_length_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct mpoly_parse_struct {
     pub R: mpoly_void_ring_t,
@@ -13735,18 +11497,8 @@ const _: () = {
         "Offset of field: mpoly_parse_struct::terminals_len",
     ][::std::mem::offset_of!(mpoly_parse_struct, terminals_len) - 232usize];
 };
-impl Default for mpoly_parse_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type mpoly_parse_t = [mpoly_parse_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct _nfloat_ctx_struct {
     pub nlimbs: slong,
     pub flags: ::std::os::raw::c_int,
@@ -13773,7 +11525,6 @@ const _: () = {
 pub type nfloat_ptr = *mut ::std::os::raw::c_void;
 pub type nfloat_srcptr = *const ::std::os::raw::c_void;
 #[repr(C)]
-#[derive(Default)]
 pub struct nfloat64_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 1usize],
@@ -13790,7 +11541,6 @@ const _: () = {
     ][::std::mem::offset_of!(nfloat64_struct, d) - 16usize];
 };
 #[repr(C)]
-#[derive(Default)]
 pub struct nfloat128_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 2usize],
@@ -13809,7 +11559,6 @@ const _: () = {
     ][::std::mem::offset_of!(nfloat128_struct, d) - 16usize];
 };
 #[repr(C)]
-#[derive(Default)]
 pub struct nfloat192_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 3usize],
@@ -13828,7 +11577,6 @@ const _: () = {
     ][::std::mem::offset_of!(nfloat192_struct, d) - 16usize];
 };
 #[repr(C)]
-#[derive(Default)]
 pub struct nfloat256_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 4usize],
@@ -13847,7 +11595,6 @@ const _: () = {
     ][::std::mem::offset_of!(nfloat256_struct, d) - 16usize];
 };
 #[repr(C)]
-#[derive(Default)]
 pub struct nfloat384_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 6usize],
@@ -13866,7 +11613,6 @@ const _: () = {
     ][::std::mem::offset_of!(nfloat384_struct, d) - 16usize];
 };
 #[repr(C)]
-#[derive(Default)]
 pub struct nfloat512_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 8usize],
@@ -13885,7 +11631,6 @@ const _: () = {
     ][::std::mem::offset_of!(nfloat512_struct, d) - 16usize];
 };
 #[repr(C)]
-#[derive(Default)]
 pub struct nfloat1024_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 16usize],
@@ -13904,7 +11649,6 @@ const _: () = {
     ][::std::mem::offset_of!(nfloat1024_struct, d) - 16usize];
 };
 #[repr(C)]
-#[derive(Default)]
 pub struct nfloat2048_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 32usize],
@@ -13940,15 +11684,6 @@ const _: () = {
         "Offset of field: nfloat4096_struct::d",
     ][::std::mem::offset_of!(nfloat4096_struct, d) - 16usize];
 };
-impl Default for nfloat4096_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nfloat64_t = [nfloat64_struct; 1usize];
 pub type nfloat128_t = [nfloat128_struct; 1usize];
 pub type nfloat192_t = [nfloat192_struct; 1usize];
@@ -13988,15 +11723,6 @@ const _: () = {
         "Offset of field: nmod_mpoly_univar_struct::length",
     ][::std::mem::offset_of!(nmod_mpoly_univar_struct, length) - 24usize];
 };
-impl Default for nmod_mpoly_univar_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_mpoly_univar_t = [nmod_mpoly_univar_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpolyu_struct {
@@ -14030,15 +11756,6 @@ const _: () = {
         "Offset of field: nmod_mpolyu_struct::bits",
     ][::std::mem::offset_of!(nmod_mpolyu_struct, bits) - 32usize];
 };
-impl Default for nmod_mpolyu_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_mpolyu_t = [nmod_mpolyu_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpolyd_struct {
@@ -14072,15 +11789,6 @@ const _: () = {
         "Offset of field: nmod_mpolyd_struct::coeffs",
     ][::std::mem::offset_of!(nmod_mpolyd_struct, coeffs) - 32usize];
 };
-impl Default for nmod_mpolyd_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_mpolyd_t = [nmod_mpolyd_struct; 1usize];
 #[repr(C)]
 pub struct nmod_poly_stack_struct {
@@ -14138,15 +11846,6 @@ const _: () = {
         "Offset of field: nmod_poly_stack_struct::bits",
     ][::std::mem::offset_of!(nmod_poly_stack_struct, bits) - 80usize];
 };
-impl Default for nmod_poly_stack_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_poly_stack_t = [nmod_poly_stack_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpolyd_ctx_struct {
@@ -14168,15 +11867,6 @@ const _: () = {
         "Offset of field: nmod_mpolyd_ctx_struct::perm",
     ][::std::mem::offset_of!(nmod_mpolyd_ctx_struct, perm) - 8usize];
 };
-impl Default for nmod_mpolyd_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_mpolyd_ctx_t = [nmod_mpolyd_ctx_struct; 1usize];
 #[repr(C)]
 pub struct _nmod_mpoly_stripe_struct {
@@ -14242,15 +11932,6 @@ const _: () = {
         "Offset of field: _nmod_mpoly_stripe_struct::upperclosed",
     ][::std::mem::offset_of!(_nmod_mpoly_stripe_struct, upperclosed) - 112usize];
 };
-impl Default for _nmod_mpoly_stripe_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_mpoly_stripe_struct = _nmod_mpoly_stripe_struct;
 pub type nmod_mpoly_stripe_t = [nmod_mpoly_stripe_struct; 1usize];
 #[repr(C)]
@@ -14277,15 +11958,6 @@ const _: () = {
         "Offset of field: nmod_mpoly_geobucket::length",
     ][::std::mem::offset_of!(nmod_mpoly_geobucket, length) - 3072usize];
 };
-impl Default for nmod_mpoly_geobucket {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_mpoly_geobucket_struct = nmod_mpoly_geobucket;
 pub type nmod_mpoly_geobucket_t = [nmod_mpoly_geobucket_struct; 1usize];
 #[repr(C)]
@@ -14312,15 +11984,6 @@ const _: () = {
         "Offset of field: nmod_mpolyv_struct::length",
     ][::std::mem::offset_of!(nmod_mpolyv_struct, length) - 16usize];
 };
-impl Default for nmod_mpolyv_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_mpolyv_t = [nmod_mpolyv_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpoly_pfrac_struct {
@@ -14414,15 +12077,6 @@ const _: () = {
         "Offset of field: nmod_mpoly_pfrac_struct::R",
     ][::std::mem::offset_of!(nmod_mpoly_pfrac_struct, R) - 232usize];
 };
-impl Default for nmod_mpoly_pfrac_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type nmod_mpoly_pfrac_t = [nmod_mpoly_pfrac_struct; 1usize];
 pub const dot_method_t__DOT0: dot_method_t = 0;
 pub const dot_method_t__DOT1: dot_method_t = 1;
@@ -14449,15 +12103,6 @@ const _: () = {
         "Offset of field: dot_params_t::pow2_precomp",
     ][::std::mem::offset_of!(dot_params_t, pow2_precomp) - 8usize];
 };
-impl Default for dot_params_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct n_polyun_stack_struct {
     pub array: *mut *mut n_polyun_struct,
@@ -14482,15 +12127,6 @@ const _: () = {
         "Offset of field: n_polyun_stack_struct::top",
     ][::std::mem::offset_of!(n_polyun_stack_struct, top) - 16usize];
 };
-impl Default for n_polyun_stack_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type n_polyun_stack_t = [n_polyun_stack_struct; 1usize];
 #[repr(C)]
 pub struct n_poly_polyun_stack_struct {
@@ -14512,18 +12148,8 @@ const _: () = {
         "Offset of field: n_poly_polyun_stack_struct::polyun_stack",
     ][::std::mem::offset_of!(n_poly_polyun_stack_struct, polyun_stack) - 24usize];
 };
-impl Default for n_poly_polyun_stack_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type n_poly_polyun_stack_t = [n_poly_polyun_stack_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct padic_struct {
     pub u: fmpz,
     pub v: slong,
@@ -14582,15 +12208,6 @@ const _: () = {
         "Offset of field: padic_ctx_struct::mode",
     ][::std::mem::offset_of!(padic_ctx_struct, mode) - 40usize];
 };
-impl Default for padic_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type padic_ctx_t = [padic_ctx_struct; 1usize];
 #[repr(C)]
 pub struct padic_inv_struct {
@@ -14610,15 +12227,6 @@ const _: () = {
         "Offset of field: padic_inv_struct::pow",
     ][::std::mem::offset_of!(padic_inv_struct, pow) - 8usize];
 };
-impl Default for padic_inv_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type padic_inv_t = [padic_inv_struct; 1usize];
 #[repr(C)]
 pub struct padic_mat_struct {
@@ -14642,15 +12250,6 @@ const _: () = {
         "Offset of field: padic_mat_struct::N",
     ][::std::mem::offset_of!(padic_mat_struct, N) - 40usize];
 };
-impl Default for padic_mat_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type padic_mat_t = [padic_mat_struct; 1usize];
 #[repr(C)]
 pub struct padic_poly_struct {
@@ -14682,18 +12281,8 @@ const _: () = {
         "Offset of field: padic_poly_struct::N",
     ][::std::mem::offset_of!(padic_poly_struct, N) - 32usize];
 };
-impl Default for padic_poly_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type padic_poly_t = [padic_poly_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct _bindgen_ty_18 {
     pub size: ulong,
     pub peak: ulong,
@@ -14719,7 +12308,6 @@ const _: () = {
 };
 pub type meminfo_t = [_bindgen_ty_18; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct _bindgen_ty_19 {
     pub cpu: slong,
     pub wall: slong,
@@ -14771,18 +12359,8 @@ const _: () = {
         "Offset of field: qadic_ctx_struct::var",
     ][::std::mem::offset_of!(qadic_ctx_struct, var) - 72usize];
 };
-impl Default for qadic_ctx_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type qadic_ctx_t = [qadic_ctx_struct; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct qfb {
     pub a: fmpz_t,
     pub b: fmpz_t,
@@ -14798,7 +12376,6 @@ const _: () = {
 };
 pub type qfb_t = [qfb; 1usize];
 #[repr(C)]
-#[derive(Default)]
 pub struct qfb_hash_t {
     pub q: qfb_t,
     pub q2: qfb_t,
@@ -14823,7 +12400,6 @@ pub struct __atomic_wide_counter {
     pub bindgen_union_field: u64,
 }
 #[repr(C)]
-#[derive(Default)]
 pub struct __atomic_wide_counter__bindgen_ty_1 {
     pub __low: ::std::os::raw::c_uint,
     pub __high: ::std::os::raw::c_uint,
@@ -14858,15 +12434,6 @@ const _: () = {
         "Offset of field: __atomic_wide_counter::__value32",
     ][::std::mem::offset_of!(__atomic_wide_counter, __value32) - 0usize];
 };
-impl Default for __atomic_wide_counter {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct __pthread_internal_list {
     pub __prev: *mut __pthread_internal_list,
@@ -14887,15 +12454,6 @@ const _: () = {
         "Offset of field: __pthread_internal_list::__next",
     ][::std::mem::offset_of!(__pthread_internal_list, __next) - 8usize];
 };
-impl Default for __pthread_internal_list {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type __pthread_list_t = __pthread_internal_list;
 #[repr(C)]
 pub struct __pthread_mutex_s {
@@ -14939,15 +12497,6 @@ const _: () = {
         "Offset of field: __pthread_mutex_s::__list",
     ][::std::mem::offset_of!(__pthread_mutex_s, __list) - 24usize];
 };
-impl Default for __pthread_mutex_s {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct __pthread_cond_s {
     pub __wseq: __atomic_wide_counter,
@@ -14990,15 +12539,6 @@ const _: () = {
         "Offset of field: __pthread_cond_s::__unused_initialized_2",
     ][::std::mem::offset_of!(__pthread_cond_s, __unused_initialized_2) - 44usize];
 };
-impl Default for __pthread_cond_s {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type pthread_t = ::std::os::raw::c_ulong;
 #[repr(C)]
 pub struct pthread_mutex_t {
@@ -15021,15 +12561,6 @@ const _: () = {
         "Offset of field: pthread_mutex_t::__align",
     ][::std::mem::offset_of!(pthread_mutex_t, __align) - 0usize];
 };
-impl Default for pthread_mutex_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct pthread_cond_t {
     pub __data: __BindgenUnionField<__pthread_cond_s>,
@@ -15051,17 +12582,7 @@ const _: () = {
         "Offset of field: pthread_cond_t::__align",
     ][::std::mem::offset_of!(pthread_cond_t, __align) - 0usize];
 };
-impl Default for pthread_cond_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
-#[derive(Default)]
 pub struct prime_t {
     pub pinv: ulong,
     pub p: ::std::os::raw::c_int,
@@ -15076,7 +12597,6 @@ const _: () = {
     ["Offset of field: prime_t::size"][::std::mem::offset_of!(prime_t, size) - 12usize];
 };
 #[repr(C)]
-#[derive(Default)]
 pub struct fac_t {
     pub ind: slong,
     pub exp: slong,
@@ -15106,17 +12626,7 @@ const _: () = {
         "Offset of field: la_col_t::orig",
     ][::std::mem::offset_of!(la_col_t, orig) - 16usize];
 };
-impl Default for la_col_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
-#[derive(Default)]
 pub struct hash_t {
     pub prime: ulong,
     pub next: ulong,
@@ -15158,15 +12668,6 @@ const _: () = {
     ][::std::mem::offset_of!(relation_t, factor) - 32usize];
     ["Offset of field: relation_t::Y"][::std::mem::offset_of!(relation_t, Y) - 40usize];
 };
-impl Default for relation_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct qs_poly_s {
     pub B: fmpz_t,
@@ -15205,15 +12706,6 @@ const _: () = {
         "Offset of field: qs_poly_s::num_factors",
     ][::std::mem::offset_of!(qs_poly_s, num_factors) - 56usize];
 };
-impl Default for qs_poly_s {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type qs_poly_t = [qs_poly_s; 1usize];
 #[repr(C)]
 pub struct qs_s {
@@ -15415,15 +12907,6 @@ const _: () = {
         "Offset of field: qs_s::prime_count",
     ][::std::mem::offset_of!(qs_s, prime_count) - 520usize];
 };
-impl Default for qs_s {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type qs_t = [qs_s; 1usize];
 #[repr(C)]
 pub struct test_struct {
@@ -15443,15 +12926,6 @@ const _: () = {
         "Offset of field: test_struct::name",
     ][::std::mem::offset_of!(test_struct, name) - 8usize];
 };
-impl Default for test_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 #[repr(C)]
 pub struct thread_pool_entry_struct {
     pub pth: pthread_t,
@@ -15510,15 +12984,6 @@ const _: () = {
         "Offset of field: thread_pool_entry_struct::exit",
     ][::std::mem::offset_of!(thread_pool_entry_struct, exit) - 180usize];
 };
-impl Default for thread_pool_entry_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type thread_pool_entry_t = [thread_pool_entry_struct; 1usize];
 #[repr(C)]
 pub struct thread_pool_struct {
@@ -15548,15 +13013,6 @@ const _: () = {
         "Offset of field: thread_pool_struct::length",
     ][::std::mem::offset_of!(thread_pool_struct, length) - 56usize];
 };
-impl Default for thread_pool_struct {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 pub type thread_pool_t = [thread_pool_struct; 1usize];
 pub type do_func_t = ::std::option::Option<
     unsafe extern "C" fn(i: slong, args: *mut ::std::os::raw::c_void),
@@ -15614,15 +13070,6 @@ const _: () = {
         "Offset of field: __va_list_tag::reg_save_area",
     ][::std::mem::offset_of!(__va_list_tag, reg_save_area) - 16usize];
 };
-impl Default for __va_list_tag {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
 unsafe extern "C" {
     pub static mut flint_version: [::std::os::raw::c_char; 0usize];
     pub fn flint_malloc(size: usize) -> *mut ::std::os::raw::c_void;
