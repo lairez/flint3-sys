@@ -6,7 +6,8 @@ Since the FLINT API evolves quickly, this crate always compiles FLINT from sourc
 
 ## Versioning
 
-This crate follows FLINT's versioning exactly.
+This crate follows FLINT's versioning, except for the patch version, which may increase faster.
+
 
 ## Optional Features
 
