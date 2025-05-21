@@ -1,0 +1,19 @@
+[package]
+name = "flint_bindings"
+version = "3.3.0"
+edition = "2021"
+
+[features]
+build-gmp = ["dep:gmp-mpfr-sys"]
+
+[dependencies]
+gmp-mpfr-sys = { version = "1.6.4", optional = true }
+
+[build-dependencies]
+anyhow = "1.0.98"
+bindgen = "0.71.1"
+cc = "1.2.23"
+pkg-config = "0.3.32"
+
+[profile.dev]
+opt-level = 1                   # build is too slow with opt-level = 0
