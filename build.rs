@@ -1,4 +1,4 @@
-use std::{io::Write, path::PathBuf, process::Command};
+use std::{path::PathBuf, process::Command};
 
 use anyhow::{Context, Result};
 
@@ -6,6 +6,7 @@ use anyhow::{Context, Result};
 #[allow(dead_code)]
 static SKIP_HEADERS: &[&str] = &[
     "NTL-interface.h",
+    "config.h",
     "crt_helpers.h",
     "longlong_asm_clang.h",
     "longlong_asm_gcc.h",
@@ -52,7 +53,7 @@ impl Conf {
 
         Command::new("cp")
             .arg("--recursive")
-            .arg("--archive")
+            .arg("--archive")   // avoids to trigger unnecessary rebuild
             .arg("--update")
             .arg("flint")
             .arg(&self.out_dir)
@@ -217,7 +218,7 @@ impl Conf {
 
         let bindings = builder
             // .parse_callbacks(Box::new(bindgen::CargoCallbacks::new())) // useful to echo some cargo:rerun
-            .derive_default(false) // useful to avoid too many MaybeUninit
+            .derive_default(false) // use mem::zeroed() instead, or MaybeUninit
             .derive_copy(false) // nothing (?) in FLINT is Copy
             .derive_debug(false) // useless
             .wrap_static_fns(true) // deal with inline functions
@@ -291,33 +292,52 @@ impl Conf {
 fn main() -> Result<()> {
     let conf = Conf::new();
 
+    /////////////////
+    // build FLINT //
+    /////////////////
+
     conf.build_flint()?;
 
+    // make sure that we have the correct files at the correct place
     anyhow::ensure!(
         conf.flint_include_dir.join("flint/flint.h").is_file(),
         "Compilation is successful, but `flint/flint.h` is not where it should"
     );
 
+    // idem
     anyhow::ensure!(
         conf.flint_lib_dir.join("libflint.a").is_file(),
         "Compilation is successful, but `libflint.a` is not where it should"
     );
 
+    // Instruct cargo that he has to link against libflint.a and its dependencies.
     println!("cargo::rustc-link-lib=flint");
+    println!("cargo::rustc-link-lib=gmp");
+    println!("cargo::rustc-link-lib=mpfr");
     println!(
         "cargo::rustc-link-search=native={}",
         conf.flint_lib_dir.display()
     );
 
+
+    ////////////////////////
+    // binding generation //
+    ////////////////////////
+
+    // Unless the feature `rerun-bindgen` is unable, this simply takes the files
+    // from the directory `./bindgen`.
     conf.bindgen()?;
 
     anyhow::ensure!(conf.bindgen_extern_c.is_file(), "Cannot find `extern.c`");
     anyhow::ensure!(conf.bindgen_flint_rs.is_file(), "Cannot find `flint.rs`");
 
-    conf.build_extern()?;
 
-    println!("cargo::rustc-link-lib=gmp");
-    println!("cargo::rustc-link-lib=mpfr");
+    ////////////////////////////////
+    // Compiling inline functions //
+    ////////////////////////////////
+
+    conf.build_extern()?;
+    // No linking instruction is required here, this is handled by `cc`.
 
     Ok(())
 }
