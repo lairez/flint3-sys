@@ -2,6 +2,7 @@
 name = "flint_bindings"
 version = "3.3.0"
 edition = "2021"
+links = "flint"
 
 [features]
 build-gmp = ["dep:gmp-mpfr-sys"]
