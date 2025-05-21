@@ -8,7 +8,7 @@ license = "MIT"
 
 
 [features]
-rerun-bindgen = ["dep:bindgen", "dep:regex"]
+force-bindgen = ["dep:bindgen", "dep:regex"]
 gmp-mpfr-sys = ["dep:gmp-mpfr-sys"]
 
 [dependencies]

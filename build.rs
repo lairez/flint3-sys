@@ -134,15 +134,15 @@ impl Conf {
     }
 }
 
-#[cfg(not(feature = "rerun-bindgen"))]
+#[cfg(not(feature = "force-bindgen"))]
 impl Conf {
     fn bindgen(&self) -> Result<()> {
         println!(
-            "cargo::rerun-if-changed={}",
+            "cargo::force-if-changed={}",
             &self.bindgen_flint_rs.display()
         );
         println!(
-            "cargo::rerun-if-changed={}",
+            "cargo::force-if-changed={}",
             &self.bindgen_extern_c.display()
         );
         Command::new("cp")
@@ -161,7 +161,7 @@ impl Conf {
     }
 }
 
-#[cfg(feature = "rerun-bindgen")]
+#[cfg(feature = "force-bindgen")]
 impl Conf {
     // Compute the list of all FLINT headers (minus the one we skip)
     fn flint_headers(&self) -> Result<Vec<PathBuf>> {
@@ -217,7 +217,7 @@ impl Conf {
         std::fs::write(&extern_tmp, b"")?;
 
         let bindings = builder
-            // .parse_callbacks(Box::new(bindgen::CargoCallbacks::new())) // useful to echo some cargo:rerun
+            // .parse_callbacks(Box::new(bindgen::CargoCallbacks::new())) // useful to echo some cargo:force
             .derive_default(false) // use mem::zeroed() instead, or MaybeUninit
             .derive_copy(false) // nothing (?) in FLINT is Copy
             .derive_debug(false) // useless
@@ -263,10 +263,10 @@ impl Conf {
         }
 
         // The maintenaire of `flint-ffi-sys` may use the environment variable
-        // SAVE_BINDGEN_IN_SOURCE to save the result of bindgen and release it,
+        // KEEP_BINDGEN_OUTPUT to save the result of bindgen and release it,
         // so that the use downstream do not have to run bindgen themselves.
-        println!("cargo::rerun-if-env-changed=SAVE_BINDGEN_IN_SOURCE");
-        if std::env::var("SAVE_BINDGEN_IN_SOURCE").is_ok() {
+        println!("cargo::force-if-env-changed=KEEP_BINDGEN_OUTPUT");
+        if std::env::var("KEEP_BINDGEN_OUTPUT").is_ok() {
             std::fs::copy(
                 &self.bindgen_flint_rs,
                 &std::path::Path::new("./bindgen/flint.rs"),
@@ -324,7 +324,7 @@ fn main() -> Result<()> {
     // binding generation //
     ////////////////////////
 
-    // Unless the feature `rerun-bindgen` is unable, this simply takes the files
+    // Unless the feature `force-bindgen` is unable, this simply takes the files
     // from the directory `./bindgen`.
     conf.bindgen()?;
 
