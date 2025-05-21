@@ -1,12 +1,12 @@
 use std::{ffi::CStr, ptr::null_mut};
 
-use flint_bindings::*;
+use flint3_sys::*;
 
 #[test]
 fn main() {
     unsafe {
-        let mut x: fmpq = Default::default();
-        let mut tot: fmpq = Default::default();
+        let mut x: fmpq = std::mem::zeroed();
+        let mut tot: fmpq = std::mem::zeroed();
         fmpq_init(&mut x);
         fmpq_init(&mut tot);
 

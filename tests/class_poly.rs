@@ -1,11 +1,11 @@
 use std::ffi::CStr;
 
-use flint_bindings::*;
+use flint3_sys::*;
 
 #[test]
 fn main() {
     unsafe {
-        let mut res: fmpz_poly_struct = Default::default();
+        let mut res: fmpz_poly_struct = std::mem::zeroed();
         let d = -99;
         flint_set_num_threads(2);
 
