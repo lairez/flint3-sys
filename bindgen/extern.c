@@ -33,7 +33,6 @@
 #include "flint/ca_poly.h"
 #include "flint/ca_types.h"
 #include "flint/ca_vec.h"
-#include "flint/config.h"
 #include "flint/dirichlet.h"
 #include "flint/dlog.h"
 #include "flint/d_mat.h"
