@@ -96,8 +96,8 @@ impl Conf {
             .output()
             .context("FLINT compilation: make install failed")?;
 
-        println!("cargo::metadata=LIB={}", self.flint_lib_dir);
-        println!("cargo::metadata=INCLUDE={}", self.flint_include_dir);
+        println!("cargo::metadata=LIB={}", self.flint_lib_dir.display());
+        println!("cargo::metadata=INCLUDE={}", self.flint_include_dir.display());
 
         Ok(())
     }
@@ -141,8 +141,6 @@ impl Conf {
             "Cannot find `flint.h`"
         );
 
-        // Now, list all the headers in `/usr/include/flint/`
-        let entries = flint_header_dir.read_dir()?;
         let mut headers = Vec::new();
 
         let mut skip = HashSet::new();
@@ -150,6 +148,7 @@ impl Conf {
             skip.insert(OsStr::new(*file));
         }
 
+        let entries = flint_header_dir.read_dir()?;
         let header_extension = OsStr::new("h");
         for entry in entries {
             let entry = entry?;
@@ -179,7 +178,7 @@ impl Conf {
             // This avoids bringing all of GMP in the binding
         }
         let bindings = builder
-            .parse_callbacks(Box::new(bindgen::CargoCallbacks::new())) // useful to echo some cargo:rerun
+            // .parse_callbacks(Box::new(bindgen::CargoCallbacks::new())) // useful to echo some cargo:rerun
             .derive_default(true) // useful to avoid too many MaybeUninit
             .derive_copy(false) // nothing (?) in FLINT is Copy
             .derive_debug(false)
