@@ -64,7 +64,7 @@ To regenerate bindings manually, enable the *force-bindgen* feature.
 To update the bundled version of FLINT:
 
 1. Update the `./flint` submodule.
-2. Run `KEEP_BINDGEN_OUTPUT=1 cargo build -F force-bindgen` to regenerate `./bindgen/flint.rs` and `./bindgen/extern.c`.
+2. Run `KEEP_BINDGEN_OUTPUT=1 cargo build -F force-bindgen` to regenerate `./bindgen/flint.rs` and `./bindgen/flintextern.c`.
 3. Test thoroughly.
 4. Commit the changes.
 
