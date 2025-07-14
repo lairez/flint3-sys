@@ -509,12 +509,11 @@ void acb_dirichlet_hardy_z_zero__extern(arb_t res, const fmpz_t n, slong prec) {
 void acb_dirichlet_zeta_zero__extern(acb_t res, const fmpz_t n, slong prec) { acb_dirichlet_zeta_zero(res, n, prec); }
 acb_ptr acb_mat_entry_ptr__extern(acb_mat_t mat, slong i, slong j) { return acb_mat_entry_ptr(mat, i, j); }
 void acb_mat_swap__extern(acb_mat_t mat1, acb_mat_t mat2) { acb_mat_swap(mat1, mat2); }
-void acb_mat_window_clear__extern(acb_mat_t window) { acb_mat_window_clear(window); }
+void acb_mat_window_clear__extern(acb_mat_t UNUSED_window) { acb_mat_window_clear(UNUSED_window); }
 int acb_mat_is_empty__extern(const acb_mat_t mat) { return acb_mat_is_empty(mat); }
 int acb_mat_is_square__extern(const acb_mat_t mat) { return acb_mat_is_square(mat); }
 int acb_mat_is_diag__extern(const acb_mat_t mat) { return acb_mat_is_diag(mat); }
 void acb_mat_conjugate_transpose__extern(acb_mat_t mat1, const acb_mat_t mat2) { acb_mat_conjugate_transpose(mat1, mat2); }
-void acb_mat_swap_rows__extern(acb_mat_t mat, slong *perm, slong r, slong s) { acb_mat_swap_rows(mat, perm, r, s); }
 void psl2z_init__extern(psl2z_t g) { psl2z_init(g); }
 void psl2z_clear__extern(psl2z_t g) { psl2z_clear(g); }
 void psl2z_swap__extern(psl2z_t f, psl2z_t g) { psl2z_swap(f, g); }
@@ -539,17 +538,15 @@ void acb_poly_scalar_div__extern(acb_poly_t res, const acb_poly_t poly, const ac
 void _acb_poly_mul_monic__extern(acb_ptr res, acb_srcptr poly1, slong len1, acb_srcptr poly2, slong len2, slong prec) { _acb_poly_mul_monic(res, poly1, len1, poly2, len2, prec); }
 void _acb_poly_acb_pow_cpx__extern(acb_ptr w, const acb_t a, const acb_t b, slong len, slong prec) { _acb_poly_acb_pow_cpx(w, a, b, len, prec); }
 slong acb_poly_allocated_bytes__extern(const acb_poly_t x) { return acb_poly_allocated_bytes(x); }
-fmpz * fmpz_mat_entry__extern(const fmpz_mat_t mat, slong i, slong j) { return fmpz_mat_entry(mat, i, j); }
-slong fmpz_mat_nrows__extern(const fmpz_mat_t mat) { return fmpz_mat_nrows(mat); }
-slong fmpz_mat_ncols__extern(const fmpz_mat_t mat) { return fmpz_mat_ncols(mat); }
-int fmpz_mat_is_empty__extern(const fmpz_mat_t mat) { return fmpz_mat_is_empty(mat); }
-int fmpz_mat_is_square__extern(const fmpz_mat_t mat) { return fmpz_mat_is_square(mat); }
-void fmpz_mat_swap_rows__extern(fmpz_mat_t mat, slong *perm, slong r, slong s) { fmpz_mat_swap_rows(mat, perm, r, s); }
-void _fmpz_mat_charpoly__extern(fmpz *cp, const fmpz_mat_t mat) { _fmpz_mat_charpoly(cp, mat); }
-void fmpz_mat_charpoly__extern(fmpz_poly_t cp, const fmpz_mat_t mat) { fmpz_mat_charpoly(cp, mat); }
-slong _fmpz_mat_minpoly__extern(fmpz *cp, const fmpz_mat_t mat) { return _fmpz_mat_minpoly(cp, mat); }
-void fmpz_mat_minpoly__extern(fmpz_poly_t cp, const fmpz_mat_t mat) { fmpz_mat_minpoly(cp, mat); }
 slong sp2gz_dim__extern(const fmpz_mat_t mat) { return sp2gz_dim(mat); }
+slong sp2gz_nb_fundamental__extern(slong g) { return sp2gz_nb_fundamental(g); }
+int acb_theta_char_bit__extern(ulong ch, slong j, slong n) { return acb_theta_char_bit(ch, j, n); }
+int acb_theta_char_is_even__extern(ulong ab, slong g) { return acb_theta_char_is_even(ab, g); }
+slong acb_theta_eld_nb_pts__extern(const acb_theta_eld_t E) { return acb_theta_eld_nb_pts(E); }
+slong acb_theta_eld_box__extern(const acb_theta_eld_t E, slong j) { return acb_theta_eld_box(E, j); }
+slong acb_theta_eld_nb_border__extern(const acb_theta_eld_t E) { return acb_theta_eld_nb_border(E); }
+void acb_theta_one__extern(acb_ptr th, acb_srcptr z, const acb_mat_t tau, ulong ab, slong prec) { acb_theta_one(th, z, tau, ab, prec); }
+void acb_theta_all__extern(acb_ptr th, acb_srcptr z, const acb_mat_t tau, int sqr, slong prec) { acb_theta_all(th, z, tau, sqr, prec); }
 void acf_init__extern(acf_t x) { acf_init(x); }
 void acf_clear__extern(acf_t x) { acf_clear(x); }
 acf_ptr _acf_vec_init__extern(slong n) { return _acf_vec_init(n); }
@@ -579,11 +576,10 @@ void arf_interval_swap__extern(arf_interval_t v, arf_interval_t u) { arf_interva
 void arf_interval_get_arb__extern(arb_t x, const arf_interval_t v, slong prec) { arf_interval_get_arb(x, v, prec); }
 arb_ptr arb_mat_entry_ptr__extern(arb_mat_t mat, slong i, slong j) { return arb_mat_entry_ptr(mat, i, j); }
 void arb_mat_swap__extern(arb_mat_t mat1, arb_mat_t mat2) { arb_mat_swap(mat1, mat2); }
-void arb_mat_window_clear__extern(arb_mat_t window) { arb_mat_window_clear(window); }
+void arb_mat_window_clear__extern(arb_mat_t UNUSED_window) { arb_mat_window_clear(UNUSED_window); }
 int arb_mat_is_empty__extern(const arb_mat_t mat) { return arb_mat_is_empty(mat); }
 int arb_mat_is_square__extern(const arb_mat_t mat) { return arb_mat_is_square(mat); }
 int arb_mat_is_diag__extern(const arb_mat_t mat) { return arb_mat_is_diag(mat); }
-void arb_mat_swap_rows__extern(arb_mat_t mat, slong *perm, slong r, slong s) { arb_mat_swap_rows(mat, perm, r, s); }
 slong arb_mat_count_not_is_zero__extern(const arb_mat_t mat) { return arb_mat_count_not_is_zero(mat); }
 void arb_poly_swap__extern(arb_poly_t poly1, arb_poly_t poly2) { arb_poly_swap(poly1, poly2); }
 slong arb_poly_length__extern(const arb_poly_t poly) { return arb_poly_length(poly); }
@@ -782,7 +778,7 @@ void calcium_write_free__extern(gr_stream_t out, char *s) { calcium_write_free(o
 void truth_print__extern(truth_t t) { truth_print(t); }
 ca_ptr ca_mat_entry_ptr__extern(ca_mat_t mat, slong i, slong j) { return ca_mat_entry_ptr(mat, i, j); }
 void ca_mat_swap__extern(ca_mat_t mat1, ca_mat_t mat2, ca_ctx_t ctx) { ca_mat_swap(mat1, mat2, ctx); }
-void ca_mat_window_clear__extern(ca_mat_t window, ca_ctx_t ctx) { ca_mat_window_clear(window, ctx); }
+void ca_mat_window_clear__extern(ca_mat_t UNUSED_window, ca_ctx_t UNUSED_ctx) { ca_mat_window_clear(UNUSED_window, UNUSED_ctx); }
 int ca_mat_is_empty__extern(const ca_mat_t mat) { return ca_mat_is_empty(mat); }
 int ca_mat_is_square__extern(const ca_mat_t mat) { return ca_mat_is_square(mat); }
 void ca_mat_mul_si__extern(ca_mat_t B, const ca_mat_t A, slong c, ca_ctx_t ctx) { ca_mat_mul_si(B, A, c, ctx); }
@@ -847,6 +843,8 @@ fmpz * fmpq_mat_entry_den__extern(const fmpq_mat_t mat, slong i, slong j) { retu
 slong fmpq_mat_nrows__extern(const fmpq_mat_t mat) { return fmpq_mat_nrows(mat); }
 slong fmpq_mat_ncols__extern(const fmpq_mat_t mat) { return fmpq_mat_ncols(mat); }
 void fmpq_mat_swap__extern(fmpq_mat_t mat1, fmpq_mat_t mat2) { fmpq_mat_swap(mat1, mat2); }
+void fmpq_mat_window_init__extern(fmpq_mat_t window, const fmpq_mat_t mat, slong r1, slong c1, slong r2, slong c2) { fmpq_mat_window_init(window, mat, r1, c1, r2, c2); }
+void fmpq_mat_window_clear__extern(fmpq_mat_t UNUSED_window) { fmpq_mat_window_clear(UNUSED_window); }
 int fmpq_mat_is_empty__extern(const fmpq_mat_t mat) { return fmpq_mat_is_empty(mat); }
 int fmpq_mat_is_square__extern(const fmpq_mat_t mat) { return fmpq_mat_is_square(mat); }
 void fmpq_mpoly_ctx_init__extern(fmpq_mpoly_ctx_t ctx, slong nvars, const ordering_t ord) { fmpq_mpoly_ctx_init(ctx, nvars, ord); }
@@ -918,12 +916,25 @@ void fmpzi_add__extern(fmpzi_t res, const fmpzi_t x, const fmpzi_t y) { fmpzi_ad
 void fmpzi_sub__extern(fmpzi_t res, const fmpzi_t x, const fmpzi_t y) { fmpzi_sub(res, x, y); }
 void fmpzi_canonicalise_unit__extern(fmpzi_t res, const fmpzi_t x) { fmpzi_canonicalise_unit(res, x); }
 mpf * mpf_mat_entry__extern(const mpf_mat_t mat, slong i, slong j) { return mpf_mat_entry(mat, i, j); }
+fmpz * fmpz_mat_entry__extern(const fmpz_mat_t mat, slong i, slong j) { return fmpz_mat_entry(mat, i, j); }
+fmpz * fmpz_mat_row__extern(const fmpz_mat_t mat, slong i) { return fmpz_mat_row(mat, i); }
+slong fmpz_mat_nrows__extern(const fmpz_mat_t mat) { return fmpz_mat_nrows(mat); }
+slong fmpz_mat_ncols__extern(const fmpz_mat_t mat) { return fmpz_mat_ncols(mat); }
+int fmpz_mat_is_empty__extern(const fmpz_mat_t mat) { return fmpz_mat_is_empty(mat); }
+int fmpz_mat_is_square__extern(const fmpz_mat_t mat) { return fmpz_mat_is_square(mat); }
+void fmpz_mat_window_init__extern(fmpz_mat_t window, const fmpz_mat_t mat, slong r1, slong c1, slong r2, slong c2) { fmpz_mat_window_init(window, mat, r1, c1, r2, c2); }
+void fmpz_mat_window_clear__extern(fmpz_mat_t UNUSED_window) { fmpz_mat_window_clear(UNUSED_window); }
+void _fmpz_mat_charpoly__extern(fmpz *cp, const fmpz_mat_t mat) { _fmpz_mat_charpoly(cp, mat); }
+void fmpz_mat_charpoly__extern(fmpz_poly_t cp, const fmpz_mat_t mat) { fmpz_mat_charpoly(cp, mat); }
+slong _fmpz_mat_minpoly__extern(fmpz *cp, const fmpz_mat_t mat) { return _fmpz_mat_minpoly(cp, mat); }
+void fmpz_mat_minpoly__extern(fmpz_poly_t cp, const fmpz_mat_t mat) { fmpz_mat_minpoly(cp, mat); }
 const fmpz * fmpz_mod_ctx_modulus__extern(const fmpz_mod_ctx_t ctx) { return fmpz_mod_ctx_modulus(ctx); }
 void fmpz_mod_add__extern(fmpz_t a, const fmpz_t b, const fmpz_t c, const fmpz_mod_ctx_t ctx) { fmpz_mod_add(a, b, c, ctx); }
 void fmpz_mod_sub__extern(fmpz_t a, const fmpz_t b, const fmpz_t c, const fmpz_mod_ctx_t ctx) { fmpz_mod_sub(a, b, c, ctx); }
 void fmpz_mod_mul__extern(fmpz_t a, const fmpz_t b, const fmpz_t c, const fmpz_mod_ctx_t ctx) { fmpz_mod_mul(a, b, c, ctx); }
 const fmpz * fmpz_mod_discrete_log_pohlig_hellman_primitive_root__extern(fmpz_mod_discrete_log_pohlig_hellman_t L) { return fmpz_mod_discrete_log_pohlig_hellman_primitive_root(L); }
 fmpz * fmpz_mod_mat_entry__extern(const fmpz_mod_mat_t mat, slong i, slong j) { return fmpz_mod_mat_entry(mat, i, j); }
+fmpz * fmpz_mod_mat_row__extern(const fmpz_mod_mat_t mat, slong i) { return fmpz_mod_mat_row(mat, i); }
 slong fmpz_mod_mat_nrows__extern(const fmpz_mod_mat_t mat, const fmpz_mod_ctx_t UNUSED_ctx) { return fmpz_mod_mat_nrows(mat, UNUSED_ctx); }
 slong fmpz_mod_mat_ncols__extern(const fmpz_mod_mat_t mat, const fmpz_mod_ctx_t UNUSED_ctx) { return fmpz_mod_mat_ncols(mat, UNUSED_ctx); }
 void fmpz_mod_mat_one__extern(fmpz_mod_mat_t mat, const fmpz_mod_ctx_t ctx) { fmpz_mod_mat_one(mat, ctx); }
@@ -954,7 +965,6 @@ slong _fmpz_mod_poly_gcd_f__extern(fmpz_t f, fmpz *G, const fmpz *A, slong lenA,
 void fmpz_mod_poly_gcd_f__extern(fmpz_t f, fmpz_mod_poly_t G, const fmpz_mod_poly_t A, const fmpz_mod_poly_t B, const fmpz_mod_ctx_t ctx) { fmpz_mod_poly_gcd_f(f, G, A, B, ctx); }
 slong _fmpz_mod_poly_xgcd_f__extern(fmpz_t f, fmpz *G, fmpz *S, fmpz *T, const fmpz *A, slong lenA, const fmpz *B, slong lenB, const fmpz_t invB, const fmpz_mod_ctx_t ctx) { return _fmpz_mod_poly_xgcd_f(f, G, S, T, A, lenA, B, lenB, invB, ctx); }
 void fmpz_mod_poly_xgcd_f__extern(fmpz_t f, fmpz_mod_poly_t G, fmpz_mod_poly_t S, fmpz_mod_poly_t T, const fmpz_mod_poly_t A, const fmpz_mod_poly_t B, const fmpz_mod_ctx_t ctx) { fmpz_mod_poly_xgcd_f(f, G, S, T, A, B, ctx); }
-void fmpz_mod_mat_charpoly__extern(fmpz_mod_poly_t p, const fmpz_mod_mat_t M, const fmpz_mod_ctx_t ctx) { fmpz_mod_mat_charpoly(p, M, ctx); }
 const fmpz * fmpz_mod_berlekamp_massey_points__extern(const fmpz_mod_berlekamp_massey_t B) { return fmpz_mod_berlekamp_massey_points(B); }
 slong fmpz_mod_berlekamp_massey_point_count__extern(const fmpz_mod_berlekamp_massey_t B) { return fmpz_mod_berlekamp_massey_point_count(B); }
 const fmpz_mod_poly_struct * fmpz_mod_berlekamp_massey_V_poly__extern(const fmpz_mod_berlekamp_massey_t B) { return fmpz_mod_berlekamp_massey_V_poly(B); }
@@ -1118,6 +1128,8 @@ int fq_zech_is_primitive__extern(const fq_zech_t op, const fq_zech_ctx_t ctx) { 
 truth_t truth_and__extern(truth_t x, truth_t y) { return truth_and(x, y); }
 truth_t truth_or__extern(truth_t x, truth_t y) { return truth_or(x, y); }
 truth_t truth_not__extern(truth_t x) { return truth_not(x); }
+truth_t gr_in_domain__extern(int status) { return gr_in_domain(status); }
+int gr_check__extern(truth_t t) { return gr_check(t); }
 void truth_println__extern(truth_t x) { truth_println(x); }
 int gr_not_implemented__extern(void) { return gr_not_implemented(); }
 int gr_not_in_domain__extern(void) { return gr_not_in_domain(); }
@@ -1125,7 +1137,7 @@ void * gr_ctx_data_ptr__extern(gr_ctx_t ctx) { return gr_ctx_data_ptr(ctx); }
 void * gr_ctx_data_as_ptr__extern(gr_ctx_t ctx) { return gr_ctx_data_as_ptr(ctx); }
 slong gr_ctx_sizeof_ctx__extern(void) { return gr_ctx_sizeof_ctx(); }
 slong gr_ctx_sizeof_elem__extern(gr_ctx_t ctx) { return gr_ctx_sizeof_elem(ctx); }
-int gr_ctx_clear__extern(gr_ctx_t ctx) { return gr_ctx_clear(ctx); }
+void gr_ctx_clear__extern(gr_ctx_t ctx) { gr_ctx_clear(ctx); }
 int gr_ctx_write__extern(gr_stream_t out, gr_ctx_t ctx) { return gr_ctx_write(out, ctx); }
 truth_t gr_ctx_is_ring__extern(gr_ctx_t ctx) { return gr_ctx_is_ring(ctx); }
 truth_t gr_ctx_is_commutative_ring__extern(gr_ctx_t ctx) { return gr_ctx_is_commutative_ring(ctx); }
@@ -1155,6 +1167,7 @@ void gr_set_shallow__extern(gr_ptr res, gr_srcptr x, gr_ctx_t ctx) { gr_set_shal
 void _gr_length__extern(gr_srcptr x, gr_ctx_t ctx) { _gr_length(x, ctx); }
 int gr_randtest__extern(gr_ptr x, flint_rand_t state, gr_ctx_t ctx) { return gr_randtest(x, state, ctx); }
 int gr_randtest_not_zero__extern(gr_ptr x, flint_rand_t state, gr_ctx_t ctx) { return gr_randtest_not_zero(x, state, ctx); }
+int gr_randtest_invertible__extern(gr_ptr x, flint_rand_t state, gr_ctx_t ctx) { return gr_randtest_invertible(x, state, ctx); }
 int gr_randtest_small__extern(gr_ptr x, flint_rand_t state, gr_ctx_t ctx) { return gr_randtest_small(x, state, ctx); }
 int gr_write__extern(gr_stream_t out, gr_srcptr x, gr_ctx_t ctx) { return gr_write(out, x, ctx); }
 int gr_write_n__extern(gr_stream_t out, gr_srcptr x, slong n, gr_ctx_t ctx) { return gr_write_n(out, x, n, ctx); }
@@ -1271,6 +1284,7 @@ int gr_im__extern(gr_ptr res, gr_srcptr x, gr_ctx_t ctx) { return gr_im(res, x, 
 int gr_sgn__extern(gr_ptr res, gr_srcptr x, gr_ctx_t ctx) { return gr_sgn(res, x, ctx); }
 int gr_csgn__extern(gr_ptr res, gr_srcptr x, gr_ctx_t ctx) { return gr_csgn(res, x, ctx); }
 int gr_arg__extern(gr_ptr res, gr_srcptr x, gr_ctx_t ctx) { return gr_arg(res, x, ctx); }
+int gr_canonical_associate__extern(gr_ptr res1, gr_ptr res2, gr_srcptr x, gr_ctx_t ctx) { return gr_canonical_associate(res1, res2, x, ctx); }
 int gr_pos_inf__extern(gr_ptr res, gr_ctx_t ctx) { return gr_pos_inf(res, ctx); }
 int gr_neg_inf__extern(gr_ptr res, gr_ctx_t ctx) { return gr_neg_inf(res, ctx); }
 int gr_uinf__extern(gr_ptr res, gr_ctx_t ctx) { return gr_uinf(res, ctx); }
@@ -1367,6 +1381,8 @@ ulong * nmod_mat_entry_ptr__extern(const nmod_mat_t mat, slong i, slong j) { ret
 slong nmod_mat_nrows__extern(const nmod_mat_t mat) { return nmod_mat_nrows(mat); }
 slong nmod_mat_ncols__extern(const nmod_mat_t mat) { return nmod_mat_ncols(mat); }
 void nmod_mat_swap_entrywise__extern(nmod_mat_t mat1, nmod_mat_t mat2) { nmod_mat_swap_entrywise(mat1, mat2); }
+void nmod_mat_window_init__extern(nmod_mat_t window, const nmod_mat_t mat, slong r1, slong c1, slong r2, slong c2) { nmod_mat_window_init(window, mat, r1, c1, r2, c2); }
+void nmod_mat_window_clear__extern(nmod_mat_t UNUSED_window) { nmod_mat_window_clear(UNUSED_window); }
 int nmod_mat_is_empty__extern(const nmod_mat_t mat) { return nmod_mat_is_empty(mat); }
 int nmod_mat_is_square__extern(const nmod_mat_t mat) { return nmod_mat_is_square(mat); }
 void nmod_mat_swap_rows__extern(nmod_mat_t mat, slong *perm, slong r, slong s) { nmod_mat_swap_rows(mat, perm, r, s); }
@@ -1394,6 +1410,14 @@ int fq_zech_mat_is_empty__extern(const fq_zech_mat_t mat, const fq_zech_ctx_t UN
 int fq_zech_mat_is_square__extern(const fq_zech_mat_t mat, const fq_zech_ctx_t UNUSED_ctx) { return fq_zech_mat_is_square(mat, UNUSED_ctx); }
 void fq_zech_mat_swap_rows__extern(fq_zech_mat_t mat, slong *perm, slong r, slong s, const fq_zech_ctx_t ctx) { fq_zech_mat_swap_rows(mat, perm, r, s, ctx); }
 void fq_zech_mat_invert_rows__extern(fq_zech_mat_t mat, slong *perm, const fq_zech_ctx_t ctx) { fq_zech_mat_invert_rows(mat, perm, ctx); }
+gr_ptr gr_mat_entry_ptr__extern(gr_mat_t mat, slong i, slong j, gr_ctx_t ctx) { return gr_mat_entry_ptr(mat, i, j, ctx); }
+gr_srcptr gr_mat_entry_srcptr__extern(const gr_mat_t mat, slong i, slong j, gr_ctx_t ctx) { return gr_mat_entry_srcptr(mat, i, j, ctx); }
+void gr_mat_swap__extern(gr_mat_t mat1, gr_mat_t mat2, gr_ctx_t UNUSED_ctx) { gr_mat_swap(mat1, mat2, UNUSED_ctx); }
+void gr_mat_window_init__extern(gr_mat_t window, const gr_mat_t mat, slong r1, slong c1, slong r2, slong c2, gr_ctx_t ctx) { gr_mat_window_init(window, mat, r1, c1, r2, c2, ctx); }
+void gr_mat_window_clear__extern(gr_mat_t UNUSED_window, gr_ctx_t UNUSED_ctx) { gr_mat_window_clear(UNUSED_window, UNUSED_ctx); }
+truth_t gr_mat_is_empty__extern(const gr_mat_t mat, gr_ctx_t UNUSED_ctx) { return gr_mat_is_empty(mat, UNUSED_ctx); }
+truth_t gr_mat_is_square__extern(const gr_mat_t mat, gr_ctx_t UNUSED_ctx) { return gr_mat_is_square(mat, UNUSED_ctx); }
+int gr_mat_sqr__extern(gr_mat_t res, const gr_mat_t mat, gr_ctx_t ctx) { return gr_mat_sqr(res, mat, ctx); }
 void fq_default_mat_init__extern(fq_default_mat_t mat, slong rows, slong cols, const fq_default_ctx_t ctx) { fq_default_mat_init(mat, rows, cols, ctx); }
 void fq_default_mat_init_set__extern(fq_default_mat_t mat, const fq_default_mat_t src, const fq_default_ctx_t ctx) { fq_default_mat_init_set(mat, src, ctx); }
 void fq_default_mat_swap__extern(fq_default_mat_t mat1, fq_default_mat_t mat2, const fq_default_ctx_t ctx) { fq_default_mat_swap(mat1, mat2, ctx); }
@@ -1404,6 +1428,7 @@ int fq_default_mat_is_zero__extern(const fq_default_mat_t mat, const fq_default_
 int fq_default_mat_is_one__extern(const fq_default_mat_t mat, const fq_default_ctx_t ctx) { return fq_default_mat_is_one(mat, ctx); }
 int fq_default_mat_is_empty__extern(const fq_default_mat_t mat, const fq_default_ctx_t ctx) { return fq_default_mat_is_empty(mat, ctx); }
 int fq_default_mat_is_square__extern(const fq_default_mat_t mat, const fq_default_ctx_t ctx) { return fq_default_mat_is_square(mat, ctx); }
+void fq_default_mat_transpose__extern(fq_default_mat_t B, const fq_default_mat_t A, const fq_default_ctx_t ctx) { fq_default_mat_transpose(B, A, ctx); }
 void fq_default_mat_entry__extern(fq_default_t val, const fq_default_mat_t mat, slong i, slong j, const fq_default_ctx_t ctx) { fq_default_mat_entry(val, mat, i, j, ctx); }
 void fq_default_mat_entry_set__extern(fq_default_mat_t mat, slong i, slong j, const fq_default_t x, const fq_default_ctx_t ctx) { fq_default_mat_entry_set(mat, i, j, x, ctx); }
 void fq_default_mat_entry_set_fmpz__extern(fq_default_mat_t mat, slong i, slong j, const fmpz_t x, const fq_default_ctx_t ctx) { fq_default_mat_entry_set_fmpz(mat, i, j, x, ctx); }
@@ -1626,16 +1651,10 @@ void fq_zech_mpoly_factor_swap__extern(fq_zech_mpoly_factor_t A, fq_zech_mpoly_f
 int fq_zech_mpoly_factor_matches__extern(const fq_zech_mpoly_t a, const fq_zech_mpoly_factor_t f, const fq_zech_mpoly_ctx_t ctx) { return fq_zech_mpoly_factor_matches(a, f, ctx); }
 void fq_zech_mpolyv_init__extern(fq_zech_mpolyv_t A, const fq_zech_mpoly_ctx_t UNUSED_ctx) { fq_zech_mpolyv_init(A, UNUSED_ctx); }
 void fq_zech_mpolyv_swap__extern(fq_zech_mpolyv_t A, fq_zech_mpolyv_t B, const fq_zech_mpoly_ctx_t UNUSED_ctx) { fq_zech_mpolyv_swap(A, B, UNUSED_ctx); }
-gr_ptr gr_mat_entry_ptr__extern(gr_mat_t mat, slong i, slong j, gr_ctx_t ctx) { return gr_mat_entry_ptr(mat, i, j, ctx); }
-gr_srcptr gr_mat_entry_srcptr__extern(const gr_mat_t mat, slong i, slong j, gr_ctx_t ctx) { return gr_mat_entry_srcptr(mat, i, j, ctx); }
-void gr_mat_swap__extern(gr_mat_t mat1, gr_mat_t mat2, gr_ctx_t UNUSED_ctx) { gr_mat_swap(mat1, mat2, UNUSED_ctx); }
-void gr_mat_window_clear__extern(gr_mat_t window, gr_ctx_t UNUSED_ctx) { gr_mat_window_clear(window, UNUSED_ctx); }
-truth_t gr_mat_is_empty__extern(const gr_mat_t mat, gr_ctx_t UNUSED_ctx) { return gr_mat_is_empty(mat, UNUSED_ctx); }
-truth_t gr_mat_is_square__extern(const gr_mat_t mat, gr_ctx_t UNUSED_ctx) { return gr_mat_is_square(mat, UNUSED_ctx); }
-int gr_mat_sqr__extern(gr_mat_t res, const gr_mat_t mat, gr_ctx_t ctx) { return gr_mat_sqr(res, mat, ctx); }
 gr_ptr gr_vec_entry_ptr__extern(gr_vec_t vec, slong i, gr_ctx_t ctx) { return gr_vec_entry_ptr(vec, i, ctx); }
 gr_srcptr gr_vec_entry_srcptr__extern(const gr_vec_t vec, slong i, gr_ctx_t ctx) { return gr_vec_entry_srcptr(vec, i, ctx); }
 slong gr_vec_length__extern(const gr_vec_t vec, gr_ctx_t UNUSED_ctx) { return gr_vec_length(vec, UNUSED_ctx); }
+truth_t gr_vec_contains__extern(const gr_vec_t vec, gr_srcptr x, gr_ctx_t ctx) { return gr_vec_contains(vec, x, ctx); }
 int _gr_vec_zero__extern(gr_ptr vec, slong len, gr_ctx_t ctx) { return _gr_vec_zero(vec, len, ctx); }
 int _gr_vec_set__extern(gr_ptr res, gr_srcptr src, slong len, gr_ctx_t ctx) { return _gr_vec_set(res, src, len, ctx); }
 int _gr_vec_neg__extern(gr_ptr res, gr_srcptr src, slong len, gr_ctx_t ctx) { return _gr_vec_neg(res, src, len, ctx); }
@@ -1732,7 +1751,9 @@ void gr_mpoly_set_shallow__extern(gr_mpoly_t res, const gr_mpoly_t poly, gr_mpol
 int gr_mpoly_zero__extern(gr_mpoly_t A, gr_mpoly_ctx_t ctx) { return gr_mpoly_zero(A, ctx); }
 int _gr_mpoly_randtest_default__extern(gr_mpoly_t res, flint_rand_t state, gr_mpoly_ctx_t ctx) { return _gr_mpoly_randtest_default(res, state, ctx); }
 int gr_mpoly_one__extern(gr_mpoly_t A, gr_mpoly_ctx_t ctx) { return gr_mpoly_one(A, ctx); }
+gr_ptr gr_poly_coeff_ptr__extern(gr_poly_t poly, slong i, gr_ctx_t ctx) { return gr_poly_coeff_ptr(poly, i, ctx); }
 gr_ptr gr_poly_entry_ptr__extern(gr_poly_t poly, slong i, gr_ctx_t ctx) { return gr_poly_entry_ptr(poly, i, ctx); }
+gr_srcptr gr_poly_coeff_srcptr__extern(const gr_poly_t poly, slong i, gr_ctx_t ctx) { return gr_poly_coeff_srcptr(poly, i, ctx); }
 gr_srcptr gr_poly_entry_srcptr__extern(const gr_poly_t poly, slong i, gr_ctx_t ctx) { return gr_poly_entry_srcptr(poly, i, ctx); }
 slong gr_poly_length__extern(const gr_poly_t poly, gr_ctx_t UNUSED_ctx) { return gr_poly_length(poly, UNUSED_ctx); }
 void gr_poly_swap__extern(gr_poly_t poly1, gr_poly_t poly2, gr_ctx_t UNUSED_ctx) { gr_poly_swap(poly1, poly2, UNUSED_ctx); }
@@ -2052,8 +2073,8 @@ slong mpoly_get_monomial_var_exp_si__extern(const ulong *poly_exps, slong var, f
 void _slong_array_fit_length__extern(slong **array, slong *alloc, slong len) { _slong_array_fit_length(array, alloc, len); }
 void nfloat_init__extern(nfloat_ptr res, gr_ctx_t ctx) { nfloat_init(res, ctx); }
 void nfloat_clear__extern(nfloat_ptr res, gr_ctx_t ctx) { nfloat_clear(res, ctx); }
-int _nfloat_ctx_set_real_prec__extern(gr_ctx_t ctx, slong prec) { return _nfloat_ctx_set_real_prec(ctx, prec); }
-int _nfloat_ctx_get_real_prec__extern(slong *res, gr_ctx_t ctx) { return _nfloat_ctx_get_real_prec(res, ctx); }
+int nfloat_ctx_set_real_prec__extern(gr_ctx_t ctx, slong prec) { return nfloat_ctx_set_real_prec(ctx, prec); }
+int nfloat_ctx_get_real_prec__extern(slong *res, gr_ctx_t ctx) { return nfloat_ctx_get_real_prec(res, ctx); }
 int nfloat_zero__extern(nfloat_ptr res, gr_ctx_t ctx) { return nfloat_zero(res, ctx); }
 truth_t nfloat_is_zero__extern(nfloat_srcptr x, gr_ctx_t ctx) { return nfloat_is_zero(x, ctx); }
 int _nfloat_set_mpn_2exp__extern(nfloat_ptr res, nn_srcptr x, slong xn, slong exp, int xsgnbit, gr_ctx_t ctx) { return _nfloat_set_mpn_2exp(res, x, xn, exp, xsgnbit, ctx); }
