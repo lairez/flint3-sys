@@ -30,9 +30,9 @@ This crate is distributed under the MIT license.
 Note that FLINT itself is licensed under the LGPLv3.
 
 
-## Why not [flint-sys](https://crates.io/crates/flint-sys)
+## Why not [flint-sys](https://crates.io/crates/flint-sys)?
 
-There seems to be to much manual work which makes the maintenance hard and the package often outdated.
+There seems to be too much manual work which makes the maintenance hard and the package often outdated. 
 
 
 ## Architecture
