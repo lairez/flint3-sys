@@ -35,6 +35,7 @@ static SKIP_HEADERS: &[&str] = &[
     "machine_vectors.h", // idem
     "mpn_extras.h",
     "gettimeofday.h",
+    "profiler.h",
 ];
 
 // We will spawn a lot of shell commands with Command::new. The properway to

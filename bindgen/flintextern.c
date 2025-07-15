@@ -148,7 +148,6 @@
 #include "flint/padic_types.h"
 #include "flint/partitions.h"
 #include "flint/perm.h"
-#include "flint/profiler.h"
 #include "flint/qadic.h"
 #include "flint/qfb.h"
 #include "flint/qqbar.h"
@@ -2299,19 +2298,6 @@ void _perm_set__extern(slong *res, const slong *vec, slong n) { _perm_set(res, v
 void _perm_one__extern(slong *vec, slong n) { _perm_one(vec, n); }
 void _perm_inv__extern(slong *res, const slong *vec, slong n) { _perm_inv(res, vec, n); }
 void _perm_compose__extern(slong *res, const slong *vec1, const slong *vec2, slong n) { _perm_compose(res, vec1, vec2, n); }
-void timeit_start__extern(timeit_t t) { timeit_start(t); }
-slong timeit_query_wall__extern(timeit_t t) { return timeit_query_wall(t); }
-void timeit_stop__extern(timeit_t t) { timeit_stop(t); }
-void timeit_start_us__extern(timeit_t t) { timeit_start_us(t); }
-void timeit_stop_us__extern(timeit_t t) { timeit_stop_us(t); }
-double get_cycle_counter__extern(void) { return get_cycle_counter(); }
-void init_clock__extern(int n) { init_clock(n); }
-void init_all_clocks__extern(void) { init_all_clocks(); }
-double get_clock__extern(int n) { return get_clock(n); }
-void start_clock__extern(int n) { start_clock(n); }
-void stop_clock__extern(int n) { stop_clock(n); }
-void prof_start__extern(void) { prof_start(); }
-void prof_stop__extern(void) { prof_stop(); }
 slong qadic_val__extern(const qadic_t op) { return qadic_val(op); }
 slong qadic_prec__extern(const qadic_t op) { return qadic_prec(op); }
 slong qadic_ctx_degree__extern(const qadic_ctx_t ctx) { return qadic_ctx_degree(ctx); }

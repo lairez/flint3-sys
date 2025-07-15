@@ -465,11 +465,6 @@ pub const N_FQ_MUL_ITCH: u32 = 4;
 pub const N_FQ_LAZY_ITCH: u32 = 6;
 pub const N_FQ_INV_ITCH: u32 = 1;
 pub const N_FQ_POLY_DIVREM_DIVCONQUER_CUTOFF: u32 = 20;
-pub const FLINT_NUM_CLOCKS: u32 = 20;
-pub const FLINT_CLOCKSPEED: f64 = 3100000000.0;
-pub const FLINT_CLOCK_SCALE_FACTOR: f64 = 0.0003225806451612903;
-pub const DURATION_THRESHOLD: f64 = 5000.0;
-pub const DURATION_TARGET: f64 = 10000.0;
 pub const QS_DEBUG: u32 = 0;
 pub const BITS_ADJUST: u32 = 25;
 pub const BLOCK_SIZE: u32 = 262144;
@@ -12421,51 +12416,6 @@ const _: () = {
     ][::std::mem::offset_of!(padic_poly_struct, N) - 32usize];
 };
 pub type padic_poly_t = [padic_poly_struct; 1usize];
-#[repr(C)]
-pub struct _bindgen_ty_18 {
-    pub size: ulong,
-    pub peak: ulong,
-    pub hwm: ulong,
-    pub rss: ulong,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of _bindgen_ty_18"][::std::mem::size_of::<_bindgen_ty_18>() - 32usize];
-    ["Alignment of _bindgen_ty_18"][::std::mem::align_of::<_bindgen_ty_18>() - 8usize];
-    [
-        "Offset of field: _bindgen_ty_18::size",
-    ][::std::mem::offset_of!(_bindgen_ty_18, size) - 0usize];
-    [
-        "Offset of field: _bindgen_ty_18::peak",
-    ][::std::mem::offset_of!(_bindgen_ty_18, peak) - 8usize];
-    [
-        "Offset of field: _bindgen_ty_18::hwm",
-    ][::std::mem::offset_of!(_bindgen_ty_18, hwm) - 16usize];
-    [
-        "Offset of field: _bindgen_ty_18::rss",
-    ][::std::mem::offset_of!(_bindgen_ty_18, rss) - 24usize];
-};
-pub type meminfo_t = [_bindgen_ty_18; 1usize];
-#[repr(C)]
-pub struct _bindgen_ty_19 {
-    pub cpu: slong,
-    pub wall: slong,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of _bindgen_ty_19"][::std::mem::size_of::<_bindgen_ty_19>() - 16usize];
-    ["Alignment of _bindgen_ty_19"][::std::mem::align_of::<_bindgen_ty_19>() - 8usize];
-    [
-        "Offset of field: _bindgen_ty_19::cpu",
-    ][::std::mem::offset_of!(_bindgen_ty_19, cpu) - 0usize];
-    [
-        "Offset of field: _bindgen_ty_19::wall",
-    ][::std::mem::offset_of!(_bindgen_ty_19, wall) - 8usize];
-};
-pub type timeit_t = [_bindgen_ty_19; 1usize];
-pub type profile_target_t = ::std::option::Option<
-    unsafe extern "C" fn(arg: *mut ::std::os::raw::c_void, count: ulong),
->;
 pub type qadic_t = padic_poly_t;
 pub type qadic_struct = padic_poly_struct;
 #[repr(C)]
@@ -79856,42 +79806,6 @@ unsafe extern "C" {
         state: *mut flint_rand_struct,
     ) -> ::std::os::raw::c_int;
     pub fn _perm_parity(vec: *const slong, n: slong) -> ::std::os::raw::c_int;
-    pub fn get_memory_usage(meminfo: *mut _bindgen_ty_18);
-    #[link_name = "timeit_start__extern"]
-    pub fn timeit_start(t: *mut _bindgen_ty_19);
-    #[link_name = "timeit_query_wall__extern"]
-    pub fn timeit_query_wall(t: *mut _bindgen_ty_19) -> slong;
-    #[link_name = "timeit_stop__extern"]
-    pub fn timeit_stop(t: *mut _bindgen_ty_19);
-    #[link_name = "timeit_start_us__extern"]
-    pub fn timeit_start_us(t: *mut _bindgen_ty_19);
-    #[link_name = "timeit_stop_us__extern"]
-    pub fn timeit_stop_us(t: *mut _bindgen_ty_19);
-    pub static mut clock_last: [f64; 20usize];
-    pub static mut clock_accum: [f64; 20usize];
-    #[link_name = "get_cycle_counter__extern"]
-    pub fn get_cycle_counter() -> f64;
-    #[link_name = "init_clock__extern"]
-    pub fn init_clock(n: ::std::os::raw::c_int);
-    #[link_name = "init_all_clocks__extern"]
-    pub fn init_all_clocks();
-    #[link_name = "get_clock__extern"]
-    pub fn get_clock(n: ::std::os::raw::c_int) -> f64;
-    #[link_name = "start_clock__extern"]
-    pub fn start_clock(n: ::std::os::raw::c_int);
-    #[link_name = "stop_clock__extern"]
-    pub fn stop_clock(n: ::std::os::raw::c_int);
-    ///Framework for repeatedly sampling a single target
-    #[link_name = "prof_start__extern"]
-    pub fn prof_start();
-    #[link_name = "prof_stop__extern"]
-    pub fn prof_stop();
-    pub fn prof_repeat(
-        min: *mut f64,
-        max: *mut f64,
-        target: profile_target_t,
-        arg: *mut ::std::os::raw::c_void,
-    );
     #[link_name = "qadic_val__extern"]
     pub fn qadic_val(op: *const padic_poly_struct) -> slong;
     #[link_name = "qadic_prec__extern"]
