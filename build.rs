@@ -101,13 +101,12 @@ impl Conf {
 
         // FLINT does not support out-of-tree compilation, so we copy the source
         let mut cp = Command::new("cp");
-        cp.arg("--recursive")
-            .arg("--archive") // keeps the timestamps, so it avoids to trigger unnecessary rebuild
-            .arg("--update") // copy only what we need
+        cp.arg("-Rp") // keeps the timestamps, so it avoids to trigger unnecessary rebuild
+            // .arg("--update") // copy only what we need
             .arg("flint")
             .arg(&self.out_dir);
 
-        cmd! { cp }             // lauch the command
+        cmd! { cp } // lauch the command
 
         // We now follow the instructions in flint/INSTALL.md
 
@@ -183,7 +182,8 @@ impl Conf {
             .file(&self.bindgen_extern_c)
             .include(&self.flint_include_dir)
             .flags(["-lflint", "-lmpr", "-lgmp"])
-            .flags([            // remove compilation warnings, we cannot do much about them.
+            .flags([
+                // remove compilation warnings, we cannot do much about them.
                 "-Wno-old-style-declaration",
                 "-Wno-unused-parameter",
                 "-Wno-sign-compare",
@@ -209,13 +209,13 @@ impl Conf {
             &self.bindgen_extern_c.display()
         );
         let mut cp = Command::new("cp");
-        cp.arg("--archive")     // avoids trigerring build.rs for no reason
+        cp.arg("-Rp") // the -p flag avoids trigerring build.rs for no reason
             .arg("./bindgen/flint.rs")
             .arg(&self.bindgen_flint_rs);
         cmd! { cp };
 
         let mut cp = Command::new("cp");
-        cp.arg("--archive")
+        cp.arg("-Rp")
             .arg("./bindgen/flintextern.c")
             .arg(&self.bindgen_extern_c);
         cmd! { cp };
@@ -330,7 +330,8 @@ impl Conf {
             // This the file where we write the modified code.
             // The file handle will be closed at the end of the scope.
             let mut extern_rel = std::io::BufWriter::new(
-                std::fs::File::create(&self.bindgen_extern_c).context("Cannot open `flintextern.c`")?,
+                std::fs::File::create(&self.bindgen_extern_c)
+                    .context("Cannot open `flintextern.c`")?,
             );
 
             // This is the file where bindgen outputs the inline functions.
@@ -432,7 +433,10 @@ fn main() -> Result<()> {
     // from the directory `./bindgen`.
     conf.bindgen()?;
 
-    anyhow::ensure!(conf.bindgen_extern_c.is_file(), "Cannot find `flintextern.c`");
+    anyhow::ensure!(
+        conf.bindgen_extern_c.is_file(),
+        "Cannot find `flintextern.c`"
+    );
     anyhow::ensure!(conf.bindgen_flint_rs.is_file(), "Cannot find `flint.rs`");
 
     ////////////////////////////////
