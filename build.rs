@@ -153,7 +153,8 @@ impl Conf {
         // Compile, if `libflint.a` does not already exist
         if !flint_root_dir.join("libflint.a").is_file() {
             let mut make = Command::new("make");
-            make.current_dir(&flint_root_dir).arg("-j");
+            make.current_dir(&flint_root_dir);
+            make.env("MAKEFLAGS", std::env::var("CARGO_MAKEFLAGS").unwrap());
             cmd! { make }
         }
 
@@ -185,7 +186,6 @@ impl Conf {
             .flags(["-lflint", "-lmpr", "-lgmp"])
             .flags([
                 // remove compilation warnings, we cannot do much about them.
-                "-Wno-old-style-declaration",
                 "-Wno-unused-parameter",
                 "-Wno-sign-compare",
             ])
