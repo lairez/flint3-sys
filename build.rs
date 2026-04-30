@@ -98,6 +98,24 @@ static SKIP_DIRECT_HEADERS: &[&str] = &[
     "padic_types.h",
 ];
 
+#[allow(dead_code)]
+static BINDGEN_ALLOWLIST_FUNCTIONS: &[&str] = &[
+    "^_?(acb|acf|aprcl|arb|arf|arith|bernoulli|bool|bsplit|butterfly|ca|calcium|clear|compute|d|di|dirichlet|dlog|double|evil|extract|fexpr|ff|fft|flint|fmpq|fmpz|fmpzi|fq|free|gr|hypgeom|ifft|insert|jacobi|long|mag|mpf|mpn|mpoly|mul|n|nf|nfixed|nfloat|nmod|pack|padic|parse|partitions|perm|poly|psl2z|qadic|qfb|qqbar|qs|qsieve|radix|reduce|slong|sp2gz|swap|thread|truth|tuple|ui|ulong|unity|z|zassenhaus)_.*",
+    "^new_bitfield_.*",
+];
+
+#[allow(dead_code)]
+static BINDGEN_ALLOWLIST_TYPES: &[&str] = &[
+    "^_?(acb|acf|aprcl|arb|arf|bernoulli|bool|bsplit|ca|calcium|d|di|dirichlet|dlog|dot|fexpr|flint|fmpq|fmpz|fmpzi|fq|gr|hash|hypgeom|la|limb|lnf|mag|mantissa|mp_limb|mp_ptr|mp_size|mp_srcptr|mpf|mpn|mpoly|mpq|mpz|n|nf|nfloat|nmod|ordering|padic|partitions|perm|polynomial|prime|qadic|qfb|qnf|qqbar|qs|radix|relation|slong|thread|truth|ulong|unity|vector|z|zz).*",
+    "^(__Bindgen|__builtin|__mpq|__mpz|__mpfr|__va|_IO|FILE|FLINT_FILE|pthread|size_t).*",
+];
+
+#[allow(dead_code)]
+static BINDGEN_ALLOWLIST_VARS: &[&str] = &[
+    "^_?(acb|acf|arb|arf|ca|dlog|fexpr|flint|fmpq|fmpz|fq|gr|mag|nmod|padic|qqbar|thread|truth)_.*",
+    "^(ACB|ARB|ARF|BELL|BERNOULLI|CA|CRT|D_|DFT|DLOG|FEXPR|FLINT|FPWRAP|FQ|GR|LSYM|MAG|MAX|MPOLY|MUL|NF|NMOD|PADIC|QQBAR|SMALL|SQUARING|UWORD|WEAK|WORD)_.*",
+];
+
 // We will spawn a lot of shell commands with Command::new. The properway to
 // handle errors (capturing the output and checking the exit code) is a bit
 // verbose, so there is this macro.
@@ -330,6 +348,18 @@ impl Conf {
         for header in &direct_headers {
             let h = header.to_str().context("Non unicode path")?;
             builder = builder.header(h);
+        }
+
+        for pattern in BINDGEN_ALLOWLIST_FUNCTIONS {
+            builder = builder.allowlist_function(pattern);
+        }
+
+        for pattern in BINDGEN_ALLOWLIST_TYPES {
+            builder = builder.allowlist_type(pattern);
+        }
+
+        for pattern in BINDGEN_ALLOWLIST_VARS {
+            builder = builder.allowlist_var(pattern);
         }
 
         let bindings = builder
