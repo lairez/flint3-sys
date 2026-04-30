@@ -259,10 +259,7 @@ impl Conf {
 #[cfg(not(feature = "force-bindgen"))]
 impl Conf {
     fn bindgen(&self) -> Result<()> {
-        println!(
-            "cargo::rerun-if-changed={}",
-            &self.bindgen_flint_rs.display()
-        );
+        println!("cargo::rerun-if-changed=./bindgen/flint.rs");
         let mut cp = Command::new("cp");
         cp.arg("-Rp") // the -p flag avoids trigerring build.rs for no reason
             .arg("./bindgen/flint.rs")
@@ -323,6 +320,46 @@ impl Conf {
         Ok(headers)
     }
 
+    // FLINT exports many header-inline functions by compiling src/*/inlines.c.
+    // Those files turn `static inline` into normal definitions by defining a
+    // module-specific *_INLINES_C macro before including the public header. Use
+    // the same macros while bindgen parses headers, so it emits declarations
+    // for the real libflint symbols instead of requiring bindgen wrapper C.
+    fn flint_inline_macros(&self) -> Result<Vec<String>> {
+        let src_dir = self.out_dir.join("flint/src");
+        let mut macros = Vec::new();
+
+        for entry in std::fs::read_dir(&src_dir)
+            .context(format!("Failed to read `{}`", src_dir.display()))?
+        {
+            let inlines = entry?.path().join("inlines.c");
+
+            if !inlines.is_file() {
+                continue;
+            }
+
+            let contents = std::fs::read_to_string(&inlines)
+                .context(format!("Failed to read `{}`", inlines.display()))?;
+
+            for line in contents.lines() {
+                let Some(rest) = line.trim_start().strip_prefix("#define ") else {
+                    continue;
+                };
+                let Some(name) = rest.split_whitespace().next() else {
+                    continue;
+                };
+
+                if name.ends_with("_INLINES_C") {
+                    macros.push(name.to_owned());
+                }
+            }
+        }
+
+        macros.sort();
+        macros.dedup();
+        Ok(macros)
+    }
+
     fn bindgen(&self) -> Result<()> {
         // Headers that should be emitted if declarations originate there.
         let allowlist_headers: Vec<_> = self.flint_headers(SKIP_BINDGEN_HEADERS)?;
@@ -332,6 +369,10 @@ impl Conf {
         let direct_headers: Vec<_> = self.flint_headers(SKIP_DIRECT_HEADERS)?;
 
         let mut builder = bindgen::Builder::default();
+
+        for macro_name in self.flint_inline_macros()? {
+            builder = builder.clang_arg(format!("-D{macro_name}"));
+        }
 
         // Add the headers that may contribute public bindings.
         for header in &allowlist_headers {
