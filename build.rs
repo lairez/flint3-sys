@@ -221,6 +221,23 @@ static SKIP_HEADERS: &[&str] = &[
 ];
 
 #[cfg(feature = "force-bindgen")]
+static SKIP_ITEMS: &[(&str, &[&str])] = &[
+    (
+        "flint.h",
+        &["n_randlimb", "n_randtest", "n_randtest_not_zero"],
+    ),
+    (
+        "gr_generic.h",
+        &[
+            "gr_generic_ctx_predicate",
+            "gr_generic_ctx_predicate_true",
+            "gr_generic_ctx_predicate_false",
+        ],
+    ),
+    ("mpn_mod.h", &["gr_ctx_init_mpn_mod"]),
+];
+
+#[cfg(feature = "force-bindgen")]
 impl Build {
     fn flint_headers(&self) -> Result<Vec<PathBuf>> {
         let flint_header_dir = self.flint_include_dir.join("flint");
@@ -308,7 +325,11 @@ impl Build {
                             };
 
                             println!("cargo::rerun-if-changed={h}");
-                            let bindings = bindgen::Builder::default()
+                            let header_name = Path::new(&h)
+                                .file_name()
+                                .and_then(OsStr::to_str)
+                                .context("Header path has no file name")?;
+                            let mut builder = bindgen::Builder::default()
                                 .clang_arg("-DFLINT_NOSTDIO")
                                 .clang_arg("-DFLINT_NOSTDARG")
                                 .disable_header_comment()
@@ -329,7 +350,16 @@ impl Build {
                                 .rust_target(bindgen::RustTarget::stable(82, 0).ok().unwrap())
                                 .rust_edition(bindgen::RustEdition::Edition2021)
                                 .layout_tests(false)
-                                .formatter(bindgen::Formatter::Prettyplease)
+                                .formatter(bindgen::Formatter::Prettyplease);
+                            for (_, items) in SKIP_ITEMS
+                                .iter()
+                                .filter(|(header, _)| *header == header_name)
+                            {
+                                for item in *items {
+                                    builder = builder.blocklist_function(format!("^{item}$"));
+                                }
+                            }
+                            let bindings = builder
                                 .generate()
                                 .context("Failed to generate FLINT type bindings")?;
                             let stem = Path::new(&h)
