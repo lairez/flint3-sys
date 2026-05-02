@@ -5,4 +5,4 @@
 
 pub mod ffi_prelude;
 
-include!(concat!(env!("OUT_DIR"), "/flint.rs"));
+include!(concat!(env!("OUT_DIR"), "/types.rs"));

@@ -29,7 +29,7 @@ fn run(mut command: Command) -> Result<()> {
 
 struct Build {
     out_dir: PathBuf,
-    bindings_rs: PathBuf,
+    types_rs: PathBuf,
     flint_include_dir: PathBuf,
     flint_lib_dir: PathBuf,
     flint_install_dir: Option<PathBuf>,
@@ -50,7 +50,7 @@ impl Build {
 
         Ok(Build {
             out_dir: out_dir.clone(),
-            bindings_rs: out_dir.join("flint.rs"),
+            types_rs: out_dir.join("types.rs"),
             flint_include_dir,
             flint_lib_dir,
             flint_install_dir,
@@ -189,13 +189,13 @@ fn validate_flint_install_dir(prefix: &Path) -> Result<PathBuf> {
         .with_context(|| format!("Failed to canonicalize `{}`", prefix.display()))
 }
 
-// Copy pregenerated bindings for normal crate builds.
+// Copy pregenerated type bindings for normal crate builds.
 #[cfg(not(feature = "force-bindgen"))]
 impl Build {
     fn prepare_bindings(&self) -> Result<()> {
-        println!("cargo::rerun-if-changed=./bindgen/flint.rs");
-        std::fs::copy("./bindgen/flint.rs", &self.bindings_rs)
-            .context("Failed to copy pregenerated bindings")?;
+        println!("cargo::rerun-if-changed=./bindgen/types.rs");
+        std::fs::copy("./bindgen/types.rs", &self.types_rs)
+            .context("Failed to copy pregenerated type bindings")?;
         Ok(())
     }
 }
@@ -203,7 +203,78 @@ impl Build {
 #[cfg(feature = "force-bindgen")]
 impl Build {
     fn prepare_bindings(&self) -> Result<()> {
-        anyhow::bail!("force-bindgen modular pipeline is not implemented yet")
+        let flint_header_dir = self.flint_include_dir.join("flint");
+        anyhow::ensure!(
+            flint_header_dir.join("flint.h").is_file(),
+            "Cannot find `flint.h`"
+        );
+
+        let mut headers = vec![flint_header_dir.join("flint.h")];
+        for entry in std::fs::read_dir(&flint_header_dir)
+            .with_context(|| format!("Failed to read `{}`", flint_header_dir.display()))?
+        {
+            let path = entry?.path();
+            let Some(file_name) = path.file_name().and_then(OsStr::to_str) else {
+                continue;
+            };
+
+            if file_name.ends_with("_types.h") {
+                headers.push(path);
+            }
+        }
+
+        // Some public type declarations refer to structs defined in module
+        // headers rather than in dedicated *_types.h headers.
+        for file in [
+            "fmpz_mpoly.h",
+            "fmpz_poly.h",
+            "fmpq_poly.h",
+            "nf.h",
+            "nf_elem.h",
+            "qqbar.h",
+        ] {
+            headers.push(flint_header_dir.join(file));
+        }
+        headers.sort();
+        headers.dedup();
+
+        let mut builder = bindgen::Builder::default()
+            .raw_line("pub use crate::ffi_prelude::*;")
+            .clang_arg("-DFLINT_NOSTDIO")
+            .clang_arg("-DFLINT_NOSTDARG");
+
+        for header in &headers {
+            let h = header.to_str().context("Non unicode header path")?;
+            println!("cargo::rerun-if-changed={h}");
+            builder = builder.header(h).allowlist_file(regex::escape(h));
+        }
+
+        // Keep bindgen confined to the selected files. This avoids dragging in
+        // GMP, MPFR, libc, and compiler implementation details from includes.
+        let bindings = builder
+            .allowlist_recursively(false)
+            .blocklist_function(".*")
+            .blocklist_var(".*")
+            .derive_default(false)
+            .derive_copy(false)
+            .derive_debug(false)
+            .generate_cstr(true)
+            .rust_target(bindgen::RustTarget::stable(82, 0).ok().unwrap())
+            .rust_edition(bindgen::RustEdition::Edition2021)
+            .layout_tests(false)
+            .formatter(bindgen::Formatter::Prettyplease)
+            .generate()
+            .context("Failed to generate FLINT type bindings")?;
+
+        bindings.write_to_file(&self.types_rs)?;
+
+        println!("cargo::rerun-if-env-changed=KEEP_BINDGEN_OUTPUT");
+        if std::env::var_os("KEEP_BINDGEN_OUTPUT").is_some() {
+            std::fs::copy(&self.types_rs, "bindgen/types.rs")
+                .context("Failed to copy generated type bindings")?;
+        }
+
+        Ok(())
     }
 }
 
@@ -239,7 +310,7 @@ fn main() -> Result<()> {
 
     build.prepare_bindings()?;
 
-    anyhow::ensure!(build.bindings_rs.is_file(), "Cannot find `flint.rs`");
+    anyhow::ensure!(build.types_rs.is_file(), "Cannot find `types.rs`");
 
     Ok(())
 }
