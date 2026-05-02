@@ -212,13 +212,12 @@ static SKIP_HEADERS: &[&str] = &[
     r"^gmpcompat\.h$",
     r"^longlong.*\.h$",
     r"^fft_small\.h$",
+    r"^fft\.h$",
     r"^machine_vectors\.h$",
     r"^mpn_extras\.h$",
     r"^profiler\.h$",
     r"^test_helpers\.h$",
     r"^.*templates\.h$",
-    r"^fft\.h$",
-    r"^arf\.h$",
 ];
 
 #[cfg(feature = "force-bindgen")]
@@ -316,12 +315,15 @@ impl Build {
                                 .header(&h)
                                 .allowlist_file(regex::escape(&h))
                                 .allowlist_recursively(false)
-                                .blocklist_item("__.*")
                                 .blocklist_var(".*")
+                                .blocklist_function(".*_mpn.*")
+                                .blocklist_function(".*_mpz.*")
                                 .derive_default(false)
                                 .derive_copy(false)
                                 .derive_debug(false)
-                                .default_non_copy_union_style(bindgen::NonCopyUnionStyle::ManuallyDrop)
+                                .default_non_copy_union_style(
+                                    bindgen::NonCopyUnionStyle::ManuallyDrop,
+                                )
                                 .generate_cstr(true)
                                 .merge_extern_blocks(true)
                                 .rust_target(bindgen::RustTarget::stable(82, 0).ok().unwrap())
@@ -330,7 +332,18 @@ impl Build {
                                 .formatter(bindgen::Formatter::Prettyplease)
                                 .generate()
                                 .context("Failed to generate FLINT type bindings")?;
-                            generated.push((index, h, bindings.to_string()));
+                            let stem = Path::new(&h)
+                                .file_stem()
+                                .and_then(OsStr::to_str)
+                                .context("Header path has no file stem")?
+                                .to_owned();
+                            generated.push((
+                                index,
+                                h,
+                                bindings
+                                    .to_string()
+                                    .replace("_bindgen_", &format!("_{stem}_bindgen_")),
+                            ));
                         }
                         Ok(generated)
                     }),

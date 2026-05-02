@@ -21,6 +21,4 @@ pub type ssize_t = libc::ssize_t;
 
 pub type __va_list_tag = u64;
 
-pub type __uint128_t = u128;
-
 include!(concat!(env!("OUT_DIR"), "/flint.rs"));
