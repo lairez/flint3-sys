@@ -2,7 +2,7 @@
 
 [FLINT](https://flintlib.org/) bindings for the Rust programming language, using [bindgen](https://github.com/rust-lang/rust-bindgen).
 
-Since the FLINT API evolves quickly, this crate always compiles FLINT from source and never attempts to use a system library.
+Since the FLINT API evolves quickly, this crate normally compiles the bundled FLINT from source and never attempts to discover a system library automatically.
 
 ## Versioning
 
@@ -23,6 +23,16 @@ This crate passes the following metadata to its dependents:
 - `DEP_FLINT_INCLUDE_DIR`: Path to the directory containing FLINT headers, such as `DEP_FLINT_INCLUDE_DIR/flint/flint.h`.
 
 This is useful for crates that need to compile a C library depending on FLINT. See the [Cargo book](https://doc.rust-lang.org/cargo/reference/build-scripts.html#the-links-manifest-key) for more details.
+
+## Local FLINT Install
+
+For development, you may point the build script at an existing FLINT install prefix instead of rebuilding bundled FLINT:
+
+```sh
+FLINT_INSTALL=/path/to/flint/prefix cargo test
+```
+
+The prefix must contain `include/flint/flint.h` and `lib/libflint.a`. A repo-local `flint-install` symlink or directory with the same layout is also accepted.
 
 ## Licensing
 
@@ -49,7 +59,7 @@ Using *pkg-config* to link against a system-installed FLINT is straightforward, 
 - Results in unpredictable APIs,
 - May miss AVX2 optimizations, which are often not enabled in precompiled packages.
 
-For these reasons, this crate builds FLINT from source.
+For these reasons, this crate builds the bundled FLINT from source unless `FLINT_INSTALL` or `./flint-install` provides an explicit install prefix.
 
 For FLINT's dependencies (GMP and MPFR), you may choose to compile them from source (using the *gmp-mpfr-sys* feature) or rely on the system libraries. Compiling from source typically yields better performance.  
 Note: *flint3-sys* does not expose any part of the GMP or MPFR APIs.
@@ -80,4 +90,3 @@ To update the bundled version of FLINT:
 2. Run `KEEP_BINDGEN_OUTPUT=1 cargo build -F force-bindgen` to regenerate `./bindgen/flint.rs` and `./bindgen/flintextern.c`.
 3. Test thoroughly.
 4. Commit the changes.
-
