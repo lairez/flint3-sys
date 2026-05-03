@@ -16,9 +16,6 @@ fn main() {
         let s = fmpz_poly_get_str_pretty(&res, c"x".as_ptr());
         let s = CStr::from_ptr(s).to_str().unwrap();
 
-        assert_eq!(
-            format!("{s}"),
-            "x^2+37616060956672*x-56171326053810176",
-        );
+        assert_eq!(format!("{s}"), "x^2+37616060956672*x-56171326053810176",);
     }
 }

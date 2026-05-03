@@ -15,6 +15,9 @@ mod runbindgen;
 // FLINT header. Per-header bindgen is much faster than a single mega-header, but
 // it requires a few explicit policies below to avoid duplicate declarations.
 
+#[cfg(not(feature = "force-bindgen"))]
+const GENERATED_BINDINGS: &str = "bindgen/flint.rs";
+
 // This is an undocumented convenience for the maintainer of this crate, so that
 // FLINT is not compiled over and over.
 const LOCAL_FLINT_INSTALL: &str = "flint-install";
@@ -42,7 +45,7 @@ fn run(mut command: Command) -> Result<()> {
 struct Build {
     // Cargo build-script scratch directory.
     out_dir: PathBuf,
-    // `bindgen/flint.rs`.
+    // Destination consumed by src/lib.rs through include!(env!("FLINT_RS")).
     flint_rs: PathBuf,
     // FLINT include prefix, either OUT_DIR/include or <FLINT_INSTALL>/include.
     flint_include_dir: PathBuf,
@@ -223,7 +226,10 @@ impl Build {
 #[cfg(feature = "force-bindgen")]
 impl Build {
     fn prepare_bindings(&self) -> Result<()> {
-        let bgen = runbindgen::BindingGeneration::new(self.flint_include_dir.clone(), self.flint_rs.clone())?;
+        let bgen = runbindgen::BindingGeneration::new(
+            self.flint_include_dir.clone(),
+            self.flint_rs.clone(),
+        )?;
         bgen.generate_bindings()
     }
 }

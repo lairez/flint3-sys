@@ -67,7 +67,7 @@ impl BindingGeneration {
             tmp_dir,
         })
     }
-    
+
     // Temporary bindgen workaround for FLINT headers where `mpoly_void_ring_t` is
     // an array typedef over an anonymous struct. Bindgen then emits unstable
     // `_bindgen_ty_*` names in unrelated headers. Naming the struct gives bindgen a
@@ -115,8 +115,7 @@ impl BindingGeneration {
         );
 
         let mut headers = Vec::new();
-        for entry in std::fs::read_dir(&header_dir)?
-        {
+        for entry in std::fs::read_dir(&header_dir)? {
             let path = entry?.path();
             if path.extension().and_then(std::ffi::OsStr::to_str) != Some("h") {
                 continue;
@@ -147,12 +146,11 @@ impl BindingGeneration {
         Ok(headers)
     }
 
-
     pub fn generate_bindings(&self) -> Result<()> {
         use std::io::Write;
         use std::sync::{
-            Arc,
             atomic::{AtomicUsize, Ordering},
+            Arc,
         };
 
         let headers = self.flint_headers()?;
@@ -306,5 +304,4 @@ impl BindingGeneration {
 
         Ok(())
     }
-
 }
