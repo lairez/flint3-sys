@@ -9,6 +9,7 @@ authors = ["Pierre Lairez"]
 license = "MIT"
 categories = ["external-ffi-bindings", "mathematics"]
 keywords = ["computer-algebra"]
+build = "build/main.rs"
 
 [features]
 force-bindgen = ["dep:bindgen", "dep:regex"]
