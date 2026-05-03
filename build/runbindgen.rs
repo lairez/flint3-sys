@@ -12,6 +12,7 @@ static SKIP_HEADERS: &[&str] = &[
     r"^config\.h$",
     r"^flint-config\.h$",
     r"^flint-mparam\.h$",
+    r"^thread_pool\.h$",
     // Irrelevant, or too low-level (platform-dependent)
     r"^crt_helpers\.h$",
     r"^gettimeofday\.h$",
