@@ -37,12 +37,12 @@ fn run(mut command: Command) -> Result<()> {
     Ok(())
 }
 
-// Temporary workaround for FLINT headers where `mpoly_void_ring_t` is an
-// array typedef over an anonymous struct. Bindgen then emits unstable
-// `_bindgen_ty_*` names in unrelated headers. Naming the struct gives
-// bindgen a stable Rust type. Remove this when upstream FLINT has the fix.
+// Temporary bindgen workaround for FLINT headers where `mpoly_void_ring_t` is
+// an array typedef over an anonymous struct. Bindgen then emits unstable
+// `_bindgen_ty_*` names in unrelated headers. Naming the struct gives bindgen a
+// stable Rust type. Remove this when upstream FLINT has the fix.
+#[cfg(feature = "force-bindgen")]
 fn patch_flint_mpoly_void_ring_type(header: &Path) -> Result<()> {
-    println!("cargo::rerun-if-changed={}", header.display());
     let source = std::fs::read_to_string(header)
         .with_context(|| format!("Failed to read `{}`", header.display()))?;
 
@@ -72,6 +72,9 @@ struct Build {
     out_dir: PathBuf,
     // Destination consumed by src/lib.rs through include!(env!("FLINT_RS")).
     flint_rs: PathBuf,
+    // Private header overlay used only by bindgen.
+    #[cfg(feature = "force-bindgen")]
+    bindgen_include_dir: PathBuf,
     // FLINT include prefix, either OUT_DIR/include or <FLINT_INSTALL>/include.
     flint_include_dir: PathBuf,
     // FLINT library prefix, either OUT_DIR/lib or <FLINT_INSTALL>/lib.
@@ -98,6 +101,8 @@ impl Build {
         Ok(Build {
             out_dir: out_dir.clone(),
             flint_rs: out_dir.join("flint.rs"),
+            #[cfg(feature = "force-bindgen")]
+            bindgen_include_dir: out_dir.join("headers"),
             flint_include_dir,
             flint_lib_dir,
             flint_install_dir,
@@ -106,10 +111,6 @@ impl Build {
 
     fn build_flint(&self) -> Result<()> {
         if self.flint_install_dir.is_some() {
-            // `FLINT_INSTALL` or `flint-install` points to a complete install
-            // prefix. We still patch the installed header so force-bindgen sees
-            // the same workaround as vendored builds.
-            patch_flint_mpoly_void_ring_type(&self.flint_include_dir.join("flint/mpoly_types.h"))?;
             self.emit_flint_metadata();
             return Ok(());
         }
@@ -124,8 +125,6 @@ impl Build {
         let mut cp = Command::new("cp");
         cp.arg("-Rp").arg("flint").arg(&self.out_dir);
         run(cp)?;
-
-        patch_flint_mpoly_void_ring_type(&flint_root_dir.join("src/mpoly_types.h"))?;
 
         if !flint_root_dir.join("configure").is_file() {
             let mut bootstrap = Command::new("sh");
@@ -296,8 +295,43 @@ static SKIP_ITEMS: &[(&str, &[&str])] = &[
 
 #[cfg(feature = "force-bindgen")]
 impl Build {
+    fn prepare_bindgen_headers(&self) -> Result<()> {
+        let source_dir = self.flint_include_dir.join("flint");
+        let overlay_dir = self.bindgen_include_dir.join("flint");
+        anyhow::ensure!(
+            source_dir.is_dir(),
+            "Cannot find FLINT header directory `{}`",
+            source_dir.display()
+        );
+
+        if overlay_dir.is_dir() {
+            std::fs::remove_dir_all(&overlay_dir)
+                .with_context(|| format!("Failed to remove `{}`", overlay_dir.display()))?;
+        }
+        std::fs::create_dir_all(&overlay_dir)
+            .with_context(|| format!("Failed to create `{}`", overlay_dir.display()))?;
+
+        for entry in std::fs::read_dir(&source_dir)
+            .with_context(|| format!("Failed to read `{}`", source_dir.display()))?
+        {
+            let path = entry?.path();
+            if path.extension().and_then(std::ffi::OsStr::to_str) != Some("h") {
+                continue;
+            }
+
+            println!("cargo::rerun-if-changed={}", path.display());
+            let file_name = path.file_name().context("Header path has no file name")?;
+            std::fs::copy(&path, overlay_dir.join(file_name))
+                .with_context(|| format!("Failed to copy `{}`", path.display()))?;
+        }
+
+        patch_flint_mpoly_void_ring_type(&overlay_dir.join("mpoly_types.h"))?;
+
+        Ok(())
+    }
+
     fn flint_headers(&self) -> Result<Vec<PathBuf>> {
-        let flint_header_dir = self.flint_include_dir.join("flint");
+        let flint_header_dir = self.bindgen_include_dir.join("flint");
         anyhow::ensure!(
             flint_header_dir.is_dir(),
             "Cannot find FLINT header directory `{}`",
@@ -341,6 +375,7 @@ impl Build {
             atomic::{AtomicUsize, Ordering},
         };
 
+        self.prepare_bindgen_headers()?;
         let headers = self.flint_headers()?;
 
         // FLINT implements many inline functions by compiling module-specific
@@ -375,6 +410,10 @@ impl Build {
                 Ok(h.to_owned())
             })
             .collect::<Result<Vec<_>>>()?;
+        let bindgen_include_args = [
+            format!("-I{}", self.bindgen_include_dir.display()),
+            format!("-I{}", self.bindgen_include_dir.join("flint").display()),
+        ];
 
         let mut generated = std::iter::repeat_with(|| None)
             .take(header_strings.len())
@@ -393,6 +432,7 @@ impl Build {
                 let next_header = Arc::clone(&next_header);
                 let header_strings = &header_strings;
                 let inline_macros = &inline_macros;
+                let bindgen_include_args = &bindgen_include_args;
                 tasks.push(
                     scope.spawn(move || -> Result<Vec<(usize, String, String)>> {
                         let mut generated = Vec::new();
@@ -430,6 +470,10 @@ impl Build {
                                 .rust_edition(bindgen::RustEdition::Edition2021)
                                 .layout_tests(false)
                                 .formatter(bindgen::Formatter::Prettyplease);
+
+                            for include_arg in bindgen_include_args {
+                                builder = builder.clang_arg(include_arg.as_str());
+                            }
 
                             for inline_macro in inline_macros {
                                 builder = builder.clang_arg(format!("-D{inline_macro}"));
