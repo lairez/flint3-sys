@@ -27,6 +27,32 @@ fn run(mut command: Command) -> Result<()> {
     Ok(())
 }
 
+fn patch_flint_mpoly_void_ring_type(header: &Path) -> Result<()> {
+    println!("cargo::rerun-if-changed={}", header.display());
+
+    let source = std::fs::read_to_string(header)
+        .with_context(|| format!("Failed to read `{}`", header.display()))?;
+
+    if source.contains("mpoly_void_ring_struct") {
+        return Ok(());
+    }
+
+    let patched = source.replace(
+        "} mpoly_void_ring_t[1];",
+        "} mpoly_void_ring_struct;\n\ntypedef mpoly_void_ring_struct mpoly_void_ring_t[1];",
+    );
+    anyhow::ensure!(
+        patched != source,
+        "Could not find anonymous `mpoly_void_ring_t` declaration in `{}`",
+        header.display()
+    );
+
+    std::fs::write(header, patched)
+        .with_context(|| format!("Failed to patch `{}`", header.display()))?;
+
+    Ok(())
+}
+
 struct Build {
     out_dir: PathBuf,
     flint_rs: PathBuf,
@@ -59,6 +85,7 @@ impl Build {
 
     fn build_flint(&self) -> Result<()> {
         if self.flint_install_dir.is_some() {
+            patch_flint_mpoly_void_ring_type(&self.flint_include_dir.join("flint/mpoly_types.h"))?;
             self.emit_flint_metadata();
             return Ok(());
         }
@@ -73,6 +100,8 @@ impl Build {
         cp.arg("-Rp").arg("flint").arg(&self.out_dir);
 
         run(cp)?;
+
+        patch_flint_mpoly_void_ring_type(&flint_root_dir.join("src/mpoly_types.h"))?;
 
         if !flint_root_dir.join("configure").is_file() {
             let mut bootstrap = Command::new("sh");
@@ -339,7 +368,7 @@ impl Build {
                                 .blocklist_var(".*")
                                 .blocklist_function(".*_mpn.*")
                                 .blocklist_function(".*_mpz.*")
-                                .derive_default(false)
+                                .derive_default(true)
                                 .derive_copy(false)
                                 .derive_debug(false)
                                 .default_non_copy_union_style(

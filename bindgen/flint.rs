@@ -621,6 +621,15 @@ pub struct acb_calc_integrate_opt_struct {
     pub use_heap: ::std::os::raw::c_int,
     pub verbose: ::std::os::raw::c_int,
 }
+impl Default for acb_calc_integrate_opt_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type acb_calc_integrate_opt_t = [acb_calc_integrate_opt_struct; 1usize];
 unsafe extern "C" {
     pub fn acb_calc_cauchy_bound(
@@ -680,6 +689,15 @@ pub struct crt_struct {
     pub M: [ulong; 15usize],
     pub vM: [ulong; 15usize],
 }
+impl Default for crt_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type crt_t = [crt_struct; 1usize];
 pub type acb_dft_step_ptr = *mut acb_dft_step_struct;
 #[repr(C)]
@@ -690,6 +708,15 @@ pub struct acb_dft_cyc_struct {
     pub num: slong,
     pub cyc: acb_dft_step_ptr,
 }
+impl Default for acb_dft_cyc_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type acb_dft_cyc_t = [acb_dft_cyc_struct; 1usize];
 #[repr(C)]
 pub struct acb_dft_rad2_struct {
@@ -698,6 +725,15 @@ pub struct acb_dft_rad2_struct {
     pub dv: slong,
     pub nz: slong,
     pub z: acb_ptr,
+}
+impl Default for acb_dft_rad2_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type acb_dft_rad2_t = [acb_dft_rad2_struct; 1usize];
 #[repr(C)]
@@ -708,12 +744,30 @@ pub struct acb_dft_bluestein_struct {
     pub g: acb_ptr,
     pub rad2: acb_dft_rad2_t,
 }
+impl Default for acb_dft_bluestein_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type acb_dft_bluestein_t = [acb_dft_bluestein_struct; 1usize];
 #[repr(C)]
 pub struct acb_dft_prod_struct {
     pub n: slong,
     pub num: slong,
     pub cyc: acb_dft_step_ptr,
+}
+impl Default for acb_dft_prod_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type acb_dft_prod_t = [acb_dft_prod_struct; 1usize];
 #[repr(C)]
@@ -723,6 +777,15 @@ pub struct acb_dft_crt_struct {
     pub dv: slong,
     pub cyc: acb_dft_step_ptr,
 }
+impl Default for acb_dft_crt_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type acb_dft_crt_t = [acb_dft_crt_struct; 1usize];
 #[repr(C)]
 pub struct acb_dft_naive_struct {
@@ -731,6 +794,15 @@ pub struct acb_dft_naive_struct {
     pub zclear: ::std::os::raw::c_int,
     pub z: acb_ptr,
     pub dz: slong,
+}
+impl Default for acb_dft_naive_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type acb_dft_naive_t = [acb_dft_naive_struct; 1usize];
 #[repr(C)]
@@ -748,6 +820,24 @@ pub union acb_dft_pre_struct__acb_dft_bindgen_ty_1 {
     pub naive: ::std::mem::ManuallyDrop<acb_dft_naive_t>,
     pub bluestein: ::std::mem::ManuallyDrop<acb_dft_bluestein_t>,
 }
+impl Default for acb_dft_pre_struct__acb_dft_bindgen_ty_1 {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+impl Default for acb_dft_pre_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type acb_dft_pre_t = [acb_dft_pre_struct; 1usize];
 #[repr(C)]
 pub struct acb_dft_step_struct {
@@ -757,6 +847,15 @@ pub struct acb_dft_step_struct {
     pub z: acb_srcptr,
     pub dz: slong,
     pub pre: acb_dft_pre_t,
+}
+impl Default for acb_dft_step_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub const DFT_NAIVE: _acb_dft_bindgen_ty_2 = 0;
 pub const DFT_CYC: _acb_dft_bindgen_ty_2 = 1;
@@ -1004,6 +1103,15 @@ pub struct acb_dirichlet_hurwitz_precomp_struct {
     pub N: slong,
     pub K: slong,
 }
+impl Default for acb_dirichlet_hurwitz_precomp_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type acb_dirichlet_hurwitz_precomp_t = [acb_dirichlet_hurwitz_precomp_struct; 1usize];
 #[repr(C)]
 pub struct acb_dirichlet_roots_struct {
@@ -1015,6 +1123,15 @@ pub struct acb_dirichlet_roots_struct {
     pub Z: *mut acb_ptr,
     pub use_pow: ::std::os::raw::c_int,
 }
+impl Default for acb_dirichlet_roots_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type acb_dirichlet_roots_t = [acb_dirichlet_roots_struct; 1usize];
 #[repr(C)]
 pub struct acb_dirichlet_platt_c_precomp_struct {
@@ -1023,17 +1140,44 @@ pub struct acb_dirichlet_platt_c_precomp_struct {
     pub Xa: arb_struct,
     pub Xb: arb_struct,
 }
+impl Default for acb_dirichlet_platt_c_precomp_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type acb_dirichlet_platt_c_precomp_t = [acb_dirichlet_platt_c_precomp_struct; 1usize];
 #[repr(C)]
 pub struct acb_dirichlet_platt_i_precomp_struct {
     pub c1: arb_struct,
     pub c2: arb_struct,
 }
+impl Default for acb_dirichlet_platt_i_precomp_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type acb_dirichlet_platt_i_precomp_t = [acb_dirichlet_platt_i_precomp_struct; 1usize];
 #[repr(C)]
 pub struct acb_dirichlet_platt_ws_precomp_struct {
     pub pre_c: acb_dirichlet_platt_c_precomp_struct,
     pub pre_i: acb_dirichlet_platt_i_precomp_struct,
+}
+impl Default for acb_dirichlet_platt_ws_precomp_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type acb_dirichlet_platt_ws_precomp_t = [acb_dirichlet_platt_ws_precomp_struct; 1usize];
 unsafe extern "C" {
@@ -3594,6 +3738,15 @@ pub struct psl2z_struct {
     pub c: fmpz,
     pub d: fmpz,
 }
+impl Default for psl2z_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type psl2z_t = [psl2z_struct; 1usize];
 unsafe extern "C" {
     pub fn psl2z_print(g: *const psl2z_struct);
@@ -5345,6 +5498,15 @@ pub struct acb_theta_eld_struct {
     pub nb_border: slong,
     pub box_: *mut slong,
 }
+impl Default for acb_theta_eld_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type acb_theta_eld_t = [acb_theta_eld_struct; 1usize];
 #[repr(C)]
 pub struct acb_theta_ctx_tau_struct {
@@ -5362,6 +5524,15 @@ pub struct acb_theta_ctx_tau_struct {
     pub exp_tau_a_inv: acb_ptr,
     pub exp_a_tau_a_div_4: acb_ptr,
 }
+impl Default for acb_theta_ctx_tau_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type acb_theta_ctx_tau_t = [acb_theta_ctx_tau_struct; 1usize];
 #[repr(C)]
 pub struct acb_theta_ctx_z_struct {
@@ -5374,6 +5545,15 @@ pub struct acb_theta_ctx_z_struct {
     pub u: arb_struct,
     pub uinv: arb_struct,
     pub is_real: ::std::os::raw::c_int,
+}
+impl Default for acb_theta_ctx_z_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type acb_theta_ctx_z_t = [acb_theta_ctx_z_struct; 1usize];
 pub type acb_theta_sum_worker_t = ::std::option::Option<
@@ -5905,6 +6085,15 @@ pub struct acb_struct {
     pub real: arb_struct,
     pub imag: arb_struct,
 }
+impl Default for acb_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type acb_t = [acb_struct; 1usize];
 pub type acb_ptr = *mut acb_struct;
 pub type acb_srcptr = *const acb_struct;
@@ -5915,12 +6104,30 @@ pub struct acb_mat_struct {
     pub c: slong,
     pub stride: slong,
 }
+impl Default for acb_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type acb_mat_t = [acb_mat_struct; 1usize];
 #[repr(C)]
 pub struct acb_poly_struct {
     pub coeffs: acb_ptr,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for acb_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type acb_poly_t = [acb_poly_struct; 1usize];
 
@@ -5969,6 +6176,15 @@ pub struct acf_struct {
     pub real: arf_struct,
     pub imag: arf_struct,
 }
+impl Default for acf_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type acf_t = [acf_struct; 1usize];
 pub type acf_ptr = *mut acf_struct;
 pub type acf_srcptr = *const acf_struct;
@@ -5984,6 +6200,15 @@ pub struct _aprcl_config {
     pub qs: fmpz_factor_t,
     pub qs_used: *mut ::std::os::raw::c_int,
 }
+impl Default for _aprcl_config {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type aprcl_config = [_aprcl_config; 1usize];
 #[repr(C)]
 pub struct _unity_zpq {
@@ -5992,6 +6217,15 @@ pub struct _unity_zpq {
     pub q: ulong,
     pub ctx: fmpz_mod_ctx_t,
 }
+impl Default for _unity_zpq {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type unity_zpq = [_unity_zpq; 1usize];
 #[repr(C)]
 pub struct _unity_zp {
@@ -5999,6 +6233,15 @@ pub struct _unity_zp {
     pub p: ulong,
     pub exp: ulong,
     pub ctx: fmpz_mod_ctx_t,
+}
+impl Default for _unity_zp {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type unity_zp = [_unity_zp; 1usize];
 pub const primality_test_status_UNKNOWN: primality_test_status = 0;
@@ -7531,6 +7774,7 @@ unsafe extern "C" {
 /* arb_fpwrap.h */
 
 #[repr(C)]
+#[derive(Default)]
 pub struct complex_double {
     pub real: f64,
     pub imag: f64,
@@ -8691,6 +8935,7 @@ unsafe extern "C" {
 /* arb_hypgeom.h */
 
 #[repr(C)]
+#[derive(Default)]
 pub struct arb_hypgeom_gamma_coeff_t {
     pub exp: ::std::os::raw::c_short,
     pub tab_pos: ::std::os::raw::c_short,
@@ -11444,6 +11689,15 @@ pub struct mag_struct {
     pub exp: fmpz,
     pub man: ulong,
 }
+impl Default for mag_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type mag_t = [mag_struct; 1usize];
 pub type mag_ptr = *mut mag_struct;
 pub type mag_srcptr = *const mag_struct;
@@ -11451,6 +11705,15 @@ pub type mag_srcptr = *const mag_struct;
 pub struct arb_struct {
     pub mid: arf_struct,
     pub rad: mag_struct,
+}
+impl Default for arb_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type arb_t = [arb_struct; 1usize];
 pub type arb_ptr = *mut arb_struct;
@@ -11462,12 +11725,30 @@ pub struct arb_mat_struct {
     pub c: slong,
     pub stride: slong,
 }
+impl Default for arb_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type arb_mat_t = [arb_mat_struct; 1usize];
 #[repr(C)]
 pub struct arb_poly_struct {
     pub coeffs: arb_ptr,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for arb_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type arb_poly_t = [arb_poly_struct; 1usize];
 
@@ -11822,21 +12103,57 @@ unsafe extern "C" {
 pub struct mantissa_noptr_struct {
     pub d: [ulong; 2usize],
 }
+impl Default for mantissa_noptr_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct mantissa_ptr_struct {
     pub alloc: slong,
     pub d: nn_ptr,
+}
+impl Default for mantissa_ptr_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub union mantissa_struct {
     pub noptr: ::std::mem::ManuallyDrop<mantissa_noptr_struct>,
     pub ptr: ::std::mem::ManuallyDrop<mantissa_ptr_struct>,
 }
+impl Default for mantissa_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct arf_struct {
     pub exp: fmpz,
     pub size: slong,
     pub d: mantissa_struct,
+}
+impl Default for arf_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type arf_t = [arf_struct; 1usize];
 pub type arf_ptr = *mut arf_struct;
@@ -11845,6 +12162,15 @@ pub type arf_srcptr = *const arf_struct;
 pub struct arf_interval_struct {
     pub a: arf_struct,
     pub b: arf_struct,
+}
+impl Default for arf_interval_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type arf_interval_t = [arf_interval_struct; 1usize];
 pub type arf_interval_ptr = *mut arf_interval_struct;
@@ -11861,6 +12187,15 @@ pub struct trig_prod_struct {
     pub sqrt_q: ulong,
     pub cos_p: [slong; 64usize],
     pub cos_q: [ulong; 64usize],
+}
+impl Default for trig_prod_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type trig_prod_t = [trig_prod_struct; 1usize];
 unsafe extern "C" {
@@ -11938,6 +12273,15 @@ pub struct bernoulli_rev_struct {
     pub two_pi_squared: arb_t,
     pub n: ulong,
 }
+impl Default for bernoulli_rev_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type bernoulli_rev_t = [bernoulli_rev_struct; 1usize];
 unsafe extern "C" {
     pub fn bernoulli_cache_compute(n: slong);
@@ -11971,6 +12315,15 @@ pub struct bool_mat_struct {
     pub r: slong,
     pub c: slong,
     pub rows: *mut *mut ::std::os::raw::c_int,
+}
+impl Default for bool_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type bool_mat_t = [bool_mat_struct; 1usize];
 unsafe extern "C" {
@@ -12044,23 +12397,23 @@ unsafe extern "C" {
 
 /* ca.h */
 
-pub const CA_OPT_VERBOSE: _ca_bindgen_ty_4 = 0;
-pub const CA_OPT_PRINT_FLAGS: _ca_bindgen_ty_4 = 1;
-pub const CA_OPT_MPOLY_ORD: _ca_bindgen_ty_4 = 2;
-pub const CA_OPT_PREC_LIMIT: _ca_bindgen_ty_4 = 3;
-pub const CA_OPT_QQBAR_DEG_LIMIT: _ca_bindgen_ty_4 = 4;
-pub const CA_OPT_LOW_PREC: _ca_bindgen_ty_4 = 5;
-pub const CA_OPT_SMOOTH_LIMIT: _ca_bindgen_ty_4 = 6;
-pub const CA_OPT_LLL_PREC: _ca_bindgen_ty_4 = 7;
-pub const CA_OPT_POW_LIMIT: _ca_bindgen_ty_4 = 8;
-pub const CA_OPT_USE_GROEBNER: _ca_bindgen_ty_4 = 9;
-pub const CA_OPT_GROEBNER_LENGTH_LIMIT: _ca_bindgen_ty_4 = 10;
-pub const CA_OPT_GROEBNER_POLY_LENGTH_LIMIT: _ca_bindgen_ty_4 = 11;
-pub const CA_OPT_GROEBNER_POLY_BITS_LIMIT: _ca_bindgen_ty_4 = 12;
-pub const CA_OPT_VIETA_LIMIT: _ca_bindgen_ty_4 = 13;
-pub const CA_OPT_TRIG_FORM: _ca_bindgen_ty_4 = 14;
-pub const CA_OPT_NUM_OPTIONS: _ca_bindgen_ty_4 = 15;
-pub type _ca_bindgen_ty_4 = ::std::os::raw::c_uint;
+pub const CA_OPT_VERBOSE: _ca_bindgen_ty_3 = 0;
+pub const CA_OPT_PRINT_FLAGS: _ca_bindgen_ty_3 = 1;
+pub const CA_OPT_MPOLY_ORD: _ca_bindgen_ty_3 = 2;
+pub const CA_OPT_PREC_LIMIT: _ca_bindgen_ty_3 = 3;
+pub const CA_OPT_QQBAR_DEG_LIMIT: _ca_bindgen_ty_3 = 4;
+pub const CA_OPT_LOW_PREC: _ca_bindgen_ty_3 = 5;
+pub const CA_OPT_SMOOTH_LIMIT: _ca_bindgen_ty_3 = 6;
+pub const CA_OPT_LLL_PREC: _ca_bindgen_ty_3 = 7;
+pub const CA_OPT_POW_LIMIT: _ca_bindgen_ty_3 = 8;
+pub const CA_OPT_USE_GROEBNER: _ca_bindgen_ty_3 = 9;
+pub const CA_OPT_GROEBNER_LENGTH_LIMIT: _ca_bindgen_ty_3 = 10;
+pub const CA_OPT_GROEBNER_POLY_LENGTH_LIMIT: _ca_bindgen_ty_3 = 11;
+pub const CA_OPT_GROEBNER_POLY_BITS_LIMIT: _ca_bindgen_ty_3 = 12;
+pub const CA_OPT_VIETA_LIMIT: _ca_bindgen_ty_3 = 13;
+pub const CA_OPT_TRIG_FORM: _ca_bindgen_ty_3 = 14;
+pub const CA_OPT_NUM_OPTIONS: _ca_bindgen_ty_3 = 15;
+pub type _ca_bindgen_ty_3 = ::std::os::raw::c_uint;
 unsafe extern "C" {
     pub fn ca_ctx_init(ctx: *mut ca_ctx_struct);
     pub fn ca_ctx_clear(ctx: *mut ca_ctx_struct);
@@ -13384,6 +13737,15 @@ pub struct ca_poly_vec_struct {
     pub length: slong,
     pub alloc: slong,
 }
+impl Default for ca_poly_vec_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type ca_poly_vec_t = [ca_poly_vec_struct; 1usize];
 unsafe extern "C" {
     pub fn ca_poly_init(poly: *mut ca_poly_struct, ctx: *mut ca_ctx_struct);
@@ -13943,10 +14305,28 @@ pub union ca_elem_struct {
     pub nf: ::std::mem::ManuallyDrop<nf_elem_struct>,
     pub mpoly_q: ::std::mem::ManuallyDrop<*mut fmpz_mpoly_q_struct>,
 }
+impl Default for ca_elem_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct ca_struct {
     pub field: ulong,
     pub elem: ca_elem_struct,
+}
+impl Default for ca_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type ca_t = [ca_struct; 1usize];
 pub type ca_ptr = *mut ca_struct;
@@ -13956,6 +14336,15 @@ pub struct ca_ext_qqbar {
     pub x: qqbar_struct,
     pub nf: *mut nf_struct,
 }
+impl Default for ca_ext_qqbar {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct ca_ext_func_data {
     pub args: *mut ca_struct,
@@ -13963,6 +14352,15 @@ pub struct ca_ext_func_data {
     pub enclosure: acb_struct,
     pub prec: slong,
     pub qqbar: *mut qqbar_struct,
+}
+impl Default for ca_ext_func_data {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct ca_ext_struct {
@@ -13976,6 +14374,24 @@ pub union ca_ext_struct__ca_types_bindgen_ty_1 {
     pub qqbar: ::std::mem::ManuallyDrop<ca_ext_qqbar>,
     pub func_data: ::std::mem::ManuallyDrop<ca_ext_func_data>,
 }
+impl Default for ca_ext_struct__ca_types_bindgen_ty_1 {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+impl Default for ca_ext_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type ca_ext_t = [ca_ext_struct; 1usize];
 pub type ca_ext_ptr = *mut ca_ext_struct;
 pub type ca_ext_srcptr = *const ca_ext_struct;
@@ -13987,6 +14403,15 @@ pub struct ca_ext_cache_struct {
     pub hash_size: slong,
     pub hash_table: *mut slong,
 }
+impl Default for ca_ext_cache_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type ca_ext_cache_t = [ca_ext_cache_struct; 1usize];
 #[repr(C)]
 pub struct ca_field_struct {
@@ -13994,6 +14419,15 @@ pub struct ca_field_struct {
     pub ext: *mut *mut ca_ext_struct,
     pub ideal: fmpz_mpoly_vec_struct,
     pub hash: ulong,
+}
+impl Default for ca_field_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type ca_field_t = [ca_field_struct; 1usize];
 pub type ca_field_ptr = *mut ca_field_struct;
@@ -14006,6 +14440,15 @@ pub struct ca_field_cache_struct {
     pub hash_size: slong,
     pub hash_table: *mut slong,
 }
+impl Default for ca_field_cache_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type ca_field_cache_t = [ca_field_cache_struct; 1usize];
 #[repr(C)]
 pub struct ca_ctx_struct {
@@ -14017,6 +14460,15 @@ pub struct ca_ctx_struct {
     pub mctx_len: slong,
     pub options: *mut slong,
 }
+impl Default for ca_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type ca_ctx_t = [ca_ctx_struct; 1usize];
 #[repr(C)]
 pub struct ca_factor_struct {
@@ -14025,12 +14477,30 @@ pub struct ca_factor_struct {
     pub length: slong,
     pub alloc: slong,
 }
+impl Default for ca_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type ca_factor_t = [ca_factor_struct; 1usize];
 #[repr(C)]
 pub struct ca_vec_struct {
     pub entries: ca_ptr,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for ca_vec_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type ca_vec_t = [ca_vec_struct; 1usize];
 #[repr(C)]
@@ -14040,12 +14510,30 @@ pub struct ca_mat_struct {
     pub c: slong,
     pub stride: slong,
 }
+impl Default for ca_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type ca_mat_t = [ca_mat_struct; 1usize];
 #[repr(C)]
 pub struct ca_poly_struct {
     pub coeffs: *mut ca_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for ca_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type ca_poly_t = [ca_poly_struct; 1usize];
 
@@ -14170,6 +14658,15 @@ pub struct d_mat_struct {
     pub c: slong,
     pub rows: *mut *mut f64,
 }
+impl Default for d_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type d_mat_t = [d_mat_struct; 1usize];
 unsafe extern "C" {
     pub fn d_mat_init(mat: *mut d_mat_struct, rows: slong, cols: slong);
@@ -14262,6 +14759,15 @@ pub struct dirichlet_prime_group_struct {
     pub g: ulong,
     pub dlog: *mut dlog_precomp_struct,
 }
+impl Default for dirichlet_prime_group_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct dirichlet_group_struct {
     pub q: ulong,
@@ -14276,11 +14782,29 @@ pub struct dirichlet_group_struct {
     pub generators: *mut ulong,
     pub PHI: *mut ulong,
 }
+impl Default for dirichlet_group_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type dirichlet_group_t = [dirichlet_group_struct; 1usize];
 #[repr(C)]
 pub struct dirichlet_char_struct {
     pub n: ulong,
     pub log: *mut ulong,
+}
+impl Default for dirichlet_char_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type dirichlet_char_t = [dirichlet_char_struct; 1usize];
 unsafe extern "C" {
@@ -14464,6 +14988,15 @@ pub struct dlog_1modpe_struct {
     pub inv1p: ulong,
     pub invloga1: ulong,
 }
+impl Default for dlog_1modpe_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type dlog_1modpe_t = [dlog_1modpe_struct; 1usize];
 #[repr(C)]
 pub struct dlog_modpe_struct {
@@ -14475,17 +15008,44 @@ pub struct dlog_modpe_struct {
     pub modp: *mut dlog_precomp_struct,
     pub modpe: dlog_1modpe_t,
 }
+impl Default for dlog_modpe_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type dlog_modpe_t = [dlog_modpe_struct; 1usize];
 #[repr(C)]
 pub struct dlog_table_struct {
     pub mod_: ulong,
     pub table: *mut ulong,
 }
+impl Default for dlog_table_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type dlog_table_t = [dlog_table_struct; 1usize];
 #[repr(C)]
 pub struct apow {
     pub k: ulong,
     pub ak: ulong,
+}
+impl Default for apow {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type apow_t = apow;
 #[repr(C)]
@@ -14496,6 +15056,15 @@ pub struct dlog_bsgs_struct {
     pub g: ulong,
     pub table: *mut apow_t,
 }
+impl Default for dlog_bsgs_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type dlog_bsgs_t = [dlog_bsgs_struct; 1usize];
 #[repr(C)]
 pub struct dlog_rho_struct {
@@ -14503,6 +15072,15 @@ pub struct dlog_rho_struct {
     pub n: nmod_t,
     pub mod_: nmod_t,
     pub nisprime: ::std::os::raw::c_int,
+}
+impl Default for dlog_rho_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type dlog_rho_t = [dlog_rho_struct; 1usize];
 #[repr(C)]
@@ -14514,6 +15092,15 @@ pub struct dlog_crt_struct {
     pub crt_coeffs: *mut ulong,
     pub pre: dlog_preconn_ptr,
 }
+impl Default for dlog_crt_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type dlog_crt_t = [dlog_crt_struct; 1usize];
 #[repr(C)]
 pub struct dlog_power_struct {
@@ -14522,6 +15109,15 @@ pub struct dlog_power_struct {
     pub e: ulong,
     pub apk: *mut ulong,
     pub pre: *mut dlog_precomp_struct,
+}
+impl Default for dlog_power_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type dlog_power_t = [dlog_power_struct; 1usize];
 pub type dlog_order23_t = [ulong; 1usize];
@@ -14539,6 +15135,24 @@ pub union dlog_precomp_struct__dlog_bindgen_ty_1 {
     pub power: ::std::mem::ManuallyDrop<dlog_power_t>,
     pub modpe: ::std::mem::ManuallyDrop<dlog_modpe_t>,
     pub order23: ::std::mem::ManuallyDrop<dlog_order23_t>,
+}
+impl Default for dlog_precomp_struct__dlog_bindgen_ty_1 {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+impl Default for dlog_precomp_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type dlog_precomp_t = [dlog_precomp_struct; 1usize];
 unsafe extern "C" {
@@ -14775,6 +15389,15 @@ pub union double_uint64_u {
     pub f: ::std::mem::ManuallyDrop<f64>,
     pub i: ::std::mem::ManuallyDrop<u64>,
 }
+impl Default for double_uint64_u {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 unsafe extern "C" {
     pub fn d_randtest(state: *mut flint_rand_struct) -> f64;
     pub fn d_randtest_signed(
@@ -14795,6 +15418,7 @@ unsafe extern "C" {
 /* double_interval.h */
 
 #[repr(C)]
+#[derive(Default)]
 pub struct di_t {
     pub a: f64,
     pub b: f64,
@@ -14816,6 +15440,15 @@ pub struct fexpr_struct {
     pub data: *mut ulong,
     pub alloc: slong,
 }
+impl Default for fexpr_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fexpr_t = [fexpr_struct; 1usize];
 pub type fexpr_ptr = *mut fexpr_struct;
 pub type fexpr_srcptr = *const fexpr_struct;
@@ -14824,6 +15457,15 @@ pub struct fexpr_vec_struct {
     pub entries: *mut fexpr_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fexpr_vec_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fexpr_vec_t = [fexpr_vec_struct; 1usize];
 unsafe extern "C" {
@@ -15677,6 +16319,15 @@ pub struct fexpr_symbol_info {
     pub latex_string: *const ::std::os::raw::c_char,
     pub latex_writer: _fexpr_latex_writer,
 }
+impl Default for fexpr_symbol_info {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 unsafe extern "C" {
     pub fn fexpr_builtin_lookup(s: *const ::std::os::raw::c_char) -> slong;
 }
@@ -15702,6 +16353,15 @@ pub struct flint_rand_struct {
     pub __randval: ulong,
     pub __randval2: ulong,
 }
+impl Default for flint_rand_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type flint_rand_t = [flint_rand_struct; 1usize];
 pub const flint_err_t_FLINT_ERROR: flint_err_t = 0;
 pub const flint_err_t_FLINT_OVERFLOW: flint_err_t = 1;
@@ -15713,6 +16373,7 @@ pub const flint_err_t_FLINT_INEXACT: flint_err_t = 6;
 pub const flint_err_t_FLINT_TEST_FAIL: flint_err_t = 7;
 pub type flint_err_t = ::std::os::raw::c_uint;
 #[repr(C)]
+#[derive(Default)]
 pub struct nmod_t {
     pub n: ulong,
     pub ninv: ulong,
@@ -15721,6 +16382,7 @@ pub struct nmod_t {
 pub type fmpz = slong;
 pub type fmpz_t = [fmpz; 1usize];
 #[repr(C)]
+#[derive(Default)]
 pub struct fmpq {
     pub num: fmpz,
     pub den: fmpz,
@@ -15919,6 +16581,15 @@ pub struct _fmpz_mat22_struct {
     pub _22: fmpz_t,
     pub det: ::std::os::raw::c_int,
 }
+impl Default for _fmpz_mat22_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type _fmpz_mat22_t = [_fmpz_mat22_struct; 1usize];
 #[repr(C)]
 pub struct _ui_mat22_struct {
@@ -15927,6 +16598,15 @@ pub struct _ui_mat22_struct {
     pub _21: ulong,
     pub _22: ulong,
     pub det: ::std::os::raw::c_int,
+}
+impl Default for _ui_mat22_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type _ui_mat22_t = [_ui_mat22_struct; 1usize];
 /// resizable integer vector specific to cfrac functionality
@@ -15939,6 +16619,15 @@ pub struct _fmpq_cfrac_list_struct {
     pub alt_sum: fmpz_t,
     pub want_alt_sum: ::std::os::raw::c_int,
 }
+impl Default for _fmpq_cfrac_list_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type _fmpq_cfrac_list_t = [_fmpq_cfrac_list_struct; 1usize];
 /// ball for closed interval [left, right]
 #[repr(C)]
@@ -15948,6 +16637,15 @@ pub struct _fmpq_ball_struct {
     pub right_num: fmpz_t,
     pub right_den: fmpz_t,
     pub exact: ::std::os::raw::c_int,
+}
+impl Default for _fmpq_ball_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type _fmpq_ball_t = [_fmpq_ball_struct; 1usize];
 unsafe extern "C" {
@@ -16718,6 +17416,15 @@ pub struct fmpq_mpoly_univar_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for fmpq_mpoly_univar_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpq_mpoly_univar_t = [fmpq_mpoly_univar_struct; 1usize];
 unsafe extern "C" {
     pub fn fmpq_mpoly_set_str_pretty(
@@ -17361,7 +18068,7 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     ///Internal functions (guaranteed to change without notice)
     pub fn mpoly_void_ring_init_fmpq_mpoly_ctx(
-        R: *mut _fmpq_mpoly_bindgen_ty_1,
+        R: *mut mpoly_void_ring_struct,
         ctx: *const fmpq_mpoly_ctx_struct,
     );
     pub fn fmpq_mpoly_repack_bits(
@@ -17483,6 +18190,15 @@ unsafe extern "C" {
 pub struct fmpq_poly_powers_precomp_struct {
     pub powers: *mut fmpq_poly_struct,
     pub len: slong,
+}
+impl Default for fmpq_poly_powers_precomp_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpq_poly_powers_precomp_t = [fmpq_poly_powers_precomp_struct; 1usize];
 unsafe extern "C" {
@@ -18790,6 +19506,15 @@ pub struct fmpq_mat_struct {
     pub c: slong,
     pub stride: slong,
 }
+impl Default for fmpq_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpq_mat_t = [fmpq_mat_struct; 1usize];
 #[repr(C)]
 pub struct fmpq_poly_struct {
@@ -18798,11 +19523,29 @@ pub struct fmpq_poly_struct {
     pub length: slong,
     pub den: fmpz_t,
 }
+impl Default for fmpq_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpq_poly_t = [fmpq_poly_struct; 1usize];
 #[repr(C)]
 pub struct fmpq_mpoly_struct {
     pub content: fmpq_t,
     pub zpoly: fmpz_mpoly_t,
+}
+impl Default for fmpq_mpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpq_mpoly_t = [fmpq_mpoly_struct; 1usize];
 #[repr(C)]
@@ -18812,6 +19555,15 @@ pub struct fmpq_mpoly_factor_struct {
     pub exp: *mut fmpz,
     pub num: slong,
     pub alloc: slong,
+}
+impl Default for fmpq_mpoly_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpq_mpoly_factor_t = [fmpq_mpoly_factor_struct; 1usize];
 
@@ -18868,6 +19620,15 @@ pub struct _fmpz_multi_CRT_instr {
     pub b_modulus: fmpz_t,
     pub c_modulus: fmpz_t,
 }
+impl Default for _fmpz_multi_CRT_instr {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct fmpz_multi_CRT_struct {
     pub prog: *mut _fmpz_multi_CRT_instr,
@@ -18885,12 +19646,30 @@ pub struct fmpz_multi_CRT_struct {
     pub temp4loc: slong,
     pub good: ::std::os::raw::c_int,
 }
+impl Default for fmpz_multi_CRT_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_multi_CRT_t = [fmpz_multi_CRT_struct; 1usize];
 #[repr(C)]
 pub struct _fmpz_multi_mod_instr {
     pub in_idx: slong,
     pub out_idx: slong,
     pub modulus: fmpz_t,
+}
+impl Default for _fmpz_multi_mod_instr {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct fmpz_multi_mod_struct {
@@ -18904,6 +19683,15 @@ pub struct fmpz_multi_mod_struct {
     pub temp1loc: slong,
     pub good: ::std::os::raw::c_int,
 }
+impl Default for fmpz_multi_mod_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_multi_mod_t = [fmpz_multi_mod_struct; 1usize];
 #[repr(C)]
 pub struct crt_lut_entry {
@@ -18912,12 +19700,30 @@ pub struct crt_lut_entry {
     pub i1: ulong,
     pub i2: ulong,
 }
+impl Default for crt_lut_entry {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct mod_lut_entry {
     pub mod_: nmod_t,
     pub mod0: nmod_t,
     pub mod1: nmod_t,
     pub mod2: nmod_t,
+}
+impl Default for mod_lut_entry {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct fmpz_comb_struct {
@@ -18937,6 +19743,15 @@ pub struct fmpz_comb_struct {
     pub mod_klen: slong,
     pub num_primes: slong,
 }
+impl Default for fmpz_comb_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_comb_t = [fmpz_comb_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_comb_temp_struct {
@@ -18944,6 +19759,15 @@ pub struct fmpz_comb_temp_struct {
     pub Tlen: slong,
     pub A: *mut fmpz,
     pub T: *mut fmpz,
+}
+impl Default for fmpz_comb_temp_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_comb_temp_t = [fmpz_comb_temp_struct; 1usize];
 unsafe extern "C" {
@@ -19508,6 +20332,15 @@ pub struct ecm_s {
     pub n_size: ulong,
     pub normbits: ulong,
 }
+impl Default for ecm_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type ecm_t = [ecm_s; 1usize];
 unsafe extern "C" {
     pub fn fmpz_factor_init(factor: *mut fmpz_factor_struct);
@@ -19668,12 +20501,30 @@ pub struct fmpz_lll_struct {
     pub rt: rep_type,
     pub gt: gram_type,
 }
+impl Default for fmpz_lll_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_lll_t = [fmpz_lll_struct; 1usize];
 #[repr(C)]
 pub union fmpz_gram_union {
     pub appSP: ::std::mem::ManuallyDrop<d_mat_t>,
     pub appSP2: ::std::mem::ManuallyDrop<gr_mat_t>,
     pub exactSP: ::std::mem::ManuallyDrop<fmpz_mat_t>,
+}
+impl Default for fmpz_gram_union {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_gram_t = [fmpz_gram_union; 1usize];
 unsafe extern "C" {
@@ -20600,6 +21451,15 @@ pub struct fmpz_mod_discrete_log_pohlig_hellman_table_entry_struct {
     pub gammapow: fmpz_t,
     pub cm: ulong,
 }
+impl Default for fmpz_mod_discrete_log_pohlig_hellman_table_entry_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct fmpz_mod_discrete_log_pohlig_hellman_entry_struct {
     pub exp: slong,
@@ -20614,6 +21474,15 @@ pub struct fmpz_mod_discrete_log_pohlig_hellman_entry_struct {
     pub dbound: ulong,
     pub table: *mut fmpz_mod_discrete_log_pohlig_hellman_table_entry_struct,
 }
+impl Default for fmpz_mod_discrete_log_pohlig_hellman_entry_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct fmpz_mod_discrete_log_pohlig_hellman_struct {
     pub fpctx: fmpz_mod_ctx_t,
@@ -20622,6 +21491,15 @@ pub struct fmpz_mod_discrete_log_pohlig_hellman_struct {
     pub alphainv: fmpz_t,
     pub num_factors: slong,
     pub entries: *mut fmpz_mod_discrete_log_pohlig_hellman_entry_struct,
+}
+impl Default for fmpz_mod_discrete_log_pohlig_hellman_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_discrete_log_pohlig_hellman_t = [fmpz_mod_discrete_log_pohlig_hellman_struct; 1usize];
 unsafe extern "C" {
@@ -21192,12 +22070,30 @@ pub struct fmpz_mod_mpoly_univar_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for fmpz_mod_mpoly_univar_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_mpoly_univar_t = [fmpz_mod_mpoly_univar_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpoly_geobucket {
     pub polys: [fmpz_mod_mpoly_struct; 32usize],
     pub temps: [fmpz_mod_mpoly_struct; 32usize],
     pub length: slong,
+}
+impl Default for fmpz_mod_mpoly_geobucket {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_mpoly_geobucket_struct = fmpz_mod_mpoly_geobucket;
 pub type fmpz_mod_mpoly_geobucket_t = [fmpz_mod_mpoly_geobucket_struct; 1usize];
@@ -21206,6 +22102,15 @@ pub struct fmpz_mod_mpoly_vec_struct {
     pub p: *mut fmpz_mod_mpoly_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fmpz_mod_mpoly_vec_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_mpoly_vec_t = [fmpz_mod_mpoly_vec_struct; 1usize];
 unsafe extern "C" {
@@ -22183,7 +23088,7 @@ unsafe extern "C" {
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     );
     pub fn mpoly_void_ring_init_fmpz_mod_mpoly_ctx(
-        R: *mut _fmpz_mod_mpoly_bindgen_ty_1,
+        R: *mut mpoly_void_ring_struct,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     );
     pub fn fmpz_mod_mpoly_geobucket_init(
@@ -22412,12 +23317,30 @@ pub struct fmpz_mod_bpoly_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for fmpz_mod_bpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_bpoly_t = [fmpz_mod_bpoly_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_tpoly_struct {
     pub coeffs: *mut fmpz_mod_bpoly_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fmpz_mod_tpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_tpoly_t = [fmpz_mod_tpoly_struct; 1usize];
 #[repr(C)]
@@ -22427,6 +23350,15 @@ pub struct fmpz_mod_polyu_struct {
     pub length: slong,
     pub alloc: slong,
 }
+impl Default for fmpz_mod_polyu_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_polyu_t = [fmpz_mod_polyu_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_polyun_struct {
@@ -22434,6 +23366,15 @@ pub struct fmpz_mod_polyun_struct {
     pub exps: *mut ulong,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fmpz_mod_polyun_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_polyun_t = [fmpz_mod_polyun_struct; 1usize];
 #[repr(C)]
@@ -22444,6 +23385,15 @@ pub struct fmpz_mod_mpolyu_struct {
     pub length: slong,
     pub bits: flint_bitcnt_t,
 }
+impl Default for fmpz_mod_mpolyu_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_mpolyu_t = [fmpz_mod_mpolyu_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpolyn_struct {
@@ -22453,12 +23403,30 @@ pub struct fmpz_mod_mpolyn_struct {
     pub length: slong,
     pub bits: slong,
 }
+impl Default for fmpz_mod_mpolyn_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_mpolyn_t = [fmpz_mod_mpolyn_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_poly_stack_struct {
     pub array: *mut *mut fmpz_mod_poly_struct,
     pub alloc: slong,
     pub top: slong,
+}
+impl Default for fmpz_mod_poly_stack_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_poly_stack_t = [fmpz_mod_poly_stack_struct; 1usize];
 #[repr(C)]
@@ -22467,12 +23435,30 @@ pub struct fmpz_mod_bpoly_stack_struct {
     pub alloc: slong,
     pub top: slong,
 }
+impl Default for fmpz_mod_bpoly_stack_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_bpoly_stack_t = [fmpz_mod_bpoly_stack_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_polyun_stack_struct {
     pub array: *mut *mut fmpz_mod_polyun_struct,
     pub alloc: slong,
     pub top: slong,
+}
+impl Default for fmpz_mod_polyun_stack_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_polyun_stack_t = [fmpz_mod_polyun_stack_struct; 1usize];
 #[repr(C)]
@@ -22482,17 +23468,44 @@ pub struct fmpz_mod_mpolyn_stack_struct {
     pub top: slong,
     pub bits: flint_bitcnt_t,
 }
+impl Default for fmpz_mod_mpolyn_stack_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_mpolyn_stack_t = [fmpz_mod_mpolyn_stack_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_poly_bpoly_stack_struct {
     pub poly_stack: fmpz_mod_poly_stack_t,
     pub bpoly_stack: fmpz_mod_bpoly_stack_t,
 }
+impl Default for fmpz_mod_poly_bpoly_stack_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_poly_bpoly_stack_t = [fmpz_mod_poly_bpoly_stack_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_poly_polyun_stack_struct {
     pub poly_stack: fmpz_mod_poly_stack_t,
     pub polyun_stack: fmpz_mod_polyun_stack_t,
+}
+impl Default for fmpz_mod_poly_polyun_stack_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_poly_polyun_stack_t = [fmpz_mod_poly_polyun_stack_struct; 1usize];
 #[repr(C)]
@@ -22501,12 +23514,30 @@ pub struct fmpz_mod_poly_polyun_mpolyn_stack_struct {
     pub polyun_stack: fmpz_mod_polyun_stack_t,
     pub mpolyn_stack: fmpz_mod_mpolyn_stack_t,
 }
+impl Default for fmpz_mod_poly_polyun_mpolyn_stack_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_poly_polyun_mpolyn_stack_t = [fmpz_mod_poly_polyun_mpolyn_stack_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpolyv_struct {
     pub coeffs: *mut fmpz_mod_mpoly_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fmpz_mod_mpolyv_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_mpolyv_t = [fmpz_mod_mpolyv_struct; 1usize];
 #[repr(C)]
@@ -22531,6 +23562,15 @@ pub struct fmpz_mod_mpoly_pfrac_struct {
     pub T: fmpz_mod_mpoly_t,
     pub Q: fmpz_mod_mpoly_t,
     pub R: fmpz_mod_mpoly_t,
+}
+impl Default for fmpz_mod_mpoly_pfrac_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_mpoly_pfrac_t = [fmpz_mod_mpoly_pfrac_struct; 1usize];
 unsafe extern "C" {
@@ -23774,17 +24814,44 @@ pub struct fmpz_mod_poly_res_struct {
     pub len1: slong,
     pub off: slong,
 }
+impl Default for fmpz_mod_poly_res_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_poly_res_t = [fmpz_mod_poly_res_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_poly_frobenius_powers_2exp_struct {
     pub pow: *mut fmpz_mod_poly_struct,
     pub len: slong,
 }
+impl Default for fmpz_mod_poly_frobenius_powers_2exp_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_poly_frobenius_powers_2exp_t = [fmpz_mod_poly_frobenius_powers_2exp_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_poly_frobenius_powers_struct {
     pub pow: *mut fmpz_mod_poly_struct,
     pub len: slong,
+}
+impl Default for fmpz_mod_poly_frobenius_powers_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_poly_frobenius_powers_t = [fmpz_mod_poly_frobenius_powers_struct; 1usize];
 #[repr(C)]
@@ -23795,6 +24862,15 @@ pub struct fmpz_mod_poly_matrix_precompute_arg_t {
     pub poly2inv: *mut fmpz_mod_poly_struct,
     pub ctx: *const fmpz_mod_ctx_struct,
 }
+impl Default for fmpz_mod_poly_matrix_precompute_arg_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct fmpz_mod_poly_compose_mod_precomp_preinv_arg_t {
     pub A: *mut fmpz_mat_struct,
@@ -23803,6 +24879,15 @@ pub struct fmpz_mod_poly_compose_mod_precomp_preinv_arg_t {
     pub poly3: *mut fmpz_mod_poly_struct,
     pub poly3inv: *mut fmpz_mod_poly_struct,
     pub ctx: *const fmpz_mod_ctx_struct,
+}
+impl Default for fmpz_mod_poly_compose_mod_precomp_preinv_arg_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct fmpz_mod_poly_radix_struct {
@@ -23813,6 +24898,15 @@ pub struct fmpz_mod_poly_radix_struct {
     pub degR: slong,
     pub k: slong,
     pub invL: fmpz,
+}
+impl Default for fmpz_mod_poly_radix_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_poly_radix_t = [fmpz_mod_poly_radix_struct; 1usize];
 #[repr(C)]
@@ -23825,6 +24919,15 @@ pub struct fmpz_mod_berlekamp_massey_struct {
     pub qt: fmpz_mod_poly_t,
     pub rt: fmpz_mod_poly_t,
     pub points: fmpz_mod_poly_t,
+}
+impl Default for fmpz_mod_berlekamp_massey_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_berlekamp_massey_t = [fmpz_mod_berlekamp_massey_struct; 1usize];
 unsafe extern "C" {
@@ -25439,6 +26542,15 @@ pub struct fmpz_mod_poly_interval_poly_arg_t {
     pub tmp: *mut fmpz,
     pub m: slong,
 }
+impl Default for fmpz_mod_poly_interval_poly_arg_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 unsafe extern "C" {
     pub fn fmpz_mod_poly_factor_init(
         fac: *mut fmpz_mod_poly_factor_struct,
@@ -25667,6 +26779,15 @@ pub struct fmpz_mod_ctx {
     pub ninv_limbs: [ulong; 3usize],
     pub ninv_huge: *mut fmpz_preinvn_struct,
 }
+impl Default for fmpz_mod_ctx {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_ctx_struct = fmpz_mod_ctx;
 pub type fmpz_mod_ctx_t = [fmpz_mod_ctx_struct; 1usize];
 pub type fmpz_mod_mat_struct = fmpz_mat_struct;
@@ -25677,6 +26798,15 @@ pub struct fmpz_mod_poly_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for fmpz_mod_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_poly_t = [fmpz_mod_poly_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_poly_factor_struct {
@@ -25684,6 +26814,15 @@ pub struct fmpz_mod_poly_factor_struct {
     pub exp: *mut slong,
     pub num: slong,
     pub alloc: slong,
+}
+impl Default for fmpz_mod_poly_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_poly_factor_t = [fmpz_mod_poly_factor_struct; 1usize];
 #[repr(C)]
@@ -25695,6 +26834,15 @@ pub struct fmpz_mod_mpoly_struct {
     pub coeffs_alloc: slong,
     pub exps_alloc: slong,
 }
+impl Default for fmpz_mod_mpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_mpoly_t = [fmpz_mod_mpoly_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpoly_factor_struct {
@@ -25704,11 +26852,29 @@ pub struct fmpz_mod_mpoly_factor_struct {
     pub num: slong,
     pub alloc: slong,
 }
+impl Default for fmpz_mod_mpoly_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_mpoly_factor_t = [fmpz_mod_mpoly_factor_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mod_mpoly_q_struct {
     pub num: fmpz_mod_mpoly_struct,
     pub den: fmpz_mod_mpoly_struct,
+}
+impl Default for fmpz_mod_mpoly_q_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mod_mpoly_q_t = [fmpz_mod_mpoly_q_struct; 1usize];
 
@@ -25796,6 +26962,15 @@ pub struct fmpz_mpoly_univar_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for fmpz_mpoly_univar_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mpoly_univar_t = [fmpz_mpoly_univar_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mpolyd_struct {
@@ -25806,12 +26981,30 @@ pub struct fmpz_mpolyd_struct {
     pub coeff_alloc: slong,
     pub coeffs: *mut fmpz,
 }
+impl Default for fmpz_mpolyd_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mpolyd_t = [fmpz_mpolyd_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mpoly_vec_struct {
     pub p: *mut fmpz_mpoly_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fmpz_mpoly_vec_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mpoly_vec_t = [fmpz_mpoly_vec_struct; 1usize];
 #[repr(C)]
@@ -25829,6 +27022,15 @@ pub struct _fmpz_mpoly_stripe_struct {
     pub upperclosed: ::std::os::raw::c_int,
     pub flint_small: ::std::os::raw::c_int,
 }
+impl Default for _fmpz_mpoly_stripe_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mpoly_stripe_struct = _fmpz_mpoly_stripe_struct;
 pub type fmpz_mpoly_stripe_t = [fmpz_mpoly_stripe_struct; 1usize];
 #[repr(C)]
@@ -25836,20 +27038,47 @@ pub struct fmpz_mpolyd_ctx_struct {
     pub nvars: slong,
     pub perm: *mut slong,
 }
+impl Default for fmpz_mpolyd_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mpolyd_ctx_t = [fmpz_mpolyd_ctx_struct; 1usize];
 #[repr(C)]
-pub struct _fmpz_mpoly_bindgen_ty_2 {
+pub struct _fmpz_mpoly_bindgen_ty_1 {
     pub powers: *mut fmpz,
     pub length: slong,
     pub alloc: slong,
     pub tmp: fmpz_t,
 }
-pub type fmpz_pow_cache_t = [_fmpz_mpoly_bindgen_ty_2; 1usize];
+impl Default for _fmpz_mpoly_bindgen_ty_1 {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+pub type fmpz_pow_cache_t = [_fmpz_mpoly_bindgen_ty_1; 1usize];
 #[repr(C)]
 pub struct fmpz_mpoly_geobucket {
     pub polys: [fmpz_mpoly_struct; 32usize],
     pub temps: [fmpz_mpoly_struct; 32usize],
     pub length: slong,
+}
+impl Default for fmpz_mpoly_geobucket {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mpoly_geobucket_struct = fmpz_mpoly_geobucket;
 pub type fmpz_mpoly_geobucket_t = [fmpz_mpoly_geobucket_struct; 1usize];
@@ -27346,7 +28575,7 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     ///Internal functions (guaranteed to change without notice)
     pub fn mpoly_void_ring_init_fmpz_mpoly_ctx(
-        R: *mut _fmpz_mpoly_bindgen_ty_1,
+        R: *mut mpoly_void_ring_struct,
         ctx: *const fmpz_mpoly_ctx_struct,
     );
     pub fn fmpz_mpoly_pow_fps(
@@ -27412,19 +28641,19 @@ unsafe extern "C" {
     pub fn fmpz_mpolyd_init(poly: *mut fmpz_mpolyd_struct, nvars: slong);
     pub fn fmpz_mpolyd_fit_length(poly: *mut fmpz_mpolyd_struct, len: slong);
     pub fn fmpz_mpolyd_clear(poly: *mut fmpz_mpolyd_struct);
-    pub fn fmpz_pow_cache_init(T: *mut _fmpz_mpoly_bindgen_ty_2, val: *const fmpz);
-    pub fn fmpz_pow_cache_clear(T: *mut _fmpz_mpoly_bindgen_ty_2);
+    pub fn fmpz_pow_cache_init(T: *mut _fmpz_mpoly_bindgen_ty_1, val: *const fmpz);
+    pub fn fmpz_pow_cache_clear(T: *mut _fmpz_mpoly_bindgen_ty_1);
     pub fn fmpz_pow_cache_mulpow_ui(
         a: *mut fmpz,
         b: *const fmpz,
         k: ulong,
-        T: *mut _fmpz_mpoly_bindgen_ty_2,
+        T: *mut _fmpz_mpoly_bindgen_ty_1,
     ) -> ::std::os::raw::c_int;
     pub fn fmpz_pow_cache_mulpow_fmpz(
         a: *mut fmpz,
         b: *const fmpz,
         k: *const fmpz,
-        T: *mut _fmpz_mpoly_bindgen_ty_2,
+        T: *mut _fmpz_mpoly_bindgen_ty_1,
     ) -> ::std::os::raw::c_int;
     pub fn fmpz_mpoly_to_mpoly_perm_deflate_threaded_pool(
         A: *mut fmpz_mpoly_struct,
@@ -27789,6 +29018,15 @@ pub struct fmpz_mpolyv_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for fmpz_mpolyv_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mpolyv_t = [fmpz_mpolyv_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_poly_pfrac_struct {
@@ -27813,6 +29051,15 @@ pub struct fmpz_poly_pfrac_struct {
     pub inwBprod: *mut fmpz_mod_poly_struct,
     pub B_inv: *mut fmpz_mod_poly_struct,
 }
+impl Default for fmpz_poly_pfrac_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_poly_pfrac_t = [fmpz_poly_pfrac_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mpoly_pfrac_struct {
@@ -27834,6 +29081,15 @@ pub struct fmpz_mpoly_pfrac_struct {
     pub uni_a: fmpz_poly_t,
     pub uni_c: *mut fmpz_poly_struct,
 }
+impl Default for fmpz_mpoly_pfrac_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mpoly_pfrac_t = [fmpz_mpoly_pfrac_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_bpoly_struct {
@@ -27841,12 +29097,30 @@ pub struct fmpz_bpoly_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for fmpz_bpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_bpoly_t = [fmpz_bpoly_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_tpoly_struct {
     pub coeffs: *mut fmpz_bpoly_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fmpz_tpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_tpoly_t = [fmpz_tpoly_struct; 1usize];
 unsafe extern "C" {
@@ -28601,6 +29875,15 @@ pub struct fmpz_poly_powers_precomp_struct {
     pub powers: *mut *mut fmpz,
     pub len: slong,
 }
+impl Default for fmpz_poly_powers_precomp_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_poly_powers_precomp_t = [fmpz_poly_powers_precomp_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_poly_mul_precache_struct {
@@ -28611,6 +29894,15 @@ pub struct fmpz_poly_mul_precache_struct {
     pub bits2: slong,
     pub limbs: slong,
     pub poly2: fmpz_poly_t,
+}
+impl Default for fmpz_poly_mul_precache_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_poly_mul_precache_t = [fmpz_poly_mul_precache_struct; 1usize];
 unsafe extern "C" {
@@ -30535,6 +31827,15 @@ pub struct zassenhaus_prune_struct {
     pub new_degs: *mut slong,
     pub alloc: slong,
 }
+impl Default for zassenhaus_prune_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type zassenhaus_prune_t = [zassenhaus_prune_struct; 1usize];
 unsafe extern "C" {
     pub fn fmpz_poly_factor_init(fac: *mut fmpz_poly_factor_struct);
@@ -31014,6 +32315,15 @@ pub struct zz_struct {
     pub size: ::std::os::raw::c_int,
     pub ptr: nn_ptr,
 }
+impl Default for zz_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type zz_ptr = *mut zz_struct;
 pub type zz_srcptr = *const zz_struct;
 #[repr(C)]
@@ -31024,6 +32334,15 @@ pub struct fmpz_factor_struct {
     pub alloc: slong,
     pub num: slong,
 }
+impl Default for fmpz_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_factor_t = [fmpz_factor_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_preinvn_struct {
@@ -31031,12 +32350,30 @@ pub struct fmpz_preinvn_struct {
     pub n: slong,
     pub norm: flint_bitcnt_t,
 }
+impl Default for fmpz_preinvn_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_preinvn_t = [fmpz_preinvn_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_poly_struct {
     pub coeffs: *mut fmpz,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fmpz_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_poly_t = [fmpz_poly_struct; 1usize];
 #[repr(C)]
@@ -31047,6 +32384,15 @@ pub struct fmpz_poly_factor_struct {
     pub num: slong,
     pub alloc: slong,
 }
+impl Default for fmpz_poly_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_poly_factor_t = [fmpz_poly_factor_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mat_struct {
@@ -31054,6 +32400,15 @@ pub struct fmpz_mat_struct {
     pub r: slong,
     pub c: slong,
     pub stride: slong,
+}
+impl Default for fmpz_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mat_t = [fmpz_mat_struct; 1usize];
 #[repr(C)]
@@ -31063,6 +32418,15 @@ pub struct fmpz_poly_mat_struct {
     pub c: slong,
     pub stride: slong,
 }
+impl Default for fmpz_poly_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_poly_mat_t = [fmpz_poly_mat_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mpoly_struct {
@@ -31071,6 +32435,15 @@ pub struct fmpz_mpoly_struct {
     pub alloc: slong,
     pub length: slong,
     pub bits: flint_bitcnt_t,
+}
+impl Default for fmpz_mpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_mpoly_t = [fmpz_mpoly_struct; 1usize];
 #[repr(C)]
@@ -31082,11 +32455,29 @@ pub struct fmpz_mpoly_factor_struct {
     pub num: slong,
     pub alloc: slong,
 }
+impl Default for fmpz_mpoly_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mpoly_factor_t = [fmpz_mpoly_factor_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_poly_q_struct {
     pub num: *mut fmpz_poly_struct,
     pub den: *mut fmpz_poly_struct,
+}
+impl Default for fmpz_poly_q_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpz_poly_q_t = [fmpz_poly_q_struct; 1usize];
 #[repr(C)]
@@ -31094,11 +32485,29 @@ pub struct fmpz_mpoly_q_struct {
     pub num: fmpz_mpoly_struct,
     pub den: fmpz_mpoly_struct,
 }
+impl Default for fmpz_mpoly_q_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mpoly_q_t = [fmpz_mpoly_q_struct; 1usize];
 #[repr(C)]
 pub struct fmpzi_struct {
     pub a: fmpz,
     pub b: fmpz,
+}
+impl Default for fmpzi_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpzi_t = [fmpzi_struct; 1usize];
 
@@ -31751,6 +33160,15 @@ pub union fq_default_struct {
     pub nmod: ::std::mem::ManuallyDrop<ulong>,
     pub fmpz_mod: ::std::mem::ManuallyDrop<fmpz_t>,
 }
+impl Default for fq_default_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_default_t = [fq_default_struct; 1usize];
 pub type fq_default_ctx_struct = gr_ctx_struct;
 pub type fq_default_ctx_t = [fq_default_ctx_struct; 1usize];
@@ -31759,6 +33177,15 @@ pub struct _gr_fmpz_mod_ctx_struct {
     pub ctx: *mut fmpz_mod_ctx_struct,
     pub is_prime: truth_t,
     pub a: fmpz,
+}
+impl Default for _gr_fmpz_mod_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 unsafe extern "C" {
     pub fn fq_default_ctx_init_type(
@@ -31842,6 +33269,15 @@ pub union fq_default_mat_struct {
     pub nmod: ::std::mem::ManuallyDrop<nmod_mat_t>,
     pub fmpz_mod: ::std::mem::ManuallyDrop<fmpz_mod_mat_t>,
 }
+impl Default for fq_default_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_default_mat_t = [fq_default_mat_struct; 1usize];
 unsafe extern "C" {
     pub fn fq_default_mat_print(
@@ -31864,6 +33300,15 @@ pub union fq_default_poly_struct {
     pub fq_zech: ::std::mem::ManuallyDrop<fq_zech_poly_t>,
     pub nmod: ::std::mem::ManuallyDrop<nmod_poly_t>,
     pub fmpz_mod: ::std::mem::ManuallyDrop<fmpz_mod_poly_t>,
+}
+impl Default for fq_default_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_default_poly_t = [fq_default_poly_struct; 1usize];
 unsafe extern "C" {
@@ -31893,6 +33338,15 @@ pub union fq_default_poly_factor_struct {
     pub fq_zech: ::std::mem::ManuallyDrop<fq_zech_poly_factor_t>,
     pub nmod: ::std::mem::ManuallyDrop<nmod_poly_factor_t>,
     pub fmpz_mod: ::std::mem::ManuallyDrop<fmpz_mod_poly_factor_t>,
+}
+impl Default for fq_default_poly_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_default_poly_factor_t = [fq_default_poly_factor_struct; 1usize];
 
@@ -32288,6 +33742,15 @@ pub struct fq_nmod_mpoly_univar_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for fq_nmod_mpoly_univar_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_nmod_mpoly_univar_t = [fq_nmod_mpoly_univar_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_mpolyu_struct {
@@ -32296,6 +33759,15 @@ pub struct fq_nmod_mpolyu_struct {
     pub alloc: slong,
     pub length: slong,
     pub bits: flint_bitcnt_t,
+}
+impl Default for fq_nmod_mpolyu_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_nmod_mpolyu_t = [fq_nmod_mpolyu_struct; 1usize];
 #[repr(C)]
@@ -32306,6 +33778,15 @@ pub struct fq_nmod_mpolyn_struct {
     pub length: slong,
     pub bits: slong,
 }
+impl Default for fq_nmod_mpolyn_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_nmod_mpolyn_t = [fq_nmod_mpolyn_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_mpolyun_struct {
@@ -32314,6 +33795,15 @@ pub struct fq_nmod_mpolyun_struct {
     pub alloc: slong,
     pub length: slong,
     pub bits: flint_bitcnt_t,
+}
+impl Default for fq_nmod_mpolyun_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_nmod_mpolyun_t = [fq_nmod_mpolyun_struct; 1usize];
 #[repr(C)]
@@ -32328,6 +33818,15 @@ pub struct bad_fq_nmod_embed {
     pub lg_to_sm_mat: nmod_mat_t,
     pub sm_to_lg_mat: nmod_mat_t,
 }
+impl Default for bad_fq_nmod_embed {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type bad_fq_nmod_embed_struct = bad_fq_nmod_embed;
 pub type bad_fq_nmod_embed_t = [bad_fq_nmod_embed_struct; 1usize];
 #[repr(C)]
@@ -32338,6 +33837,15 @@ pub struct bad_fq_nmod_mpoly_embed_chooser {
     pub k: slong,
     pub p: ulong,
 }
+impl Default for bad_fq_nmod_mpoly_embed_chooser {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type bad_fq_nmod_mpoly_embed_chooser_struct = bad_fq_nmod_mpoly_embed_chooser;
 pub type bad_fq_nmod_mpoly_embed_chooser_t = [bad_fq_nmod_mpoly_embed_chooser_struct; 1usize];
 #[repr(C)]
@@ -32345,6 +33853,15 @@ pub struct fq_nmod_mpoly_geobucket {
     pub polys: [fq_nmod_mpoly_struct; 32usize],
     pub temps: [fq_nmod_mpoly_struct; 32usize],
     pub length: slong,
+}
+impl Default for fq_nmod_mpoly_geobucket {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_nmod_mpoly_geobucket_struct = fq_nmod_mpoly_geobucket;
 pub type fq_nmod_mpoly_geobucket_t = [fq_nmod_mpoly_geobucket_struct; 1usize];
@@ -33188,7 +34705,7 @@ unsafe extern "C" {
     );
     ///Internal functions (guaranteed to change without notice)
     pub fn mpoly_void_ring_init_fq_nmod_mpoly_ctx(
-        R: *mut _fq_nmod_mpoly_bindgen_ty_1,
+        R: *mut mpoly_void_ring_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     );
     pub fn fq_nmod_mpolyl_lead_coeff(
@@ -34184,12 +35701,30 @@ pub struct fq_nmod_mpoly_factor_struct {
     pub num: slong,
     pub alloc: slong,
 }
+impl Default for fq_nmod_mpoly_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_nmod_mpoly_factor_t = [fq_nmod_mpoly_factor_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_mpolyv_struct {
     pub coeffs: *mut fq_nmod_mpoly_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fq_nmod_mpolyv_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_nmod_mpolyv_t = [fq_nmod_mpolyv_struct; 1usize];
 #[repr(C)]
@@ -34214,6 +35749,15 @@ pub struct fq_nmod_mpoly_pfrac_struct {
     pub T: fq_nmod_mpoly_t,
     pub Q: fq_nmod_mpoly_t,
     pub R: fq_nmod_mpoly_t,
+}
+impl Default for fq_nmod_mpoly_pfrac_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_nmod_mpoly_pfrac_t = [fq_nmod_mpoly_pfrac_struct; 1usize];
 unsafe extern "C" {
@@ -34713,6 +36257,15 @@ pub struct fq_nmod_ctx_struct {
     pub inv: nmod_poly_t,
     pub var: *mut ::std::os::raw::c_char,
 }
+impl Default for fq_nmod_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_nmod_ctx_t = [fq_nmod_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_mat_struct {
@@ -34721,12 +36274,30 @@ pub struct fq_nmod_mat_struct {
     pub c: slong,
     pub stride: slong,
 }
+impl Default for fq_nmod_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_nmod_mat_t = [fq_nmod_mat_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_poly_struct {
     pub coeffs: *mut fq_nmod_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fq_nmod_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_nmod_poly_t = [fq_nmod_poly_struct; 1usize];
 #[repr(C)]
@@ -34735,6 +36306,15 @@ pub struct fq_nmod_poly_factor_struct {
     pub exp: *mut slong,
     pub num: slong,
     pub alloc: slong,
+}
+impl Default for fq_nmod_poly_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_nmod_poly_factor_t = [fq_nmod_poly_factor_struct; 1usize];
 #[repr(C)]
@@ -34745,6 +36325,15 @@ pub struct fq_nmod_mpoly_struct {
     pub bits: flint_bitcnt_t,
     pub coeffs_alloc: slong,
     pub exps_alloc: slong,
+}
+impl Default for fq_nmod_mpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_nmod_mpoly_t = [fq_nmod_mpoly_struct; 1usize];
 
@@ -34789,6 +36378,15 @@ pub struct fq_ctx_struct {
     pub inv: fmpz_mod_poly_t,
     pub var: *mut ::std::os::raw::c_char,
 }
+impl Default for fq_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_ctx_t = [fq_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fq_mat_struct {
@@ -34797,12 +36395,30 @@ pub struct fq_mat_struct {
     pub c: slong,
     pub stride: slong,
 }
+impl Default for fq_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_mat_t = [fq_mat_struct; 1usize];
 #[repr(C)]
 pub struct fq_poly_struct {
     pub coeffs: *mut fq_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fq_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_poly_t = [fq_poly_struct; 1usize];
 #[repr(C)]
@@ -34811,6 +36427,15 @@ pub struct fq_poly_factor_struct {
     pub exp: *mut slong,
     pub num: slong,
     pub alloc: slong,
+}
+impl Default for fq_poly_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_poly_factor_t = [fq_poly_factor_struct; 1usize];
 
@@ -35131,6 +36756,15 @@ pub struct fq_zech_mpoly_ctx_struct {
     pub minfo: mpoly_ctx_t,
     pub fqctx: fq_zech_ctx_t,
 }
+impl Default for fq_zech_mpoly_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_zech_mpoly_ctx_t = [fq_zech_mpoly_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpoly_struct {
@@ -35140,6 +36774,15 @@ pub struct fq_zech_mpoly_struct {
     pub length: slong,
     pub bits: flint_bitcnt_t,
 }
+impl Default for fq_zech_mpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_zech_mpoly_t = [fq_zech_mpoly_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpoly_univar_struct {
@@ -35147,6 +36790,15 @@ pub struct fq_zech_mpoly_univar_struct {
     pub exps: *mut fmpz,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fq_zech_mpoly_univar_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_zech_mpoly_univar_t = [fq_zech_mpoly_univar_struct; 1usize];
 #[repr(C)]
@@ -35157,6 +36809,15 @@ pub struct fq_zech_mpolyu_struct {
     pub length: slong,
     pub bits: flint_bitcnt_t,
 }
+impl Default for fq_zech_mpolyu_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_zech_mpolyu_t = [fq_zech_mpolyu_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpolyn_struct {
@@ -35165,6 +36826,15 @@ pub struct fq_zech_mpolyn_struct {
     pub alloc: slong,
     pub length: slong,
     pub bits: slong,
+}
+impl Default for fq_zech_mpolyn_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_zech_mpolyn_t = [fq_zech_mpolyn_struct; 1usize];
 #[repr(C)]
@@ -35175,11 +36845,29 @@ pub struct fq_zech_mpolyun_struct {
     pub length: slong,
     pub bits: flint_bitcnt_t,
 }
+impl Default for fq_zech_mpolyun_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_zech_mpolyun_t = [fq_zech_mpolyun_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpoly_geobucket {
     pub polys: [fq_zech_mpoly_struct; 32usize],
     pub length: slong,
+}
+impl Default for fq_zech_mpoly_geobucket {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_zech_mpoly_geobucket_struct = fq_zech_mpoly_geobucket;
 pub type fq_zech_mpoly_geobucket_t = [fq_zech_mpoly_geobucket_struct; 1usize];
@@ -36000,12 +37688,30 @@ pub struct fq_zech_bpoly_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for fq_zech_bpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_zech_bpoly_t = [fq_zech_bpoly_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_tpoly_struct {
     pub coeffs: *mut fq_zech_bpoly_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fq_zech_tpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_zech_tpoly_t = [fq_zech_tpoly_struct; 1usize];
 #[repr(C)]
@@ -36015,6 +37721,15 @@ pub struct fq_zech_polyu_struct {
     pub length: slong,
     pub alloc: slong,
 }
+impl Default for fq_zech_polyu_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_zech_polyu_t = [fq_zech_polyu_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_polyun_struct {
@@ -36022,6 +37737,15 @@ pub struct fq_zech_polyun_struct {
     pub exps: *mut ulong,
     pub length: slong,
     pub alloc: slong,
+}
+impl Default for fq_zech_polyun_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_zech_polyun_t = [fq_zech_polyun_struct; 1usize];
 #[repr(C)]
@@ -36032,12 +37756,30 @@ pub struct fq_zech_mpoly_factor_struct {
     pub num: slong,
     pub alloc: slong,
 }
+impl Default for fq_zech_mpoly_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_zech_mpoly_factor_t = [fq_zech_mpoly_factor_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mpolyv_struct {
     pub coeffs: *mut fq_zech_mpoly_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fq_zech_mpolyv_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_zech_mpolyv_t = [fq_zech_mpolyv_struct; 1usize];
 #[repr(C)]
@@ -36061,6 +37803,15 @@ pub struct fq_zech_mpoly_pfrac_struct {
     pub T: fq_zech_mpoly_t,
     pub Q: fq_zech_mpoly_t,
     pub R: fq_zech_mpoly_t,
+}
+impl Default for fq_zech_mpoly_pfrac_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_zech_mpoly_pfrac_t = [fq_zech_mpoly_pfrac_struct; 1usize];
 unsafe extern "C" {
@@ -36645,6 +38396,15 @@ unsafe extern "C" {
 pub struct fq_zech_struct {
     pub value: ulong,
 }
+impl Default for fq_zech_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_zech_t = [fq_zech_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_ctx_struct {
@@ -36661,6 +38421,15 @@ pub struct fq_zech_ctx_struct {
     pub owns_fq_nmod_ctx: ::std::os::raw::c_int,
     pub is_conway: ::std::os::raw::c_int,
 }
+impl Default for fq_zech_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_zech_ctx_t = [fq_zech_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_mat_struct {
@@ -36669,12 +38438,30 @@ pub struct fq_zech_mat_struct {
     pub c: slong,
     pub stride: slong,
 }
+impl Default for fq_zech_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_zech_mat_t = [fq_zech_mat_struct; 1usize];
 #[repr(C)]
 pub struct fq_zech_poly_struct {
     pub coeffs: *mut fq_zech_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for fq_zech_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_zech_poly_t = [fq_zech_poly_struct; 1usize];
 #[repr(C)]
@@ -36683,6 +38470,15 @@ pub struct fq_zech_poly_factor_struct {
     pub exp: *mut slong,
     pub num: slong,
     pub alloc: slong,
+}
+impl Default for fq_zech_poly_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fq_zech_poly_factor_t = [fq_zech_poly_factor_struct; 1usize];
 
@@ -37253,6 +39049,15 @@ pub type gr_static_method_table = [gr_funcptr; 553usize];
 pub struct gr_method_tab_input {
     pub index: gr_method,
     pub function: gr_funcptr,
+}
+impl Default for gr_method_tab_input {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub const gr_which_structure_GR_CTX_FMPZ: gr_which_structure = 0;
 pub const gr_which_structure_GR_CTX_RADIX_INTEGER: gr_which_structure = 1;
@@ -38030,11 +39835,29 @@ pub struct polynomial_ctx_t {
     pub degree_limit: slong,
     pub var: *mut ::std::os::raw::c_char,
 }
+impl Default for polynomial_ctx_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct vector_ctx_t {
     pub base_ring: *mut gr_ctx_struct,
     pub all_sizes: ::std::os::raw::c_int,
     pub n: slong,
+}
+impl Default for vector_ctx_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct matrix_ctx_t {
@@ -38042,6 +39865,15 @@ pub struct matrix_ctx_t {
     pub all_sizes: ::std::os::raw::c_int,
     pub nrows: slong,
     pub ncols: slong,
+}
+impl Default for matrix_ctx_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 unsafe extern "C" {
     pub fn gr_stream_init_str(out: *mut gr_stream_struct);
@@ -40949,12 +42781,30 @@ pub struct gr_mpoly_struct {
     pub coeffs_alloc: slong,
     pub exps_alloc: slong,
 }
+impl Default for gr_mpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type gr_mpoly_t = [gr_mpoly_struct; 1usize];
 #[repr(C)]
 pub struct _gr_mpoly_ctx_struct {
     pub cctx: *mut gr_ctx_struct,
     pub mctx: *mut mpoly_ctx_struct,
     pub vars: *mut *mut ::std::os::raw::c_char,
+}
+impl Default for _gr_mpoly_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type gr_mpoly_ctx_struct = gr_ctx_struct;
 pub type gr_mpoly_ctx_t = [gr_mpoly_ctx_struct; 1usize];
@@ -41343,6 +43193,15 @@ pub struct gr_ore_poly_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for gr_ore_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type gr_ore_poly_t = [gr_ore_poly_struct; 1usize];
 pub type gr_ore_poly_ctx_struct = gr_ctx_struct;
 pub type gr_ore_poly_ctx_t = [gr_ore_poly_ctx_struct; 1usize];
@@ -41365,6 +43224,24 @@ pub union gr_ore_poly_ore_data_t__gr_ore_poly_bindgen_ty_1 {
     pub q: ::std::mem::ManuallyDrop<gr_ptr>,
     pub mahler_base: ::std::mem::ManuallyDrop<slong>,
 }
+impl Default for gr_ore_poly_ore_data_t__gr_ore_poly_bindgen_ty_1 {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+impl Default for gr_ore_poly_ore_data_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct _gr_ore_poly_ctx_struct {
     pub base_ring: *mut gr_ctx_struct,
@@ -41373,6 +43250,15 @@ pub struct _gr_ore_poly_ctx_struct {
     pub which_algebra: ore_algebra_t,
     pub sigma_delta: gr_ore_poly_sigma_delta_t,
     pub ore_data: *mut ::std::os::raw::c_void,
+}
+impl Default for _gr_ore_poly_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 unsafe extern "C" {
     pub fn ore_algebra_randtest(state: *mut flint_rand_struct) -> ore_algebra_t;
@@ -44637,16 +46523,43 @@ pub struct series_mod_ctx_t {
     pub n: slong,
     pub var: *mut ::std::os::raw::c_char,
 }
+impl Default for series_mod_ctx_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct series_ctx_t {
     pub base_ring: *mut gr_ctx_struct,
     pub prec: slong,
     pub var: *mut ::std::os::raw::c_char,
 }
+impl Default for series_ctx_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct gr_series_struct {
     pub poly: gr_poly_struct,
     pub error: slong,
+}
+impl Default for gr_series_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type gr_series_t = [gr_series_struct; 1usize];
 #[repr(C)]
@@ -44654,6 +46567,15 @@ pub struct gr_series_vec_struct {
     pub entries: *mut gr_series_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for gr_series_vec_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type gr_series_vec_t = [gr_series_vec_struct; 1usize];
 unsafe extern "C" {
@@ -45661,6 +47583,15 @@ pub struct gr_stream_struct {
     pub len: slong,
     pub alloc: slong,
 }
+impl Default for gr_stream_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type gr_stream_t = [gr_stream_struct; 1usize];
 pub type gr_funcptr = ::std::option::Option<
     unsafe extern "C" fn() -> ::std::os::raw::c_int,
@@ -45673,6 +47604,15 @@ pub struct gr_ctx_struct {
     pub methods: *mut gr_funcptr,
     pub size_limit: ulong,
 }
+impl Default for gr_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type gr_ctx_t = [gr_ctx_struct; 1usize];
 pub type gr_ptr = *mut ::std::os::raw::c_void;
 pub type gr_srcptr = *const ::std::os::raw::c_void;
@@ -45683,6 +47623,15 @@ pub struct gr_vec_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for gr_vec_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type gr_vec_t = [gr_vec_struct; 1usize];
 #[repr(C)]
 pub struct gr_mat_struct {
@@ -45691,12 +47640,30 @@ pub struct gr_mat_struct {
     pub c: slong,
     pub stride: slong,
 }
+impl Default for gr_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type gr_mat_t = [gr_mat_struct; 1usize];
 #[repr(C)]
 pub struct gr_poly_struct {
     pub coeffs: gr_ptr,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for gr_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type gr_poly_t = [gr_poly_struct; 1usize];
 
@@ -45948,6 +47915,15 @@ pub struct hypgeom_struct {
     pub boundK: slong,
     pub MK: mag_t,
 }
+impl Default for hypgeom_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type hypgeom_t = [hypgeom_struct; 1usize];
 unsafe extern "C" {
     pub fn hypgeom_init(hyp: *mut hypgeom_struct);
@@ -45993,6 +47969,15 @@ pub struct n_factor_t {
     pub exp: [::std::os::raw::c_int; 15usize],
     pub p: [ulong; 15usize],
 }
+impl Default for n_factor_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct n_primes_struct {
     pub small_i: slong,
@@ -46003,6 +47988,15 @@ pub struct n_primes_struct {
     pub sieve_i: slong,
     pub sieve_num: slong,
     pub sieve: *mut ::std::os::raw::c_char,
+}
+impl Default for n_primes_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type n_primes_t = [n_primes_struct; 1usize];
 
@@ -46142,6 +48136,15 @@ pub struct _mpn_mod_ctx_struct {
     pub dnormed: [ulong; 16usize],
     pub norm: flint_bitcnt_t,
     pub is_prime: truth_t,
+}
+impl Default for _mpn_mod_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 unsafe extern "C" {
     pub fn mpn_mod_ctx_write(
@@ -46406,6 +48409,15 @@ pub struct mpoly_heap_t {
     pub j: ulong,
     pub next: *mut mpoly_heap_t,
 }
+impl Default for mpoly_heap_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct mpoly_nheap_t {
     pub i: ulong,
@@ -46413,15 +48425,42 @@ pub struct mpoly_nheap_t {
     pub next: *mut mpoly_nheap_t,
     pub p: slong,
 }
+impl Default for mpoly_nheap_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct mpoly_heap1_s {
     pub exp: ulong,
     pub next: *mut ::std::os::raw::c_void,
 }
+impl Default for mpoly_heap1_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct mpoly_heap_s {
     pub exp: *mut ulong,
     pub next: *mut ::std::os::raw::c_void,
+}
+impl Default for mpoly_heap_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct mpoly_rbnode_ui_struct {
@@ -46430,6 +48469,15 @@ pub struct mpoly_rbnode_ui_struct {
     pub left: slong,
     pub right: slong,
     pub color: ::std::os::raw::c_int,
+}
+impl Default for mpoly_rbnode_ui_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct mpoly_rbtree_ui_struct {
@@ -46440,6 +48488,15 @@ pub struct mpoly_rbtree_ui_struct {
     pub data_alloc: slong,
     pub data_size: slong,
 }
+impl Default for mpoly_rbtree_ui_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type mpoly_rbtree_ui_t = [mpoly_rbtree_ui_struct; 1usize];
 #[repr(C)]
 pub struct mpoly_rbnode_fmpz_struct {
@@ -46448,6 +48505,15 @@ pub struct mpoly_rbnode_fmpz_struct {
     pub left: slong,
     pub right: slong,
     pub color: ::std::os::raw::c_int,
+}
+impl Default for mpoly_rbnode_fmpz_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct mpoly_rbtree_fmpz_struct {
@@ -46458,6 +48524,15 @@ pub struct mpoly_rbtree_fmpz_struct {
     pub data_alloc: slong,
     pub data_size: slong,
 }
+impl Default for mpoly_rbtree_fmpz_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type mpoly_rbtree_fmpz_t = [mpoly_rbtree_fmpz_struct; 1usize];
 #[repr(C)]
 pub struct mpoly_univar_struct {
@@ -46466,11 +48541,29 @@ pub struct mpoly_univar_struct {
     pub length: slong,
     pub alloc: slong,
 }
+impl Default for mpoly_univar_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type mpoly_univar_t = [mpoly_univar_struct; 1usize];
 #[repr(C)]
 pub struct string_with_length_struct {
     pub str_: *mut ::std::os::raw::c_char,
     pub str_len: slong,
+}
+impl Default for string_with_length_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct mpoly_parse_struct {
@@ -46486,6 +48579,15 @@ pub struct mpoly_parse_struct {
     pub terminal_values: *mut ::std::os::raw::c_char,
     pub terminals_alloc: slong,
     pub terminals_len: slong,
+}
+impl Default for mpoly_parse_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type mpoly_parse_t = [mpoly_parse_struct; 1usize];
 unsafe extern "C" {
@@ -47346,41 +49448,47 @@ unsafe extern "C" {
         cmpmask: *const ulong,
     ) -> ::std::os::raw::c_int;
     pub fn mpoly_void_ring_elem_init(
-        R: *mut _mpoly_bindgen_ty_1,
+        R: *mut mpoly_void_ring_struct,
     ) -> *mut ::std::os::raw::c_void;
     pub fn mpoly_void_ring_elem_clear(
         a: *mut ::std::os::raw::c_void,
-        R: *mut _mpoly_bindgen_ty_1,
+        R: *mut mpoly_void_ring_struct,
     );
-    pub fn mpoly_univar_init(A: *mut mpoly_univar_struct, R: *mut _mpoly_bindgen_ty_1);
+    pub fn mpoly_univar_init(
+        A: *mut mpoly_univar_struct,
+        R: *mut mpoly_void_ring_struct,
+    );
     pub fn mpoly_univar_init2(
         A: *mut mpoly_univar_struct,
         len: slong,
-        R: *mut _mpoly_bindgen_ty_1,
+        R: *mut mpoly_void_ring_struct,
     );
-    pub fn mpoly_univar_clear(A: *mut mpoly_univar_struct, R: *mut _mpoly_bindgen_ty_1);
+    pub fn mpoly_univar_clear(
+        A: *mut mpoly_univar_struct,
+        R: *mut mpoly_void_ring_struct,
+    );
     pub fn mpoly_univar_swap(A: *mut mpoly_univar_struct, B: *mut mpoly_univar_struct);
     pub fn mpoly_univar_fit_length(
         A: *mut mpoly_univar_struct,
         len: slong,
-        R: *mut _mpoly_bindgen_ty_1,
+        R: *mut mpoly_void_ring_struct,
     );
     pub fn mpoly_univar_pseudo_gcd_ducos(
         G: *mut mpoly_univar_struct,
         B: *mut mpoly_univar_struct,
         A: *mut mpoly_univar_struct,
-        R: *mut _mpoly_bindgen_ty_1,
+        R: *mut mpoly_void_ring_struct,
     ) -> ::std::os::raw::c_int;
     pub fn mpoly_univar_resultant(
         r: *mut ::std::os::raw::c_void,
         fx: *mut mpoly_univar_struct,
         gx: *mut mpoly_univar_struct,
-        R: *mut _mpoly_bindgen_ty_1,
+        R: *mut mpoly_void_ring_struct,
     ) -> ::std::os::raw::c_int;
     pub fn mpoly_univar_discriminant(
         d: *mut ::std::os::raw::c_void,
         fx: *mut mpoly_univar_struct,
-        R: *mut _mpoly_bindgen_ty_1,
+        R: *mut mpoly_void_ring_struct,
     ) -> ::std::os::raw::c_int;
     pub fn mpoly_parse_init(E: *mut mpoly_parse_struct);
     pub fn mpoly_parse_clear(E: *mut mpoly_parse_struct);
@@ -47424,21 +49532,57 @@ pub struct mpoly_ctx_struct {
     pub lut_words_per_exp: [slong; 64usize],
     pub lut_fix_bits: [::std::os::raw::c_uchar; 64usize],
 }
+impl Default for mpoly_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type mpoly_ctx_t = [mpoly_ctx_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpoly_ctx_struct {
     pub minfo: mpoly_ctx_t,
     pub mod_: nmod_t,
 }
+impl Default for nmod_mpoly_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type nmod_mpoly_ctx_t = [nmod_mpoly_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fmpz_mpoly_ctx_struct {
     pub minfo: mpoly_ctx_t,
 }
+impl Default for fmpz_mpoly_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mpoly_ctx_t = [fmpz_mpoly_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fmpq_mpoly_ctx_struct {
     pub zctx: fmpz_mpoly_ctx_t,
+}
+impl Default for fmpq_mpoly_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type fmpq_mpoly_ctx_t = [fmpq_mpoly_ctx_struct; 1usize];
 #[repr(C)]
@@ -47446,15 +49590,33 @@ pub struct fmpz_mod_mpoly_ctx_struct {
     pub minfo: mpoly_ctx_t,
     pub ffinfo: fmpz_mod_ctx_t,
 }
+impl Default for fmpz_mod_mpoly_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fmpz_mod_mpoly_ctx_t = [fmpz_mod_mpoly_ctx_struct; 1usize];
 #[repr(C)]
 pub struct fq_nmod_mpoly_ctx_struct {
     pub minfo: mpoly_ctx_t,
     pub fqctx: fq_nmod_ctx_t,
 }
+impl Default for fq_nmod_mpoly_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type fq_nmod_mpoly_ctx_t = [fq_nmod_mpoly_ctx_struct; 1usize];
 #[repr(C)]
-pub struct _mpoly_types_bindgen_ty_1 {
+pub struct mpoly_void_ring_struct {
     pub elem_size: slong,
     pub ctx: *const ::std::os::raw::c_void,
     pub init: ::std::option::Option<
@@ -47578,7 +49740,16 @@ pub struct _mpoly_types_bindgen_ty_1 {
         ) -> slong,
     >,
 }
-pub type mpoly_void_ring_t = [_mpoly_types_bindgen_ty_1; 1usize];
+impl Default for mpoly_void_ring_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+pub type mpoly_void_ring_t = [mpoly_void_ring_struct; 1usize];
 #[repr(C)]
 pub struct mpoly_gcd_info_struct {
     pub Amax_exp: *mut ulong,
@@ -47619,6 +49790,15 @@ pub struct mpoly_gcd_info_struct {
     pub Gdeflate_deg_bounds_are_nice: ::std::os::raw::c_int,
     pub data: *mut ::std::os::raw::c_char,
 }
+impl Default for mpoly_gcd_info_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type mpoly_gcd_info_t = [mpoly_gcd_info_struct; 1usize];
 #[repr(C)]
 pub struct mpoly_compression_struct {
@@ -47635,6 +49815,15 @@ pub struct mpoly_compression_struct {
     pub is_perm: ::std::os::raw::c_int,
     pub is_irred: ::std::os::raw::c_int,
 }
+impl Default for mpoly_compression_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type mpoly_compression_t = [mpoly_compression_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpolyn_struct {
@@ -47644,6 +49833,15 @@ pub struct nmod_mpolyn_struct {
     pub length: slong,
     pub bits: slong,
 }
+impl Default for nmod_mpolyn_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type nmod_mpolyn_t = [nmod_mpolyn_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpolyun_struct {
@@ -47652,6 +49850,15 @@ pub struct nmod_mpolyun_struct {
     pub alloc: slong,
     pub length: slong,
     pub bits: flint_bitcnt_t,
+}
+impl Default for nmod_mpolyun_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nmod_mpolyun_t = [nmod_mpolyun_struct; 1usize];
 pub const nmod_gcds_ret_t_nmod_gcds_success: nmod_gcds_ret_t = 0;
@@ -47672,11 +49879,29 @@ pub struct n_polyun_stack_struct {
     pub alloc: slong,
     pub top: slong,
 }
+impl Default for n_polyun_stack_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type n_polyun_stack_t = [n_polyun_stack_struct; 1usize];
 #[repr(C)]
 pub struct n_poly_polyun_stack_struct {
     pub poly_stack: n_poly_stack_t,
     pub polyun_stack: n_polyun_stack_t,
+}
+impl Default for n_poly_polyun_stack_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type n_poly_polyun_stack_t = [n_poly_polyun_stack_struct; 1usize];
 unsafe extern "C" {
@@ -48834,6 +51059,15 @@ pub struct n_poly_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for n_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type n_poly_t = [n_poly_struct; 1usize];
 pub type n_fq_poly_struct = n_poly_struct;
 pub type n_fq_poly_t = n_poly_t;
@@ -48843,6 +51077,15 @@ pub struct n_bpoly_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for n_bpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type n_bpoly_t = [n_bpoly_struct; 1usize];
 pub type n_fq_bpoly_struct = n_bpoly_struct;
 pub type n_fq_bpoly_t = n_bpoly_t;
@@ -48851,6 +51094,15 @@ pub struct n_tpoly_struct {
     pub coeffs: *mut n_bpoly_struct,
     pub alloc: slong,
     pub length: slong,
+}
+impl Default for n_tpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type n_tpoly_t = [n_tpoly_struct; 1usize];
 pub type n_fq_tpoly_struct = n_tpoly_struct;
@@ -48862,6 +51114,15 @@ pub struct n_polyu_struct {
     pub length: slong,
     pub alloc: slong,
 }
+impl Default for n_polyu_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type n_polyu_t = [n_polyu_struct; 1usize];
 pub type n_fq_polyu_struct = n_polyu_struct;
 pub type n_fq_polyu_t = n_polyu_t;
@@ -48872,6 +51133,15 @@ pub struct n_polyun_struct {
     pub length: slong,
     pub alloc: slong,
 }
+impl Default for n_polyun_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type n_polyun_t = [n_polyun_struct; 1usize];
 pub type n_fq_polyun_struct = n_polyun_struct;
 pub type n_fq_polyun_t = n_polyun_t;
@@ -48881,6 +51151,15 @@ pub struct n_poly_stack_struct {
     pub alloc: slong,
     pub top: slong,
 }
+impl Default for n_poly_stack_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type n_poly_stack_t = [n_poly_stack_struct; 1usize];
 #[repr(C)]
 pub struct n_bpoly_stack_struct {
@@ -48888,11 +51167,29 @@ pub struct n_bpoly_stack_struct {
     pub alloc: slong,
     pub top: slong,
 }
+impl Default for n_bpoly_stack_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type n_bpoly_stack_t = [n_bpoly_stack_struct; 1usize];
 #[repr(C)]
 pub struct n_poly_bpoly_stack_struct {
     pub poly_stack: n_poly_stack_t,
     pub bpoly_stack: n_bpoly_stack_t,
+}
+impl Default for n_poly_bpoly_stack_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type n_poly_bpoly_stack_t = [n_poly_bpoly_stack_struct; 1usize];
 #[repr(C)]
@@ -48905,6 +51202,15 @@ pub struct nmod_eval_interp_struct {
     pub d: slong,
     pub radix: slong,
     pub w: ulong,
+}
+impl Default for nmod_eval_interp_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nmod_eval_interp_t = [nmod_eval_interp_struct; 1usize];
 
@@ -48923,10 +51229,37 @@ pub struct nf_struct {
 pub union nf_struct__nf_bindgen_ty_1 {
     pub qq: ::std::mem::ManuallyDrop<fmpz_preinvn_t>,
 }
+impl Default for nf_struct__nf_bindgen_ty_1 {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub union nf_struct__nf_bindgen_ty_2 {
     pub qq: ::std::mem::ManuallyDrop<fmpq_poly_powers_precomp_t>,
     pub zz: ::std::mem::ManuallyDrop<fmpz_poly_powers_precomp_t>,
+}
+impl Default for nf_struct__nf_bindgen_ty_2 {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+impl Default for nf_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nf_t = [nf_struct; 1usize];
 unsafe extern "C" {
@@ -48950,11 +51283,29 @@ pub struct lnf_elem_struct {
     pub num: fmpz_t,
     pub den: fmpz_t,
 }
+impl Default for lnf_elem_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type lnf_elem_t = [lnf_elem_struct; 1usize];
 #[repr(C)]
 pub struct qnf_elem_struct {
     pub num: [fmpz; 3usize],
     pub den: fmpz_t,
+}
+impl Default for qnf_elem_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type qnf_elem_t = [qnf_elem_struct; 1usize];
 #[repr(C)]
@@ -48962,6 +51313,15 @@ pub union nf_elem_struct {
     pub elem: ::std::mem::ManuallyDrop<fmpq_poly_t>,
     pub lelem: ::std::mem::ManuallyDrop<lnf_elem_t>,
     pub qelem: ::std::mem::ManuallyDrop<qnf_elem_t>,
+}
+impl Default for nf_elem_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nf_elem_t = [nf_elem_struct; 1usize];
 unsafe extern "C" {
@@ -49451,6 +51811,15 @@ pub struct _nfloat_ctx_struct {
     pub flags: ::std::os::raw::c_int,
     pub rnd: ::std::os::raw::c_int,
 }
+impl Default for _nfloat_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type nfloat_ptr = *mut ::std::os::raw::c_void;
 pub type nfloat_srcptr = *const ::std::os::raw::c_void;
 #[repr(C)]
@@ -49458,45 +51827,126 @@ pub struct nfloat64_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 1usize],
 }
+impl Default for nfloat64_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct nfloat128_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 2usize],
+}
+impl Default for nfloat128_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct nfloat192_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 3usize],
 }
+impl Default for nfloat192_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct nfloat256_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 4usize],
+}
+impl Default for nfloat256_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct nfloat384_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 6usize],
 }
+impl Default for nfloat384_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct nfloat512_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 8usize],
+}
+impl Default for nfloat512_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct nfloat1024_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 16usize],
 }
+impl Default for nfloat1024_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct nfloat2048_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 32usize],
 }
+impl Default for nfloat2048_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct nfloat4096_struct {
     pub head: [ulong; 2usize],
     pub d: [ulong; 64usize],
+}
+impl Default for nfloat4096_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nfloat64_t = [nfloat64_struct; 1usize];
 pub type nfloat128_t = [nfloat128_struct; 1usize];
@@ -50537,6 +52987,15 @@ pub struct nmod_redc_ctx_struct {
     pub mod_: nmod_t,
     pub nred: ulong,
 }
+impl Default for nmod_redc_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type nmod_redc_ctx_t = [nmod_redc_ctx_struct; 1usize];
 #[repr(C)]
 pub struct _gr_nmod_ctx_struct {
@@ -50544,16 +53003,43 @@ pub struct _gr_nmod_ctx_struct {
     pub a: ulong,
     pub is_prime: truth_t,
 }
+impl Default for _gr_nmod_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct _gr_nmod_redc_ctx_struct {
     pub ctx: nmod_redc_ctx_struct,
     pub one: ulong,
     pub is_prime: truth_t,
 }
+impl Default for _gr_nmod_redc_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct nmod_discrete_log_pohlig_hellman_table_entry_struct {
     pub gammapow: ulong,
     pub cm: ulong,
+}
+impl Default for nmod_discrete_log_pohlig_hellman_table_entry_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct nmod_discrete_log_pohlig_hellman_entry_struct {
@@ -50569,6 +53055,15 @@ pub struct nmod_discrete_log_pohlig_hellman_entry_struct {
     pub dbound: ulong,
     pub table: *mut nmod_discrete_log_pohlig_hellman_table_entry_struct,
 }
+impl Default for nmod_discrete_log_pohlig_hellman_entry_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct nmod_discrete_log_pohlig_hellman_struct {
     pub mod_: nmod_t,
@@ -50576,6 +53071,15 @@ pub struct nmod_discrete_log_pohlig_hellman_struct {
     pub alphainv: ulong,
     pub num_factors: slong,
     pub entries: *mut nmod_discrete_log_pohlig_hellman_entry_struct,
+}
+impl Default for nmod_discrete_log_pohlig_hellman_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nmod_discrete_log_pohlig_hellman_t = [nmod_discrete_log_pohlig_hellman_struct; 1usize];
 pub type __uint128_t = u128;
@@ -50972,6 +53476,15 @@ pub struct nmod_mpoly_univar_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for nmod_mpoly_univar_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type nmod_mpoly_univar_t = [nmod_mpoly_univar_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpolyu_struct {
@@ -50981,6 +53494,15 @@ pub struct nmod_mpolyu_struct {
     pub length: slong,
     pub bits: flint_bitcnt_t,
 }
+impl Default for nmod_mpolyu_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type nmod_mpolyu_t = [nmod_mpolyu_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpolyd_struct {
@@ -50989,6 +53511,15 @@ pub struct nmod_mpolyd_struct {
     pub deg_bounds: *mut slong,
     pub coeff_alloc: slong,
     pub coeffs: *mut ulong,
+}
+impl Default for nmod_mpolyd_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nmod_mpolyd_t = [nmod_mpolyd_struct; 1usize];
 #[repr(C)]
@@ -51005,11 +53536,29 @@ pub struct nmod_poly_stack_struct {
     pub ctx: *const nmod_mpoly_ctx_struct,
     pub bits: flint_bitcnt_t,
 }
+impl Default for nmod_poly_stack_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type nmod_poly_stack_t = [nmod_poly_stack_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpolyd_ctx_struct {
     pub nvars: slong,
     pub perm: *mut slong,
+}
+impl Default for nmod_mpolyd_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nmod_mpolyd_ctx_t = [nmod_mpolyd_ctx_struct; 1usize];
 #[repr(C)]
@@ -51028,6 +53577,15 @@ pub struct _nmod_mpoly_stripe_struct {
     pub emax: *mut ulong,
     pub upperclosed: ::std::os::raw::c_int,
 }
+impl Default for _nmod_mpoly_stripe_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type nmod_mpoly_stripe_struct = _nmod_mpoly_stripe_struct;
 pub type nmod_mpoly_stripe_t = [nmod_mpoly_stripe_struct; 1usize];
 #[repr(C)]
@@ -51035,6 +53593,15 @@ pub struct nmod_mpoly_geobucket {
     pub polys: [nmod_mpoly_struct; 32usize],
     pub temps: [nmod_mpoly_struct; 32usize],
     pub length: slong,
+}
+impl Default for nmod_mpoly_geobucket {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nmod_mpoly_geobucket_struct = nmod_mpoly_geobucket;
 pub type nmod_mpoly_geobucket_t = [nmod_mpoly_geobucket_struct; 1usize];
@@ -52020,7 +54587,7 @@ unsafe extern "C" {
     );
     ///Internal functions (guaranteed to change without notice)
     pub fn mpoly_void_ring_init_nmod_mpoly_ctx(
-        R: *mut _nmod_mpoly_bindgen_ty_1,
+        R: *mut mpoly_void_ring_struct,
         ctx: *const nmod_mpoly_ctx_struct,
     );
     pub fn nmod_mpolyl_lead_coeff(
@@ -53042,6 +55609,15 @@ pub struct nmod_mpolyv_struct {
     pub alloc: slong,
     pub length: slong,
 }
+impl Default for nmod_mpolyv_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type nmod_mpolyv_t = [nmod_mpolyv_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpoly_pfrac_struct {
@@ -53065,6 +55641,15 @@ pub struct nmod_mpoly_pfrac_struct {
     pub T: nmod_mpoly_t,
     pub Q: nmod_mpoly_t,
     pub R: nmod_mpoly_t,
+}
+impl Default for nmod_mpoly_pfrac_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nmod_mpoly_pfrac_t = [nmod_mpoly_pfrac_struct; 1usize];
 unsafe extern "C" {
@@ -53635,6 +56220,15 @@ pub struct nmod_poly_res_struct {
     pub len1: slong,
     pub off: slong,
 }
+impl Default for nmod_poly_res_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type nmod_poly_res_t = [nmod_poly_res_struct; 1usize];
 #[repr(C)]
 pub struct nmod_poly_matrix_precompute_arg_t {
@@ -53643,6 +56237,15 @@ pub struct nmod_poly_matrix_precompute_arg_t {
     pub poly2: *mut nmod_poly_struct,
     pub poly2inv: *mut nmod_poly_struct,
 }
+impl Default for nmod_poly_matrix_precompute_arg_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct nmod_poly_compose_mod_precomp_preinv_arg_t {
     pub A: *mut nmod_mat_struct,
@@ -53650,6 +56253,15 @@ pub struct nmod_poly_compose_mod_precomp_preinv_arg_t {
     pub poly1: *mut nmod_poly_struct,
     pub poly3: *mut nmod_poly_struct,
     pub poly3inv: *mut nmod_poly_struct,
+}
+impl Default for nmod_poly_compose_mod_precomp_preinv_arg_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct nmod_geometric_progression_struct {
@@ -53663,6 +56275,15 @@ pub struct nmod_geometric_progression_struct {
     pub g2: nmod_poly_t,
     pub mod_: nmod_t,
     pub len: slong,
+}
+impl Default for nmod_geometric_progression_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nmod_geometric_progression_t = [nmod_geometric_progression_struct; 1usize];
 #[repr(C)]
@@ -53679,6 +56300,15 @@ pub struct nmod_poly_mulmod_precond_struct {
     pub packing: ::std::os::raw::c_int,
     pub dot_params: dot_params_t,
 }
+impl Default for nmod_poly_mulmod_precond_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type nmod_poly_mulmod_precond_t = [nmod_poly_mulmod_precond_struct; 1usize];
 #[repr(C)]
 pub struct _nmod_poly_multi_crt_prog_instr {
@@ -53687,6 +56317,15 @@ pub struct _nmod_poly_multi_crt_prog_instr {
     pub c_idx: slong,
     pub idem: nmod_poly_t,
     pub modulus: nmod_poly_t,
+}
+impl Default for _nmod_poly_multi_crt_prog_instr {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct nmod_poly_multi_crt_struct {
@@ -53697,6 +56336,15 @@ pub struct nmod_poly_multi_crt_struct {
     pub temp1loc: slong,
     pub temp2loc: slong,
     pub good: ::std::os::raw::c_int,
+}
+impl Default for nmod_poly_multi_crt_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nmod_poly_multi_crt_t = [nmod_poly_multi_crt_struct; 1usize];
 #[repr(C)]
@@ -53709,6 +56357,15 @@ pub struct nmod_berlekamp_massey_struct {
     pub qt: nmod_poly_t,
     pub rt: nmod_poly_t,
     pub points: nmod_poly_t,
+}
+impl Default for nmod_berlekamp_massey_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nmod_berlekamp_massey_t = [nmod_berlekamp_massey_struct; 1usize];
 unsafe extern "C" {
@@ -55833,6 +58490,15 @@ pub struct nmod_poly_interval_poly_arg_t {
     pub tmp: nn_ptr,
     pub m: slong,
 }
+impl Default for nmod_poly_interval_poly_arg_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 unsafe extern "C" {
     pub fn nmod_poly_factor_init(fac: *mut nmod_poly_factor_struct);
     pub fn nmod_poly_factor_clear(fac: *mut nmod_poly_factor_struct);
@@ -56193,6 +58859,15 @@ pub struct nmod_mat_struct {
     pub stride: slong,
     pub mod_: nmod_t,
 }
+impl Default for nmod_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type nmod_mat_t = [nmod_mat_struct; 1usize];
 #[repr(C)]
 pub struct nmod_poly_struct {
@@ -56200,6 +58875,15 @@ pub struct nmod_poly_struct {
     pub alloc: slong,
     pub length: slong,
     pub mod_: nmod_t,
+}
+impl Default for nmod_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nmod_poly_t = [nmod_poly_struct; 1usize];
 #[repr(C)]
@@ -56209,6 +58893,15 @@ pub struct nmod_poly_factor_struct {
     pub num: slong,
     pub alloc: slong,
 }
+impl Default for nmod_poly_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type nmod_poly_factor_t = [nmod_poly_factor_struct; 1usize];
 #[repr(C)]
 pub struct nmod_poly_mat_struct {
@@ -56217,6 +58910,15 @@ pub struct nmod_poly_mat_struct {
     pub c: slong,
     pub stride: slong,
     pub modulus: ulong,
+}
+impl Default for nmod_poly_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nmod_poly_mat_t = [nmod_poly_mat_struct; 1usize];
 #[repr(C)]
@@ -56228,6 +58930,15 @@ pub struct nmod_mpoly_struct {
     pub coeffs_alloc: slong,
     pub exps_alloc: slong,
 }
+impl Default for nmod_mpoly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type nmod_mpoly_t = [nmod_mpoly_struct; 1usize];
 #[repr(C)]
 pub struct nmod_mpoly_factor_struct {
@@ -56236,6 +58947,15 @@ pub struct nmod_mpoly_factor_struct {
     pub exp: *mut fmpz,
     pub num: slong,
     pub alloc: slong,
+}
+impl Default for nmod_mpoly_factor_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type nmod_mpoly_factor_t = [nmod_mpoly_factor_struct; 1usize];
 pub const dot_method_t__DOT0: dot_method_t = 0;
@@ -56251,6 +58971,15 @@ pub type dot_method_t = ::std::os::raw::c_uint;
 pub struct dot_params_t {
     pub method: dot_method_t,
     pub pow2_precomp: ulong,
+}
+impl Default for dot_params_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 
 
@@ -57232,6 +59961,15 @@ pub struct padic_struct {
     pub v: slong,
     pub N: slong,
 }
+impl Default for padic_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type padic_t = [padic_struct; 1usize];
 pub const padic_print_mode_PADIC_TERSE: padic_print_mode = 0;
 pub const padic_print_mode_PADIC_SERIES: padic_print_mode = 1;
@@ -57246,11 +59984,29 @@ pub struct padic_ctx_struct {
     pub max: slong,
     pub mode: padic_print_mode,
 }
+impl Default for padic_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type padic_ctx_t = [padic_ctx_struct; 1usize];
 #[repr(C)]
 pub struct padic_inv_struct {
     pub n: slong,
     pub pow: *mut fmpz,
+}
+impl Default for padic_inv_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type padic_inv_t = [padic_inv_struct; 1usize];
 #[repr(C)]
@@ -57258,6 +60014,15 @@ pub struct padic_mat_struct {
     pub mat: fmpz_mat_struct,
     pub val: slong,
     pub N: slong,
+}
+impl Default for padic_mat_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type padic_mat_t = [padic_mat_struct; 1usize];
 #[repr(C)]
@@ -57267,6 +60032,15 @@ pub struct padic_poly_struct {
     pub length: slong,
     pub val: slong,
     pub N: slong,
+}
+impl Default for padic_poly_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type padic_poly_t = [padic_poly_struct; 1usize];
 
@@ -57315,6 +60089,15 @@ pub struct qadic_ctx_struct {
     pub j: *mut slong,
     pub len: slong,
     pub var: *mut ::std::os::raw::c_char,
+}
+impl Default for qadic_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type qadic_ctx_t = [qadic_ctx_struct; 1usize];
 #[repr(C)]
@@ -57643,12 +60426,30 @@ pub struct qfb {
     pub b: fmpz_t,
     pub c: fmpz_t,
 }
+impl Default for qfb {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type qfb_t = [qfb; 1usize];
 #[repr(C)]
 pub struct qfb_hash_t {
     pub q: qfb_t,
     pub q2: qfb_t,
     pub iter: slong,
+}
+impl Default for qfb_hash_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 unsafe extern "C" {
     pub fn qfb_print(q: *mut qfb);
@@ -57713,6 +60514,15 @@ unsafe extern "C" {
 pub struct qqbar_struct {
     pub poly: fmpz_poly_struct,
     pub enclosure: acb_struct,
+}
+impl Default for qqbar_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type qqbar_t = [qqbar_struct; 1usize];
 pub type qqbar_ptr = *mut qqbar_struct;
@@ -58173,10 +60983,28 @@ pub struct prime_t {
     pub p: ::std::os::raw::c_int,
     pub size: ::std::os::raw::c_char,
 }
+impl Default for prime_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct fac_t {
     pub ind: slong,
     pub exp: slong,
+}
+impl Default for fac_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct la_col_t {
@@ -58184,11 +61012,29 @@ pub struct la_col_t {
     pub weight: slong,
     pub orig: slong,
 }
+impl Default for la_col_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 pub struct hash_t {
     pub prime: ulong,
     pub next: ulong,
     pub count: ulong,
+}
+impl Default for hash_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct relation_t {
@@ -58198,6 +61044,15 @@ pub struct relation_t {
     pub small: *mut slong,
     pub factor: *mut fac_t,
     pub Y: fmpz_t,
+}
+impl Default for relation_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct qs_poly_s {
@@ -58209,6 +61064,15 @@ pub struct qs_poly_s {
     pub small: *mut slong,
     pub factor: *mut fac_t,
     pub num_factors: slong,
+}
+impl Default for qs_poly_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type qs_poly_t = [qs_poly_s; 1usize];
 #[repr(C)]
@@ -58280,6 +61144,15 @@ pub struct qs_s {
     pub columns: slong,
     ///SQUARE ROOT DATA
     pub prime_count: *mut slong,
+}
+impl Default for qs_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type qs_t = [qs_s; 1usize];
 unsafe extern "C" {
@@ -58398,11 +61271,29 @@ pub struct n_div_precomp_struct {
     pub e: ::std::os::raw::c_uint,
     pub c: ::std::os::raw::c_uint,
 }
+impl Default for n_div_precomp_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type n_div_precomp_t = [n_div_precomp_struct; 1usize];
 #[repr(C)]
 pub struct n_pair_struct {
     pub a: ulong,
     pub b: ulong,
+}
+impl Default for n_pair_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 pub struct radix_struct {
@@ -58420,6 +61311,15 @@ pub struct radix_struct {
     pub trunc_limbs: slong,
     pub trunc_digits: slong,
 }
+impl Default for radix_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type radix_t = [radix_struct; 1usize];
 #[repr(C)]
 pub struct radix_powers_struct {
@@ -58430,12 +61330,30 @@ pub struct radix_powers_struct {
     pub val_limbs: [slong; 64usize],
     pub buf: nn_ptr,
 }
+impl Default for radix_powers_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type radix_powers_t = [radix_powers_struct; 1usize];
 #[repr(C)]
 pub struct radix_integer_struct {
     pub d: nn_ptr,
     pub alloc: slong,
     pub size: slong,
+}
+impl Default for radix_integer_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type radix_integer_t = [radix_integer_struct; 1usize];
 unsafe extern "C" {
@@ -58981,6 +61899,15 @@ pub struct thread_pool_entry_struct {
     pub working: ::std::os::raw::c_int,
     pub exit: ::std::os::raw::c_int,
 }
+impl Default for thread_pool_entry_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type thread_pool_entry_t = [thread_pool_entry_struct; 1usize];
 #[repr(C)]
 pub struct thread_pool_struct {
@@ -58988,6 +61915,15 @@ pub struct thread_pool_struct {
     pub mutex: pthread_mutex_t,
     pub tdata: *mut thread_pool_entry_struct,
     pub length: slong,
+}
+impl Default for thread_pool_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type thread_pool_t = [thread_pool_struct; 1usize];
 unsafe extern "C" {
@@ -59122,6 +62058,15 @@ pub struct n_ecm_s {
     pub one: ulong,
     pub GCD_table: *mut ::std::os::raw::c_uchar,
     pub prime_table: *mut *mut ::std::os::raw::c_uchar,
+}
+impl Default for n_ecm_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type n_ecm_t = [n_ecm_s; 1usize];
 unsafe extern "C" {
