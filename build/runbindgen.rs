@@ -22,6 +22,8 @@ static SKIP_HEADERS: &[&str] = &[
     r"^profiler\.h$",
     r"^test_helpers\.h$",
     r"^.*templates\.h$",
+    r"^.*_tables\.h$",
+    r"^.*impl\.h$",
     // depend on GMP. FIXME
     r"^fft\.h$",
     r"^mpn_extras\.h$",

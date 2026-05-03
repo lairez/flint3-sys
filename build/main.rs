@@ -1,7 +1,4 @@
-use std::{
-    path::{Path, PathBuf},
-    process::Command,
-};
+use std::{path::PathBuf, process::Command};
 
 use anyhow::{Context, Result};
 
@@ -17,10 +14,6 @@ mod runbindgen;
 
 #[cfg(not(feature = "force-bindgen"))]
 const GENERATED_BINDINGS: &str = "bindgen/flint.rs";
-
-// This is an undocumented convenience for the maintainer of this crate, so that
-// FLINT is not compiled over and over.
-const LOCAL_FLINT_INSTALL: &str = "flint-install";
 
 fn run(mut command: Command) -> Result<()> {
     let command_string = format!("{command:?}");
@@ -47,27 +40,40 @@ struct Build {
     out_dir: PathBuf,
     // Destination consumed by src/lib.rs through include!(env!("FLINT_RS")).
     flint_rs: PathBuf,
-    // FLINT include prefix, either OUT_DIR/include or <FLINT_INSTALL>/include.
+    // FLINT include prefix, either OUT_DIR/include or a system include path.
     flint_include_dir: PathBuf,
-    // FLINT library prefix, either OUT_DIR/lib or <FLINT_INSTALL>/lib.
-    flint_lib_dir: PathBuf,
-    // Existing FLINT install prefix. None means build bundled FLINT in OUT_DIR.
-    flint_install_dir: Option<PathBuf>,
+    // FLINT library prefix for bundled static builds. System builds use pkg-config.
+    flint_lib_dir: Option<PathBuf>,
+    link: LinkMode,
+}
+
+enum LinkMode {
+    BundledStatic,
+    SystemDynamic,
 }
 
 impl Build {
     fn new() -> Result<Self> {
+        if cfg!(feature = "use-system-lib") && cfg!(feature = "gmp-mpfr-sys") {
+            anyhow::bail!(
+                "`use-system-lib` and `gmp-mpfr-sys` cannot be enabled together; \
+                 system FLINT already chooses its GMP/MPFR linkage"
+            );
+        }
+
         let out_dir = PathBuf::from(std::env::var("OUT_DIR").context("Missing OUT_DIR")?)
             .canonicalize()
             .context("Failed to canonicalize OUT_DIR")?;
 
-        // Prefer an existing FLINT install while developing. Otherwise build and
-        // install the bundled FLINT into OUT_DIR.
-        let flint_install_dir = flint_install_dir()?;
-        let (flint_include_dir, flint_lib_dir) = if let Some(prefix) = &flint_install_dir {
-            (prefix.join("include"), prefix.join("lib"))
+        let (flint_include_dir, flint_lib_dir, link) = if cfg!(feature = "use-system-lib") {
+            let system = system_flint()?;
+            (system.include_dir, system.lib_dir, LinkMode::SystemDynamic)
         } else {
-            (out_dir.join("include"), out_dir.join("lib"))
+            (
+                out_dir.join("include"),
+                Some(out_dir.join("lib")),
+                LinkMode::BundledStatic,
+            )
         };
 
         Ok(Build {
@@ -75,12 +81,12 @@ impl Build {
             flint_rs: out_dir.join("flint.rs"),
             flint_include_dir,
             flint_lib_dir,
-            flint_install_dir,
+            link,
         })
     }
 
     fn build_flint(&self) -> Result<()> {
-        if self.flint_install_dir.is_some() {
+        if matches!(self.link, LinkMode::SystemDynamic) {
             self.emit_flint_metadata();
             return Ok(());
         }
@@ -152,7 +158,9 @@ impl Build {
     }
 
     fn emit_flint_metadata(&self) {
-        println!("cargo::metadata=LIB_DIR={}", self.flint_lib_dir.display());
+        if let Some(flint_lib_dir) = &self.flint_lib_dir {
+            println!("cargo::metadata=LIB_DIR={}", flint_lib_dir.display());
+        }
         println!(
             "cargo::metadata=INCLUDE_DIR={}",
             self.flint_include_dir.display()
@@ -160,54 +168,72 @@ impl Build {
     }
 }
 
-fn flint_install_dir() -> Result<Option<PathBuf>> {
-    println!("cargo::rerun-if-env-changed=FLINT_INSTALL");
-    println!("cargo::rerun-if-changed={LOCAL_FLINT_INSTALL}");
-
-    if let Some(path) = std::env::var_os("FLINT_INSTALL") {
-        anyhow::ensure!(
-            !path.as_encoded_bytes().is_empty(),
-            "`FLINT_INSTALL` is set but empty"
-        );
-        let prefix = PathBuf::from(path);
-        return validate_flint_install_dir(&prefix)
-            .with_context(|| format!("Invalid `FLINT_INSTALL={}`", prefix.display()))
-            .map(Some);
-    }
-
-    let prefix = Path::new(LOCAL_FLINT_INSTALL);
-    if std::fs::symlink_metadata(prefix).is_ok() {
-        return validate_flint_install_dir(prefix)
-            .context("Invalid `flint-install` FLINT install prefix")
-            .map(Some);
-    }
-
-    Ok(None)
+struct SystemFlint {
+    include_dir: PathBuf,
+    lib_dir: Option<PathBuf>,
 }
 
-fn validate_flint_install_dir(prefix: &Path) -> Result<PathBuf> {
+#[cfg(feature = "use-system-lib")]
+fn system_flint() -> Result<SystemFlint> {
+    let library = pkg_config::Config::new()
+        .statik(false)
+        .probe("flint")
+        .context("Failed to find system FLINT with pkg-config")?;
+
+    if !cfg!(feature = "force-bindgen") {
+        validate_system_flint_version(&library.version)?;
+    }
+
+    let include_dir = library
+        .include_paths
+        .iter()
+        .find(|path| path.join("flint/flint.h").is_file())
+        .cloned()
+        .context("pkg-config did not report an include path containing `flint/flint.h`")?;
+    let lib_dir = library.link_paths.first().cloned();
+
+    println!("cargo::metadata=SYSTEM_LIB=1");
+    println!("cargo::rerun-if-env-changed=PKG_CONFIG_PATH");
+    println!("cargo::rerun-if-env-changed=PKG_CONFIG_LIBDIR");
+    println!("cargo::rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR");
+
+    Ok(SystemFlint {
+        include_dir,
+        lib_dir,
+    })
+}
+
+#[cfg(not(feature = "use-system-lib"))]
+fn system_flint() -> Result<SystemFlint> {
+    unreachable!("system_flint is only called with `use-system-lib`")
+}
+
+#[cfg(feature = "use-system-lib")]
+fn validate_system_flint_version(version: &str) -> Result<()> {
+    println!("cargo::rerun-if-changed=flint/VERSION");
+    let bundled_version =
+        std::fs::read_to_string("flint/VERSION").context("Failed to read `flint/VERSION`")?;
+    let bundled_version = bundled_version.trim();
+    let bundled_major_minor = major_minor(bundled_version)
+        .with_context(|| format!("Could not parse bundled FLINT version `{bundled_version}`"))?;
+    let system_major_minor = major_minor(version)
+        .with_context(|| format!("Could not parse system FLINT version `{version}`"))?;
+
     anyhow::ensure!(
-        prefix.is_dir(),
-        "`{}` is not a directory, or is a broken symlink",
-        prefix.display()
+        bundled_major_minor == system_major_minor,
+        "System FLINT version `{}` is incompatible with checked-in bindings for FLINT {}.x; \
+         install a matching FLINT or enable `force-bindgen`",
+        version,
+        bundled_major_minor
     );
 
-    let include_header = prefix.join("include/flint/flint.h");
-    let static_lib = prefix.join("lib/libflint.a");
+    Ok(())
+}
 
-    anyhow::ensure!(
-        include_header.is_file(),
-        "Missing `{}`",
-        include_header.display()
-    );
-    anyhow::ensure!(static_lib.is_file(), "Missing `{}`", static_lib.display());
-
-    println!("cargo::rerun-if-changed={}", include_header.display());
-    println!("cargo::rerun-if-changed={}", static_lib.display());
-
-    prefix
-        .canonicalize()
-        .with_context(|| format!("Failed to canonicalize `{}`", prefix.display()))
+#[cfg(feature = "use-system-lib")]
+fn major_minor(version: &str) -> Option<String> {
+    let mut parts = version.split('.');
+    Some(format!("{}.{}", parts.next()?, parts.next()?))
 }
 
 // Normal crate builds must not require libclang/bindgen. They use the checked-in
@@ -244,18 +270,24 @@ fn main() -> Result<()> {
         "Compilation is successful, but `flint/flint.h` is not where it should"
     );
 
-    anyhow::ensure!(
-        build.flint_lib_dir.join("libflint.a").is_file(),
-        "Compilation is successful, but `libflint.a` is not where it should"
-    );
+    if matches!(build.link, LinkMode::BundledStatic) {
+        let flint_lib_dir = build
+            .flint_lib_dir
+            .as_ref()
+            .context("Missing bundled FLINT library directory")?;
+        anyhow::ensure!(
+            flint_lib_dir.join("libflint.a").is_file(),
+            "Compilation is successful, but `libflint.a` is not where it should"
+        );
 
-    println!("cargo::rustc-link-lib=flint");
-    println!("cargo::rustc-link-lib=mpfr");
-    println!("cargo::rustc-link-lib=gmp");
-    println!(
-        "cargo::rustc-link-search=native={}",
-        build.flint_lib_dir.display()
-    );
+        println!("cargo::rustc-link-lib=flint");
+        println!("cargo::rustc-link-lib=mpfr");
+        println!("cargo::rustc-link-lib=gmp");
+        println!(
+            "cargo::rustc-link-search=native={}",
+            flint_lib_dir.display()
+        );
+    }
 
     if cfg!(feature = "gmp-mpfr-sys") {
         println!(
