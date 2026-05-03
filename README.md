@@ -2,8 +2,6 @@
 
 [FLINT](https://flintlib.org/) bindings for the Rust programming language, using [bindgen](https://github.com/rust-lang/rust-bindgen).
 
-Since the FLINT API evolves quickly, this crate normally compiles the bundled FLINT from source. A system FLINT can be used explicitly with the `use-system-lib` feature.
-
 ## Versioning
 
 This crate follows FLINT's versioning, except for the patch version, which may increase faster.
@@ -11,11 +9,13 @@ This crate follows FLINT's versioning, except for the patch version, which may i
 
 ## Optional Features
 
-- `gmp-mpfr-sys`: Enables a dependency on the [gmp-mpfr-sys](https://crates.io/crates/gmp-mpfr-sys) crate and builds FLINT against GMP and MPFR libraries compiled by it. If this feature is **not** enabled, there is a system dependency on GMP and MPFR.
+- `gmp-mpfr-sys`: Enables a dependency on the [gmp-mpfr-sys](https://crates.io/crates/gmp-mpfr-sys) crate and builds bundled FLINT against GMP and MPFR libraries provided by it. If this feature is *not* enabled, the bundled FLINT build relies on system GMP and MPFR.
 
 - `run-bindgen`: Adds [bindgen](https://github.com/rust-lang/rust-bindgen) as a build dependency and regenerates the bindings. Useful for maintenance (see below) or for using system libraries.
 
-- `use-system-lib`: Links dynamically against a system FLINT discovered with `pkg-config`. This uses the checked-in bindings unless `run-bindgen` is also enabled. The detected FLINT major/minor version must match the bundled FLINT version when using checked-in bindings.
+- `use-system-libs`: Links dynamically against a system FLINT discovered with `pkg-config`, and enables `gmp-mpfr-sys/use-system-libs` so GMP and MPFR are also treated as system libraries when that crate participates. This uses the checked-in bindings unless `run-bindgen` is also enabled. The detected FLINT major/minor version must match the bundled FLINT version when using checked-in bindings.
+
+  This feature is experimental and will probably remain so forever. The reason is that we cannot provide a stable Rust API linking against an unknown system library. But this sometimes work and it cuts the compilation time significantly.
 
 ## Metadata
 
@@ -31,10 +31,10 @@ This is useful for crates that need to compile a C library depending on FLINT. S
 To use a system FLINT instead of building the bundled source:
 
 ```sh
-cargo test --features use-system-lib
+cargo test --features use-system-libs
 ```
 
-This requires a `flint.pc` file visible to `pkg-config`. The system FLINT is linked dynamically. Do not combine this feature with `gmp-mpfr-sys`; the system FLINT package already determines its GMP and MPFR linkage.
+This requires a `flint.pc` file visible to `pkg-config`. The system FLINT is linked dynamically. This feature also forwards `use-system-libs` to `gmp-mpfr-sys`, so the dependency graph consistently uses system FLINT, GMP, and MPFR instead of mixing a system FLINT with Rust-built GMP/MPFR libraries.
 
 ## Licensing
 
@@ -51,50 +51,63 @@ Choose what works for you.
 
 ## Architecture
 
-Creating a `*-sys` crate involves several design decisions, as outlined by [Kornel](https://kornel.ski/rust-sys-crate).
+Creating a `*-sys` crate involves several design decisions, as outlined by [Kornel](https://kornel.ski/rust-sys-crate). And there is no perfect choice.
 
 ### Which FLINT library?
 
-By default, this crate builds the bundled FLINT source and links it statically. This is slower than linking to an already installed library, but it gives the crate control over the FLINT version and over the headers used to generate `bindgen/flint.rs`.
+By default, this crate builds the bundled FLINT source and links it statically.
 
-The `use-system-lib` feature takes the opposite tradeoff: it asks `pkg-config` for an installed FLINT and links to it dynamically. This is convenient for distributions and for users who already manage FLINT themselves, but it means that the headers and the library are no longer controlled by this crate.
+  - :green_circle: We control FLINT's version
+  - :green_circle: FLINT is compiled with applicable hardware optimizations
+  - :red_circle: Compilation time
+  
+The `use-system-libs` feature takes the opposite approach: it asks `pkg-config` for an installed FLINT and links to it dynamically. It checks that the system FLINT major/minor version matches the bundled FLINT version when using the checked-in bindings. A patch-level difference is accepted; a different majoer/minor version is rejected unless you also enable `run-bindgen`.
 
-FLINT's C API is not as stable as a typical system library ABI. For that reason, `use-system-lib` checks that the system FLINT major/minor version matches the bundled FLINT version when using the checked-in bindings. A patch-level difference is accepted; a different major/minor version is rejected unless you also enable `run-bindgen`.
-
+  - :green_circle: No need to compile FLINT
+  - :red_circle: The system FLINT version may not match the API provided by `bindgen/flint.rs`
+  
 ### When to run bindgen?
 
 There are two strategies:
 
 1. Generate bindings during maintenance and ship `bindgen/flint.rs`.
-2. Run `bindgen` in the build script against the headers found on the build machine.
+2. Run `bindgen` in the build script.
 
-The default is to use the checked-in bindings. This keeps normal builds faster and avoids requiring `libclang`. It also gives downstream users a predictable Rust API.
+The default is to use the checked-in bindings. This keeps normal builds faster and avoids requiring `libclang`. It also gives downstream users a predictable Rust API. But *it is important to understand that the bindings may not be 100% accurate!* The FLINT API depends on *both* the version *and* the machine-dependent configuration. We assume `FLINT_BITS==64` and `FLINT_USES_PTHREAD`, but we don't assume anything on `FLINT_USES_CPUSET`, this is why `thread_pool.h` is not exposed.
 
-The `run-bindgen` feature regenerates the bindings during the build. This is useful when updating the bundled FLINT version, or when deliberately binding to system headers. It is not the default because :
+The `run-bindgen` feature regenerates the bindings during the build. This ensure that the bindings are accurate, but this means that the Rust API is not fully predictable. (This feature is also useful for the package maintenance.)
 
-- It is slower (since *bindgen* is not so fast),
-- It requires `libclang`,
-- It a Rust API that depends on the installed FLINT headers,
+### Concretely
+
+- *default features*. Uses the bundled FLINT library and the bundled bindings.
+    - :green_circle: Predictable FLINT version
+    - :green_circle: Predictable Rust API
+    - :red_circle: Large compile time
+    
+- `--feature use-system-libs`. Uses the system FLINT library and the bundled bindings. You can use this option on your computer if you know what you are doing.
+    - :green_circle: Fast compilation
+    - :red_circle: Unpredictable FLINT version
+    - :orange_circle: The Rust API may not match the system FLINT, but it may still be OK if only the minor version differs.
+
+- `--feature run-bindgen`. Uses the bundled FLINT library and generate the bindings at build time. This is especially useful when the maintainer update the bundled FLINT library.
+    - :green_circle: Predictable FLINT version
+    - :green_circle: Predictable Rust API
+    - :red_circle: Large compile time
+    - :red_circle: Dependence on `bindgen` and `libclang`
+    
+- `--feature run-bindgen,use-system-libs`. Uses the system FLINT library and generate the bindings at build time.
+    - :red_circle: Unpredictable FLINT version
+    - :red_circle: Unpredictable Rust API
+    - :red_circle: The binding generation is a fragil process, on an unknown FLINT version, expect the unexpected
+    - :green_circle: If it works, Rust API and FLINT will be compatible
+    - :green_circle: Fast compilation
+
 
 ### GMP and MPFR
 
-FLINT depends on GMP and MPFR. With the bundled FLINT build, this crate can either rely on system GMP/MPFR or, if the `gmp-mpfr-sys` feature is enabled, build and link against the copies provided by the `gmp-mpfr-sys` crate.
+FLINT depends on GMP and MPFR. With the bundled FLINT build, this crate can either rely on system GMP/MPFR or, if the `gmp-mpfr-sys` feature is enabled, build and link against the libraries provided by the `gmp-mpfr-sys` crate.
 
-The `gmp-mpfr-sys` feature is intentionally incompatible with `use-system-lib`. A system FLINT package has already been built against some GMP and MPFR libraries, and mixing that FLINT with a different Rust-built GMP/MPFR pair would be fragile.
-
-This crate does not expose GMP or MPFR APIs directly; they are only FLINT dependencies.
-
-### Build script pipeline
-
-The build script first decides where FLINT comes from:
-
-- Without `use-system-lib`, it configures, builds, and installs the bundled FLINT into Cargo's `OUT_DIR`, then links `libflint.a` statically.
-- With `use-system-lib`, it asks `pkg-config` for include paths, link paths, and dynamic link flags, and does not build bundled FLINT.
-
-Then it provides Rust bindings:
-
-- Without `run-bindgen`, it copies the checked-in `bindgen/flint.rs` into `OUT_DIR`.
-- With `run-bindgen`, it regenerates `flint.rs` from the active FLINT headers.
+The feature `use-system-libs` also enables `gmp-mpfr-sys/use-system-libs`. *Recall that this feature is experimental.*
 
 
 ## Maintenance

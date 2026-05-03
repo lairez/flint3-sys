@@ -54,18 +54,11 @@ enum LinkMode {
 
 impl Build {
     fn new() -> Result<Self> {
-        if cfg!(feature = "use-system-lib") && cfg!(feature = "gmp-mpfr-sys") {
-            anyhow::bail!(
-                "`use-system-lib` and `gmp-mpfr-sys` cannot be enabled together; \
-                 system FLINT already chooses its GMP/MPFR linkage"
-            );
-        }
-
         let out_dir = PathBuf::from(std::env::var("OUT_DIR").context("Missing OUT_DIR")?)
             .canonicalize()
             .context("Failed to canonicalize OUT_DIR")?;
 
-        let (flint_include_dir, flint_lib_dir, link) = if cfg!(feature = "use-system-lib") {
+        let (flint_include_dir, flint_lib_dir, link) = if cfg!(feature = "use-system-libs") {
             let system = system_flint()?;
             (system.include_dir, system.lib_dir, LinkMode::SystemDynamic)
         } else {
@@ -173,7 +166,7 @@ struct SystemFlint {
     lib_dir: Option<PathBuf>,
 }
 
-#[cfg(feature = "use-system-lib")]
+#[cfg(feature = "use-system-libs")]
 fn system_flint() -> Result<SystemFlint> {
     let library = pkg_config::Config::new()
         .statik(false)
@@ -203,12 +196,12 @@ fn system_flint() -> Result<SystemFlint> {
     })
 }
 
-#[cfg(not(feature = "use-system-lib"))]
+#[cfg(not(feature = "use-system-libs"))]
 fn system_flint() -> Result<SystemFlint> {
-    unreachable!("system_flint is only called with `use-system-lib`")
+    unreachable!("system_flint is only called with `use-system-libs`")
 }
 
-#[cfg(feature = "use-system-lib")]
+#[cfg(feature = "use-system-libs")]
 fn validate_system_flint_version(version: &str) -> Result<()> {
     println!("cargo::rerun-if-changed=flint/VERSION");
     let bundled_version =
@@ -230,7 +223,7 @@ fn validate_system_flint_version(version: &str) -> Result<()> {
     Ok(())
 }
 
-#[cfg(feature = "use-system-lib")]
+#[cfg(feature = "use-system-libs")]
 fn major_minor(version: &str) -> Option<String> {
     let mut parts = version.split('.');
     Some(format!("{}.{}", parts.next()?, parts.next()?))
@@ -290,10 +283,9 @@ fn main() -> Result<()> {
     }
 
     if cfg!(feature = "gmp-mpfr-sys") {
-        println!(
-            "cargo::rustc-link-search=native={}",
-            std::env::var("DEP_GMP_LIB_DIR")?
-        );
+        if let Ok(gmp_lib_dir) = std::env::var("DEP_GMP_LIB_DIR") {
+            println!("cargo::rustc-link-search=native={gmp_lib_dir}");
+        }
     }
 
     build.prepare_bindings()?;
