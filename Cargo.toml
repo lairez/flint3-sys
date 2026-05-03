@@ -12,7 +12,8 @@ keywords = ["computer-algebra"]
 build = "build/main.rs"
 
 [features]
-force-bindgen = ["dep:bindgen", "dep:regex"]
+default = ["force-bindgen"]
+force-bindgen = ["dep:bindgen", "dep:regex", "dep:tempfile"]
 gmp-mpfr-sys = ["dep:gmp-mpfr-sys"]
 
 [dependencies]
@@ -24,6 +25,7 @@ anyhow = "1.0.98"
 bindgen = { version = "0.72.1", optional = true }
 cc = "1.2.23"
 regex = { version = "1.11.1", default-features = false, features = ["std"], optional = true }
+tempfile = {version = "3.27.0", optional = true }
 
 [package.metadata.docs.rs]
 features = ["gmp-mpfr-sys"]     # docs.rs does not have libgmp-dev
