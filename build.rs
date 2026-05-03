@@ -314,6 +314,21 @@ impl Build {
         };
 
         let headers = self.flint_headers()?;
+        let inline_macro_pattern =
+            regex::Regex::new(r"(?m)^\s*#\s*ifdef\s+([A-Z0-9_]+_INLINES_C)\b")
+                .context("Invalid inline macro regex")?;
+        let mut inline_macros = Vec::new();
+        for header in &headers {
+            let source = std::fs::read_to_string(header)
+                .with_context(|| format!("Failed to read `{}`", header.display()))?;
+            inline_macros.extend(
+                inline_macro_pattern
+                    .captures_iter(&source)
+                    .map(|captures| captures[1].to_owned()),
+            );
+        }
+        inline_macros.sort();
+        inline_macros.dedup();
 
         // let mut builder = bindgen::Builder::default()
         //     .raw_line("pub use crate::ffi_prelude::*;")
@@ -344,6 +359,7 @@ impl Build {
             for _ in 0..worker_count {
                 let next_header = Arc::clone(&next_header);
                 let header_strings = &header_strings;
+                let inline_macros = &inline_macros;
                 tasks.push(
                     scope.spawn(move || -> Result<Vec<(usize, String, String)>> {
                         let mut generated = Vec::new();
@@ -380,6 +396,9 @@ impl Build {
                                 .rust_edition(bindgen::RustEdition::Edition2021)
                                 .layout_tests(false)
                                 .formatter(bindgen::Formatter::Prettyplease);
+                            for inline_macro in inline_macros {
+                                builder = builder.clang_arg(format!("-D{inline_macro}"));
+                            }
                             for (_, items) in SKIP_ITEMS
                                 .iter()
                                 .filter(|(header, _)| *header == header_name)

@@ -3,19 +3,91 @@
 /* acb.h */
 
 unsafe extern "C" {
+    pub fn acb_init(x: *mut acb_struct);
     pub fn acb_clear(x: *mut acb_struct);
     pub fn _acb_vec_init(n: slong) -> acb_ptr;
     pub fn _acb_vec_clear(v: acb_ptr, n: slong);
+    pub fn acb_real_ptr(z: *mut acb_struct) -> arb_ptr;
+    pub fn acb_imag_ptr(z: *mut acb_struct) -> arb_ptr;
+    pub fn acb_get_real(re: *mut arb_struct, z: *const acb_struct);
+    pub fn acb_get_imag(im: *mut arb_struct, z: *const acb_struct);
+    pub fn acb_get_mid(res: *mut acb_struct, x: *const acb_struct);
+    pub fn acb_is_zero(z: *const acb_struct) -> ::std::os::raw::c_int;
+    pub fn acb_is_one(z: *const acb_struct) -> ::std::os::raw::c_int;
+    pub fn acb_is_exact(z: *const acb_struct) -> ::std::os::raw::c_int;
+    pub fn acb_is_int(z: *const acb_struct) -> ::std::os::raw::c_int;
+    pub fn acb_is_int_2exp_si(z: *const acb_struct, e: slong) -> ::std::os::raw::c_int;
+    pub fn acb_zero(z: *mut acb_struct);
+    pub fn acb_one(z: *mut acb_struct);
+    pub fn acb_onei(z: *mut acb_struct);
+    pub fn acb_set(z: *mut acb_struct, x: *const acb_struct);
+    pub fn acb_set_round(z: *mut acb_struct, x: *const acb_struct, prec: slong);
+    pub fn acb_neg_round(z: *mut acb_struct, x: *const acb_struct, prec: slong);
+    pub fn acb_swap(z: *mut acb_struct, x: *mut acb_struct);
+    pub fn acb_equal(
+        x: *const acb_struct,
+        y: *const acb_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn acb_equal_si(x: *const acb_struct, y: slong) -> ::std::os::raw::c_int;
+    pub fn acb_eq(x: *const acb_struct, y: *const acb_struct) -> ::std::os::raw::c_int;
+    pub fn acb_ne(x: *const acb_struct, y: *const acb_struct) -> ::std::os::raw::c_int;
+    pub fn acb_overlaps(
+        x: *const acb_struct,
+        y: *const acb_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn acb_contains_zero(x: *const acb_struct) -> ::std::os::raw::c_int;
+    pub fn acb_contains_fmpq(
+        x: *const acb_struct,
+        y: *const fmpq,
+    ) -> ::std::os::raw::c_int;
+    pub fn acb_contains_fmpz(
+        x: *const acb_struct,
+        y: *const fmpz,
+    ) -> ::std::os::raw::c_int;
+    pub fn acb_contains(
+        x: *const acb_struct,
+        y: *const acb_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn acb_contains_interior(
+        x: *const acb_struct,
+        y: *const acb_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn acb_set_ui(z: *mut acb_struct, c: ulong);
+    pub fn acb_set_d(z: *mut acb_struct, c: f64);
+    pub fn acb_set_si(z: *mut acb_struct, c: slong);
+    pub fn acb_set_si_si(z: *mut acb_struct, x: slong, y: slong);
+    pub fn acb_set_d_d(z: *mut acb_struct, x: f64, y: f64);
+    pub fn acb_set_fmpz(z: *mut acb_struct, c: *const fmpz);
+    pub fn acb_set_fmpz_fmpz(z: *mut acb_struct, x: *const fmpz, y: *const fmpz);
+    pub fn acb_set_round_fmpz(z: *mut acb_struct, y: *const fmpz, prec: slong);
     pub fn acb_contains_int(x: *const acb_struct) -> ::std::os::raw::c_int;
     pub fn acb_get_unique_fmpz(
         z: *mut fmpz,
         x: *const acb_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn acb_set_fmpq(z: *mut acb_struct, c: *const fmpq, prec: slong);
+    pub fn acb_set_arb(z: *mut acb_struct, c: *const arb_struct);
+    pub fn acb_set_arb_arb(
+        z: *mut acb_struct,
+        x: *const arb_struct,
+        y: *const arb_struct,
+    );
+    pub fn acb_set_round_arb(z: *mut acb_struct, x: *const arb_struct, prec: slong);
+    pub fn acb_trim(z: *mut acb_struct, x: *const acb_struct);
+    pub fn acb_add_error_arf(x: *mut acb_struct, err: *const arf_struct);
+    pub fn acb_add_error_mag(x: *mut acb_struct, err: *const mag_struct);
+    pub fn acb_add_error_arb(x: *mut acb_struct, err: *const arb_struct);
     pub fn acb_get_mag(z: *mut mag_struct, x: *const acb_struct);
     pub fn acb_get_mag_lower(z: *mut mag_struct, x: *const acb_struct);
     pub fn acb_get_abs_ubound_arf(u: *mut arf_struct, z: *const acb_struct, prec: slong);
     pub fn acb_get_abs_lbound_arf(u: *mut arf_struct, z: *const acb_struct, prec: slong);
     pub fn acb_get_rad_ubound_arf(u: *mut arf_struct, z: *const acb_struct, prec: slong);
+    pub fn acb_union(
+        res: *mut acb_struct,
+        x: *const acb_struct,
+        y: *const acb_struct,
+        prec: slong,
+    );
     pub fn acb_arg(r: *mut arb_struct, z: *const acb_struct, prec: slong);
     pub fn acb_sgn(res: *mut acb_struct, z: *const acb_struct, prec: slong);
     pub fn acb_csgn(res: *mut arb_struct, z: *const acb_struct);
@@ -94,6 +166,66 @@ unsafe extern "C" {
         analytic: ::std::os::raw::c_int,
         prec: slong,
     );
+    pub fn acb_add(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: *const acb_struct,
+        prec: slong,
+    );
+    pub fn acb_sub(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: *const acb_struct,
+        prec: slong,
+    );
+    pub fn acb_add_si(z: *mut acb_struct, x: *const acb_struct, c: slong, prec: slong);
+    pub fn acb_add_ui(z: *mut acb_struct, x: *const acb_struct, c: ulong, prec: slong);
+    pub fn acb_sub_si(z: *mut acb_struct, x: *const acb_struct, c: slong, prec: slong);
+    pub fn acb_sub_ui(z: *mut acb_struct, x: *const acb_struct, c: ulong, prec: slong);
+    pub fn acb_add_fmpz(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: *const fmpz,
+        prec: slong,
+    );
+    pub fn acb_add_arb(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: *const arb_struct,
+        prec: slong,
+    );
+    pub fn acb_sub_fmpz(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: *const fmpz,
+        prec: slong,
+    );
+    pub fn acb_sub_arb(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: *const arb_struct,
+        prec: slong,
+    );
+    pub fn acb_neg(z: *mut acb_struct, x: *const acb_struct);
+    pub fn acb_conj(z: *mut acb_struct, x: *const acb_struct);
+    pub fn acb_abs(u: *mut arb_struct, z: *const acb_struct, prec: slong);
+    pub fn acb_mul_ui(z: *mut acb_struct, x: *const acb_struct, y: ulong, prec: slong);
+    pub fn acb_mul_si(z: *mut acb_struct, x: *const acb_struct, y: slong, prec: slong);
+    pub fn acb_mul_fmpz(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: *const fmpz,
+        prec: slong,
+    );
+    pub fn acb_mul_arb(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: *const arb_struct,
+        prec: slong,
+    );
+    pub fn acb_mul_onei(z: *mut acb_struct, x: *const acb_struct);
+    pub fn acb_div_onei(z: *mut acb_struct, x: *const acb_struct);
+    pub fn acb_mul_i_pow_si(z: *mut acb_struct, x: *const acb_struct, k: slong);
     pub fn acb_mul(
         z: *mut acb_struct,
         x: *const acb_struct,
@@ -106,6 +238,8 @@ unsafe extern "C" {
         y: *const acb_struct,
         prec: slong,
     );
+    pub fn acb_mul_2exp_si(z: *mut acb_struct, x: *const acb_struct, e: slong);
+    pub fn acb_mul_2exp_fmpz(z: *mut acb_struct, x: *const acb_struct, c: *const fmpz);
     pub fn acb_addmul(
         z: *mut acb_struct,
         x: *const acb_struct,
@@ -116,6 +250,54 @@ unsafe extern "C" {
         z: *mut acb_struct,
         x: *const acb_struct,
         y: *const acb_struct,
+        prec: slong,
+    );
+    pub fn acb_addmul_ui(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: ulong,
+        prec: slong,
+    );
+    pub fn acb_addmul_si(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: slong,
+        prec: slong,
+    );
+    pub fn acb_submul_ui(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: ulong,
+        prec: slong,
+    );
+    pub fn acb_submul_si(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: slong,
+        prec: slong,
+    );
+    pub fn acb_addmul_fmpz(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: *const fmpz,
+        prec: slong,
+    );
+    pub fn acb_submul_fmpz(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: *const fmpz,
+        prec: slong,
+    );
+    pub fn acb_addmul_arb(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: *const arb_struct,
+        prec: slong,
+    );
+    pub fn acb_submul_arb(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: *const arb_struct,
         prec: slong,
     );
     pub fn acb_dot_simple(
@@ -224,6 +406,20 @@ unsafe extern "C" {
         y: *const acb_struct,
         prec: slong,
     );
+    pub fn acb_div_ui(z: *mut acb_struct, x: *const acb_struct, c: ulong, prec: slong);
+    pub fn acb_div_si(z: *mut acb_struct, x: *const acb_struct, c: slong, prec: slong);
+    pub fn acb_div_arb(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        c: *const arb_struct,
+        prec: slong,
+    );
+    pub fn acb_div_fmpz(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        c: *const fmpz,
+        prec: slong,
+    );
     pub fn acb_cube(y: *mut acb_struct, x: *const acb_struct, prec: slong);
     pub fn acb_pow_fmpz(
         y: *mut acb_struct,
@@ -233,6 +429,7 @@ unsafe extern "C" {
     );
     pub fn acb_pow_ui(y: *mut acb_struct, b: *const acb_struct, e: ulong, prec: slong);
     pub fn acb_pow_si(y: *mut acb_struct, b: *const acb_struct, e: slong, prec: slong);
+    pub fn acb_const_pi(x: *mut acb_struct, prec: slong);
     pub fn acb_log(r: *mut acb_struct, z: *const acb_struct, prec: slong);
     pub fn acb_log1p(r: *mut acb_struct, z: *const acb_struct, prec: slong);
     pub fn acb_exp(r: *mut acb_struct, z: *const acb_struct, prec: slong);
@@ -260,8 +457,20 @@ unsafe extern "C" {
     pub fn acb_asinh(r: *mut acb_struct, z: *const acb_struct, prec: slong);
     pub fn acb_acosh(r: *mut acb_struct, z: *const acb_struct, prec: slong);
     pub fn acb_atanh(r: *mut acb_struct, z: *const acb_struct, prec: slong);
+    pub fn acb_sinh(y: *mut acb_struct, x: *const acb_struct, prec: slong);
+    pub fn acb_cosh(y: *mut acb_struct, x: *const acb_struct, prec: slong);
+    pub fn acb_sinh_cosh(
+        y: *mut acb_struct,
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        prec: slong,
+    );
+    pub fn acb_tanh(y: *mut acb_struct, x: *const acb_struct, prec: slong);
+    pub fn acb_coth(y: *mut acb_struct, x: *const acb_struct, prec: slong);
     pub fn acb_sech(r: *mut acb_struct, z: *const acb_struct, prec: slong);
     pub fn acb_csch(r: *mut acb_struct, z: *const acb_struct, prec: slong);
+    pub fn acb_sec(y: *mut acb_struct, x: *const acb_struct, prec: slong);
+    pub fn acb_csc(y: *mut acb_struct, x: *const acb_struct, prec: slong);
     pub fn acb_sin_pi(r: *mut acb_struct, z: *const acb_struct, prec: slong);
     pub fn acb_cos_pi(r: *mut acb_struct, z: *const acb_struct, prec: slong);
     pub fn acb_sin_cos_pi(
@@ -422,6 +631,9 @@ unsafe extern "C" {
         flags: ::std::os::raw::c_int,
         prec: slong,
     );
+    pub fn acb_sqr(res: *mut acb_struct, val: *const acb_struct, prec: slong);
+    pub fn acb_is_finite(x: *const acb_struct) -> ::std::os::raw::c_int;
+    pub fn acb_indeterminate(x: *mut acb_struct);
     pub fn _acb_vec_entry_ptr(vec: acb_ptr, i: slong) -> acb_ptr;
     pub fn _acb_vec_zero(A: acb_ptr, n: slong);
     pub fn _acb_vec_is_zero(vec: acb_srcptr, len: slong) -> ::std::os::raw::c_int;
@@ -552,7 +764,10 @@ unsafe extern "C" {
     );
     pub fn acb_urandom(z: *mut acb_struct, state: *mut flint_rand_struct, prec: slong);
     pub fn acb_rel_error_bits(x: *const acb_struct) -> slong;
+    pub fn acb_rel_accuracy_bits(x: *const acb_struct) -> slong;
     pub fn acb_rel_one_accuracy_bits(x: *const acb_struct) -> slong;
+    pub fn acb_bits(x: *const acb_struct) -> slong;
+    pub fn acb_is_real(x: *const acb_struct) -> ::std::os::raw::c_int;
     pub fn _acb_vec_is_real(v: acb_srcptr, len: slong) -> ::std::os::raw::c_int;
     pub fn _acb_vec_is_finite(vec: acb_srcptr, len: slong) -> ::std::os::raw::c_int;
     pub fn _acb_vec_equal(
@@ -597,6 +812,7 @@ unsafe extern "C" {
     pub fn _acb_vec_sort_pretty(vec: acb_ptr, len: slong);
     pub fn acb_unit_root(res: *mut acb_struct, order: ulong, prec: slong);
     pub fn _acb_vec_unit_roots(z: acb_ptr, order: slong, len: slong, prec: slong);
+    pub fn acb_allocated_bytes(x: *const acb_struct) -> slong;
     pub fn _acb_vec_allocated_bytes(vec: acb_srcptr, len: slong) -> slong;
     pub fn _acb_vec_estimate_allocated_bytes(len: slong, prec: slong) -> f64;
 }
@@ -3206,8 +3422,10 @@ unsafe extern "C" {
 /* acb_mat.h */
 
 unsafe extern "C" {
+    pub fn acb_mat_entry_ptr(mat: *mut acb_mat_struct, i: slong, j: slong) -> acb_ptr;
     pub fn acb_mat_init(mat: *mut acb_mat_struct, r: slong, c: slong);
     pub fn acb_mat_clear(mat: *mut acb_mat_struct);
+    pub fn acb_mat_swap(mat1: *mut acb_mat_struct, mat2: *mut acb_mat_struct);
     pub fn acb_mat_swap_entrywise(mat1: *mut acb_mat_struct, mat2: *mut acb_mat_struct);
     pub fn acb_mat_window_init(
         window: *mut acb_mat_struct,
@@ -3217,6 +3435,7 @@ unsafe extern "C" {
         r2: slong,
         c2: slong,
     );
+    pub fn acb_mat_window_clear(UNUSED_window: *mut acb_mat_struct);
     pub fn acb_mat_set(dest: *mut acb_mat_struct, src: *const acb_mat_struct);
     pub fn acb_mat_set_fmpz_mat(dest: *mut acb_mat_struct, src: *const fmpz_mat_struct);
     pub fn acb_mat_set_round_fmpz_mat(
@@ -3284,11 +3503,14 @@ unsafe extern "C" {
         mat2: *const fmpz_mat_struct,
     ) -> ::std::os::raw::c_int;
     pub fn acb_mat_is_real(mat: *const acb_mat_struct) -> ::std::os::raw::c_int;
+    pub fn acb_mat_is_empty(mat: *const acb_mat_struct) -> ::std::os::raw::c_int;
+    pub fn acb_mat_is_square(mat: *const acb_mat_struct) -> ::std::os::raw::c_int;
     pub fn acb_mat_is_exact(mat: *const acb_mat_struct) -> ::std::os::raw::c_int;
     pub fn acb_mat_is_zero(mat: *const acb_mat_struct) -> ::std::os::raw::c_int;
     pub fn acb_mat_is_finite(mat: *const acb_mat_struct) -> ::std::os::raw::c_int;
     pub fn acb_mat_is_triu(mat: *const acb_mat_struct) -> ::std::os::raw::c_int;
     pub fn acb_mat_is_tril(mat: *const acb_mat_struct) -> ::std::os::raw::c_int;
+    pub fn acb_mat_is_diag(mat: *const acb_mat_struct) -> ::std::os::raw::c_int;
     pub fn acb_mat_get_mid(B: *mut acb_mat_struct, A: *const acb_mat_struct);
     pub fn acb_mat_add_error_mag(mat: *mut acb_mat_struct, err: *const mag_struct);
     pub fn acb_mat_zero(mat: *mut acb_mat_struct);
@@ -3303,6 +3525,10 @@ unsafe extern "C" {
     );
     pub fn acb_mat_transpose(mat1: *mut acb_mat_struct, mat2: *const acb_mat_struct);
     pub fn acb_mat_conjugate(mat1: *mut acb_mat_struct, mat2: *const acb_mat_struct);
+    pub fn acb_mat_conjugate_transpose(
+        mat1: *mut acb_mat_struct,
+        mat2: *const acb_mat_struct,
+    );
     pub fn acb_mat_bound_inf_norm(b: *mut mag_struct, A: *const acb_mat_struct);
     pub fn acb_mat_frobenius_norm(
         res: *mut arb_struct,
@@ -3749,7 +3975,16 @@ impl Default for psl2z_struct {
 }
 pub type psl2z_t = [psl2z_struct; 1usize];
 unsafe extern "C" {
+    pub fn psl2z_init(g: *mut psl2z_struct);
+    pub fn psl2z_clear(g: *mut psl2z_struct);
+    pub fn psl2z_swap(f: *mut psl2z_struct, g: *mut psl2z_struct);
+    pub fn psl2z_set(h: *mut psl2z_struct, g: *const psl2z_struct);
+    pub fn psl2z_one(g: *mut psl2z_struct);
     pub fn psl2z_print(g: *const psl2z_struct);
+    pub fn psl2z_equal(
+        f: *const psl2z_struct,
+        g: *const psl2z_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn psl2z_mul(
         h: *mut psl2z_struct,
         f: *const psl2z_struct,
@@ -3965,7 +4200,15 @@ unsafe extern "C" {
     pub fn acb_poly_fit_length(poly: *mut acb_poly_struct, len: slong);
     pub fn _acb_poly_set_length(poly: *mut acb_poly_struct, len: slong);
     pub fn _acb_poly_normalise(poly: *mut acb_poly_struct);
+    pub fn acb_poly_swap(poly1: *mut acb_poly_struct, poly2: *mut acb_poly_struct);
+    pub fn acb_poly_length(poly: *const acb_poly_struct) -> slong;
+    pub fn acb_poly_degree(poly: *const acb_poly_struct) -> slong;
     pub fn acb_poly_valuation(poly: *const acb_poly_struct) -> slong;
+    pub fn acb_poly_is_zero(z: *const acb_poly_struct) -> ::std::os::raw::c_int;
+    pub fn acb_poly_is_one(z: *const acb_poly_struct) -> ::std::os::raw::c_int;
+    pub fn acb_poly_is_x(z: *const acb_poly_struct) -> ::std::os::raw::c_int;
+    pub fn acb_poly_zero(poly: *mut acb_poly_struct);
+    pub fn acb_poly_one(poly: *mut acb_poly_struct);
     pub fn acb_poly_set_coeff_si(poly: *mut acb_poly_struct, n: slong, x: slong);
     pub fn acb_poly_set_coeff_acb(
         poly: *mut acb_poly_struct,
@@ -3989,6 +4232,7 @@ unsafe extern "C" {
         poly: *const acb_poly_struct,
         n: slong,
     );
+    pub fn acb_poly_truncate(poly: *mut acb_poly_struct, newlen: slong);
     pub fn _acb_poly_majorant(res: arb_ptr, vec: acb_srcptr, len: slong, prec: slong);
     pub fn acb_poly_majorant(
         res: *mut arb_poly_struct,
@@ -4226,6 +4470,7 @@ unsafe extern "C" {
         res: *mut fmpz_poly_struct,
         src: *const acb_poly_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn acb_poly_set_acb(poly: *mut acb_poly_struct, c: *const acb_struct);
     pub fn acb_poly_set_si(poly: *mut acb_poly_struct, c: slong);
     pub fn acb_poly_randtest(
         poly: *mut acb_poly_struct,
@@ -4260,6 +4505,7 @@ unsafe extern "C" {
         poly1: *const acb_poly_struct,
         poly2: *const acb_poly_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn acb_poly_is_real(poly: *const acb_poly_struct) -> ::std::os::raw::c_int;
     pub fn _acb_poly_add(
         res: acb_ptr,
         poly1: acb_srcptr,
@@ -4306,6 +4552,24 @@ unsafe extern "C" {
         poly1: *const acb_poly_struct,
         poly2: *const acb_poly_struct,
         len: slong,
+        prec: slong,
+    );
+    pub fn acb_poly_neg(res: *mut acb_poly_struct, poly: *const acb_poly_struct);
+    pub fn acb_poly_scalar_mul_2exp_si(
+        res: *mut acb_poly_struct,
+        poly: *const acb_poly_struct,
+        c: slong,
+    );
+    pub fn acb_poly_scalar_mul(
+        res: *mut acb_poly_struct,
+        poly: *const acb_poly_struct,
+        c: *const acb_struct,
+        prec: slong,
+    );
+    pub fn acb_poly_scalar_div(
+        res: *mut acb_poly_struct,
+        poly: *const acb_poly_struct,
+        c: *const acb_struct,
         prec: slong,
     );
     pub fn acb_poly_mullow_classical(
@@ -4438,6 +4702,14 @@ unsafe extern "C" {
         poly2: *const acb_poly_struct,
         nlo: slong,
         nhi: slong,
+        prec: slong,
+    );
+    pub fn _acb_poly_mul_monic(
+        res: acb_ptr,
+        poly1: acb_srcptr,
+        len1: slong,
+        poly2: acb_srcptr,
+        len2: slong,
         prec: slong,
     );
     pub fn _acb_poly_inv_series(
@@ -5183,6 +5455,13 @@ unsafe extern "C" {
         len: slong,
         prec: slong,
     );
+    pub fn _acb_poly_acb_pow_cpx(
+        w: acb_ptr,
+        a: *const acb_struct,
+        b: *const acb_struct,
+        len: slong,
+        prec: slong,
+    );
     pub fn _acb_poly_acb_invpow_cpx(
         res: acb_ptr,
         N: *const acb_struct,
@@ -5394,6 +5673,7 @@ unsafe extern "C" {
         n: slong,
         prec: slong,
     );
+    pub fn acb_poly_allocated_bytes(x: *const acb_poly_struct) -> slong;
     pub fn cd_poly_roots_initial_values(
         z_r: *mut f64,
         z_i: *mut f64,
@@ -6033,6 +6313,20 @@ unsafe extern "C" {
         sqr: ::std::os::raw::c_int,
         prec: slong,
     );
+    pub fn acb_theta_one(
+        th: acb_ptr,
+        z: acb_srcptr,
+        tau: *const acb_mat_struct,
+        ab: ulong,
+        prec: slong,
+    );
+    pub fn acb_theta_all(
+        th: acb_ptr,
+        z: acb_srcptr,
+        tau: *const acb_mat_struct,
+        sqr: ::std::os::raw::c_int,
+        prec: slong,
+    );
     pub fn acb_theta_g2_detk_symj(
         res: *mut acb_poly_struct,
         m: *const acb_mat_struct,
@@ -6135,6 +6429,62 @@ pub type acb_poly_t = [acb_poly_struct; 1usize];
 /* acf.h */
 
 unsafe extern "C" {
+    pub fn acf_init(x: *mut acf_struct);
+    pub fn acf_clear(x: *mut acf_struct);
+    pub fn _acf_vec_init(n: slong) -> acf_ptr;
+    pub fn _acf_vec_clear(v: acf_ptr, n: slong);
+    pub fn acf_real_ptr(z: *mut acf_struct) -> arf_ptr;
+    pub fn acf_imag_ptr(z: *mut acf_struct) -> arf_ptr;
+    pub fn acf_set(z: *mut acf_struct, x: *const acf_struct);
+    pub fn acf_swap(z: *mut acf_struct, x: *mut acf_struct);
+    pub fn acf_equal(
+        x: *const acf_struct,
+        y: *const acf_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn acf_printd(x: *const acf_struct, n: slong);
+    pub fn acf_bits(x: *const acf_struct) -> slong;
+    pub fn acf_allocated_bytes(x: *const acf_struct) -> slong;
+    pub fn acf_randtest(
+        x: *mut acf_struct,
+        state: *mut flint_rand_struct,
+        bits: slong,
+        mag_bits: slong,
+    );
+    pub fn acf_get_mag(res: *mut mag_struct, x: *const acf_struct);
+    pub fn acf_neg(z: *mut acf_struct, x: *const acf_struct);
+    pub fn acf_set_round(
+        res: *mut acf_struct,
+        x: *const acf_struct,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn acf_neg_round(
+        res: *mut acf_struct,
+        x: *const acf_struct,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn acf_add(
+        res: *mut acf_struct,
+        x: *const acf_struct,
+        y: *const acf_struct,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn acf_sub(
+        res: *mut acf_struct,
+        x: *const acf_struct,
+        y: *const acf_struct,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn acf_mul(
+        res: *mut acf_struct,
+        x: *const acf_struct,
+        y: *const acf_struct,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
     pub fn acf_approx_inv(
         res: *mut acf_struct,
         x: *const acf_struct,
@@ -6478,9 +6828,18 @@ unsafe extern "C" {
 /* arb.h */
 
 unsafe extern "C" {
+    pub fn arb_init(x: *mut arb_struct);
     pub fn arb_clear(x: *mut arb_struct);
     pub fn _arb_vec_init(n: slong) -> arb_ptr;
     pub fn _arb_vec_clear(v: arb_ptr, n: slong);
+    pub fn arb_mid_ptr(z: *mut arb_struct) -> arf_ptr;
+    pub fn arb_rad_ptr(z: *mut arb_struct) -> mag_ptr;
+    pub fn arb_is_exact(x: *const arb_struct) -> ::std::os::raw::c_int;
+    pub fn arb_equal(
+        x: *const arb_struct,
+        y: *const arb_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn arb_equal_si(x: *const arb_struct, y: slong) -> ::std::os::raw::c_int;
     pub fn arb_eq(x: *const arb_struct, y: *const arb_struct) -> ::std::os::raw::c_int;
     pub fn arb_ne(x: *const arb_struct, y: *const arb_struct) -> ::std::os::raw::c_int;
     pub fn arb_lt(x: *const arb_struct, y: *const arb_struct) -> ::std::os::raw::c_int;
@@ -6488,9 +6847,16 @@ unsafe extern "C" {
     pub fn arb_gt(x: *const arb_struct, y: *const arb_struct) -> ::std::os::raw::c_int;
     pub fn arb_ge(x: *const arb_struct, y: *const arb_struct) -> ::std::os::raw::c_int;
     pub fn arb_zero(x: *mut arb_struct);
+    pub fn arb_is_zero(x: *const arb_struct) -> ::std::os::raw::c_int;
+    pub fn arb_pos_inf(x: *mut arb_struct);
+    pub fn arb_neg_inf(x: *mut arb_struct);
+    pub fn arb_zero_pm_inf(x: *mut arb_struct);
+    pub fn arb_zero_pm_one(x: *mut arb_struct);
+    pub fn arb_unit_interval(x: *mut arb_struct);
     pub fn arb_indeterminate(x: *mut arb_struct);
     pub fn arb_is_finite(x: *const arb_struct) -> ::std::os::raw::c_int;
     pub fn arb_set(y: *mut arb_struct, x: *const arb_struct);
+    pub fn arb_swap(x: *mut arb_struct, y: *mut arb_struct);
     pub fn arb_set_round(z: *mut arb_struct, x: *const arb_struct, prec: slong);
     pub fn arb_trim(y: *mut arb_struct, x: *const arb_struct);
     pub fn arb_neg(y: *mut arb_struct, x: *const arb_struct);
@@ -6516,10 +6882,12 @@ unsafe extern "C" {
         n: slong,
         flags: ulong,
     ) -> *mut ::std::os::raw::c_char;
+    pub fn arb_set_arf(x: *mut arb_struct, y: *const arf_struct);
     pub fn arb_set_si(y: *mut arb_struct, x: slong);
     pub fn arb_set_ui(y: *mut arb_struct, x: ulong);
     pub fn arb_set_d(y: *mut arb_struct, x: f64);
     pub fn arb_set_fmpz(y: *mut arb_struct, x: *const fmpz);
+    pub fn arb_set_fmpz_2exp(x: *mut arb_struct, y: *const fmpz, exp: *const fmpz);
     pub fn arb_set_round_fmpz_2exp(
         y: *mut arb_struct,
         x: *const fmpz,
@@ -6527,6 +6895,7 @@ unsafe extern "C" {
         prec: slong,
     );
     pub fn arb_set_round_fmpz(y: *mut arb_struct, x: *const fmpz, prec: slong);
+    pub fn arb_is_one(f: *const arb_struct) -> ::std::os::raw::c_int;
     pub fn arb_one(f: *mut arb_struct);
     pub fn arb_print(x: *const arb_struct);
     pub fn arb_printd(x: *const arb_struct, digits: slong);
@@ -6534,6 +6903,9 @@ unsafe extern "C" {
     pub fn _arb_vec_printn(vec: arb_srcptr, len: slong, ndigits: slong, flags: ulong);
     pub fn _arb_vec_printd(vec: arb_srcptr, len: slong, ndigits: slong);
     pub fn arb_mul_2exp_si(y: *mut arb_struct, x: *const arb_struct, e: slong);
+    pub fn arb_mul_2exp_fmpz(y: *mut arb_struct, x: *const arb_struct, e: *const fmpz);
+    pub fn arb_is_int(x: *const arb_struct) -> ::std::os::raw::c_int;
+    pub fn arb_is_int_2exp_si(x: *const arb_struct, e: slong) -> ::std::os::raw::c_int;
     pub fn arb_contains_zero(x: *const arb_struct) -> ::std::os::raw::c_int;
     pub fn arb_is_nonzero(x: *const arb_struct) -> ::std::os::raw::c_int;
     pub fn arb_is_positive(x: *const arb_struct) -> ::std::os::raw::c_int;
@@ -6546,13 +6918,18 @@ unsafe extern "C" {
     pub fn arb_contains_nonnegative(x: *const arb_struct) -> ::std::os::raw::c_int;
     pub fn arb_get_mag_lower(z: *mut mag_struct, x: *const arb_struct);
     pub fn arb_get_mag_lower_nonnegative(z: *mut mag_struct, x: *const arb_struct);
+    pub fn arb_get_mag(z: *mut mag_struct, x: *const arb_struct);
+    pub fn arb_get_mid_arb(z: *mut arb_struct, x: *const arb_struct);
+    pub fn arb_get_rad_arb(z: *mut arb_struct, x: *const arb_struct);
     pub fn arb_get_abs_ubound_arf(u: *mut arf_struct, x: *const arb_struct, prec: slong);
     pub fn arb_get_abs_lbound_arf(u: *mut arf_struct, x: *const arb_struct, prec: slong);
     pub fn arb_get_ubound_arf(u: *mut arf_struct, x: *const arb_struct, prec: slong);
     pub fn arb_get_lbound_arf(u: *mut arf_struct, x: *const arb_struct, prec: slong);
     pub fn arb_nonnegative_part(res: *mut arb_struct, x: *const arb_struct);
     pub fn arb_rel_error_bits(x: *const arb_struct) -> slong;
+    pub fn arb_rel_accuracy_bits(x: *const arb_struct) -> slong;
     pub fn arb_rel_one_accuracy_bits(x: *const arb_struct) -> slong;
+    pub fn arb_bits(x: *const arb_struct) -> slong;
     pub fn arb_randtest_exact(
         x: *mut arb_struct,
         state: *mut flint_rand_struct,
@@ -6594,6 +6971,7 @@ unsafe extern "C" {
     pub fn arb_add_error_2exp_si(x: *mut arb_struct, err: slong);
     pub fn arb_add_error_2exp_fmpz(x: *mut arb_struct, err: *const fmpz);
     pub fn arb_add_error(x: *mut arb_struct, error: *const arb_struct);
+    pub fn arb_add_error_mag(x: *mut arb_struct, err: *const mag_struct);
     pub fn arb_contains_arf(
         x: *const arb_struct,
         y: *const arf_struct,
@@ -7008,6 +7386,8 @@ unsafe extern "C" {
         prec: slong,
     );
     pub fn arb_fmpz_divapprox(res: *mut fmpz, x: *const fmpz, y: *const fmpz);
+    pub fn arb_inv(y: *mut arb_struct, x: *const arb_struct, prec: slong);
+    pub fn arb_set_fmpq(y: *mut arb_struct, x: *const fmpq, prec: slong);
     pub fn arb_sqrt(z: *mut arb_struct, x: *const arb_struct, prec: slong);
     pub fn arb_sqrt_arf(z: *mut arb_struct, x: *const arf_struct, prec: slong);
     pub fn arb_sqrt_fmpz(z: *mut arb_struct, x: *const fmpz, prec: slong);
@@ -7335,6 +7715,7 @@ unsafe extern "C" {
         flags: ::std::os::raw::c_int,
         prec: slong,
     );
+    pub fn arb_sqr(res: *mut arb_struct, val: *const arb_struct, prec: slong);
     pub fn _arb_vec_entry_ptr(vec: arb_ptr, i: slong) -> arb_ptr;
     pub fn _arb_vec_zero(A: arb_ptr, n: slong);
     pub fn _arb_vec_indeterminate(vec: arb_ptr, len: slong);
@@ -7591,6 +7972,7 @@ unsafe extern "C" {
         hyperbolic: ::std::os::raw::c_int,
         prec: slong,
     );
+    pub fn arb_allocated_bytes(x: *const arb_struct) -> slong;
     pub fn _arb_vec_allocated_bytes(vec: arb_srcptr, len: slong) -> slong;
     pub fn _arb_vec_estimate_allocated_bytes(len: slong, prec: slong) -> f64;
     pub fn arb_load_str(
@@ -9813,8 +10195,10 @@ unsafe extern "C" {
 /* arb_mat.h */
 
 unsafe extern "C" {
+    pub fn arb_mat_entry_ptr(mat: *mut arb_mat_struct, i: slong, j: slong) -> arb_ptr;
     pub fn arb_mat_init(mat: *mut arb_mat_struct, r: slong, c: slong);
     pub fn arb_mat_clear(mat: *mut arb_mat_struct);
+    pub fn arb_mat_swap(mat1: *mut arb_mat_struct, mat2: *mut arb_mat_struct);
     pub fn arb_mat_swap_entrywise(mat1: *mut arb_mat_struct, mat2: *mut arb_mat_struct);
     pub fn arb_mat_window_init(
         window: *mut arb_mat_struct,
@@ -9824,6 +10208,7 @@ unsafe extern "C" {
         r2: slong,
         c2: slong,
     );
+    pub fn arb_mat_window_clear(UNUSED_window: *mut arb_mat_struct);
     pub fn arb_mat_set(dest: *mut arb_mat_struct, src: *const arb_mat_struct);
     pub fn arb_mat_set_fmpz_mat(dest: *mut arb_mat_struct, src: *const fmpz_mat_struct);
     pub fn arb_mat_set_round_fmpz_mat(
@@ -9883,11 +10268,14 @@ unsafe extern "C" {
         mat1: *const arb_mat_struct,
         mat2: *const fmpz_mat_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn arb_mat_is_empty(mat: *const arb_mat_struct) -> ::std::os::raw::c_int;
+    pub fn arb_mat_is_square(mat: *const arb_mat_struct) -> ::std::os::raw::c_int;
     pub fn arb_mat_is_exact(A: *const arb_mat_struct) -> ::std::os::raw::c_int;
     pub fn arb_mat_is_zero(mat: *const arb_mat_struct) -> ::std::os::raw::c_int;
     pub fn arb_mat_is_finite(mat: *const arb_mat_struct) -> ::std::os::raw::c_int;
     pub fn arb_mat_is_triu(mat: *const arb_mat_struct) -> ::std::os::raw::c_int;
     pub fn arb_mat_is_tril(mat: *const arb_mat_struct) -> ::std::os::raw::c_int;
+    pub fn arb_mat_is_diag(mat: *const arb_mat_struct) -> ::std::os::raw::c_int;
     pub fn arb_mat_get_mid(B: *mut arb_mat_struct, A: *const arb_mat_struct);
     pub fn arb_mat_add_error_mag(mat: *mut arb_mat_struct, err: *const mag_struct);
     pub fn arb_mat_zero(mat: *mut arb_mat_struct);
@@ -10317,6 +10705,7 @@ unsafe extern "C" {
         prec: slong,
     );
     pub fn arb_mat_count_is_zero(mat: *const arb_mat_struct) -> slong;
+    pub fn arb_mat_count_not_is_zero(mat: *const arb_mat_struct) -> slong;
     pub fn arb_mat_allocated_bytes(x: *const arb_mat_struct) -> slong;
     pub fn arb_mat_spd_get_fmpz_mat(
         B: *mut fmpz_mat_struct,
@@ -10348,6 +10737,7 @@ unsafe extern "C" {
     pub fn arb_poly_fit_length(poly: *mut arb_poly_struct, len: slong);
     pub fn _arb_poly_set_length(poly: *mut arb_poly_struct, len: slong);
     pub fn _arb_poly_normalise(poly: *mut arb_poly_struct);
+    pub fn arb_poly_swap(poly1: *mut arb_poly_struct, poly2: *mut arb_poly_struct);
     pub fn arb_poly_set(poly: *mut arb_poly_struct, src: *const arb_poly_struct);
     pub fn arb_poly_set_round(
         poly: *mut arb_poly_struct,
@@ -10365,7 +10755,14 @@ unsafe extern "C" {
         n: slong,
         prec: slong,
     );
+    pub fn arb_poly_length(poly: *const arb_poly_struct) -> slong;
+    pub fn arb_poly_degree(poly: *const arb_poly_struct) -> slong;
     pub fn arb_poly_valuation(poly: *const arb_poly_struct) -> slong;
+    pub fn arb_poly_is_zero(z: *const arb_poly_struct) -> ::std::os::raw::c_int;
+    pub fn arb_poly_is_one(z: *const arb_poly_struct) -> ::std::os::raw::c_int;
+    pub fn arb_poly_is_x(z: *const arb_poly_struct) -> ::std::os::raw::c_int;
+    pub fn arb_poly_zero(poly: *mut arb_poly_struct);
+    pub fn arb_poly_one(poly: *mut arb_poly_struct);
     pub fn arb_poly_set_coeff_si(poly: *mut arb_poly_struct, n: slong, x: slong);
     pub fn arb_poly_set_coeff_arb(
         poly: *mut arb_poly_struct,
@@ -10390,6 +10787,7 @@ unsafe extern "C" {
         poly: *const arb_poly_struct,
         n: slong,
     );
+    pub fn arb_poly_truncate(poly: *mut arb_poly_struct, newlen: slong);
     pub fn arb_poly_set_fmpz_poly(
         poly: *mut arb_poly_struct,
         src: *const fmpz_poly_struct,
@@ -10400,6 +10798,7 @@ unsafe extern "C" {
         src: *const fmpq_poly_struct,
         prec: slong,
     );
+    pub fn arb_poly_set_arb(poly: *mut arb_poly_struct, c: *const arb_struct);
     pub fn arb_poly_set_si(poly: *mut arb_poly_struct, c: slong);
     pub fn arb_poly_get_unique_fmpz_poly(
         res: *mut fmpz_poly_struct,
@@ -10491,6 +10890,24 @@ unsafe extern "C" {
         poly1: *const arb_poly_struct,
         poly2: *const arb_poly_struct,
         len: slong,
+        prec: slong,
+    );
+    pub fn arb_poly_neg(res: *mut arb_poly_struct, poly: *const arb_poly_struct);
+    pub fn arb_poly_scalar_mul_2exp_si(
+        res: *mut arb_poly_struct,
+        poly: *const arb_poly_struct,
+        c: slong,
+    );
+    pub fn arb_poly_scalar_mul(
+        res: *mut arb_poly_struct,
+        poly: *const arb_poly_struct,
+        c: *const arb_struct,
+        prec: slong,
+    );
+    pub fn arb_poly_scalar_div(
+        res: *mut arb_poly_struct,
+        poly: *const arb_poly_struct,
+        c: *const arb_struct,
         prec: slong,
     );
     pub fn _arb_poly_mullow_classical(
@@ -10607,6 +11024,14 @@ unsafe extern "C" {
         res: *mut arb_poly_struct,
         poly1: *const arb_poly_struct,
         poly2: *const arb_poly_struct,
+        prec: slong,
+    );
+    pub fn _arb_poly_mul_monic(
+        res: arb_ptr,
+        poly1: arb_srcptr,
+        len1: slong,
+        poly2: arb_srcptr,
+        len2: slong,
         prec: slong,
     );
     pub fn _arb_poly_inv_series(
@@ -11679,6 +12104,7 @@ unsafe extern "C" {
         bound: *mut mag_struct,
         poly: *mut arb_poly_struct,
     );
+    pub fn arb_poly_allocated_bytes(x: *const arb_poly_struct) -> slong;
 }
 
 
@@ -11762,11 +12188,35 @@ pub const arf_rnd_t_ARF_RND_CEIL: arf_rnd_t = 3;
 pub const arf_rnd_t_ARF_RND_NEAR: arf_rnd_t = 4;
 pub type arf_rnd_t = ::std::os::raw::c_uint;
 unsafe extern "C" {
+    pub fn arf_rounds_down(
+        rnd: arf_rnd_t,
+        sgnbit: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_rounds_up(
+        rnd: arf_rnd_t,
+        sgnbit: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
     pub fn _arf_promote(x: *mut arf_struct, n: slong);
     pub fn _arf_demote(x: *mut arf_struct);
+    pub fn arf_init(x: *mut arf_struct);
     pub fn arf_clear(x: *mut arf_struct);
     pub fn _arf_vec_init(n: slong) -> arf_ptr;
     pub fn _arf_vec_clear(v: arf_ptr, n: slong);
+    pub fn arf_zero(x: *mut arf_struct);
+    pub fn arf_pos_inf(x: *mut arf_struct);
+    pub fn arf_neg_inf(x: *mut arf_struct);
+    pub fn arf_nan(x: *mut arf_struct);
+    pub fn arf_is_special(x: *const arf_struct) -> ::std::os::raw::c_int;
+    pub fn arf_is_zero(x: *const arf_struct) -> ::std::os::raw::c_int;
+    pub fn arf_is_pos_inf(x: *const arf_struct) -> ::std::os::raw::c_int;
+    pub fn arf_is_neg_inf(x: *const arf_struct) -> ::std::os::raw::c_int;
+    pub fn arf_is_nan(x: *const arf_struct) -> ::std::os::raw::c_int;
+    pub fn arf_is_normal(x: *const arf_struct) -> ::std::os::raw::c_int;
+    pub fn arf_is_finite(x: *const arf_struct) -> ::std::os::raw::c_int;
+    pub fn arf_is_inf(x: *const arf_struct) -> ::std::os::raw::c_int;
+    pub fn arf_one(x: *mut arf_struct);
+    pub fn arf_is_one(x: *const arf_struct) -> ::std::os::raw::c_int;
+    pub fn arf_sgn(x: *const arf_struct) -> ::std::os::raw::c_int;
     pub fn arf_cmp(x: *const arf_struct, y: *const arf_struct) -> ::std::os::raw::c_int;
     pub fn arf_cmpabs(
         x: *const arf_struct,
@@ -11777,7 +12227,26 @@ unsafe extern "C" {
     pub fn arf_cmp_si(x: *const arf_struct, y: slong) -> ::std::os::raw::c_int;
     pub fn arf_cmp_ui(x: *const arf_struct, y: ulong) -> ::std::os::raw::c_int;
     pub fn arf_cmp_d(x: *const arf_struct, y: f64) -> ::std::os::raw::c_int;
+    pub fn arf_swap(y: *mut arf_struct, x: *mut arf_struct);
     pub fn arf_set(y: *mut arf_struct, x: *const arf_struct);
+    pub fn arf_neg(y: *mut arf_struct, x: *const arf_struct);
+    pub fn arf_init_set_ui(x: *mut arf_struct, v: ulong);
+    pub fn arf_init_set_si(x: *mut arf_struct, v: slong);
+    pub fn arf_set_ui(x: *mut arf_struct, v: ulong);
+    pub fn arf_set_si(x: *mut arf_struct, v: slong);
+    pub fn arf_init_set_shallow(z: *mut arf_struct, x: *const arf_struct);
+    pub fn arf_init_neg_shallow(z: *mut arf_struct, x: *const arf_struct);
+    pub fn arf_init_set_mag_shallow(y: *mut arf_struct, x: *const mag_struct);
+    pub fn arf_init_neg_mag_shallow(z: *mut arf_struct, x: *const mag_struct);
+    pub fn arf_cmpabs_mag(
+        x: *const arf_struct,
+        y: *const mag_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_mag_cmpabs(
+        x: *const mag_struct,
+        y: *const arf_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_set_fmpz(y: *mut arf_struct, x: *const fmpz);
     pub fn _arf_set_round_ui(
         x: *mut arf_struct,
         v: ulong,
@@ -11791,6 +12260,24 @@ unsafe extern "C" {
         hi: ulong,
         lo: ulong,
         sgnbit: ::std::os::raw::c_int,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_set_round_ui(
+        x: *mut arf_struct,
+        v: ulong,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_set_round_si(
+        x: *mut arf_struct,
+        v: slong,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_set_round_fmpz(
+        y: *mut arf_struct,
+        x: *const fmpz,
         prec: slong,
         rnd: arf_rnd_t,
     ) -> ::std::os::raw::c_int;
@@ -11813,10 +12300,28 @@ unsafe extern "C" {
     pub fn arf_equal_si(x: *const arf_struct, y: slong) -> ::std::os::raw::c_int;
     pub fn arf_equal_ui(x: *const arf_struct, y: ulong) -> ::std::os::raw::c_int;
     pub fn arf_equal_d(x: *const arf_struct, y: f64) -> ::std::os::raw::c_int;
+    pub fn arf_min(z: *mut arf_struct, a: *const arf_struct, b: *const arf_struct);
+    pub fn arf_max(z: *mut arf_struct, a: *const arf_struct, b: *const arf_struct);
+    pub fn arf_abs(y: *mut arf_struct, x: *const arf_struct);
+    pub fn arf_bits(x: *const arf_struct) -> slong;
+    pub fn arf_bot(e: *mut fmpz, x: *const arf_struct);
     pub fn arf_is_int(x: *const arf_struct) -> ::std::os::raw::c_int;
     pub fn arf_is_int_2exp_si(x: *const arf_struct, e: slong) -> ::std::os::raw::c_int;
     pub fn arf_cmp_2exp_si(x: *const arf_struct, e: slong) -> ::std::os::raw::c_int;
     pub fn arf_cmpabs_2exp_si(x: *const arf_struct, e: slong) -> ::std::os::raw::c_int;
+    pub fn arf_set_si_2exp_si(x: *mut arf_struct, man: slong, exp: slong);
+    pub fn arf_set_ui_2exp_si(x: *mut arf_struct, man: ulong, exp: slong);
+    pub fn arf_mul_2exp_si(y: *mut arf_struct, x: *const arf_struct, e: slong);
+    pub fn arf_mul_2exp_fmpz(y: *mut arf_struct, x: *const arf_struct, e: *const fmpz);
+    pub fn arf_set_round_fmpz_2exp(
+        y: *mut arf_struct,
+        x: *const fmpz,
+        exp: *const fmpz,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_abs_bound_lt_2exp_fmpz(b: *mut fmpz, x: *const arf_struct);
+    pub fn arf_abs_bound_le_2exp_fmpz(b: *mut fmpz, x: *const arf_struct);
     pub fn arf_abs_bound_lt_2exp_si(x: *const arf_struct) -> slong;
     pub fn arf_frexp(man: *mut arf_struct, exp: *mut fmpz, x: *const arf_struct);
     pub fn arf_get_fmpz_2exp(man: *mut fmpz, exp: *mut fmpz, x: *const arf_struct);
@@ -11836,6 +12341,7 @@ unsafe extern "C" {
         x: *const arf_struct,
         e: slong,
     ) -> ::std::os::raw::c_int;
+    pub fn arf_set_fmpz_2exp(x: *mut arf_struct, man: *const fmpz, exp: *const fmpz);
     pub fn arf_floor(z: *mut arf_struct, x: *const arf_struct);
     pub fn arf_ceil(z: *mut arf_struct, x: *const arf_struct);
     pub fn arf_nint(z: *mut arf_struct, x: *const arf_struct);
@@ -11892,6 +12398,34 @@ unsafe extern "C" {
         x: arf_srcptr,
         y: arf_srcptr,
         prec: slong,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_neg_mul(
+        z: *mut arf_struct,
+        x: *const arf_struct,
+        y: *const arf_struct,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_mul_ui(
+        z: arf_ptr,
+        x: arf_srcptr,
+        y: ulong,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_mul_si(
+        z: arf_ptr,
+        x: arf_srcptr,
+        y: slong,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_mul_fmpz(
+        z: arf_ptr,
+        x: arf_srcptr,
+        y: *const fmpz,
+        prec: slong,
+        rnd: arf_rnd_t,
     ) -> ::std::os::raw::c_int;
     pub fn _arf_add_tmp_cleanup();
     pub fn arf_add(
@@ -11965,10 +12499,52 @@ unsafe extern "C" {
         prec: slong,
         rnd: arf_rnd_t,
     ) -> ::std::os::raw::c_int;
+    pub fn arf_addmul_ui(
+        z: arf_ptr,
+        x: arf_srcptr,
+        y: ulong,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_addmul_si(
+        z: arf_ptr,
+        x: arf_srcptr,
+        y: slong,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_addmul_fmpz(
+        z: arf_ptr,
+        x: arf_srcptr,
+        y: *const fmpz,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
     pub fn arf_submul(
         z: arf_ptr,
         x: arf_srcptr,
         y: arf_srcptr,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_submul_ui(
+        z: arf_ptr,
+        x: arf_srcptr,
+        y: ulong,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_submul_si(
+        z: arf_ptr,
+        x: arf_srcptr,
+        y: slong,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_submul_fmpz(
+        z: arf_ptr,
+        x: arf_srcptr,
+        y: *const fmpz,
         prec: slong,
         rnd: arf_rnd_t,
     ) -> ::std::os::raw::c_int;
@@ -11991,6 +12567,55 @@ unsafe extern "C" {
         z: arf_ptr,
         x: arf_srcptr,
         y: arf_srcptr,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_div_ui(
+        z: arf_ptr,
+        x: arf_srcptr,
+        y: ulong,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_ui_div(
+        z: arf_ptr,
+        x: ulong,
+        y: arf_srcptr,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_div_si(
+        z: arf_ptr,
+        x: arf_srcptr,
+        y: slong,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_si_div(
+        z: arf_ptr,
+        x: slong,
+        y: arf_srcptr,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_div_fmpz(
+        z: arf_ptr,
+        x: arf_srcptr,
+        y: *const fmpz,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_fmpz_div(
+        z: arf_ptr,
+        x: *const fmpz,
+        y: arf_srcptr,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_fmpz_div_fmpz(
+        z: arf_ptr,
+        x: *const fmpz,
+        y: *const fmpz,
         prec: slong,
         rnd: arf_rnd_t,
     ) -> ::std::os::raw::c_int;
@@ -12027,7 +12652,29 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn arf_get_mag(y: *mut mag_struct, x: *const arf_struct);
     pub fn arf_get_mag_lower(y: *mut mag_struct, x: *const arf_struct);
+    pub fn arf_set_mag(y: *mut arf_struct, x: *const mag_struct);
+    pub fn mag_init_set_arf(y: *mut mag_struct, x: *const arf_struct);
+    pub fn mag_fast_init_set_arf(y: *mut mag_struct, x: *const arf_struct);
+    pub fn arf_mag_fast_add_ulp(
+        z: *mut mag_struct,
+        x: *const mag_struct,
+        y: *const arf_struct,
+        prec: slong,
+    );
+    pub fn arf_mag_add_ulp(
+        z: *mut mag_struct,
+        x: *const mag_struct,
+        y: *const arf_struct,
+        prec: slong,
+    );
+    pub fn arf_mag_set_ulp(z: *mut mag_struct, y: *const arf_struct, prec: slong);
     pub fn arf_get_fmpq(y: *mut fmpq, x: *const arf_struct);
+    pub fn arf_set_fmpq(
+        y: *mut arf_struct,
+        x: *const fmpq,
+        prec: slong,
+        rnd: arf_rnd_t,
+    ) -> ::std::os::raw::c_int;
     pub fn arf_complex_mul(
         e: *mut arf_struct,
         f: *mut arf_struct,
@@ -12065,6 +12712,7 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn arf_get_d(x: *const arf_struct, rnd: arf_rnd_t) -> f64;
     pub fn arf_set_d(x: *mut arf_struct, v: f64);
+    pub fn arf_allocated_bytes(x: *const arf_struct) -> slong;
     pub fn arf_load_str(
         res: *mut arf_struct,
         data: *const ::std::os::raw::c_char,
@@ -12327,8 +12975,20 @@ impl Default for bool_mat_struct {
 }
 pub type bool_mat_t = [bool_mat_struct; 1usize];
 unsafe extern "C" {
+    pub fn bool_mat_get_entry(
+        mat: *const bool_mat_struct,
+        i: slong,
+        j: slong,
+    ) -> ::std::os::raw::c_int;
+    pub fn bool_mat_set_entry(
+        mat: *mut bool_mat_struct,
+        i: slong,
+        j: slong,
+        value: ::std::os::raw::c_int,
+    );
     pub fn bool_mat_init(mat: *mut bool_mat_struct, r: slong, c: slong);
     pub fn bool_mat_clear(mat: *mut bool_mat_struct);
+    pub fn bool_mat_swap(mat1: *mut bool_mat_struct, mat2: *mut bool_mat_struct);
     pub fn bool_mat_set(dest: *mut bool_mat_struct, src: *const bool_mat_struct);
     pub fn bool_mat_randtest(mat: *mut bool_mat_struct, state: *mut flint_rand_struct);
     pub fn bool_mat_randtest_diagonal(
@@ -12352,6 +13012,8 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn bool_mat_is_transitive(mat: *const bool_mat_struct) -> ::std::os::raw::c_int;
     pub fn bool_mat_is_nilpotent(mat: *const bool_mat_struct) -> ::std::os::raw::c_int;
+    pub fn bool_mat_is_empty(mat: *const bool_mat_struct) -> ::std::os::raw::c_int;
+    pub fn bool_mat_is_square(mat: *const bool_mat_struct) -> ::std::os::raw::c_int;
     pub fn bool_mat_zero(mat: *mut bool_mat_struct);
     pub fn bool_mat_one(mat: *mut bool_mat_struct);
     pub fn bool_mat_directed_path(mat: *mut bool_mat_struct);
@@ -12378,6 +13040,7 @@ unsafe extern "C" {
         A: *const bool_mat_struct,
         exp: ulong,
     );
+    pub fn bool_mat_sqr(B: *mut bool_mat_struct, A: *const bool_mat_struct);
     pub fn bool_mat_trace(mat: *const bool_mat_struct) -> ::std::os::raw::c_int;
     pub fn bool_mat_nilpotency_degree(mat: *const bool_mat_struct) -> slong;
     pub fn bool_mat_transitive_closure(
@@ -12418,6 +13081,8 @@ unsafe extern "C" {
     pub fn ca_ctx_init(ctx: *mut ca_ctx_struct);
     pub fn ca_ctx_clear(ctx: *mut ca_ctx_struct);
     pub fn ca_ctx_print(ctx: *mut ca_ctx_struct);
+    pub fn ca_ctx_get_option(ctx: *mut ca_ctx_struct, i: slong) -> slong;
+    pub fn ca_ctx_set_option(ctx: *mut ca_ctx_struct, i: slong, value: slong);
     pub fn _ca_ctx_get_field_const(
         ctx: *mut ca_ctx_struct,
         func: calcium_func_code,
@@ -12439,6 +13104,20 @@ unsafe extern "C" {
     pub fn _ca_make_field_element(
         x: *mut ca_struct,
         field: ca_field_srcptr,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn _ca_make_fmpq(x: *mut ca_struct, ctx: *mut ca_ctx_struct);
+    pub fn _ca_function_fx(
+        res: *mut ca_struct,
+        func: calcium_func_code,
+        x: *const ca_struct,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn _ca_function_fxy(
+        res: *mut ca_struct,
+        func: calcium_func_code,
+        x: *const ca_struct,
+        y: *const ca_struct,
         ctx: *mut ca_ctx_struct,
     );
     pub fn ca_set(res: *mut ca_struct, x: *const ca_struct, ctx: *mut ca_ctx_struct);
@@ -12538,6 +13217,38 @@ unsafe extern "C" {
         bits: slong,
         ctx: *mut ca_ctx_struct,
     );
+    pub fn ca_is_special(
+        x: *const ca_struct,
+        ctx: *mut ca_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn ca_is_unknown(
+        x: *const ca_struct,
+        ctx: *mut ca_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn ca_is_qq_elem(
+        x: *const ca_struct,
+        ctx: *mut ca_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn ca_is_qq_elem_zero(
+        x: *const ca_struct,
+        ctx: *mut ca_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn ca_is_qq_elem_one(
+        x: *const ca_struct,
+        ctx: *mut ca_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn ca_is_qq_elem_integer(
+        x: *const ca_struct,
+        ctx: *mut ca_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn ca_is_nf_elem(
+        x: *const ca_struct,
+        ctx: *mut ca_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn ca_is_generic_elem(
+        x: *const ca_struct,
+        ctx: *mut ca_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn ca_is_cyclotomic_nf_elem(
         p: *mut slong,
         q: *mut ulong,
@@ -12877,6 +13588,7 @@ unsafe extern "C" {
         x: *const ca_struct,
         ctx: *mut ca_ctx_struct,
     );
+    pub fn ca_sqr(res: *mut ca_struct, x: *const ca_struct, ctx: *mut ca_ctx_struct);
     pub fn ca_pow_fmpq(
         res: *mut ca_struct,
         x: *const ca_struct,
@@ -12930,6 +13642,7 @@ unsafe extern "C" {
         ctx: *mut ca_ctx_struct,
     );
     pub fn ca_sqrt(res: *mut ca_struct, x: *const ca_struct, ctx: *mut ca_ctx_struct);
+    pub fn ca_sqrt_ui(res: *mut ca_struct, n: ulong, ctx: *mut ca_ctx_struct);
     pub fn ca_conj_shallow(
         res: *mut ca_struct,
         x: *const ca_struct,
@@ -13118,7 +13831,20 @@ unsafe extern "C" {
         nargs: slong,
         ctx: *mut ca_ctx_struct,
     );
+    pub fn ca_ext_init_set(
+        res: *mut ca_ext_struct,
+        x: *const ca_ext_struct,
+        ctx: *mut ca_ctx_struct,
+    );
     pub fn ca_ext_clear(res: *mut ca_ext_struct, ctx: *mut ca_ctx_struct);
+    pub fn ca_ext_nargs(x: *const ca_ext_struct, ctx: *mut ca_ctx_struct) -> slong;
+    pub fn ca_ext_get_arg(
+        res: *mut ca_struct,
+        x: *const ca_ext_struct,
+        i: slong,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_ext_hash(x: *const ca_ext_struct, ctx: *mut ca_ctx_struct) -> ulong;
     pub fn ca_ext_equal_repr(
         x: *const ca_ext_struct,
         y: *const ca_ext_struct,
@@ -13214,6 +13940,7 @@ unsafe extern "C" {
 /* ca_mat.h */
 
 unsafe extern "C" {
+    pub fn ca_mat_entry_ptr(mat: *mut ca_mat_struct, i: slong, j: slong) -> ca_ptr;
     pub fn ca_mat_init(
         mat: *mut ca_mat_struct,
         r: slong,
@@ -13221,6 +13948,11 @@ unsafe extern "C" {
         ctx: *mut ca_ctx_struct,
     );
     pub fn ca_mat_clear(mat: *mut ca_mat_struct, ctx: *mut ca_ctx_struct);
+    pub fn ca_mat_swap(
+        mat1: *mut ca_mat_struct,
+        mat2: *mut ca_mat_struct,
+        ctx: *mut ca_ctx_struct,
+    );
     pub fn ca_mat_window_init(
         window: *mut ca_mat_struct,
         mat: *const ca_mat_struct,
@@ -13230,6 +13962,12 @@ unsafe extern "C" {
         c2: slong,
         ctx: *mut ca_ctx_struct,
     );
+    pub fn ca_mat_window_clear(
+        UNUSED_window: *mut ca_mat_struct,
+        UNUSED_ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_mat_is_empty(mat: *const ca_mat_struct) -> ::std::os::raw::c_int;
+    pub fn ca_mat_is_square(mat: *const ca_mat_struct) -> ::std::os::raw::c_int;
     pub fn ca_mat_set(
         dest: *mut ca_mat_struct,
         src: *const ca_mat_struct,
@@ -13394,6 +14132,59 @@ unsafe extern "C" {
         K: *mut ca_field_struct,
         ctx: *mut ca_ctx_struct,
     );
+    pub fn ca_mat_mul_si(
+        B: *mut ca_mat_struct,
+        A: *const ca_mat_struct,
+        c: slong,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_mat_mul_fmpz(
+        B: *mut ca_mat_struct,
+        A: *const ca_mat_struct,
+        c: *const fmpz,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_mat_mul_fmpq(
+        B: *mut ca_mat_struct,
+        A: *const ca_mat_struct,
+        c: *const fmpq,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_mat_mul_ca(
+        B: *mut ca_mat_struct,
+        A: *const ca_mat_struct,
+        c: *const ca_struct,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_mat_div_si(
+        B: *mut ca_mat_struct,
+        A: *const ca_mat_struct,
+        c: slong,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_mat_div_fmpz(
+        B: *mut ca_mat_struct,
+        A: *const ca_mat_struct,
+        c: *const fmpz,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_mat_div_fmpq(
+        B: *mut ca_mat_struct,
+        A: *const ca_mat_struct,
+        c: *const fmpq,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_mat_div_ca(
+        B: *mut ca_mat_struct,
+        A: *const ca_mat_struct,
+        c: *const ca_struct,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_mat_sqr(
+        res: *mut ca_mat_struct,
+        A: *const ca_mat_struct,
+        ctx: *mut ca_ctx_struct,
+    );
     pub fn ca_mat_pow_ui_binexp(
         B: *mut ca_mat_struct,
         A: *const ca_mat_struct,
@@ -13426,6 +14217,12 @@ unsafe extern "C" {
         column: slong,
         ctx: *mut ca_ctx_struct,
     ) -> truth_t;
+    pub fn _ca_mat_swap_rows(
+        mat: *mut ca_mat_struct,
+        perm: *mut slong,
+        r: slong,
+        s: slong,
+    );
     pub fn ca_mat_lu_classical(
         rank: *mut slong,
         P: *mut slong,
@@ -13748,6 +14545,7 @@ impl Default for ca_poly_vec_struct {
 }
 pub type ca_poly_vec_t = [ca_poly_vec_struct; 1usize];
 unsafe extern "C" {
+    pub fn ca_poly_coeff_ptr(poly: *mut ca_poly_struct, i: slong) -> ca_ptr;
     pub fn ca_poly_init(poly: *mut ca_poly_struct, ctx: *mut ca_ctx_struct);
     pub fn ca_poly_init2(poly: *mut ca_poly_struct, len: slong, ctx: *mut ca_ctx_struct);
     pub fn ca_poly_clear(poly: *mut ca_poly_struct, ctx: *mut ca_ctx_struct);
@@ -13762,12 +14560,20 @@ unsafe extern "C" {
         ctx: *mut ca_ctx_struct,
     );
     pub fn _ca_poly_normalise(poly: *mut ca_poly_struct, ctx: *mut ca_ctx_struct);
+    pub fn ca_poly_swap(
+        poly1: *mut ca_poly_struct,
+        poly2: *mut ca_poly_struct,
+        ctx: *mut ca_ctx_struct,
+    );
     pub fn ca_poly_set_ca(
         poly: *mut ca_poly_struct,
         x: *const ca_struct,
         ctx: *mut ca_ctx_struct,
     );
     pub fn ca_poly_set_si(poly: *mut ca_poly_struct, x: slong, ctx: *mut ca_ctx_struct);
+    pub fn ca_poly_zero(poly: *mut ca_poly_struct, ctx: *mut ca_ctx_struct);
+    pub fn ca_poly_x(poly: *mut ca_poly_struct, ctx: *mut ca_ctx_struct);
+    pub fn ca_poly_one(poly: *mut ca_poly_struct, ctx: *mut ca_ctx_struct);
     pub fn ca_poly_set(
         res: *mut ca_poly_struct,
         src: *const ca_poly_struct,
@@ -13935,6 +14741,24 @@ unsafe extern "C" {
         res: *mut ca_poly_struct,
         poly1: *const ca_poly_struct,
         poly2: *const ca_poly_struct,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_poly_mul_ca(
+        res: *mut ca_poly_struct,
+        poly: *const ca_poly_struct,
+        c: *const ca_struct,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_poly_div_ca(
+        res: *mut ca_poly_struct,
+        poly: *const ca_poly_struct,
+        c: *const ca_struct,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_poly_div_fmpz(
+        res: *mut ca_poly_struct,
+        poly: *const ca_poly_struct,
+        c: *const fmpz,
         ctx: *mut ca_ctx_struct,
     );
     pub fn _ca_poly_mullow_same_nf(
@@ -14541,11 +15365,18 @@ pub type ca_poly_t = [ca_poly_struct; 1usize];
 /* ca_vec.h */
 
 unsafe extern "C" {
+    pub fn ca_vec_entry_ptr(vec: *mut ca_vec_struct, i: slong) -> ca_ptr;
     pub fn _ca_vec_init(len: slong, ctx: *mut ca_ctx_struct) -> ca_ptr;
     pub fn ca_vec_init(vec: *mut ca_vec_struct, len: slong, ctx: *mut ca_ctx_struct);
     pub fn _ca_vec_clear(vec: ca_ptr, len: slong, ctx: *mut ca_ctx_struct);
     pub fn ca_vec_clear(vec: *mut ca_vec_struct, ctx: *mut ca_ctx_struct);
     pub fn _ca_vec_swap(vec1: ca_ptr, vec2: ca_ptr, len: slong, ctx: *mut ca_ctx_struct);
+    pub fn ca_vec_swap(
+        vec1: *mut ca_vec_struct,
+        vec2: *mut ca_vec_struct,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_vec_length(vec: *const ca_vec_struct, ctx: *mut ca_ctx_struct) -> slong;
     pub fn _ca_vec_fit_length(
         vec: *mut ca_vec_struct,
         len: slong,
@@ -14564,10 +15395,17 @@ unsafe extern "C" {
     );
     pub fn _ca_vec_zero(res: ca_ptr, len: slong, ctx: *mut ca_ctx_struct);
     pub fn ca_vec_zero(res: *mut ca_vec_struct, len: slong, ctx: *mut ca_ctx_struct);
+    pub fn _ca_vec_unknown(vec: ca_ptr, len: slong, ctx: *mut ca_ctx_struct);
+    pub fn _ca_vec_undefined(vec: ca_ptr, len: slong, ctx: *mut ca_ctx_struct);
     pub fn ca_vec_print(vec: *const ca_vec_struct, ctx: *mut ca_ctx_struct);
     pub fn ca_vec_printn(
         vec: *const ca_vec_struct,
         digits: slong,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn ca_vec_append(
+        vec: *mut ca_vec_struct,
+        f: *const ca_struct,
         ctx: *mut ca_ctx_struct,
     );
     pub fn _ca_vec_neg(res: ca_ptr, src: ca_srcptr, len: slong, ctx: *mut ca_ctx_struct);
@@ -14623,12 +15461,37 @@ unsafe extern "C" {
         len: slong,
         ctx: *mut ca_ctx_struct,
     ) -> truth_t;
+    pub fn _ca_vec_is_fmpq_vec(
+        vec: ca_srcptr,
+        len: slong,
+        ctx: *mut ca_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _ca_vec_fmpq_vec_is_fmpz_vec(
+        vec: ca_srcptr,
+        len: slong,
+        ctx: *mut ca_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _ca_vec_fmpq_vec_get_fmpz_vec_den(
+        c: *mut fmpz,
+        den: *mut fmpz,
+        vec: ca_srcptr,
+        len: slong,
+        ctx: *mut ca_ctx_struct,
+    );
+    pub fn _ca_vec_set_fmpz_vec_div_fmpz(
+        res: ca_ptr,
+        v: *const fmpz,
+        den: *const fmpz,
+        len: slong,
+        ctx: *mut ca_ctx_struct,
+    );
 }
 
 
 /* calcium.h */
 
 unsafe extern "C" {
+    pub fn calcium_stream_init_str(out: *mut gr_stream_struct);
     pub fn calcium_write(out: *mut gr_stream_struct, s: *const ::std::os::raw::c_char);
     pub fn calcium_write_si(out: *mut gr_stream_struct, x: slong);
     pub fn calcium_write_fmpz(out: *mut gr_stream_struct, c: *const fmpz);
@@ -14644,6 +15507,11 @@ unsafe extern "C" {
         digits: slong,
         flags: ulong,
     );
+    pub fn calcium_write_free(
+        out: *mut gr_stream_struct,
+        s: *mut ::std::os::raw::c_char,
+    );
+    pub fn truth_print(t: truth_t);
     pub fn calcium_func_name(func: calcium_func_code) -> *const ::std::os::raw::c_char;
     pub fn calcium_fmpz_hash(x: *const fmpz) -> ulong;
 }
@@ -14669,7 +15537,10 @@ impl Default for d_mat_struct {
 }
 pub type d_mat_t = [d_mat_struct; 1usize];
 unsafe extern "C" {
+    pub fn d_mat_nrows(mat: *const d_mat_struct) -> slong;
+    pub fn d_mat_ncols(mat: *const d_mat_struct) -> slong;
     pub fn d_mat_init(mat: *mut d_mat_struct, rows: slong, cols: slong);
+    pub fn d_mat_swap_entrywise(mat1: *mut d_mat_struct, mat2: *mut d_mat_struct);
     pub fn d_mat_set(mat1: *mut d_mat_struct, mat2: *const d_mat_struct);
     pub fn d_mat_clear(mat: *mut d_mat_struct);
     pub fn d_mat_equal(
@@ -14681,6 +15552,7 @@ unsafe extern "C" {
         mat2: *const d_mat_struct,
         eps: f64,
     ) -> ::std::os::raw::c_int;
+    pub fn d_mat_is_square(mat: *const d_mat_struct) -> ::std::os::raw::c_int;
     pub fn d_mat_zero(mat: *mut d_mat_struct);
     pub fn d_mat_print(mat: *const d_mat_struct);
     pub fn d_mat_randtest(
@@ -14731,6 +15603,12 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn _d_vec_add(res: *mut f64, vec1: *const f64, vec2: *const f64, len2: slong);
     pub fn _d_vec_sub(res: *mut f64, vec1: *const f64, vec2: *const f64, len2: slong);
+    pub fn _d_vec_mul_2exp(
+        res: *mut f64,
+        x: *const f64,
+        len: slong,
+        e: ::std::os::raw::c_int,
+    );
     pub fn _d_vec_dot(vec1: *const f64, vec2: *const f64, len2: slong) -> f64;
     pub fn _d_vec_norm(vec: *const f64, len: slong) -> f64;
     pub fn _d_vec_dot_heuristic(
@@ -14808,6 +15686,7 @@ impl Default for dirichlet_char_struct {
 }
 pub type dirichlet_char_t = [dirichlet_char_struct; 1usize];
 unsafe extern "C" {
+    pub fn dirichlet_group_size(G: *const dirichlet_group_struct) -> ulong;
     pub fn dirichlet_group_num_primitive(G: *const dirichlet_group_struct) -> ulong;
     pub fn dirichlet_group_init(
         G: *mut dirichlet_group_struct,
@@ -14836,6 +15715,15 @@ unsafe extern "C" {
         G: *const dirichlet_group_struct,
         x: *const dirichlet_char_struct,
     );
+    pub fn dirichlet_char_set(
+        x: *mut dirichlet_char_struct,
+        G: *const dirichlet_group_struct,
+        y: *const dirichlet_char_struct,
+    );
+    pub fn dirichlet_char_eq(
+        x: *const dirichlet_char_struct,
+        y: *const dirichlet_char_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn dirichlet_char_eq_deep(
         G: *const dirichlet_group_struct,
         x: *const dirichlet_char_struct,
@@ -14858,6 +15746,10 @@ unsafe extern "C" {
         G: *const dirichlet_group_struct,
         m: ulong,
     );
+    pub fn dirichlet_char_exp(
+        G: *const dirichlet_group_struct,
+        x: *const dirichlet_char_struct,
+    ) -> ulong;
     pub fn _dirichlet_char_exp(
         x: *mut dirichlet_char_struct,
         G: *const dirichlet_group_struct,
@@ -14921,6 +15813,18 @@ unsafe extern "C" {
         a: *const dirichlet_char_struct,
         b: *const dirichlet_char_struct,
     ) -> ulong;
+    pub fn dirichlet_char_is_principal(
+        G: *const dirichlet_group_struct,
+        chi: *const dirichlet_char_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn dirichlet_char_is_real(
+        G: *const dirichlet_group_struct,
+        chi: *const dirichlet_char_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn dirichlet_char_is_primitive(
+        G: *const dirichlet_group_struct,
+        chi: *const dirichlet_char_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn dirichlet_chi(
         G: *const dirichlet_group_struct,
         chi: *const dirichlet_char_struct,
@@ -15238,7 +16142,14 @@ unsafe extern "C" {
     );
     pub fn dlog_rho_init(t: *mut dlog_rho_struct, a: ulong, mod_: ulong, n: ulong);
     pub fn dlog_once(b: ulong, a: ulong, mod_: nmod_t, n: ulong) -> ulong;
+    pub fn dlog_order23_clear(t: *mut ulong);
+    pub fn dlog_table_clear(t: *mut dlog_table_struct);
     pub fn dlog_crt_clear(t: *mut dlog_crt_struct);
+    pub fn dlog_power_clear(t: *mut dlog_power_struct);
+    pub fn dlog_modpe_clear(t: *mut dlog_modpe_struct);
+    pub fn dlog_bsgs_clear(t: *mut dlog_bsgs_struct);
+    pub fn dlog_rho_clear(t: *mut dlog_rho_struct);
+    pub fn dlog_bsgs_size(n: ulong, num: ulong) -> ulong;
     pub fn dlog_order23(t: *const ulong, b: ulong) -> ulong;
     pub fn dlog_table(t: *const dlog_table_struct, b: ulong) -> ulong;
     pub fn dlog_crt(t: *const dlog_crt_struct, b: ulong) -> ulong;
@@ -15410,7 +16321,9 @@ unsafe extern "C" {
         minexp: slong,
         maxexp: slong,
     ) -> f64;
+    pub fn d_polyval(poly: *const f64, len: ::std::os::raw::c_int, x: f64) -> f64;
     pub fn d_lambertw(x: f64) -> f64;
+    pub fn d_is_nan(x: f64) -> ::std::os::raw::c_int;
     pub fn d_log2(x: f64) -> f64;
 }
 
@@ -15424,12 +16337,27 @@ pub struct di_t {
     pub b: f64,
 }
 unsafe extern "C" {
+    pub fn di_interval(a: f64, b: f64) -> di_t;
+    pub fn _di_below(x: f64) -> f64;
+    pub fn _di_above(x: f64) -> f64;
+    pub fn di_neg(x: di_t) -> di_t;
+    pub fn di_fast_add(x: di_t, y: di_t) -> di_t;
+    pub fn di_fast_sub(x: di_t, y: di_t) -> di_t;
     pub fn di_fast_mul(x: di_t, y: di_t) -> di_t;
     pub fn di_fast_sqr(x: di_t) -> di_t;
     pub fn di_fast_div(x: di_t, y: di_t) -> di_t;
+    pub fn di_fast_add_d(x: di_t, y: f64) -> di_t;
+    pub fn di_fast_sub_d(x: di_t, y: f64) -> di_t;
+    pub fn di_fast_mul_d(x: di_t, y: f64) -> di_t;
+    pub fn di_fast_div_d(x: di_t, y: f64) -> di_t;
     pub fn di_fast_log_nonnegative(x: di_t) -> di_t;
+    pub fn di_fast_mid(x: di_t) -> di_t;
+    pub fn di_fast_ubound_radius(x: di_t) -> f64;
+    pub fn di_print(x: di_t);
     pub fn arb_get_di(x: *const arb_struct) -> di_t;
     pub fn arb_set_di(res: *mut arb_struct, x: di_t, prec: slong);
+    pub fn d_randtest2(state: *mut flint_rand_struct) -> f64;
+    pub fn di_randtest(state: *mut flint_rand_struct) -> di_t;
 }
 
 
@@ -15469,6 +16397,19 @@ impl Default for fexpr_vec_struct {
 }
 pub type fexpr_vec_t = [fexpr_vec_struct; 1usize];
 unsafe extern "C" {
+    pub fn fexpr_init(expr: *mut fexpr_struct);
+    pub fn fexpr_clear(expr: *mut fexpr_struct);
+    pub fn _fexpr_vec_init(len: slong) -> fexpr_ptr;
+    pub fn _fexpr_vec_clear(vec: fexpr_ptr, len: slong);
+    pub fn fexpr_fit_size(expr: *mut fexpr_struct, size: slong);
+    pub fn _fexpr_size(expr: *const ulong) -> slong;
+    pub fn fexpr_size(expr: *const fexpr_struct) -> slong;
+    pub fn fexpr_set(res: *mut fexpr_struct, expr: *const fexpr_struct);
+    pub fn fexpr_swap(a: *mut fexpr_struct, b: *mut fexpr_struct);
+    pub fn fexpr_equal(
+        a: *const fexpr_struct,
+        b: *const fexpr_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fexpr_equal_si(expr: *const fexpr_struct, c: slong) -> ::std::os::raw::c_int;
     pub fn fexpr_equal_ui(expr: *const fexpr_struct, c: ulong) -> ::std::os::raw::c_int;
     pub fn fexpr_hash(expr: *const fexpr_struct) -> ulong;
@@ -15477,12 +16418,23 @@ unsafe extern "C" {
         b: *const fexpr_struct,
     ) -> ::std::os::raw::c_int;
     pub fn _fexpr_vec_sort_fast(vec: fexpr_ptr, len: slong);
+    pub fn _fexpr_is_integer(expr: *const ulong) -> ::std::os::raw::c_int;
+    pub fn fexpr_is_integer(expr: *const fexpr_struct) -> ::std::os::raw::c_int;
     pub fn fexpr_is_neg_integer(expr: *const fexpr_struct) -> ::std::os::raw::c_int;
+    pub fn _fexpr_is_symbol(expr: *const ulong) -> ::std::os::raw::c_int;
+    pub fn fexpr_is_symbol(expr: *const fexpr_struct) -> ::std::os::raw::c_int;
+    pub fn _fexpr_is_string(expr: *const ulong) -> ::std::os::raw::c_int;
+    pub fn fexpr_is_string(expr: *const fexpr_struct) -> ::std::os::raw::c_int;
+    pub fn _fexpr_is_atom(expr: *const ulong) -> ::std::os::raw::c_int;
+    pub fn fexpr_is_atom(expr: *const fexpr_struct) -> ::std::os::raw::c_int;
+    pub fn fexpr_zero(res: *mut fexpr_struct);
+    pub fn fexpr_is_zero(expr: *const fexpr_struct) -> ::std::os::raw::c_int;
     pub fn fexpr_set_si(res: *mut fexpr_struct, c: slong);
     pub fn fexpr_set_ui(res: *mut fexpr_struct, c: ulong);
     pub fn fexpr_set_fmpz(res: *mut fexpr_struct, c: *const fmpz);
     pub fn fexpr_get_fmpz(c: *mut fmpz, x: *const fexpr_struct) -> ::std::os::raw::c_int;
     pub fn fexpr_set_fmpq(res: *mut fexpr_struct, x: *const fmpq);
+    pub fn fexpr_set_symbol_builtin(res: *mut fexpr_struct, id: slong);
     pub fn fexpr_set_symbol_str(
         res: *mut fexpr_struct,
         s: *const ::std::os::raw::c_char,
@@ -15499,15 +16451,26 @@ unsafe extern "C" {
     ) -> *mut ::std::os::raw::c_char;
     pub fn fexpr_depth(expr: *const fexpr_struct) -> slong;
     pub fn fexpr_num_leaves(expr: *const fexpr_struct) -> slong;
+    pub fn fexpr_size_bytes(expr: *const fexpr_struct) -> slong;
+    pub fn fexpr_allocated_bytes(expr: *const fexpr_struct) -> slong;
+    pub fn fexpr_is_any_builtin_symbol(
+        expr: *const fexpr_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fexpr_is_builtin_symbol(
+        expr: *const fexpr_struct,
+        i: slong,
+    ) -> ::std::os::raw::c_int;
     pub fn fexpr_is_builtin_call(
         expr: *const fexpr_struct,
         i: slong,
     ) -> ::std::os::raw::c_int;
     pub fn fexpr_is_any_builtin_call(expr: *const fexpr_struct) -> ::std::os::raw::c_int;
+    pub fn fexpr_nargs(expr: *const fexpr_struct) -> slong;
     pub fn fexpr_func(res: *mut fexpr_struct, expr: *const fexpr_struct);
     pub fn fexpr_view_func(res: *mut fexpr_struct, expr: *const fexpr_struct);
     pub fn fexpr_arg(res: *mut fexpr_struct, expr: *const fexpr_struct, i: slong);
     pub fn fexpr_view_arg(res: *mut fexpr_struct, expr: *const fexpr_struct, i: slong);
+    pub fn fexpr_view_next(view: *mut fexpr_struct);
     pub fn fexpr_call0(res: *mut fexpr_struct, f: *const fexpr_struct);
     pub fn fexpr_call1(
         res: *mut fexpr_struct,
@@ -15824,6 +16787,18 @@ unsafe extern "C" {
         expr: *const fexpr_struct,
         flags: ulong,
     ) -> ::std::os::raw::c_int;
+    pub fn fexpr_vec_init(vec: *mut fexpr_vec_struct, len: slong);
+    pub fn fexpr_vec_print(F: *const fexpr_vec_struct);
+    pub fn fexpr_vec_swap(x: *mut fexpr_vec_struct, y: *mut fexpr_vec_struct);
+    pub fn fexpr_vec_fit_length(vec: *mut fexpr_vec_struct, len: slong);
+    pub fn fexpr_vec_clear(vec: *mut fexpr_vec_struct);
+    pub fn fexpr_vec_set(dest: *mut fexpr_vec_struct, src: *const fexpr_vec_struct);
+    pub fn fexpr_vec_append(vec: *mut fexpr_vec_struct, f: *const fexpr_struct);
+    pub fn fexpr_vec_insert_unique(
+        vec: *mut fexpr_vec_struct,
+        f: *const fexpr_struct,
+    ) -> slong;
+    pub fn fexpr_vec_set_length(vec: *mut fexpr_vec_struct, len: slong);
 }
 
 
@@ -16330,6 +17305,8 @@ impl Default for fexpr_symbol_info {
 }
 unsafe extern "C" {
     pub fn fexpr_builtin_lookup(s: *const ::std::os::raw::c_char) -> slong;
+    pub fn fexpr_builtin_name(n: slong) -> *const ::std::os::raw::c_char;
+    pub fn fexpr_builtin_length() -> slong;
 }
 
 
@@ -16499,6 +17476,18 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn flint_restore_thread_affinity() -> ::std::os::raw::c_int;
     pub fn flint_test_multiplier() -> f64;
+    pub fn flint_rand_init(state: *mut flint_rand_struct);
+    pub fn flint_rand_set_seed(
+        state: *mut flint_rand_struct,
+        seed1: ulong,
+        seed2: ulong,
+    );
+    pub fn flint_rand_get_seed(
+        seed1: *mut ulong,
+        seed2: *mut ulong,
+        state: *mut flint_rand_struct,
+    );
+    pub fn flint_rand_clear(UNUSED_state: *mut flint_rand_struct);
     pub fn _flint_rand_init_gmp_state(state: *mut flint_rand_struct);
     pub fn _flint_rand_clear_gmp_state(state: *mut flint_rand_struct);
     pub fn flint_randinit(arg1: *mut flint_rand_struct);
@@ -16649,6 +17638,9 @@ impl Default for _fmpq_ball_struct {
 }
 pub type _fmpq_ball_t = [_fmpq_ball_struct; 1usize];
 unsafe extern "C" {
+    pub fn fmpq_init(x: *mut fmpq);
+    pub fn fmpq_clear(x: *mut fmpq);
+    pub fn fmpq_swap(op1: *mut fmpq, op2: *mut fmpq);
     pub fn _fmpq_canonicalise(num: *mut fmpz, den: *mut fmpz);
     pub fn fmpq_canonicalise(res: *mut fmpq);
     pub fn _fmpq_is_canonical(
@@ -16656,12 +17648,16 @@ unsafe extern "C" {
         den: *const fmpz,
     ) -> ::std::os::raw::c_int;
     pub fn fmpq_is_canonical(x: *const fmpq) -> ::std::os::raw::c_int;
+    pub fn fmpq_zero(res: *mut fmpq);
+    pub fn fmpq_one(res: *mut fmpq);
+    pub fn fmpq_set(dest: *mut fmpq, src: *const fmpq);
     pub fn fmpq_clear_readonly(f: *mut fmpq);
     pub fn _fmpq_set_si(rnum: *mut fmpz, rden: *mut fmpz, p: slong, q: ulong);
     pub fn _fmpq_set_ui(rnum: *mut fmpz, rden: *mut fmpz, p: ulong, q: ulong);
     pub fn fmpq_set_si(res: *mut fmpq, p: slong, q: ulong);
     pub fn fmpq_set_ui(res: *mut fmpq, p: ulong, q: ulong);
     pub fn fmpq_set_fmpz_frac(res: *mut fmpq, p: *const fmpz, q: *const fmpz);
+    pub fn fmpq_set_fmpz(q: *mut fmpq, n: *const fmpz);
     pub fn fmpq_get_d(a: *const fmpq) -> f64;
     pub fn fmpq_set_str(
         res: *mut fmpq,
@@ -16679,6 +17675,13 @@ unsafe extern "C" {
         b: ::std::os::raw::c_int,
         x: *const fmpq,
     ) -> *mut ::std::os::raw::c_char;
+    pub fn fmpq_is_zero(x: *const fmpq) -> ::std::os::raw::c_int;
+    pub fn fmpq_is_one(x: *const fmpq) -> ::std::os::raw::c_int;
+    pub fn fmpq_is_pm1(x: *const fmpq) -> ::std::os::raw::c_int;
+    pub fn fmpq_sgn(x: *const fmpq) -> ::std::os::raw::c_int;
+    pub fn fmpq_equal_si(q: *mut fmpq, n: slong) -> ::std::os::raw::c_int;
+    pub fn fmpq_equal_ui(q: *mut fmpq, n: ulong) -> ::std::os::raw::c_int;
+    pub fn fmpq_equal(x: *const fmpq, y: *const fmpq) -> ::std::os::raw::c_int;
     pub fn _fmpq_cmp_si(
         p: *const fmpz,
         q: *const fmpz,
@@ -16706,6 +17709,8 @@ unsafe extern "C" {
     pub fn fmpq_cmp(x: *const fmpq, y: *const fmpq) -> ::std::os::raw::c_int;
     pub fn fmpq_height_bits(x: *const fmpq) -> flint_bitcnt_t;
     pub fn fmpq_height(height: *mut fmpz, x: *const fmpq);
+    pub fn fmpq_neg(dest: *mut fmpq, src: *const fmpq);
+    pub fn fmpq_abs(dest: *mut fmpq, src: *const fmpq);
     pub fn _fmpq_add_si(
         rnum: *mut fmpz,
         rden: *mut fmpz,
@@ -17087,13 +18092,36 @@ unsafe extern "C" {
 /* fmpq_mat.h */
 
 unsafe extern "C" {
+    pub fn fmpq_mat_entry(mat: *const fmpq_mat_struct, i: slong, j: slong) -> *mut fmpq;
+    pub fn fmpq_mat_entry_num(
+        mat: *const fmpq_mat_struct,
+        i: slong,
+        j: slong,
+    ) -> *mut fmpz;
+    pub fn fmpq_mat_entry_den(
+        mat: *const fmpq_mat_struct,
+        i: slong,
+        j: slong,
+    ) -> *mut fmpz;
+    pub fn fmpq_mat_nrows(mat: *const fmpq_mat_struct) -> slong;
+    pub fn fmpq_mat_ncols(mat: *const fmpq_mat_struct) -> slong;
     pub fn fmpq_mat_init(mat: *mut fmpq_mat_struct, rows: slong, cols: slong);
     pub fn fmpq_mat_init_set(mat1: *mut fmpq_mat_struct, mat2: *const fmpq_mat_struct);
     pub fn fmpq_mat_clear(mat: *mut fmpq_mat_struct);
+    pub fn fmpq_mat_swap(mat1: *mut fmpq_mat_struct, mat2: *mut fmpq_mat_struct);
     pub fn fmpq_mat_swap_entrywise(
         mat1: *mut fmpq_mat_struct,
         mat2: *mut fmpq_mat_struct,
     );
+    pub fn fmpq_mat_window_init(
+        window: *mut fmpq_mat_struct,
+        mat: *const fmpq_mat_struct,
+        r1: slong,
+        c1: slong,
+        r2: slong,
+        c2: slong,
+    );
+    pub fn fmpq_mat_window_clear(UNUSED_window: *mut fmpq_mat_struct);
     pub fn fmpq_mat_concat_horizontal(
         res: *mut fmpq_mat_struct,
         mat1: *const fmpq_mat_struct,
@@ -17153,6 +18181,8 @@ unsafe extern "C" {
     pub fn fmpq_mat_is_zero(mat: *const fmpq_mat_struct) -> ::std::os::raw::c_int;
     pub fn fmpq_mat_is_one(mat: *const fmpq_mat_struct) -> ::std::os::raw::c_int;
     pub fn fmpq_mat_is_integral(mat: *const fmpq_mat_struct) -> ::std::os::raw::c_int;
+    pub fn fmpq_mat_is_empty(mat: *const fmpq_mat_struct) -> ::std::os::raw::c_int;
+    pub fn fmpq_mat_is_square(mat: *const fmpq_mat_struct) -> ::std::os::raw::c_int;
     pub fn fmpq_mat_get_fmpz_mat(
         dest: *mut fmpz_mat_struct,
         mat: *const fmpq_mat_struct,
@@ -17427,6 +18457,63 @@ impl Default for fmpq_mpoly_univar_struct {
 }
 pub type fmpq_mpoly_univar_t = [fmpq_mpoly_univar_struct; 1usize];
 unsafe extern "C" {
+    pub fn fmpq_mpoly_ctx_init(
+        ctx: *mut fmpq_mpoly_ctx_struct,
+        nvars: slong,
+        ord: ordering_t,
+    );
+    pub fn fmpq_mpoly_ctx_init_rand(
+        ctx: *mut fmpq_mpoly_ctx_struct,
+        state: *mut flint_rand_struct,
+        max_nvars: slong,
+    );
+    pub fn fmpq_mpoly_ctx_clear(ctx: *mut fmpq_mpoly_ctx_struct);
+    pub fn fmpq_mpoly_ctx_nvars(ctx: *const fmpq_mpoly_ctx_struct) -> slong;
+    pub fn fmpq_mpoly_ctx_ord(ctx: *const fmpq_mpoly_ctx_struct) -> ordering_t;
+    pub fn fmpq_mpoly_content_ref(
+        A: *mut fmpq_mpoly_struct,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> *mut fmpq;
+    pub fn fmpq_mpoly_zpoly_ref(
+        A: *mut fmpq_mpoly_struct,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> *mut fmpz_mpoly_struct;
+    pub fn fmpq_mpoly_zpoly_term_coeff_ref(
+        A: *mut fmpq_mpoly_struct,
+        i: slong,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> *mut fmpz;
+    pub fn fmpq_mpoly_init(A: *mut fmpq_mpoly_struct, ctx: *const fmpq_mpoly_ctx_struct);
+    pub fn fmpq_mpoly_init2(
+        A: *mut fmpq_mpoly_struct,
+        alloc: slong,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_init3(
+        A: *mut fmpq_mpoly_struct,
+        alloc: slong,
+        bits: flint_bitcnt_t,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_realloc(
+        A: *mut fmpq_mpoly_struct,
+        alloc: slong,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_fit_length(
+        A: *mut fmpq_mpoly_struct,
+        len: slong,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_clear(
+        A: *mut fmpq_mpoly_struct,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_fit_bits(
+        A: *mut fmpq_mpoly_struct,
+        bits: flint_bitcnt_t,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
     pub fn fmpq_mpoly_set_str_pretty(
         A: *mut fmpq_mpoly_struct,
         str_: *const ::std::os::raw::c_char,
@@ -17441,6 +18528,35 @@ unsafe extern "C" {
     pub fn fmpq_mpoly_print_pretty(
         A: *const fmpq_mpoly_struct,
         x: *mut *const ::std::os::raw::c_char,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpq_mpoly_gen(
+        A: *mut fmpq_mpoly_struct,
+        var: slong,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_is_gen(
+        A: *const fmpq_mpoly_struct,
+        var: slong,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpq_mpoly_set(
+        A: *mut fmpq_mpoly_struct,
+        B: *const fmpq_mpoly_struct,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_equal(
+        A: *const fmpq_mpoly_struct,
+        B: *const fmpq_mpoly_struct,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpq_mpoly_swap(
+        A: *mut fmpq_mpoly_struct,
+        B: *mut fmpq_mpoly_struct,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_is_fmpq(
+        A: *const fmpq_mpoly_struct,
         ctx: *const fmpq_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn fmpq_mpoly_get_fmpq(
@@ -17468,6 +18584,8 @@ unsafe extern "C" {
         c: slong,
         ctx: *const fmpq_mpoly_ctx_struct,
     );
+    pub fn fmpq_mpoly_zero(A: *mut fmpq_mpoly_struct, ctx: *const fmpq_mpoly_ctx_struct);
+    pub fn fmpq_mpoly_one(A: *mut fmpq_mpoly_struct, ctx: *const fmpq_mpoly_ctx_struct);
     pub fn fmpq_mpoly_equal_fmpq(
         A: *const fmpq_mpoly_struct,
         c: *const fmpq,
@@ -17486,6 +18604,14 @@ unsafe extern "C" {
     pub fn fmpq_mpoly_equal_si(
         A: *const fmpq_mpoly_struct,
         c: slong,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpq_mpoly_is_zero(
+        A: *const fmpq_mpoly_struct,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpq_mpoly_is_one(
+        A: *const fmpq_mpoly_struct,
         ctx: *const fmpq_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn fmpq_mpoly_degrees_fit_si(
@@ -17526,6 +18652,16 @@ unsafe extern "C" {
         A: *const fmpq_mpoly_struct,
         ctx: *const fmpq_mpoly_ctx_struct,
     ) -> slong;
+    pub fn fmpq_mpoly_used_vars(
+        used: *mut ::std::os::raw::c_int,
+        A: *const fmpq_mpoly_struct,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_get_denominator(
+        d: *mut fmpz,
+        A: *const fmpq_mpoly_struct,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    );
     pub fn fmpq_mpoly_is_monic(
         A: *const fmpq_mpoly_struct,
         UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
@@ -17612,6 +18748,15 @@ unsafe extern "C" {
         A: *const fmpq_mpoly_struct,
         ctx: *const fmpq_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpq_mpoly_length(
+        A: *const fmpq_mpoly_struct,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> slong;
+    pub fn fmpq_mpoly_resize(
+        A: *mut fmpq_mpoly_struct,
+        new_length: slong,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
     pub fn fmpq_mpoly_get_term_coeff_fmpq(
         c: *mut fmpq,
         A: *const fmpq_mpoly_struct,
@@ -17664,6 +18809,18 @@ unsafe extern "C" {
         var: slong,
         ctx: *const fmpq_mpoly_ctx_struct,
     ) -> slong;
+    pub fn fmpq_mpoly_set_term_exp_fmpz(
+        A: *mut fmpq_mpoly_struct,
+        i: slong,
+        exps: *const *mut fmpz,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_set_term_exp_ui(
+        A: *mut fmpq_mpoly_struct,
+        i: slong,
+        exps: *const ulong,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
     pub fn fmpq_mpoly_get_term(
         M: *mut fmpq_mpoly_struct,
         A: *const fmpq_mpoly_struct,
@@ -17757,6 +18914,14 @@ unsafe extern "C" {
         easy_length: slong,
         ctx: *const fmpq_mpoly_ctx_struct,
     );
+    pub fn fmpq_mpoly_sort_terms(
+        A: *mut fmpq_mpoly_struct,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_combine_like_terms(
+        A: *mut fmpq_mpoly_struct,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
     pub fn fmpq_mpoly_reverse(
         A: *mut fmpq_mpoly_struct,
         B: *const fmpq_mpoly_struct,
@@ -17770,6 +18935,30 @@ unsafe extern "C" {
         A: *mut fmpq_mpoly_struct,
         C: *mut fmpq,
         UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_randtest_bounds(
+        A: *mut fmpq_mpoly_struct,
+        state: *mut flint_rand_struct,
+        length: slong,
+        coeff_bits: flint_bitcnt_t,
+        exp_bounds: *mut ulong,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_randtest_bound(
+        A: *mut fmpq_mpoly_struct,
+        state: *mut flint_rand_struct,
+        length: slong,
+        coeff_bits: flint_bitcnt_t,
+        exp_bound: ulong,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_randtest_bits(
+        A: *mut fmpq_mpoly_struct,
+        state: *mut flint_rand_struct,
+        length: slong,
+        coeff_bits: flint_bitcnt_t,
+        exp_bits: flint_bitcnt_t,
+        ctx: *const fmpq_mpoly_ctx_struct,
     );
     pub fn fmpq_mpoly_add_fmpq(
         A: *mut fmpq_mpoly_struct,
@@ -17829,6 +19018,11 @@ unsafe extern "C" {
         A: *mut fmpq_mpoly_struct,
         B: *const fmpq_mpoly_struct,
         C: *const fmpq_mpoly_struct,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_neg(
+        A: *mut fmpq_mpoly_struct,
+        B: *const fmpq_mpoly_struct,
         ctx: *const fmpq_mpoly_ctx_struct,
     );
     pub fn fmpq_mpoly_scalar_mul_fmpq(
@@ -17990,6 +19184,15 @@ unsafe extern "C" {
         A: *const fmpq_mpoly_struct,
         ctx: *const fmpq_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpq_mpoly_is_square(
+        A: *const fmpq_mpoly_struct,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpq_mpoly_content(
+        g: *mut fmpq,
+        A: *const fmpq_mpoly_struct,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    );
     pub fn fmpq_mpoly_term_content(
         M: *mut fmpq_mpoly_struct,
         A: *const fmpq_mpoly_struct,
@@ -18118,6 +19321,36 @@ unsafe extern "C" {
         var: slong,
         ctx: *const fmpq_mpoly_ctx_struct,
     );
+    pub fn fmpq_mpoly_univar_swap(
+        A: *mut fmpq_mpoly_univar_struct,
+        B: *mut fmpq_mpoly_univar_struct,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_univar_degree_fits_si(
+        A: *const fmpq_mpoly_univar_struct,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpq_mpoly_univar_length(
+        A: *const fmpq_mpoly_univar_struct,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> slong;
+    pub fn fmpq_mpoly_univar_get_term_exp_si(
+        A: *mut fmpq_mpoly_univar_struct,
+        i: slong,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> slong;
+    pub fn fmpq_mpoly_univar_get_term_coeff(
+        c: *mut fmpq_mpoly_struct,
+        A: *const fmpq_mpoly_univar_struct,
+        i: slong,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_univar_swap_term_coeff(
+        c: *mut fmpq_mpoly_struct,
+        A: *mut fmpq_mpoly_univar_struct,
+        i: slong,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
     ///Internal consistency checks
     pub fn fmpq_mpoly_remainder_test(
         r: *const fmpq_mpoly_struct,
@@ -18148,6 +19381,32 @@ unsafe extern "C" {
         f: *mut fmpq_mpoly_factor_struct,
         ctx: *const fmpq_mpoly_ctx_struct,
     );
+    pub fn fmpq_mpoly_factor_length(
+        f: *const fmpq_mpoly_factor_struct,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> slong;
+    pub fn fmpq_mpoly_factor_get_constant_fmpq(
+        c: *mut fmpq,
+        f: *const fmpq_mpoly_factor_struct,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_factor_get_base(
+        p: *mut fmpq_mpoly_struct,
+        f: *const fmpq_mpoly_factor_struct,
+        i: slong,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_factor_swap_base(
+        p: *mut fmpq_mpoly_struct,
+        f: *mut fmpq_mpoly_factor_struct,
+        i: slong,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    );
+    pub fn fmpq_mpoly_factor_get_exp_si(
+        f: *mut fmpq_mpoly_factor_struct,
+        i: slong,
+        UNUSED_ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> slong;
     pub fn fmpq_mpoly_factor_sort(
         f: *mut fmpq_mpoly_factor_struct,
         ctx: *const fmpq_mpoly_ctx_struct,
@@ -18224,6 +19483,8 @@ unsafe extern "C" {
     pub fn fmpq_poly_is_canonical(
         poly: *const fmpq_poly_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpq_poly_degree(poly: *const fmpq_poly_struct) -> slong;
+    pub fn fmpq_poly_length(poly: *const fmpq_poly_struct) -> slong;
     pub fn fmpq_poly_randtest(
         f: *mut fmpq_poly_struct,
         state: *mut flint_rand_struct,
@@ -18364,7 +19625,9 @@ unsafe extern "C" {
         poly2: *const fmpq_poly_struct,
         n: slong,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpq_poly_is_zero(poly: *const fmpq_poly_struct) -> ::std::os::raw::c_int;
     pub fn fmpq_poly_is_one(poly: *const fmpq_poly_struct) -> ::std::os::raw::c_int;
+    pub fn fmpq_poly_is_gen(op: *const fmpq_poly_struct) -> ::std::os::raw::c_int;
     pub fn _fmpq_poly_add(
         rpoly: *mut fmpz,
         rden: *mut fmpz,
@@ -18684,6 +19947,16 @@ unsafe extern "C" {
         poly2: *const fmpq_poly_struct,
         n: slong,
     );
+    pub fn fmpq_poly_addmul(
+        rop: *mut fmpq_poly_struct,
+        op1: *const fmpq_poly_struct,
+        op2: *const fmpq_poly_struct,
+    );
+    pub fn fmpq_poly_submul(
+        rop: *mut fmpq_poly_struct,
+        op1: *const fmpq_poly_struct,
+        op2: *const fmpq_poly_struct,
+    );
     pub fn _fmpq_poly_pow(
         rpoly: *mut fmpz,
         rden: *mut fmpz,
@@ -18793,6 +20066,19 @@ unsafe extern "C" {
         n: slong,
     );
     pub fn fmpq_poly_inv_series_newton(
+        Qinv: *mut fmpq_poly_struct,
+        Q: *const fmpq_poly_struct,
+        n: slong,
+    );
+    pub fn _fmpq_poly_inv_series(
+        Qinv: *mut fmpz,
+        Qinvden: *mut fmpz,
+        Q: *const fmpz,
+        Qden: *const fmpz,
+        Qlen: slong,
+        n: slong,
+    );
+    pub fn fmpq_poly_inv_series(
         Qinv: *mut fmpq_poly_struct,
         Q: *const fmpq_poly_struct,
         n: slong,
@@ -19772,7 +21058,10 @@ impl Default for fmpz_comb_temp_struct {
 pub type fmpz_comb_temp_t = [fmpz_comb_temp_struct; 1usize];
 unsafe extern "C" {
     pub fn _fmpz_cleanup();
+    pub fn _fmpz_demote(f: *mut fmpz);
     pub fn _fmpz_demote_val(f: *mut fmpz);
+    pub fn fmpz_init(f: *mut fmpz);
+    pub fn fmpz_clear(f: *mut fmpz);
     pub fn fmpz_init2(f: *mut fmpz, limbs: ulong);
     pub fn _fmpz_promote_set_ui(f: *mut fmpz, v: ulong);
     pub fn _fmpz_promote_set_si(f: *mut fmpz, v: slong);
@@ -19782,6 +21071,9 @@ unsafe extern "C" {
     pub fn _fmpz_init_promote_set_ui(f: *mut fmpz, v: ulong);
     pub fn _fmpz_init_promote_set_si(f: *mut fmpz, v: slong);
     pub fn fmpz_set(f: *mut fmpz, g: *const fmpz);
+    pub fn fmpz_init_set(f: *mut fmpz, g: *const fmpz);
+    pub fn fmpz_init_set_ui(f: *mut fmpz, g: ulong);
+    pub fn fmpz_init_set_si(f: *mut fmpz, g: slong);
     pub fn fmpz_clear_readonly(f: *mut fmpz);
     pub fn _fmpz_is_canonical(x: *const fmpz) -> ::std::os::raw::c_int;
     pub fn fmpz_randbits_unsigned(
@@ -19826,9 +21118,19 @@ unsafe extern "C" {
         bits: flint_bitcnt_t,
         proved: ::std::os::raw::c_int,
     );
+    pub fn fmpz_zero(f: *mut fmpz);
+    pub fn fmpz_one(f: *mut fmpz);
+    pub fn fmpz_swap(f: *mut fmpz, g: *mut fmpz);
     pub fn fmpz_get_si(f: *const fmpz) -> slong;
     pub fn fmpz_get_ui(f: *const fmpz) -> ulong;
+    pub fn fmpz_set_si(f: *mut fmpz, val: slong);
+    pub fn fmpz_set_ui(f: *mut fmpz, val: ulong);
+    pub fn fmpz_neg_ui(f: *mut fmpz, val: ulong);
+    pub fn fmpz_get_uiui(hi: *mut ulong, low: *mut ulong, f: *const fmpz);
+    pub fn fmpz_set_uiui(f: *mut fmpz, hi: ulong, lo: ulong);
+    pub fn fmpz_neg_uiui(f: *mut fmpz, hi: ulong, lo: ulong);
     pub fn fmpz_get_signed_uiui(hi: *mut ulong, lo: *mut ulong, x: *const fmpz);
+    pub fn fmpz_set_signed_uiui(r: *mut fmpz, hi: ulong, lo: ulong);
     pub fn fmpz_set_signed_uiuiui(r: *mut fmpz, hi: ulong, mid: ulong, lo: ulong);
     pub fn fmpz_get_ui_array(out: *mut ulong, n: slong, in_: *const fmpz);
     pub fn fmpz_set_ui_array(out: *mut fmpz, in_: *const ulong, n: slong);
@@ -19837,6 +21139,9 @@ unsafe extern "C" {
     pub fn fmpz_get_nmod(f: *const fmpz, mod_: nmod_t) -> ulong;
     pub fn fmpz_get_d(f: *const fmpz) -> f64;
     pub fn fmpz_set_d(f: *mut fmpz, c: f64);
+    pub fn fmpz_is_zero(f: *const fmpz) -> ::std::os::raw::c_int;
+    pub fn fmpz_is_one(f: *const fmpz) -> ::std::os::raw::c_int;
+    pub fn fmpz_is_pm1(f: *const fmpz) -> ::std::os::raw::c_int;
     pub fn fmpz_equal(f: *const fmpz, g: *const fmpz) -> ::std::os::raw::c_int;
     pub fn fmpz_equal_si(f: *const fmpz, g: slong) -> ::std::os::raw::c_int;
     pub fn fmpz_equal_ui(f: *const fmpz, g: ulong) -> ::std::os::raw::c_int;
@@ -19845,6 +21150,8 @@ unsafe extern "C" {
     pub fn fmpz_cmp_si(f: *const fmpz, g: slong) -> ::std::os::raw::c_int;
     pub fn fmpz_cmpabs(f: *const fmpz, g: *const fmpz) -> ::std::os::raw::c_int;
     pub fn fmpz_cmp2abs(f: *const fmpz, g: *const fmpz) -> ::std::os::raw::c_int;
+    pub fn fmpz_is_even(f: *const fmpz) -> ::std::os::raw::c_int;
+    pub fn fmpz_is_odd(f: *const fmpz) -> ::std::os::raw::c_int;
     pub fn fmpz_sgn(f: *const fmpz) -> ::std::os::raw::c_int;
     pub fn fmpz_abs_fits_ui(f: *const fmpz) -> ::std::os::raw::c_int;
     pub fn fmpz_fits_si(f: *const fmpz) -> ::std::os::raw::c_int;
@@ -19883,6 +21190,8 @@ unsafe extern "C" {
     pub fn fmpz_add_ui(f: *mut fmpz, g: *const fmpz, x: ulong);
     pub fn fmpz_sub(f: *mut fmpz, g: *const fmpz, h: *const fmpz);
     pub fn fmpz_sub_ui(f: *mut fmpz, g: *const fmpz, x: ulong);
+    pub fn fmpz_add_si(f: *mut fmpz, g: *const fmpz, x: slong);
+    pub fn fmpz_sub_si(f: *mut fmpz, g: *const fmpz, x: slong);
     pub fn fmpz_abs(f1: *mut fmpz, f2: *const fmpz);
     pub fn fmpz_neg(f1: *mut fmpz, f2: *const fmpz);
     pub fn fmpz_mul_ui(f: *mut fmpz, g: *const fmpz, x: ulong);
@@ -19923,6 +21232,7 @@ unsafe extern "C" {
     pub fn fmpz_root(r: *mut fmpz, f: *const fmpz, n: slong) -> ::std::os::raw::c_int;
     pub fn fmpz_divisible(f: *const fmpz, g: *const fmpz) -> ::std::os::raw::c_int;
     pub fn fmpz_divisible_ui(f: *const fmpz, g: ulong) -> ::std::os::raw::c_int;
+    pub fn fmpz_divisible_si(f: *const fmpz, g: slong) -> ::std::os::raw::c_int;
     pub fn fmpz_divides(
         q: *mut fmpz,
         g: *const fmpz,
@@ -20026,6 +21336,8 @@ unsafe extern "C" {
         shift: flint_bitcnt_t,
         bits: flint_bitcnt_t,
     );
+    pub fn fmpz_mod_ui(f: *mut fmpz, g: *const fmpz, h: ulong) -> ulong;
+    pub fn fmpz_set_ui_smod(f: *mut fmpz, x: ulong, m: ulong);
     pub fn fmpz_mod(f: *mut fmpz, g: *const fmpz, h: *const fmpz);
     pub fn fmpz_smod(f: *mut fmpz, g: *const fmpz, h: *const fmpz);
     pub fn _fmpz_smod(
@@ -20035,6 +21347,7 @@ unsafe extern "C" {
         sign: ::std::os::raw::c_int,
         t: *mut fmpz,
     );
+    pub fn fmpz_negmod(r: *mut fmpz, a: *const fmpz, mod_: *const fmpz);
     pub fn fmpz_invmod(
         f: *mut fmpz,
         g: *const fmpz,
@@ -20763,6 +22076,10 @@ unsafe extern "C" {
 /* fmpz_mat.h */
 
 unsafe extern "C" {
+    pub fn fmpz_mat_entry(mat: *const fmpz_mat_struct, i: slong, j: slong) -> *mut fmpz;
+    pub fn fmpz_mat_row(mat: *const fmpz_mat_struct, i: slong) -> *mut fmpz;
+    pub fn fmpz_mat_nrows(mat: *const fmpz_mat_struct) -> slong;
+    pub fn fmpz_mat_ncols(mat: *const fmpz_mat_struct) -> slong;
     pub fn fmpz_mat_init(mat: *mut fmpz_mat_struct, rows: slong, cols: slong);
     pub fn fmpz_mat_init_set(mat: *mut fmpz_mat_struct, src: *const fmpz_mat_struct);
     pub fn fmpz_mat_swap(mat1: *mut fmpz_mat_struct, mat2: *mut fmpz_mat_struct);
@@ -20798,8 +22115,19 @@ unsafe extern "C" {
         m: slong,
         n: slong,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mat_is_empty(mat: *const fmpz_mat_struct) -> ::std::os::raw::c_int;
+    pub fn fmpz_mat_is_square(mat: *const fmpz_mat_struct) -> ::std::os::raw::c_int;
     pub fn fmpz_mat_zero(mat: *mut fmpz_mat_struct);
     pub fn fmpz_mat_one(mat: *mut fmpz_mat_struct);
+    pub fn fmpz_mat_window_init(
+        window: *mut fmpz_mat_struct,
+        mat: *const fmpz_mat_struct,
+        r1: slong,
+        c1: slong,
+        r2: slong,
+        c2: slong,
+    );
+    pub fn fmpz_mat_window_clear(UNUSED_window: *mut fmpz_mat_struct);
     pub fn _fmpz_mat_window_readonly_init_strip_initial_zero_rows(
         A: *mut fmpz_mat_struct,
         B: *const fmpz_mat_struct,
@@ -21203,6 +22531,8 @@ unsafe extern "C" {
         cp: *mut fmpz_poly_struct,
         mat: *const fmpz_mat_struct,
     );
+    pub fn _fmpz_mat_charpoly(cp: *mut fmpz, mat: *const fmpz_mat_struct);
+    pub fn fmpz_mat_charpoly(cp: *mut fmpz_poly_struct, mat: *const fmpz_mat_struct);
     pub fn _fmpz_mat_minpoly_modular(
         rop: *mut fmpz,
         op: *const fmpz_mat_struct,
@@ -21211,6 +22541,8 @@ unsafe extern "C" {
         cp: *mut fmpz_poly_struct,
         mat: *const fmpz_mat_struct,
     );
+    pub fn _fmpz_mat_minpoly(cp: *mut fmpz, mat: *const fmpz_mat_struct) -> slong;
+    pub fn fmpz_mat_minpoly(cp: *mut fmpz_poly_struct, mat: *const fmpz_mat_struct);
     pub fn fmpz_mat_rank(A: *const fmpz_mat_struct) -> slong;
     pub fn fmpz_mat_solve_bound(
         N: *mut fmpz,
@@ -21516,6 +22848,7 @@ unsafe extern "C" {
         max_bits: flint_bitcnt_t,
     );
     pub fn fmpz_mod_ctx_clear(ctx: *mut fmpz_mod_ctx_struct);
+    pub fn fmpz_mod_ctx_modulus(ctx: *const fmpz_mod_ctx_struct) -> *const fmpz;
     pub fn fmpz_mod_ctx_set_modulus(ctx: *mut fmpz_mod_ctx_struct, n: *const fmpz);
     pub fn fmpz_mod_ctx_set_modulus_ui(ctx: *mut fmpz_mod_ctx_struct, n: ulong);
     pub fn fmpz_mod_is_canonical(
@@ -21568,6 +22901,12 @@ unsafe extern "C" {
         c: *const fmpz,
         ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn fmpz_mod_add(
+        a: *mut fmpz,
+        b: *const fmpz,
+        c: *const fmpz,
+        ctx: *const fmpz_mod_ctx_struct,
+    );
     pub fn fmpz_mod_add_fmpz(
         a: *mut fmpz,
         b: *const fmpz,
@@ -21605,6 +22944,12 @@ unsafe extern "C" {
         ctx: *const fmpz_mod_ctx_struct,
     );
     pub fn _fmpz_mod_subN(
+        a: *mut fmpz,
+        b: *const fmpz,
+        c: *const fmpz,
+        ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_sub(
         a: *mut fmpz,
         b: *const fmpz,
         c: *const fmpz,
@@ -21666,6 +23011,12 @@ unsafe extern "C" {
         ctx: *const fmpz_mod_ctx_struct,
     );
     pub fn _fmpz_mod_mulN(
+        a: *mut fmpz,
+        b: *const fmpz,
+        c: *const fmpz,
+        ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_mul(
         a: *mut fmpz,
         b: *const fmpz,
         c: *const fmpz,
@@ -21744,6 +23095,9 @@ unsafe extern "C" {
         L: *const fmpz_mod_discrete_log_pohlig_hellman_struct,
         y: *const fmpz,
     );
+    pub fn fmpz_mod_discrete_log_pohlig_hellman_primitive_root(
+        L: *mut fmpz_mod_discrete_log_pohlig_hellman_struct,
+    ) -> *const fmpz;
     pub fn fmpz_next_smooth_prime(a: *mut fmpz, b: *const fmpz) -> ::std::os::raw::c_int;
 }
 
@@ -21751,6 +23105,12 @@ unsafe extern "C" {
 /* fmpz_mod_mat.h */
 
 unsafe extern "C" {
+    pub fn fmpz_mod_mat_entry(
+        mat: *const fmpz_mod_mat_struct,
+        i: slong,
+        j: slong,
+    ) -> *mut fmpz;
+    pub fn fmpz_mod_mat_row(mat: *const fmpz_mod_mat_struct, i: slong) -> *mut fmpz;
     pub fn fmpz_mod_mat_set_entry(
         mat: *mut fmpz_mod_mat_struct,
         i: slong,
@@ -21780,6 +23140,30 @@ unsafe extern "C" {
         mat: *mut fmpz_mod_mat_struct,
         UNUSED_ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn fmpz_mod_mat_nrows(
+        mat: *const fmpz_mod_mat_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    ) -> slong;
+    pub fn fmpz_mod_mat_ncols(
+        mat: *const fmpz_mod_mat_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    ) -> slong;
+    pub fn fmpz_mod_mat_one(
+        mat: *mut fmpz_mod_mat_struct,
+        ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_mat_zero(
+        mat: *mut fmpz_mod_mat_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_mat_is_empty(
+        mat: *const fmpz_mod_mat_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mat_is_square(
+        mat: *const fmpz_mod_mat_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fmpz_mod_mat_swap(
         mat1: *mut fmpz_mod_mat_struct,
         mat2: *mut fmpz_mod_mat_struct,
@@ -21795,6 +23179,11 @@ unsafe extern "C" {
         A: *const fmpz_mod_mat_struct,
         UNUSED_ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn fmpz_mod_mat_set_nmod_mat(
+        A: *mut fmpz_mod_mat_struct,
+        B: *const nmod_mat_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
     pub fn fmpz_mod_mat_set_fmpz_mat(
         A: *mut fmpz_mod_mat_struct,
         B: *const fmpz_mat_struct,
@@ -21804,6 +23193,10 @@ unsafe extern "C" {
         A: *mut fmpz_mat_struct,
         B: *const fmpz_mod_mat_struct,
         UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn _fmpz_mod_mat_reduce(
+        mat: *mut fmpz_mod_mat_struct,
+        ctx: *const fmpz_mod_ctx_struct,
     );
     pub fn fmpz_mod_mat_randtest(
         mat: *mut fmpz_mod_mat_struct,
@@ -21838,6 +23231,12 @@ unsafe extern "C" {
         unit: ::std::os::raw::c_int,
         ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn fmpz_mod_mat_randops(
+        mat: *mut fmpz_mod_mat_struct,
+        state: *mut flint_rand_struct,
+        count: slong,
+        ctx: *const fmpz_mod_ctx_struct,
+    );
     pub fn fmpz_mod_mat_window_init(
         window: *mut fmpz_mod_mat_struct,
         mat: *const fmpz_mod_mat_struct,
@@ -21849,6 +23248,18 @@ unsafe extern "C" {
     );
     pub fn fmpz_mod_mat_window_clear(
         window: *mut fmpz_mod_mat_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_mat_concat_horizontal(
+        res: *mut fmpz_mod_mat_struct,
+        mat1: *const fmpz_mod_mat_struct,
+        mat2: *const fmpz_mod_mat_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_mat_concat_vertical(
+        res: *mut fmpz_mod_mat_struct,
+        mat1: *const fmpz_mod_mat_struct,
+        mat2: *const fmpz_mod_mat_struct,
         UNUSED_ctx: *const fmpz_mod_ctx_struct,
     );
     pub fn fmpz_mod_mat_print(
@@ -21872,6 +23283,11 @@ unsafe extern "C" {
         mat: *const fmpz_mod_mat_struct,
         UNUSED_ctx: *const fmpz_mod_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mat_transpose(
+        B: *mut fmpz_mod_mat_struct,
+        A: *const fmpz_mod_mat_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
     pub fn fmpz_mod_mat_add(
         C: *mut fmpz_mod_mat_struct,
         A: *const fmpz_mod_mat_struct,
@@ -22058,6 +23474,30 @@ unsafe extern "C" {
         d: *mut fmpz,
         ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn fmpz_mod_mat_swap_rows(
+        mat: *mut fmpz_mod_mat_struct,
+        perm: *mut slong,
+        r: slong,
+        s: slong,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_mat_invert_rows(
+        mat: *mut fmpz_mod_mat_struct,
+        perm: *mut slong,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_mat_swap_cols(
+        mat: *mut fmpz_mod_mat_struct,
+        perm: *mut slong,
+        r: slong,
+        s: slong,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_mat_invert_cols(
+        mat: *mut fmpz_mod_mat_struct,
+        perm: *mut slong,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
 }
 
 
@@ -22139,6 +23579,19 @@ unsafe extern "C" {
         max_bits: flint_bitcnt_t,
     );
     pub fn fmpz_mod_mpoly_ctx_clear(ctx: *mut fmpz_mod_mpoly_ctx_struct);
+    pub fn fmpz_mod_mpoly_ctx_nvars(ctx: *const fmpz_mod_mpoly_ctx_struct) -> slong;
+    pub fn fmpz_mod_mpoly_ctx_ord(ctx: *const fmpz_mod_mpoly_ctx_struct) -> ordering_t;
+    pub fn fmpz_mod_mpoly_ctx_modulus(
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> *const fmpz;
+    pub fn fmpz_mod_mpoly_ctx_get_modulus(
+        m: *mut fmpz,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_init(
+        A: *mut fmpz_mod_mpoly_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
     pub fn fmpz_mod_mpoly_clear(
         A: *mut fmpz_mod_mpoly_struct,
         UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
@@ -22176,6 +23629,24 @@ unsafe extern "C" {
         bits: flint_bitcnt_t,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     );
+    pub fn _fmpz_mod_mpoly_fit_length(
+        coeffs: *mut *mut fmpz,
+        coeffs_alloc: *mut slong,
+        exps: *mut *mut ulong,
+        exps_alloc: *mut slong,
+        N: slong,
+        length: slong,
+    );
+    pub fn _fmpz_mod_mpoly_set_length(
+        A: *mut fmpz_mod_mpoly_struct,
+        newlen: slong,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_truncate(
+        A: *mut fmpz_mod_mpoly_struct,
+        newlen: slong,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
     pub fn fmpz_mod_mpoly_set_str_pretty(
         A: *mut fmpz_mod_mpoly_struct,
         str_: *const ::std::os::raw::c_char,
@@ -22212,6 +23683,11 @@ unsafe extern "C" {
         B: *const fmpz_mod_mpoly_struct,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_swap(
+        A: *mut fmpz_mod_mpoly_struct,
+        B: *mut fmpz_mod_mpoly_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
     pub fn fmpz_mod_mpoly_is_fmpz(
         A: *const fmpz_mod_mpoly_struct,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
@@ -22241,6 +23717,14 @@ unsafe extern "C" {
         c: slong,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     );
+    pub fn fmpz_mod_mpoly_zero(
+        A: *mut fmpz_mod_mpoly_struct,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_one(
+        A: *mut fmpz_mod_mpoly_struct,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
     pub fn fmpz_mod_mpoly_equal_fmpz(
         A: *const fmpz_mod_mpoly_struct,
         c: *const fmpz,
@@ -22254,6 +23738,14 @@ unsafe extern "C" {
     pub fn fmpz_mod_mpoly_equal_si(
         A: *const fmpz_mod_mpoly_struct,
         c: slong,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_is_zero(
+        A: *const fmpz_mod_mpoly_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_is_one(
+        A: *const fmpz_mod_mpoly_struct,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn fmpz_mod_mpoly_degrees_fit_si(
@@ -22373,6 +23865,7 @@ unsafe extern "C" {
         length: slong,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     );
+    pub fn fmpz_mod_mpoly_leadcoeff(A: *mut fmpz_mod_mpoly_struct) -> *mut fmpz;
     pub fn fmpz_mod_mpoly_is_fmpz_mod_poly(
         A: *const fmpz_mod_mpoly_struct,
         var: slong,
@@ -22407,6 +23900,10 @@ unsafe extern "C" {
         A: *const fmpz_mod_mpoly_struct,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_length(
+        A: *const fmpz_mod_mpoly_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> slong;
     pub fn fmpz_mod_mpoly_resize(
         A: *mut fmpz_mod_mpoly_struct,
         new_length: slong,
@@ -22863,6 +24360,12 @@ unsafe extern "C" {
         len: slong,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     );
+    pub fn fmpz_mod_mpoly_divexact(
+        Q: *mut fmpz_mod_mpoly_struct,
+        A: *const fmpz_mod_mpoly_struct,
+        B: *const fmpz_mod_mpoly_struct,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
     pub fn _fmpz_mod_mpoly_divides_dense_maxfields(
         Q: *mut fmpz_mod_mpoly_struct,
         A: *const fmpz_mod_mpoly_struct,
@@ -22914,6 +24417,15 @@ unsafe extern "C" {
     );
     pub fn fmpz_mod_mpoly_sqrt_heap(
         Q: *mut fmpz_mod_mpoly_struct,
+        A: *const fmpz_mod_mpoly_struct,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_sqrt(
+        Q: *mut fmpz_mod_mpoly_struct,
+        A: *const fmpz_mod_mpoly_struct,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_is_square(
         A: *const fmpz_mod_mpoly_struct,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
@@ -23026,6 +24538,10 @@ unsafe extern "C" {
         A: *mut fmpz_mod_mpoly_univar_struct,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     );
+    pub fn fmpz_mod_mpoly_univar_zero(
+        A: *mut fmpz_mod_mpoly_univar_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
     pub fn fmpz_mod_mpoly_univar_set_coeff_ui(
         A: *mut fmpz_mod_mpoly_univar_struct,
         e: ulong,
@@ -23049,6 +24565,36 @@ unsafe extern "C" {
         A: *mut fmpz_mod_mpoly_struct,
         B: *const fmpz_mod_mpoly_univar_struct,
         var: slong,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_univar_swap(
+        A: *mut fmpz_mod_mpoly_univar_struct,
+        B: *mut fmpz_mod_mpoly_univar_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_univar_degree_fits_si(
+        A: *const fmpz_mod_mpoly_univar_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_univar_length(
+        A: *const fmpz_mod_mpoly_univar_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> slong;
+    pub fn fmpz_mod_mpoly_univar_get_term_exp_si(
+        A: *mut fmpz_mod_mpoly_univar_struct,
+        i: slong,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> slong;
+    pub fn fmpz_mod_mpoly_univar_get_term_coeff(
+        c: *mut fmpz_mod_mpoly_struct,
+        A: *const fmpz_mod_mpoly_univar_struct,
+        i: slong,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_univar_swap_term_coeff(
+        c: *mut fmpz_mod_mpoly_struct,
+        A: *mut fmpz_mod_mpoly_univar_struct,
+        i: slong,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     );
     pub fn fmpz_mod_mpoly_univar_pseudo_gcd(
@@ -23081,6 +24627,8 @@ unsafe extern "C" {
         var: slong,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    ///Internal functions (guaranteed to change without notice)
+    pub fn _fmpz_mod_mpoly_clear_dense_mock(D: *mut fmpz_mod_poly_struct);
     pub fn _fmpz_mod_mpoly_init_dense_mock(
         D: *mut fmpz_mod_poly_struct,
         A: *const fmpz_mod_mpoly_struct,
@@ -23574,6 +25122,10 @@ impl Default for fmpz_mod_mpoly_pfrac_struct {
 }
 pub type fmpz_mod_mpoly_pfrac_t = [fmpz_mod_mpoly_pfrac_struct; 1usize];
 unsafe extern "C" {
+    pub fn fmpz_mod_mpoly_factor_init(
+        f: *mut fmpz_mod_mpoly_factor_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
     pub fn fmpz_mod_mpoly_factor_init2(
         f: *mut fmpz_mod_mpoly_factor_struct,
         alloc: slong,
@@ -23592,6 +25144,37 @@ unsafe extern "C" {
     pub fn fmpz_mod_mpoly_factor_clear(
         f: *mut fmpz_mod_mpoly_factor_struct,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_factor_length(
+        f: *const fmpz_mod_mpoly_factor_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> slong;
+    pub fn fmpz_mod_mpoly_factor_get_constant_fmpz(
+        c: *mut fmpz,
+        f: *const fmpz_mod_mpoly_factor_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_factor_get_base(
+        p: *mut fmpz_mod_mpoly_struct,
+        f: *const fmpz_mod_mpoly_factor_struct,
+        i: slong,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_factor_swap_base(
+        p: *mut fmpz_mod_mpoly_struct,
+        f: *mut fmpz_mod_mpoly_factor_struct,
+        i: slong,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_factor_get_exp_si(
+        f: *mut fmpz_mod_mpoly_factor_struct,
+        i: slong,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> slong;
+    pub fn fmpz_mod_mpoly_factor_swap(
+        f: *mut fmpz_mod_mpoly_factor_struct,
+        g: *mut fmpz_mod_mpoly_factor_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
     );
     pub fn fmpz_mod_mpoly_factor_set(
         f: *mut fmpz_mod_mpoly_factor_struct,
@@ -23627,6 +25210,8 @@ unsafe extern "C" {
         B: *const fmpz_mod_mpoly_factor_struct,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    ///Internal functions (guaranteed to change without notice)
+    pub fn _fmpz_mod_poly_degree(a: *const fmpz_mod_poly_struct) -> slong;
     pub fn fmpz_mod_poly_scalar_addmul_fmpz_mod(
         A: *mut fmpz_mod_poly_struct,
         B: *const fmpz_mod_poly_struct,
@@ -23681,6 +25266,21 @@ unsafe extern "C" {
         f: *const fmpz_mod_mpoly_factor_struct,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_factor_matches(
+        a: *const fmpz_mod_mpoly_struct,
+        f: *const fmpz_mod_mpoly_factor_struct,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_factor_append_fmpz_swap(
+        f: *mut fmpz_mod_mpoly_factor_struct,
+        A: *mut fmpz_mod_mpoly_struct,
+        e: *const fmpz,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_factor_one(
+        f: *mut fmpz_mod_mpoly_factor_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
     pub fn _fmpz_mod_mpoly_get_lead0(
         c: *mut fmpz_mod_mpoly_struct,
         A: *const fmpz_mod_mpoly_struct,
@@ -23704,18 +25304,48 @@ unsafe extern "C" {
         S: *mut fmpz_mod_poly_stack_struct,
         k: slong,
     ) -> *mut *mut fmpz_mod_poly_struct;
+    pub fn fmpz_mod_poly_stack_request(
+        S: *mut fmpz_mod_poly_stack_struct,
+        k: slong,
+    ) -> *mut *mut fmpz_mod_poly_struct;
+    pub fn fmpz_mod_poly_stack_take_top(
+        S: *mut fmpz_mod_poly_stack_struct,
+    ) -> *mut fmpz_mod_poly_struct;
+    pub fn fmpz_mod_poly_stack_give_back(S: *mut fmpz_mod_poly_stack_struct, k: slong);
+    pub fn fmpz_mod_poly_stack_size(S: *const fmpz_mod_poly_stack_struct) -> slong;
     pub fn fmpz_mod_bpoly_stack_init(S: *mut fmpz_mod_bpoly_stack_struct);
     pub fn fmpz_mod_bpoly_stack_clear(S: *mut fmpz_mod_bpoly_stack_struct);
     pub fn fmpz_mod_bpoly_stack_fit_request(
         S: *mut fmpz_mod_bpoly_stack_struct,
         k: slong,
     ) -> *mut *mut fmpz_mod_bpoly_struct;
+    pub fn fmpz_mod_bpoly_stack_request(
+        S: *mut fmpz_mod_bpoly_stack_struct,
+        k: slong,
+    ) -> *mut *mut fmpz_mod_bpoly_struct;
+    pub fn fmpz_mod_bpoly_stack_take_top(
+        S: *mut fmpz_mod_bpoly_stack_struct,
+    ) -> *mut fmpz_mod_bpoly_struct;
+    pub fn fmpz_mod_bpoly_stack_give_back(S: *mut fmpz_mod_bpoly_stack_struct, k: slong);
+    pub fn fmpz_mod_bpoly_stack_size(S: *const fmpz_mod_bpoly_stack_struct) -> slong;
     pub fn fmpz_mod_polyun_stack_init(S: *mut fmpz_mod_polyun_stack_struct);
     pub fn fmpz_mod_polyun_stack_clear(S: *mut fmpz_mod_polyun_stack_struct);
     pub fn fmpz_mod_polyun_stack_fit_request(
         S: *mut fmpz_mod_polyun_stack_struct,
         k: slong,
     ) -> *mut *mut fmpz_mod_polyun_struct;
+    pub fn fmpz_mod_polyun_stack_request(
+        S: *mut fmpz_mod_polyun_stack_struct,
+        k: slong,
+    ) -> *mut *mut fmpz_mod_polyun_struct;
+    pub fn fmpz_mod_polyun_stack_take_top(
+        S: *mut fmpz_mod_polyun_stack_struct,
+    ) -> *mut fmpz_mod_polyun_struct;
+    pub fn fmpz_mod_polyun_stack_give_back(
+        S: *mut fmpz_mod_polyun_stack_struct,
+        k: slong,
+    );
+    pub fn fmpz_mod_polyun_stack_size(S: *const fmpz_mod_polyun_stack_struct) -> slong;
     pub fn fmpz_mod_mpolyn_stack_init(
         S: *mut fmpz_mod_mpolyn_stack_struct,
         bits: flint_bitcnt_t,
@@ -23730,6 +25360,19 @@ unsafe extern "C" {
         k: slong,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     ) -> *mut *mut fmpz_mod_mpolyn_struct;
+    pub fn fmpz_mod_mpolyn_stack_request(
+        S: *mut fmpz_mod_mpolyn_stack_struct,
+        k: slong,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> *mut *mut fmpz_mod_mpolyn_struct;
+    pub fn fmpz_mod_mpolyn_stack_take_top(
+        S: *mut fmpz_mod_mpolyn_stack_struct,
+    ) -> *mut fmpz_mod_mpolyn_struct;
+    pub fn fmpz_mod_mpolyn_stack_give_back(
+        S: *mut fmpz_mod_mpolyn_stack_struct,
+        k: slong,
+    );
+    pub fn fmpz_mod_mpolyn_stack_size(S: *const fmpz_mod_mpolyn_stack_struct) -> slong;
     pub fn _fmpz_mod_poly_vec_max_degree(
         A: *const fmpz_mod_poly_struct,
         Alen: slong,
@@ -23765,10 +25408,20 @@ unsafe extern "C" {
         g: *const fmpz,
         ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn fmpz_mod_polyu1n_bidegree(A: *const fmpz_mod_polyun_struct) -> ulong;
+    pub fn fmpz_mod_polyun_leadcoeff(A: *const fmpz_mod_polyun_struct) -> *const fmpz;
+    pub fn fmpz_mod_polyun_swap(
+        A: *mut fmpz_mod_polyun_struct,
+        B: *mut fmpz_mod_polyun_struct,
+    );
     pub fn fmpz_mod_polyun_is_canonical(
         A: *const fmpz_mod_polyun_struct,
         ctx: *const fmpz_mod_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_polyun_init(
+        A: *mut fmpz_mod_polyun_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
     pub fn fmpz_mod_polyun_clear(
         A: *mut fmpz_mod_polyun_struct,
         ctx: *const fmpz_mod_ctx_struct,
@@ -23809,6 +25462,11 @@ unsafe extern "C" {
         varlast: *const ::std::os::raw::c_char,
         ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn fmpz_mod_polyun_fit_length(
+        A: *mut fmpz_mod_polyun_struct,
+        len: slong,
+        ctx: *const fmpz_mod_ctx_struct,
+    );
     pub fn fmpz_mod_polyun_one(
         A: *mut fmpz_mod_polyun_struct,
         ctx: *const fmpz_mod_ctx_struct,
@@ -23832,11 +25490,17 @@ unsafe extern "C" {
         bits: flint_bitcnt_t,
         UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
     );
+    pub fn fmpz_mod_mpolyn_swap(
+        A: *mut fmpz_mod_mpolyn_struct,
+        B: *mut fmpz_mod_mpolyn_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
     pub fn fmpz_mod_mpolyn_fit_length(
         A: *mut fmpz_mod_mpolyn_struct,
         length: slong,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     );
+    pub fn fmpz_mod_mpolyn_leadcoeff(A: *const fmpz_mod_mpolyn_struct) -> *const fmpz;
     pub fn fmpz_mod_mpolyn_is_canonical(
         A: *const fmpz_mod_mpolyn_struct,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
@@ -24009,9 +25673,18 @@ unsafe extern "C" {
         alphapow: *mut fmpz_mod_poly_struct,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_polyu_swap(
+        A: *mut fmpz_mod_polyu_struct,
+        B: *mut fmpz_mod_polyu_struct,
+    );
     pub fn fmpz_mod_polyu_init(A: *mut fmpz_mod_polyu_struct);
     pub fn fmpz_mod_polyu_clear(A: *mut fmpz_mod_polyu_struct);
     pub fn fmpz_mod_polyu_realloc(A: *mut fmpz_mod_polyu_struct, len: slong);
+    pub fn fmpz_mod_polyu_fit_length(
+        a: *mut fmpz_mod_polyu_struct,
+        len: slong,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
     pub fn fmpz_mod_polyu3_degrees(
         deg0: *mut slong,
         deg1: *mut slong,
@@ -24041,7 +25714,31 @@ unsafe extern "C" {
         A: *const fmpz_mod_bpoly_struct,
         ctx: *const fmpz_mod_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_bpoly_init(
+        A: *mut fmpz_mod_bpoly_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
     pub fn fmpz_mod_bpoly_clear(
+        A: *mut fmpz_mod_bpoly_struct,
+        ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_bpoly_swap(
+        A: *mut fmpz_mod_bpoly_struct,
+        B: *mut fmpz_mod_bpoly_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_bpoly_get_coeff(
+        c: *mut fmpz,
+        A: *const fmpz_mod_bpoly_struct,
+        e0: slong,
+        e1: slong,
+        ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_bpoly_degree0(
+        A: *const fmpz_mod_bpoly_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    ) -> slong;
+    pub fn fmpz_mod_bpoly_normalise(
         A: *mut fmpz_mod_bpoly_struct,
         ctx: *const fmpz_mod_ctx_struct,
     );
@@ -24069,6 +25766,10 @@ unsafe extern "C" {
         A: *mut fmpz_mod_bpoly_struct,
         ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn fmpz_mod_bpoly_is_one(
+        A: *const fmpz_mod_bpoly_struct,
+        ctx: *const fmpz_mod_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fmpz_mod_bpoly_degree1(
         A: *const fmpz_mod_bpoly_struct,
         UNUSED_ctx: *const fmpz_mod_ctx_struct,
@@ -24166,6 +25867,15 @@ unsafe extern "C" {
         order: slong,
         ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn fmpz_mod_tpoly_init(
+        A: *mut fmpz_mod_tpoly_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_tpoly_swap(
+        A: *mut fmpz_mod_tpoly_struct,
+        B: *mut fmpz_mod_tpoly_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
     pub fn fmpz_mod_tpoly_fit_length(
         A: *mut fmpz_mod_tpoly_struct,
         len: slong,
@@ -24214,6 +25924,15 @@ unsafe extern "C" {
         coeffs: *const fmpz,
         length: slong,
         ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_mpolyv_init(
+        A: *mut fmpz_mod_mpolyv_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpolyv_swap(
+        A: *mut fmpz_mod_mpolyv_struct,
+        B: *mut fmpz_mod_mpolyv_struct,
+        UNUSED_ctx: *const fmpz_mod_mpoly_ctx_struct,
     );
     pub fn fmpz_mod_mpolyv_clear(
         A: *mut fmpz_mod_mpolyv_struct,
@@ -24629,6 +26348,31 @@ unsafe extern "C" {
         res: *const fmpz_mod_mpoly_q_struct,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_q_is_zero(
+        x: *const fmpz_mod_mpoly_q_struct,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_q_is_one(
+        x: *const fmpz_mod_mpoly_q_struct,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_q_is_fmpz_mod(
+        x: *const fmpz_mod_mpoly_q_struct,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_q_zero(
+        res: *mut fmpz_mod_mpoly_q_struct,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_q_one(
+        res: *mut fmpz_mod_mpoly_q_struct,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_q_gen(
+        res: *mut fmpz_mod_mpoly_q_struct,
+        i: slong,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
     pub fn fmpz_mod_mpoly_q_print_pretty(
         f: *const fmpz_mod_mpoly_q_struct,
         x: *mut *const ::std::os::raw::c_char,
@@ -24801,6 +26545,42 @@ unsafe extern "C" {
         y: *const fmpq,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_q_add_si(
+        res: *mut fmpz_mod_mpoly_q_struct,
+        x: *const fmpz_mod_mpoly_q_struct,
+        c: slong,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_q_sub_si(
+        res: *mut fmpz_mod_mpoly_q_struct,
+        x: *const fmpz_mod_mpoly_q_struct,
+        c: slong,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_q_mul_si(
+        res: *mut fmpz_mod_mpoly_q_struct,
+        x: *const fmpz_mod_mpoly_q_struct,
+        c: slong,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mod_mpoly_q_div_si(
+        res: *mut fmpz_mod_mpoly_q_struct,
+        x: *const fmpz_mod_mpoly_q_struct,
+        c: slong,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mpoly_gcd_assert_successful(
+        res: *mut fmpz_mod_mpoly_struct,
+        x: *const fmpz_mod_mpoly_struct,
+        y: *const fmpz_mod_mpoly_struct,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
+    pub fn _fmpz_mod_mpoly_q_mpoly_divexact(
+        res: *mut fmpz_mod_mpoly_struct,
+        x: *const fmpz_mod_mpoly_struct,
+        y: *const fmpz_mod_mpoly_struct,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    );
 }
 
 
@@ -24931,6 +26711,10 @@ impl Default for fmpz_mod_berlekamp_massey_struct {
 }
 pub type fmpz_mod_berlekamp_massey_t = [fmpz_mod_berlekamp_massey_struct; 1usize];
 unsafe extern "C" {
+    pub fn fmpz_mod_poly_init(
+        poly: *mut fmpz_mod_poly_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
     pub fn fmpz_mod_poly_init2(
         poly: *mut fmpz_mod_poly_struct,
         alloc: slong,
@@ -24946,6 +26730,12 @@ unsafe extern "C" {
         ctx: *const fmpz_mod_ctx_struct,
     );
     pub fn _fmpz_mod_poly_fit_length(poly: *mut fmpz_mod_poly_struct, len: slong);
+    pub fn fmpz_mod_poly_fit_length(
+        poly: *mut fmpz_mod_poly_struct,
+        len: slong,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn _fmpz_mod_poly_normalise(poly: *mut fmpz_mod_poly_struct);
     pub fn _fmpz_mod_poly_set_length(poly: *mut fmpz_mod_poly_struct, len: slong);
     pub fn fmpz_mod_poly_truncate(
         poly: *mut fmpz_mod_poly_struct,
@@ -25030,6 +26820,26 @@ unsafe extern "C" {
         len: slong,
         ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn fmpz_mod_poly_length(
+        poly: *const fmpz_mod_poly_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    ) -> slong;
+    pub fn fmpz_mod_poly_degree(
+        poly: *const fmpz_mod_poly_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    ) -> slong;
+    pub fn fmpz_mod_poly_lead(
+        poly: *const fmpz_mod_poly_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    ) -> *mut fmpz;
+    pub fn fmpz_mod_poly_is_monic(
+        f: *const fmpz_mod_poly_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_poly_is_one(
+        poly: *const fmpz_mod_poly_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fmpz_mod_poly_is_gen(
         op: *const fmpz_mod_poly_struct,
         ctx: *const fmpz_mod_ctx_struct,
@@ -25043,6 +26853,11 @@ unsafe extern "C" {
         poly2: *const fmpz_mod_poly_struct,
         ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn fmpz_mod_poly_swap(
+        poly1: *mut fmpz_mod_poly_struct,
+        poly2: *mut fmpz_mod_poly_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    );
     pub fn _fmpz_mod_poly_reverse(
         res: *mut fmpz,
         poly: *const fmpz,
@@ -25054,6 +26869,10 @@ unsafe extern "C" {
         poly: *const fmpz_mod_poly_struct,
         n: slong,
         ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_poly_zero(
+        poly: *mut fmpz_mod_poly_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
     );
     pub fn fmpz_mod_poly_one(
         poly: *mut fmpz_mod_poly_struct,
@@ -25825,6 +27644,22 @@ unsafe extern "C" {
         B: *const fmpz_mod_poly_struct,
         ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn _fmpz_mod_poly_gcd_f(
+        f: *mut fmpz,
+        G: *mut fmpz,
+        A: *const fmpz,
+        lenA: slong,
+        B: *const fmpz,
+        lenB: slong,
+        ctx: *const fmpz_mod_ctx_struct,
+    ) -> slong;
+    pub fn fmpz_mod_poly_gcd_f(
+        f: *mut fmpz,
+        G: *mut fmpz_mod_poly_struct,
+        A: *const fmpz_mod_poly_struct,
+        B: *const fmpz_mod_poly_struct,
+        ctx: *const fmpz_mod_ctx_struct,
+    );
     pub fn _fmpz_mod_poly_hgcd(
         M: *mut *mut fmpz,
         lenM: *mut slong,
@@ -25871,6 +27706,27 @@ unsafe extern "C" {
         ctx: *const fmpz_mod_ctx_struct,
     ) -> slong;
     pub fn fmpz_mod_poly_xgcd(
+        G: *mut fmpz_mod_poly_struct,
+        S: *mut fmpz_mod_poly_struct,
+        T: *mut fmpz_mod_poly_struct,
+        A: *const fmpz_mod_poly_struct,
+        B: *const fmpz_mod_poly_struct,
+        ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn _fmpz_mod_poly_xgcd_f(
+        f: *mut fmpz,
+        G: *mut fmpz,
+        S: *mut fmpz,
+        T: *mut fmpz,
+        A: *const fmpz,
+        lenA: slong,
+        B: *const fmpz,
+        lenB: slong,
+        invB: *const fmpz,
+        ctx: *const fmpz_mod_ctx_struct,
+    ) -> slong;
+    pub fn fmpz_mod_poly_xgcd_f(
+        f: *mut fmpz,
         G: *mut fmpz_mod_poly_struct,
         S: *mut fmpz_mod_poly_struct,
         T: *mut fmpz_mod_poly_struct,
@@ -26490,6 +28346,18 @@ unsafe extern "C" {
         B: *mut fmpz_mod_berlekamp_massey_struct,
         ctx: *const fmpz_mod_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_berlekamp_massey_points(
+        B: *const fmpz_mod_berlekamp_massey_struct,
+    ) -> *const fmpz;
+    pub fn fmpz_mod_berlekamp_massey_point_count(
+        B: *const fmpz_mod_berlekamp_massey_struct,
+    ) -> slong;
+    pub fn fmpz_mod_berlekamp_massey_V_poly(
+        B: *const fmpz_mod_berlekamp_massey_struct,
+    ) -> *const fmpz_mod_poly_struct;
+    pub fn fmpz_mod_berlekamp_massey_R_poly(
+        B: *const fmpz_mod_berlekamp_massey_struct,
+    ) -> *const fmpz_mod_poly_struct;
     pub fn fmpz_mod_poly_add_si(
         res: *mut fmpz_mod_poly_struct,
         poly: *const fmpz_mod_poly_struct,
@@ -26574,6 +28442,11 @@ unsafe extern "C" {
         res: *mut fmpz_mod_poly_factor_struct,
         fac: *const fmpz_mod_poly_factor_struct,
         ctx: *const fmpz_mod_ctx_struct,
+    );
+    pub fn fmpz_mod_poly_factor_swap(
+        a: *mut fmpz_mod_poly_factor_struct,
+        b: *mut fmpz_mod_poly_factor_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
     );
     pub fn fmpz_mod_poly_factor_get_poly(
         a: *mut fmpz_mod_poly_struct,
@@ -27083,6 +28956,12 @@ impl Default for fmpz_mpoly_geobucket {
 pub type fmpz_mpoly_geobucket_struct = fmpz_mpoly_geobucket;
 pub type fmpz_mpoly_geobucket_t = [fmpz_mpoly_geobucket_struct; 1usize];
 unsafe extern "C" {
+    pub fn fmpz_mpoly_term_coeff_ref(
+        A: *mut fmpz_mpoly_struct,
+        i: slong,
+        UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
+    ) -> *mut fmpz;
+    pub fn fmpz_mpoly_leadcoeff(A: *const fmpz_mpoly_struct) -> *mut fmpz;
     pub fn fmpz_mpoly_ctx_init(
         ctx: *mut fmpz_mpoly_ctx_struct,
         nvars: slong,
@@ -27094,6 +28973,8 @@ unsafe extern "C" {
         max_nvars: slong,
     );
     pub fn fmpz_mpoly_ctx_clear(ctx: *mut fmpz_mpoly_ctx_struct);
+    pub fn fmpz_mpoly_ctx_nvars(ctx: *const fmpz_mpoly_ctx_struct) -> slong;
+    pub fn fmpz_mpoly_ctx_ord(ctx: *const fmpz_mpoly_ctx_struct) -> ordering_t;
     pub fn fmpz_mpoly_init(
         A: *mut fmpz_mpoly_struct,
         UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
@@ -27226,6 +29107,15 @@ unsafe extern "C" {
         B: *const fmpz_mpoly_struct,
         ctx: *const fmpz_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpoly_swap(
+        A: *mut fmpz_mpoly_struct,
+        B: *mut fmpz_mpoly_struct,
+        UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn _fmpz_mpoly_fits_small(
+        poly: *const fmpz,
+        len: slong,
+    ) -> ::std::os::raw::c_int;
     pub fn fmpz_mpoly_max_bits(A: *const fmpz_mpoly_struct) -> slong;
     pub fn fmpz_mpoly_is_fmpz(
         A: *const fmpz_mpoly_struct,
@@ -27251,6 +29141,8 @@ unsafe extern "C" {
         c: *const fmpz,
         ctx: *const fmpz_mpoly_ctx_struct,
     );
+    pub fn fmpz_mpoly_zero(A: *mut fmpz_mpoly_struct, ctx: *const fmpz_mpoly_ctx_struct);
+    pub fn fmpz_mpoly_one(A: *mut fmpz_mpoly_struct, ctx: *const fmpz_mpoly_ctx_struct);
     pub fn fmpz_mpoly_equal_si(
         A: *const fmpz_mpoly_struct,
         c: slong,
@@ -27264,6 +29156,14 @@ unsafe extern "C" {
     pub fn fmpz_mpoly_equal_fmpz(
         A: *const fmpz_mpoly_struct,
         c: *const fmpz,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpoly_is_zero(
+        A: *const fmpz_mpoly_struct,
+        UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpoly_is_one(
+        A: *const fmpz_mpoly_struct,
         ctx: *const fmpz_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn fmpz_mpoly_degrees_fit_si(
@@ -27450,6 +29350,10 @@ unsafe extern "C" {
         A: *const fmpz_mpoly_struct,
         ctx: *const fmpz_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpoly_length(
+        A: *const fmpz_mpoly_struct,
+        UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
+    ) -> slong;
     pub fn fmpz_mpoly_resize(
         A: *mut fmpz_mpoly_struct,
         new_length: slong,
@@ -28158,6 +30062,12 @@ unsafe extern "C" {
         len: slong,
         ctx: *const fmpz_mpoly_ctx_struct,
     );
+    pub fn fmpz_mpoly_divexact(
+        Q: *mut fmpz_mpoly_struct,
+        A: *const fmpz_mpoly_struct,
+        B: *const fmpz_mpoly_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
     pub fn _fmpz_mpoly_div_monagan_pearce(
         polyq: *mut *mut fmpz,
         expq: *mut *mut ulong,
@@ -28293,6 +30203,15 @@ unsafe extern "C" {
         ctx: *const fmpz_mpoly_ctx_struct,
         check: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpoly_sqrt(
+        q: *mut fmpz_mpoly_struct,
+        poly2: *const fmpz_mpoly_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpoly_is_square(
+        poly2: *const fmpz_mpoly_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fmpz_mpoly_term_content(
         M: *mut fmpz_mpoly_struct,
         A: *const fmpz_mpoly_struct,
@@ -28396,6 +30315,10 @@ unsafe extern "C" {
         A: *mut fmpz_mpoly_univar_struct,
         ctx: *const fmpz_mpoly_ctx_struct,
     );
+    pub fn fmpz_mpoly_univar_zero(
+        A: *mut fmpz_mpoly_univar_struct,
+        UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
+    );
     pub fn fmpz_mpoly_univar_set_coeff_ui(
         A: *mut fmpz_mpoly_univar_struct,
         e: ulong,
@@ -28421,15 +30344,36 @@ unsafe extern "C" {
         var: slong,
         ctx: *const fmpz_mpoly_ctx_struct,
     );
+    pub fn fmpz_mpoly_univar_swap(
+        A: *mut fmpz_mpoly_univar_struct,
+        B: *mut fmpz_mpoly_univar_struct,
+        UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
+    );
     pub fn fmpz_mpoly_univar_degree_fits_si(
         A: *const fmpz_mpoly_univar_struct,
         UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpoly_univar_length(
+        A: *const fmpz_mpoly_univar_struct,
+        UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
+    ) -> slong;
     pub fn fmpz_mpoly_univar_get_term_exp_si(
         A: *mut fmpz_mpoly_univar_struct,
         i: slong,
         UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
     ) -> slong;
+    pub fn fmpz_mpoly_univar_get_term_coeff(
+        c: *mut fmpz_mpoly_struct,
+        A: *const fmpz_mpoly_univar_struct,
+        i: slong,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mpoly_univar_swap_term_coeff(
+        c: *mut fmpz_mpoly_struct,
+        A: *mut fmpz_mpoly_univar_struct,
+        i: slong,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
     pub fn fmpz_mpoly_univar_pseudo_gcd(
         gx: *mut fmpz_mpoly_univar_struct,
         ax: *const fmpz_mpoly_univar_struct,
@@ -28996,6 +30940,8 @@ unsafe extern "C" {
     );
     pub fn _fmpz_mpoly_add_uiuiui_fmpz(c: *mut ulong, d: *const fmpz);
     pub fn _fmpz_mpoly_sub_uiuiui_fmpz(c: *mut ulong, d: *const fmpz);
+    pub fn _fmpz_mpoly_submul_uiuiui_fmpz(c: *mut ulong, d1: slong, d2: slong);
+    pub fn _fmpz_mpoly_addmul_uiuiui_fmpz(c: *mut ulong, d1: slong, d2: slong);
     ///Internal consistency checks
     pub fn fmpz_mpoly_remainder_test(
         r: *const fmpz_mpoly_struct,
@@ -29127,6 +31073,10 @@ unsafe extern "C" {
     pub fn tuple_print(alpha: *mut fmpz, n: slong);
     pub fn tuple_saturate(alpha: *mut fmpz, n: slong, m: slong);
     pub fn tuple_next(alpha: *mut fmpz, n: slong);
+    pub fn fmpz_mpoly_factor_init(
+        f: *mut fmpz_mpoly_factor_struct,
+        UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
+    );
     pub fn fmpz_mpoly_factor_init2(
         f: *mut fmpz_mpoly_factor_struct,
         alloc: slong,
@@ -29146,6 +31096,10 @@ unsafe extern "C" {
         f: *mut fmpz_mpoly_factor_struct,
         ctx: *const fmpz_mpoly_ctx_struct,
     );
+    pub fn fmpz_mpoly_factor_length(
+        f: *const fmpz_mpoly_factor_struct,
+        UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
+    ) -> slong;
     pub fn fmpz_mpoly_factor_get_constant_fmpz(
         c: *mut fmpz,
         f: *const fmpz_mpoly_factor_struct,
@@ -29155,6 +31109,18 @@ unsafe extern "C" {
         c: *mut fmpq,
         f: *const fmpz_mpoly_factor_struct,
         UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mpoly_factor_get_base(
+        p: *mut fmpz_mpoly_struct,
+        f: *const fmpz_mpoly_factor_struct,
+        i: slong,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mpoly_factor_swap_base(
+        p: *mut fmpz_mpoly_struct,
+        f: *mut fmpz_mpoly_factor_struct,
+        i: slong,
+        ctx: *const fmpz_mpoly_ctx_struct,
     );
     pub fn fmpz_mpoly_factor_get_exp_si(
         f: *mut fmpz_mpoly_factor_struct,
@@ -29191,6 +31157,11 @@ unsafe extern "C" {
         A: *const fmpz_mpoly_struct,
         ctx: *const fmpz_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpoly_factor_swap(
+        f: *mut fmpz_mpoly_factor_struct,
+        g: *mut fmpz_mpoly_factor_struct,
+        UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
+    );
     pub fn fmpz_mpoly_factor_set_fmpz(
         f: *mut fmpz_mpoly_factor_struct,
         a: *const fmpz,
@@ -29218,6 +31189,11 @@ unsafe extern "C" {
         A: *const fmpz,
         degs: *const slong,
         nvars: slong,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpoly_factor_matches(
+        A: *const fmpz_mpoly_struct,
+        f: *const fmpz_mpoly_factor_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn fmpz_mpoly_factor_append_fmpz_swap(
         f: *mut fmpz_mpoly_factor_struct,
@@ -29271,6 +31247,15 @@ unsafe extern "C" {
         A: *const nmod_mpolyn_struct,
         pctx: *const nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpolyv_init(
+        A: *mut fmpz_mpolyv_struct,
+        UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mpolyv_swap(
+        A: *mut fmpz_mpolyv_struct,
+        B: *mut fmpz_mpolyv_struct,
+        UNUSED_ctx: *const fmpz_mpoly_ctx_struct,
+    );
     pub fn fmpz_mpolyv_clear(
         A: *mut fmpz_mpolyv_struct,
         ctx: *const fmpz_mpoly_ctx_struct,
@@ -29449,13 +31434,19 @@ unsafe extern "C" {
         c: *const fmpz_mpoly_struct,
         ctx: *const fmpz_mpoly_ctx_struct,
     );
+    pub fn fmpz_bpoly_init(A: *mut fmpz_bpoly_struct);
+    pub fn fmpz_bpoly_swap(A: *mut fmpz_bpoly_struct, B: *mut fmpz_bpoly_struct);
     pub fn fmpz_bpoly_clear(A: *mut fmpz_bpoly_struct);
     pub fn fmpz_bpoly_realloc(A: *mut fmpz_bpoly_struct, len: slong);
+    pub fn fmpz_bpoly_fit_length(A: *mut fmpz_bpoly_struct, len: slong);
     pub fn fmpz_bpoly_print_pretty(
         A: *mut fmpz_bpoly_struct,
         var0: *const ::std::os::raw::c_char,
         var1: *const ::std::os::raw::c_char,
     );
+    pub fn fmpz_bpoly_lead(A: *mut fmpz_bpoly_struct) -> *mut fmpz_poly_struct;
+    pub fn fmpz_bpoly_zero(A: *mut fmpz_bpoly_struct);
+    pub fn fmpz_bpoly_degree0(A: *const fmpz_bpoly_struct) -> slong;
     pub fn fmpz_bpoly_degree1(A: *const fmpz_bpoly_struct) -> slong;
     pub fn fmpz_bpoly_set_coeff(
         A: *mut fmpz_bpoly_struct,
@@ -29478,6 +31469,8 @@ unsafe extern "C" {
         var1: slong,
         ctx: *const fmpz_mpoly_ctx_struct,
     );
+    pub fn fmpz_tpoly_init(A: *mut fmpz_tpoly_struct);
+    pub fn fmpz_tpoly_swap(A: *mut fmpz_tpoly_struct, B: *mut fmpz_tpoly_struct);
     pub fn fmpz_tpoly_fit_length(A: *mut fmpz_tpoly_struct, len: slong);
     pub fn fmpz_tpoly_clear(A: *mut fmpz_tpoly_struct);
     pub fn fmpz_bpoly_factor(
@@ -29669,6 +31662,22 @@ unsafe extern "C" {
         res: *const fmpz_mpoly_q_struct,
         ctx: *const fmpz_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpoly_q_is_zero(
+        x: *const fmpz_mpoly_q_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpoly_q_is_one(
+        x: *const fmpz_mpoly_q_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpoly_q_is_fmpz(
+        x: *const fmpz_mpoly_q_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpoly_q_is_fmpq(
+        x: *const fmpz_mpoly_q_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fmpz_mpoly_q_used_vars(
         used: *mut ::std::os::raw::c_int,
         f: *const fmpz_mpoly_q_struct,
@@ -29682,6 +31691,19 @@ unsafe extern "C" {
     pub fn fmpz_mpoly_q_used_vars_den(
         used: *mut ::std::os::raw::c_int,
         f: *const fmpz_mpoly_q_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mpoly_q_zero(
+        res: *mut fmpz_mpoly_q_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mpoly_q_one(
+        res: *mut fmpz_mpoly_q_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mpoly_q_gen(
+        res: *mut fmpz_mpoly_q_struct,
+        i: slong,
         ctx: *const fmpz_mpoly_ctx_struct,
     );
     pub fn fmpz_mpoly_q_print_pretty(
@@ -29858,6 +31880,60 @@ unsafe extern "C" {
         y: *const fmpq,
         ctx: *const fmpz_mpoly_ctx_struct,
     );
+    pub fn fmpz_mpoly_q_add_si(
+        res: *mut fmpz_mpoly_q_struct,
+        x: *const fmpz_mpoly_q_struct,
+        c: slong,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mpoly_q_sub_si(
+        res: *mut fmpz_mpoly_q_struct,
+        x: *const fmpz_mpoly_q_struct,
+        c: slong,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mpoly_q_mul_si(
+        res: *mut fmpz_mpoly_q_struct,
+        x: *const fmpz_mpoly_q_struct,
+        c: slong,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mpoly_q_div_si(
+        res: *mut fmpz_mpoly_q_struct,
+        x: *const fmpz_mpoly_q_struct,
+        c: slong,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn _fmpz_vec_content2(
+        res: *mut fmpz,
+        vec: *const fmpz,
+        len: slong,
+        inp: *const fmpz,
+    );
+    pub fn fmpz_mpoly_gcd_assert_successful(
+        res: *mut fmpz_mpoly_struct,
+        x: *const fmpz_mpoly_struct,
+        y: *const fmpz_mpoly_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn _fmpz_mpoly_q_mpoly_divexact(
+        res: *mut fmpz_mpoly_struct,
+        x: *const fmpz_mpoly_struct,
+        y: *const fmpz_mpoly_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn _fmpz_mpoly_q_content(
+        num: *mut fmpz,
+        den: *mut fmpz,
+        xnum: *const fmpz_mpoly_struct,
+        xden: *const fmpz_mpoly_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
+    pub fn fmpz_mpoly_q_content(
+        res: *mut fmpq,
+        x: *const fmpz_mpoly_q_struct,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    );
     pub fn fmpz_mpoly_q_evaluate_acb(
         res: *mut acb_struct,
         f: *const fmpz_mpoly_q_struct,
@@ -29913,6 +31989,18 @@ unsafe extern "C" {
     pub fn fmpz_poly_clear(poly: *mut fmpz_poly_struct);
     pub fn _fmpz_poly_normalise(poly: *mut fmpz_poly_struct);
     pub fn _fmpz_poly_set_length(poly: *mut fmpz_poly_struct, newlen: slong);
+    pub fn fmpz_poly_attach_truncate(
+        trunc: *mut fmpz_poly_struct,
+        poly: *const fmpz_poly_struct,
+        n: slong,
+    );
+    pub fn fmpz_poly_attach_shift(
+        trunc: *mut fmpz_poly_struct,
+        poly: *const fmpz_poly_struct,
+        n: slong,
+    );
+    pub fn fmpz_poly_length(poly: *const fmpz_poly_struct) -> slong;
+    pub fn fmpz_poly_degree(poly: *const fmpz_poly_struct) -> slong;
     pub fn fmpz_poly_set(poly1: *mut fmpz_poly_struct, poly2: *const fmpz_poly_struct);
     pub fn fmpz_poly_set_ui(poly: *mut fmpz_poly_struct, c: ulong);
     pub fn fmpz_poly_set_si(poly: *mut fmpz_poly_struct, c: slong);
@@ -29941,6 +32029,8 @@ unsafe extern "C" {
         poly: *const fmpz_poly_struct,
         x: *const ::std::os::raw::c_char,
     ) -> *mut ::std::os::raw::c_char;
+    pub fn fmpz_poly_zero(poly: *mut fmpz_poly_struct);
+    pub fn fmpz_poly_one(poly: *mut fmpz_poly_struct);
     pub fn fmpz_poly_zero_coeffs(poly: *mut fmpz_poly_struct, i: slong, j: slong);
     pub fn fmpz_poly_swap(poly1: *mut fmpz_poly_struct, poly2: *mut fmpz_poly_struct);
     pub fn _fmpz_poly_reverse(res: *mut fmpz, poly: *const fmpz, len: slong, n: slong);
@@ -29950,6 +32040,7 @@ unsafe extern "C" {
         n: slong,
     );
     pub fn _fmpz_poly_deflation(a: *const fmpz, len: slong) -> ulong;
+    pub fn fmpz_poly_deflation(input: *const fmpz_poly_struct) -> ulong;
     pub fn fmpz_poly_deflate(
         result: *mut fmpz_poly_struct,
         input: *const fmpz_poly_struct,
@@ -30032,6 +32123,9 @@ unsafe extern "C" {
         n: slong,
     ) -> ::std::os::raw::c_int;
     pub fn _fmpz_poly_is_one(poly: *const fmpz, len: slong) -> ::std::os::raw::c_int;
+    pub fn fmpz_poly_is_one(op: *const fmpz_poly_struct) -> ::std::os::raw::c_int;
+    pub fn fmpz_poly_is_unit(op: *const fmpz_poly_struct) -> ::std::os::raw::c_int;
+    pub fn fmpz_poly_is_gen(op: *const fmpz_poly_struct) -> ::std::os::raw::c_int;
     pub fn fmpz_poly_equal_fmpz(
         poly: *const fmpz_poly_struct,
         c: *const fmpz,
@@ -30511,6 +32605,11 @@ unsafe extern "C" {
         pre: *mut fmpz_poly_mul_precache_struct,
         n: slong,
     );
+    pub fn fmpz_poly_mul_SS_precache(
+        res: *mut fmpz_poly_struct,
+        poly1: *const fmpz_poly_struct,
+        pre: *mut fmpz_poly_mul_precache_struct,
+    );
     pub fn _fmpz_poly_sqr_KS(rop: *mut fmpz, op: *const fmpz, len: slong);
     pub fn fmpz_poly_sqr_KS(rop: *mut fmpz_poly_struct, op: *const fmpz_poly_struct);
     pub fn fmpz_poly_sqr_karatsuba(
@@ -30768,6 +32867,22 @@ unsafe extern "C" {
         len2: slong,
     );
     pub fn fmpz_poly_xgcd_modular(
+        r: *mut fmpz,
+        s: *mut fmpz_poly_struct,
+        t: *mut fmpz_poly_struct,
+        poly1: *const fmpz_poly_struct,
+        poly2: *const fmpz_poly_struct,
+    );
+    pub fn _fmpz_poly_xgcd(
+        r: *mut fmpz,
+        s: *mut fmpz,
+        t: *mut fmpz,
+        poly1: *const fmpz,
+        len1: slong,
+        poly2: *const fmpz,
+        len2: slong,
+    );
+    pub fn fmpz_poly_xgcd(
         r: *mut fmpz,
         s: *mut fmpz_poly_struct,
         t: *mut fmpz_poly_struct,
@@ -31136,6 +33251,13 @@ unsafe extern "C" {
         A: *const fmpz_poly_struct,
         B: *const fmpz_poly_struct,
     );
+    pub fn fmpz_poly_pseudo_divrem(
+        Q: *mut fmpz_poly_struct,
+        R: *mut fmpz_poly_struct,
+        d: *mut ulong,
+        A: *const fmpz_poly_struct,
+        B: *const fmpz_poly_struct,
+    );
     pub fn fmpz_poly_pseudo_div(
         Q: *mut fmpz_poly_struct,
         d: *mut ulong,
@@ -31337,6 +33459,11 @@ unsafe extern "C" {
         c: *const fmpz,
     );
     pub fn _fmpz_poly_taylor_shift_multi_mod(poly: *mut fmpz, c: *const fmpz, n: slong);
+    pub fn fmpz_poly_taylor_shift_multi_mod(
+        g: *mut fmpz_poly_struct,
+        f: *const fmpz_poly_struct,
+        c: *const fmpz,
+    );
     pub fn _fmpz_poly_taylor_shift(poly: *mut fmpz, c: *const fmpz, n: slong);
     pub fn fmpz_poly_taylor_shift(
         g: *mut fmpz_poly_struct,
@@ -31926,8 +34053,10 @@ unsafe extern "C" {
     pub fn zassenhaus_subset_first(s: *mut slong, r: slong, m: slong);
     pub fn zassenhaus_subset_next(s: *mut slong, r: slong) -> ::std::os::raw::c_int;
     pub fn zassenhaus_subset_next_disjoint(s: *mut slong, r: slong) -> slong;
+    pub fn zassenhaus_prune_init(Z: *mut zassenhaus_prune_struct);
     pub fn zassenhaus_prune_clear(Z: *mut zassenhaus_prune_struct);
     pub fn zassenhaus_prune_set_degree(Z: *mut zassenhaus_prune_struct, d: slong);
+    pub fn zassenhaus_prune_start_add_factors(Z: *mut zassenhaus_prune_struct);
     pub fn zassenhaus_prune_add_factor(
         Z: *mut zassenhaus_prune_struct,
         deg: slong,
@@ -31936,6 +34065,10 @@ unsafe extern "C" {
     pub fn zassenhaus_prune_end_add_factors(Z: *mut zassenhaus_prune_struct);
     pub fn zassenhaus_prune_must_be_irreducible(
         Z: *const zassenhaus_prune_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn zassenhaus_prune_degree_is_possible(
+        Z: *const zassenhaus_prune_struct,
+        d: slong,
     ) -> ::std::os::raw::c_int;
     pub fn fmpz_poly_factor_zassenhaus_recombination_with_prune(
         final_fac: *mut fmpz_poly_factor_struct,
@@ -31951,12 +34084,23 @@ unsafe extern "C" {
 /* fmpz_poly_mat.h */
 
 unsafe extern "C" {
+    pub fn fmpz_poly_mat_entry(
+        mat: *const fmpz_poly_mat_struct,
+        i: slong,
+        j: slong,
+    ) -> *mut fmpz_poly_struct;
+    pub fn fmpz_poly_mat_nrows(mat: *const fmpz_poly_mat_struct) -> slong;
+    pub fn fmpz_poly_mat_ncols(mat: *const fmpz_poly_mat_struct) -> slong;
     pub fn fmpz_poly_mat_init(mat: *mut fmpz_poly_mat_struct, rows: slong, cols: slong);
     pub fn fmpz_poly_mat_init_set(
         mat: *mut fmpz_poly_mat_struct,
         src: *const fmpz_poly_mat_struct,
     );
     pub fn fmpz_poly_mat_swap(
+        mat1: *mut fmpz_poly_mat_struct,
+        mat2: *mut fmpz_poly_mat_struct,
+    );
+    pub fn fmpz_poly_mat_swap_entrywise(
         mat1: *mut fmpz_poly_mat_struct,
         mat2: *mut fmpz_poly_mat_struct,
     );
@@ -31973,6 +34117,12 @@ unsafe extern "C" {
         mat: *const fmpz_poly_mat_struct,
     ) -> ::std::os::raw::c_int;
     pub fn fmpz_poly_mat_is_one(
+        mat: *const fmpz_poly_mat_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_poly_mat_is_empty(
+        mat: *const fmpz_poly_mat_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_poly_mat_is_square(
         mat: *const fmpz_poly_mat_struct,
     ) -> ::std::os::raw::c_int;
     pub fn fmpz_poly_mat_zero(mat: *mut fmpz_poly_mat_struct);
@@ -32205,7 +34355,16 @@ unsafe extern "C" {
     pub fn fmpz_poly_q_set(rop: *mut fmpz_poly_q_struct, op: *const fmpz_poly_q_struct);
     pub fn fmpz_poly_q_set_si(rop: *mut fmpz_poly_q_struct, op: slong);
     pub fn fmpz_poly_q_swap(op1: *mut fmpz_poly_q_struct, op2: *mut fmpz_poly_q_struct);
+    pub fn fmpz_poly_q_zero(rop: *mut fmpz_poly_q_struct);
+    pub fn fmpz_poly_q_one(rop: *mut fmpz_poly_q_struct);
+    pub fn fmpz_poly_q_neg(rop: *mut fmpz_poly_q_struct, op: *const fmpz_poly_q_struct);
     pub fn fmpz_poly_q_inv(rop: *mut fmpz_poly_q_struct, op: *const fmpz_poly_q_struct);
+    pub fn fmpz_poly_q_is_zero(op: *const fmpz_poly_q_struct) -> ::std::os::raw::c_int;
+    pub fn fmpz_poly_q_is_one(op: *const fmpz_poly_q_struct) -> ::std::os::raw::c_int;
+    pub fn fmpz_poly_q_equal(
+        op1: *const fmpz_poly_q_struct,
+        op2: *const fmpz_poly_q_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fmpz_poly_q_add_in_place(
         rop: *mut fmpz_poly_q_struct,
         op: *const fmpz_poly_q_struct,
@@ -32515,6 +34674,7 @@ pub type fmpzi_t = [fmpzi_struct; 1usize];
 /* fmpz_vec.h */
 
 unsafe extern "C" {
+    pub fn _fmpz_vec_init(len: slong) -> *mut fmpz;
     pub fn _fmpz_vec_clear(vec: *mut fmpz, len: slong);
     pub fn _fmpz_vec_randtest(
         f: *mut fmpz,
@@ -32790,14 +34950,52 @@ unsafe extern "C" {
         reverse: ::std::os::raw::c_int,
         len: slong,
     );
+    pub fn _fmpz_vec_dot(
+        res: *mut fmpz,
+        vec1: *const fmpz,
+        vec2: *const fmpz,
+        len2: slong,
+    );
 }
 
 
 /* fmpzi.h */
 
 unsafe extern "C" {
+    pub fn fmpzi_init(x: *mut fmpzi_struct);
+    pub fn fmpzi_clear(x: *mut fmpzi_struct);
+    pub fn fmpzi_equal(
+        x: *const fmpzi_struct,
+        y: *const fmpzi_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpzi_zero(x: *mut fmpzi_struct);
+    pub fn fmpzi_one(x: *mut fmpzi_struct);
+    pub fn fmpzi_set(res: *mut fmpzi_struct, x: *const fmpzi_struct);
+    pub fn fmpzi_conj(res: *mut fmpzi_struct, x: *const fmpzi_struct);
+    pub fn fmpzi_swap(x: *mut fmpzi_struct, y: *mut fmpzi_struct);
     pub fn fmpzi_print(x: *const fmpzi_struct);
+    pub fn fmpzi_set_si_si(res: *mut fmpzi_struct, a: slong, b: slong);
+    pub fn fmpzi_randtest(
+        res: *mut fmpzi_struct,
+        state: *mut flint_rand_struct,
+        bits: flint_bitcnt_t,
+    );
+    pub fn fmpzi_is_unit(x: *const fmpzi_struct) -> ::std::os::raw::c_int;
+    pub fn fmpzi_is_zero(x: *const fmpzi_struct) -> ::std::os::raw::c_int;
+    pub fn fmpzi_is_one(x: *const fmpzi_struct) -> ::std::os::raw::c_int;
     pub fn fmpzi_bits(x: *const fmpzi_struct) -> slong;
+    pub fn fmpzi_norm(res: *mut fmpz, x: *const fmpzi_struct);
+    pub fn fmpzi_neg(res: *mut fmpzi_struct, x: *const fmpzi_struct);
+    pub fn fmpzi_add(
+        res: *mut fmpzi_struct,
+        x: *const fmpzi_struct,
+        y: *const fmpzi_struct,
+    );
+    pub fn fmpzi_sub(
+        res: *mut fmpzi_struct,
+        x: *const fmpzi_struct,
+        y: *const fmpzi_struct,
+    );
     pub fn fmpzi_sqr(res: *mut fmpzi_struct, x: *const fmpzi_struct);
     pub fn fmpzi_mul(
         res: *mut fmpzi_struct,
@@ -32809,6 +35007,7 @@ unsafe extern "C" {
     pub fn fmpzi_div_i(z: *mut fmpzi_struct, x: *const fmpzi_struct);
     pub fn fmpzi_mul_i_pow_si(res: *mut fmpzi_struct, z: *const fmpzi_struct, k: slong);
     pub fn fmpzi_canonical_unit_i_pow(x: *const fmpzi_struct) -> slong;
+    pub fn fmpzi_canonicalise_unit(res: *mut fmpzi_struct, x: *const fmpzi_struct);
     pub fn fmpzi_divrem(
         q: *mut fmpzi_struct,
         r: *mut fmpzi_struct,
@@ -32910,6 +35109,9 @@ unsafe extern "C" {
         type_: ::std::os::raw::c_int,
     );
     pub fn fq_ctx_clear(ctx: *mut fq_ctx_struct);
+    pub fn fq_ctx_modulus(ctx: *const fq_ctx_struct) -> *const fmpz_mod_poly_struct;
+    pub fn fq_ctx_degree(ctx: *const fq_ctx_struct) -> slong;
+    pub fn fq_ctx_prime(ctx: *const fq_ctx_struct) -> *const fmpz;
     pub fn fq_ctx_order(f: *mut fmpz, ctx: *const fq_ctx_struct);
     pub fn fq_ctx_print(ctx: *const fq_ctx_struct);
     pub fn fq_init(rop: *mut fmpz_poly_struct, UNUSED_ctx: *const fq_ctx_struct);
@@ -33195,6 +35397,15 @@ unsafe extern "C" {
         var: *const ::std::os::raw::c_char,
         type_: ::std::os::raw::c_int,
     );
+    pub fn fq_default_ctx_init(
+        ctx: *mut fq_default_ctx_struct,
+        p: *const fmpz,
+        d: slong,
+        var: *const ::std::os::raw::c_char,
+    );
+    pub fn fq_default_ctx_inner(
+        ctx: *const fq_default_ctx_struct,
+    ) -> *mut ::std::os::raw::c_void;
     pub fn fq_default_ctx_init_modulus_type(
         ctx: *mut fq_default_ctx_struct,
         modulus: *const fmpz_mod_poly_struct,
@@ -33219,15 +35430,211 @@ unsafe extern "C" {
         modulus: *const nmod_poly_struct,
         var: *const ::std::os::raw::c_char,
     );
+    pub fn fq_default_ctx_clear(ctx: *mut fq_default_ctx_struct);
+    pub fn fq_default_ctx_type(
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_ctx_degree(ctx: *const fq_default_ctx_struct) -> slong;
+    pub fn fq_default_ctx_prime(prime: *mut fmpz, ctx: *const fq_default_ctx_struct);
     pub fn fq_default_ctx_modulus(
         p: *mut fmpz_mod_poly_struct,
         ctx: *const fq_default_ctx_struct,
     );
+    pub fn fq_default_ctx_order(f: *mut fmpz, ctx: *const fq_default_ctx_struct);
     pub fn fq_default_ctx_print(ctx: *const fq_default_ctx_struct);
     pub fn fq_default_ctx_init_randtest(
         ctx: *mut fq_default_ctx_struct,
         state: *mut flint_rand_struct,
     );
+    pub fn fq_default_init(
+        rop: *mut fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_init2(
+        rop: *mut fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_clear(
+        rop: *mut fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_add(
+        rop: *mut fq_default_struct,
+        op1: *const fq_default_struct,
+        op2: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_sub(
+        rop: *mut fq_default_struct,
+        op1: *const fq_default_struct,
+        op2: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_sub_one(
+        rop: *mut fq_default_struct,
+        op1: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_neg(
+        rop: *mut fq_default_struct,
+        op1: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mul(
+        rop: *mut fq_default_struct,
+        op1: *const fq_default_struct,
+        op2: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mul_fmpz(
+        rop: *mut fq_default_struct,
+        op: *const fq_default_struct,
+        x: *const fmpz,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mul_si(
+        rop: *mut fq_default_struct,
+        op: *const fq_default_struct,
+        x: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mul_ui(
+        rop: *mut fq_default_struct,
+        op: *const fq_default_struct,
+        x: ulong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_sqr(
+        rop: *mut fq_default_struct,
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_is_invertible(
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_inv(
+        rop: *mut fq_default_struct,
+        op1: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_div(
+        rop: *mut fq_default_struct,
+        op1: *mut fq_default_struct,
+        op2: *mut fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_pow(
+        rop: *mut fq_default_struct,
+        op1: *const fq_default_struct,
+        e: *const fmpz,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_pow_ui(
+        rop: *mut fq_default_struct,
+        op: *const fq_default_struct,
+        e: ulong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_is_square(
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_sqrt(
+        rop: *mut fq_default_struct,
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_pth_root(
+        rop: *mut fq_default_struct,
+        op1: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_randtest(
+        rop: *mut fq_default_struct,
+        state: *mut flint_rand_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_randtest_not_zero(
+        rop: *mut fq_default_struct,
+        state: *mut flint_rand_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_rand(
+        rop: *mut fq_default_struct,
+        state: *mut flint_rand_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_rand_not_zero(
+        rop: *mut fq_default_struct,
+        state: *mut flint_rand_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_equal(
+        op1: *const fq_default_struct,
+        op2: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_is_zero(
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_is_one(
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_set(
+        rop: *mut fq_default_struct,
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_set_fmpz(
+        rop: *mut fq_default_struct,
+        x: *const fmpz,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_set_ui(
+        rop: *mut fq_default_struct,
+        x: ulong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_set_si(
+        rop: *mut fq_default_struct,
+        x: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_zero(
+        rop: *mut fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_one(
+        rop: *mut fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_swap(
+        op1: *mut fq_default_struct,
+        op2: *mut fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_gen(
+        rop: *mut fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_get_nmod_poly(
+        poly: *mut nmod_poly_struct,
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_set_nmod_poly(
+        op: *mut fq_default_struct,
+        poly: *const nmod_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_get_fmpz(
+        z: *mut fmpz,
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_default_get_fmpz_mod_poly(
         poly: *mut fmpz_mod_poly_struct,
         op: *const fq_default_struct,
@@ -33248,11 +35655,41 @@ unsafe extern "C" {
         poly: *const fmpz_poly_struct,
         ctx: *const fq_default_ctx_struct,
     );
+    pub fn fq_default_get_coeff_fmpz(
+        c: *mut fmpz,
+        op: *mut fq_default_struct,
+        n: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
     pub fn fq_default_print(
         op: *const fq_default_struct,
         ctx: *const fq_default_ctx_struct,
     );
     pub fn fq_default_print_pretty(
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_get_str(
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> *mut ::std::os::raw::c_char;
+    pub fn fq_default_get_str_pretty(
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> *mut ::std::os::raw::c_char;
+    pub fn fq_default_trace(
+        rop: *mut fmpz,
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_frobenius(
+        rop: *mut fq_default_struct,
+        op: *const fq_default_struct,
+        e: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_norm(
+        rop: *mut fmpz,
         op: *const fq_default_struct,
         ctx: *const fq_default_ctx_struct,
     );
@@ -33280,6 +35717,158 @@ impl Default for fq_default_mat_struct {
 }
 pub type fq_default_mat_t = [fq_default_mat_struct; 1usize];
 unsafe extern "C" {
+    pub fn fq_default_mat_init(
+        mat: *mut fq_default_mat_struct,
+        rows: slong,
+        cols: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_init_set(
+        mat: *mut fq_default_mat_struct,
+        src: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_swap(
+        mat1: *mut fq_default_mat_struct,
+        mat2: *mut fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_set(
+        mat1: *mut fq_default_mat_struct,
+        mat2: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_clear(
+        mat: *mut fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_equal(
+        mat1: *const fq_default_mat_struct,
+        mat2: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_mat_is_zero(
+        mat: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_mat_is_one(
+        mat: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_mat_is_empty(
+        mat: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_mat_is_square(
+        mat: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_mat_transpose(
+        B: *mut fq_default_mat_struct,
+        A: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_entry(
+        val: *mut fq_default_struct,
+        mat: *const fq_default_mat_struct,
+        i: slong,
+        j: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_entry_set(
+        mat: *mut fq_default_mat_struct,
+        i: slong,
+        j: slong,
+        x: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_entry_set_fmpz(
+        mat: *mut fq_default_mat_struct,
+        i: slong,
+        j: slong,
+        x: *const fmpz,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_nrows(
+        mat: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> slong;
+    pub fn fq_default_mat_ncols(
+        mat: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> slong;
+    pub fn fq_default_mat_swap_rows(
+        mat: *mut fq_default_mat_struct,
+        perm: *mut slong,
+        r: slong,
+        s: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_invert_rows(
+        mat: *mut fq_default_mat_struct,
+        perm: *mut slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_swap_cols(
+        mat: *mut fq_default_mat_struct,
+        perm: *mut slong,
+        r: slong,
+        s: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_invert_cols(
+        mat: *mut fq_default_mat_struct,
+        perm: *mut slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_zero(
+        A: *mut fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_one(
+        A: *mut fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_set_nmod_mat(
+        mat1: *mut fq_default_mat_struct,
+        mat2: *const nmod_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_set_fmpz_mod_mat(
+        mat1: *mut fq_default_mat_struct,
+        mat2: *const fmpz_mod_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_set_fmpz_mat(
+        mat1: *mut fq_default_mat_struct,
+        mat2: *const fmpz_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_window_init(
+        window: *mut fq_default_mat_struct,
+        mat: *const fq_default_mat_struct,
+        r1: slong,
+        c1: slong,
+        r2: slong,
+        c2: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_window_clear(
+        window: *mut fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_concat_horizontal(
+        res: *mut fq_default_mat_struct,
+        mat1: *const fq_default_mat_struct,
+        mat2: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_concat_vertical(
+        res: *mut fq_default_mat_struct,
+        mat1: *const fq_default_mat_struct,
+        mat2: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
     pub fn fq_default_mat_print(
         mat: *const fq_default_mat_struct,
         ctx: *const fq_default_ctx_struct,
@@ -33288,6 +35877,122 @@ unsafe extern "C" {
         mat: *const fq_default_mat_struct,
         ctx: *const fq_default_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_default_mat_randtest(
+        mat: *mut fq_default_mat_struct,
+        state: *mut flint_rand_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_randrank(
+        mat: *mut fq_default_mat_struct,
+        state: *mut flint_rand_struct,
+        rank: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_randops(
+        mat: *mut fq_default_mat_struct,
+        state: *mut flint_rand_struct,
+        count: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_randtril(
+        mat: *mut fq_default_mat_struct,
+        state: *mut flint_rand_struct,
+        unit: ::std::os::raw::c_int,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_randtriu(
+        mat: *mut fq_default_mat_struct,
+        state: *mut flint_rand_struct,
+        unit: ::std::os::raw::c_int,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_add(
+        C: *mut fq_default_mat_struct,
+        A: *const fq_default_mat_struct,
+        B: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_sub(
+        C: *mut fq_default_mat_struct,
+        A: *const fq_default_mat_struct,
+        B: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_neg(
+        B: *mut fq_default_mat_struct,
+        A: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_submul(
+        D: *mut fq_default_mat_struct,
+        C: *const fq_default_mat_struct,
+        A: *const fq_default_mat_struct,
+        B: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_mul(
+        C: *mut fq_default_mat_struct,
+        A: *const fq_default_mat_struct,
+        B: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_lu(
+        P: *mut slong,
+        A: *mut fq_default_mat_struct,
+        rank_check: ::std::os::raw::c_int,
+        ctx: *const fq_default_ctx_struct,
+    ) -> slong;
+    pub fn fq_default_mat_inv(
+        B: *mut fq_default_mat_struct,
+        A: *mut fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_mat_rref(
+        B: *mut fq_default_mat_struct,
+        A: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> slong;
+    pub fn fq_default_mat_nullspace(
+        X: *mut fq_default_mat_struct,
+        A: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> slong;
+    pub fn fq_default_mat_rank(
+        A: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> slong;
+    pub fn fq_default_mat_solve_tril(
+        X: *mut fq_default_mat_struct,
+        L: *const fq_default_mat_struct,
+        B: *const fq_default_mat_struct,
+        unit: ::std::os::raw::c_int,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_solve_triu(
+        X: *mut fq_default_mat_struct,
+        U: *const fq_default_mat_struct,
+        B: *const fq_default_mat_struct,
+        unit: ::std::os::raw::c_int,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_solve(
+        X: *mut fq_default_mat_struct,
+        A: *const fq_default_mat_struct,
+        C: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_mat_can_solve(
+        X: *mut fq_default_mat_struct,
+        A: *const fq_default_mat_struct,
+        B: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_mat_similarity(
+        A: *mut fq_default_mat_struct,
+        r: slong,
+        d: *mut fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
 }
 
 
@@ -33312,9 +36017,422 @@ impl Default for fq_default_poly_struct {
 }
 pub type fq_default_poly_t = [fq_default_poly_struct; 1usize];
 unsafe extern "C" {
+    pub fn fq_default_poly_init(
+        poly: *mut fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_init2(
+        poly: *mut fq_default_poly_struct,
+        alloc: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_realloc(
+        poly: *mut fq_default_poly_struct,
+        alloc: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_truncate(
+        poly: *mut fq_default_poly_struct,
+        len: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_set_trunc(
+        poly1: *mut fq_default_poly_struct,
+        poly2: *mut fq_default_poly_struct,
+        len: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_fit_length(
+        poly: *mut fq_default_poly_struct,
+        len: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn _fq_default_poly_set_length(
+        poly: *mut fq_default_poly_struct,
+        len: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_clear(
+        poly: *mut fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_length(
+        poly: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> slong;
+    pub fn fq_default_poly_degree(
+        poly: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> slong;
+    pub fn fq_default_poly_randtest(
+        f: *mut fq_default_poly_struct,
+        state: *mut flint_rand_struct,
+        len: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_randtest_not_zero(
+        f: *mut fq_default_poly_struct,
+        state: *mut flint_rand_struct,
+        len: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_randtest_monic(
+        f: *mut fq_default_poly_struct,
+        state: *mut flint_rand_struct,
+        len: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_randtest_irreducible(
+        f: *mut fq_default_poly_struct,
+        state: *mut flint_rand_struct,
+        len: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_set(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_set_fq_default(
+        poly: *mut fq_default_poly_struct,
+        c: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_swap(
+        op1: *mut fq_default_poly_struct,
+        op2: *mut fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_zero(
+        poly: *mut fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_one(
+        poly: *mut fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_gen(
+        f: *mut fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_make_monic(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_reverse(
+        res: *mut fq_default_poly_struct,
+        poly: *const fq_default_poly_struct,
+        n: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_deflation(
+        input: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ulong;
+    pub fn fq_default_poly_deflate(
+        result: *mut fq_default_poly_struct,
+        input: *const fq_default_poly_struct,
+        deflation: ulong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_inflate(
+        result: *mut fq_default_poly_struct,
+        input: *const fq_default_poly_struct,
+        inflation: ulong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_get_coeff(
+        x: *mut fq_default_struct,
+        poly: *const fq_default_poly_struct,
+        n: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_set_coeff(
+        poly: *mut fq_default_poly_struct,
+        n: slong,
+        x: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_set_coeff_fmpz(
+        poly: *mut fq_default_poly_struct,
+        n: slong,
+        x: *const fmpz,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_set_nmod_poly(
+        rop: *mut fq_default_poly_struct,
+        op: *const nmod_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_set_fmpz_mod_poly(
+        rop: *mut fq_default_poly_struct,
+        op: *const fmpz_mod_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
     pub fn fq_default_poly_set_fmpz_poly(
         rop: *mut fq_default_poly_struct,
         op: *const fmpz_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_equal(
+        poly1: *const fq_default_poly_struct,
+        poly2: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_poly_equal_trunc(
+        poly1: *const fq_default_poly_struct,
+        poly2: *const fq_default_poly_struct,
+        n: slong,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_poly_is_zero(
+        poly: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_poly_is_one(
+        op: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_poly_is_unit(
+        op: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_poly_is_gen(
+        poly: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_poly_equal_fq_default(
+        poly: *const fq_default_poly_struct,
+        c: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_poly_add(
+        rop: *mut fq_default_poly_struct,
+        op1: *const fq_default_poly_struct,
+        op2: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_add_si(
+        rop: *mut fq_default_poly_struct,
+        op1: *const fq_default_poly_struct,
+        c: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_add_series(
+        rop: *mut fq_default_poly_struct,
+        op1: *const fq_default_poly_struct,
+        op2: *const fq_default_poly_struct,
+        n: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_sub(
+        rop: *mut fq_default_poly_struct,
+        op1: *const fq_default_poly_struct,
+        op2: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_sub_series(
+        rop: *mut fq_default_poly_struct,
+        op1: *const fq_default_poly_struct,
+        op2: *const fq_default_poly_struct,
+        n: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_neg(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_scalar_mul_fq_default(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        x: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_scalar_div_fq_default(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        x: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_scalar_addmul_fq_default(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        x: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_scalar_submul_fq_default(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        x: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_mul(
+        rop: *mut fq_default_poly_struct,
+        op1: *const fq_default_poly_struct,
+        op2: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_mullow(
+        rop: *mut fq_default_poly_struct,
+        op1: *const fq_default_poly_struct,
+        op2: *const fq_default_poly_struct,
+        n: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_mulhigh(
+        rop: *mut fq_default_poly_struct,
+        op1: *const fq_default_poly_struct,
+        op2: *const fq_default_poly_struct,
+        start: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_mulmod(
+        res: *mut fq_default_poly_struct,
+        poly1: *const fq_default_poly_struct,
+        poly2: *const fq_default_poly_struct,
+        f: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_sqr(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_pow(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        e: ulong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_pow_trunc(
+        res: *mut fq_default_poly_struct,
+        poly: *const fq_default_poly_struct,
+        e: ulong,
+        trunc: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_powmod_fmpz_binexp(
+        res: *mut fq_default_poly_struct,
+        poly: *const fq_default_poly_struct,
+        e: *const fmpz,
+        f: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_powmod_ui_binexp(
+        res: *mut fq_default_poly_struct,
+        poly: *const fq_default_poly_struct,
+        e: ulong,
+        f: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_shift_left(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        n: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_shift_right(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        n: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_hamming_weight(
+        op: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> slong;
+    pub fn fq_default_poly_gcd(
+        rop: *mut fq_default_poly_struct,
+        op1: *const fq_default_poly_struct,
+        op2: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_xgcd(
+        G: *mut fq_default_poly_struct,
+        S: *mut fq_default_poly_struct,
+        T: *mut fq_default_poly_struct,
+        A: *const fq_default_poly_struct,
+        B: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_remove(
+        f: *mut fq_default_poly_struct,
+        g: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ulong;
+    pub fn fq_default_poly_divrem(
+        Q: *mut fq_default_poly_struct,
+        R: *mut fq_default_poly_struct,
+        A: *const fq_default_poly_struct,
+        B: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_rem(
+        R: *mut fq_default_poly_struct,
+        A: *const fq_default_poly_struct,
+        B: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_inv_series(
+        Qinv: *mut fq_default_poly_struct,
+        Q: *const fq_default_poly_struct,
+        n: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_div_series(
+        Q: *mut fq_default_poly_struct,
+        A: *const fq_default_poly_struct,
+        B: *const fq_default_poly_struct,
+        n: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_divides(
+        Q: *mut fq_default_poly_struct,
+        A: *const fq_default_poly_struct,
+        B: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_poly_derivative(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_invsqrt_series(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        n: slong,
+        ctx: *mut fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_sqrt_series(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        n: slong,
+        ctx: *mut fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_sqrt(
+        rop: *mut fq_default_poly_struct,
+        op: *const fq_default_poly_struct,
+        ctx: *mut fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_poly_evaluate_fq_default(
+        res: *mut fq_default_struct,
+        f: *const fq_default_poly_struct,
+        a: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_compose(
+        rop: *mut fq_default_poly_struct,
+        op1: *const fq_default_poly_struct,
+        op2: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_compose_mod(
+        res: *mut fq_default_poly_struct,
+        poly1: *const fq_default_poly_struct,
+        poly2: *const fq_default_poly_struct,
+        poly3: *const fq_default_poly_struct,
         ctx: *const fq_default_ctx_struct,
     );
     pub fn fq_default_poly_print(
@@ -33326,6 +36444,25 @@ unsafe extern "C" {
         x: *const ::std::os::raw::c_char,
         ctx: *const fq_default_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_default_poly_get_str_pretty(
+        poly: *const fq_default_poly_struct,
+        x: *const ::std::os::raw::c_char,
+        ctx: *const fq_default_ctx_struct,
+    ) -> *mut ::std::os::raw::c_char;
+    pub fn fq_default_poly_get_str(
+        poly: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> *mut ::std::os::raw::c_char;
+    pub fn fq_default_mat_charpoly(
+        p: *mut fq_default_poly_struct,
+        M: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_minpoly(
+        p: *mut fq_default_poly_struct,
+        X: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
 }
 
 
@@ -33349,6 +36486,113 @@ impl Default for fq_default_poly_factor_struct {
     }
 }
 pub type fq_default_poly_factor_t = [fq_default_poly_factor_struct; 1usize];
+unsafe extern "C" {
+    pub fn fq_default_poly_factor_init(
+        fac: *mut fq_default_poly_factor_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_factor_clear(
+        fac: *mut fq_default_poly_factor_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_factor_realloc(
+        fac: *mut fq_default_poly_factor_struct,
+        alloc: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_factor_fit_length(
+        fac: *mut fq_default_poly_factor_struct,
+        len: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_factor_length(
+        fac: *mut fq_default_poly_factor_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> slong;
+    pub fn fq_default_poly_factor_exp(
+        fac: *mut fq_default_poly_factor_struct,
+        i: slong,
+        ctx: *const fq_default_ctx_struct,
+    ) -> slong;
+    pub fn fq_default_poly_factor_set(
+        res: *mut fq_default_poly_factor_struct,
+        fac: *const fq_default_poly_factor_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_factor_insert(
+        fac: *mut fq_default_poly_factor_struct,
+        poly: *const fq_default_poly_struct,
+        exp: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_factor_get_poly(
+        poly: *mut fq_default_poly_struct,
+        fac: *const fq_default_poly_factor_struct,
+        i: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_factor_print(
+        fac: *const fq_default_poly_factor_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_factor_print_pretty(
+        fac: *const fq_default_poly_factor_struct,
+        var: *const ::std::os::raw::c_char,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_factor_concat(
+        res: *mut fq_default_poly_factor_struct,
+        fac: *const fq_default_poly_factor_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_factor_pow(
+        fac: *mut fq_default_poly_factor_struct,
+        exp: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_is_squarefree(
+        f: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_poly_factor_squarefree(
+        res: *mut fq_default_poly_factor_struct,
+        f: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_is_irreducible(
+        f: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_poly_factor_distinct_deg(
+        res: *mut fq_default_poly_factor_struct,
+        poly: *const fq_default_poly_struct,
+        degs: *const *mut slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_factor_equal_deg(
+        factors: *mut fq_default_poly_factor_struct,
+        pol: *const fq_default_poly_struct,
+        d: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_factor(
+        result: *mut fq_default_poly_factor_struct,
+        leading_coeff: *mut fq_default_struct,
+        input: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_factor_split_single(
+        linfactor: *mut fq_default_poly_struct,
+        input: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_poly_roots(
+        r: *mut fq_default_poly_factor_struct,
+        f: *const fq_default_poly_struct,
+        with_multiplicity: ::std::os::raw::c_int,
+        ctx: *const fq_default_ctx_struct,
+    );
+}
 
 
 /* fq_embed.h */
@@ -33421,6 +36665,11 @@ unsafe extern "C" {
         type_: ::std::os::raw::c_int,
     );
     pub fn fq_nmod_ctx_clear(ctx: *mut fq_nmod_ctx_struct);
+    pub fn fq_nmod_ctx_modulus(
+        ctx: *const fq_nmod_ctx_struct,
+    ) -> *const nmod_poly_struct;
+    pub fn fq_nmod_ctx_degree(ctx: *const fq_nmod_ctx_struct) -> slong;
+    pub fn fq_nmod_ctx_prime(ctx: *const fq_nmod_ctx_struct) -> ulong;
     pub fn fq_nmod_ctx_order(f: *mut fmpz, ctx: *const fq_nmod_ctx_struct);
     pub fn fq_nmod_ctx_print(ctx: *const fq_nmod_ctx_struct);
     pub fn fq_nmod_init(rop: *mut nmod_poly_struct, ctx: *const fq_nmod_ctx_struct);
@@ -33951,6 +37200,16 @@ unsafe extern "C" {
         deg_bound: slong,
     );
     pub fn fq_nmod_mpoly_ctx_clear(ctx: *mut fq_nmod_mpoly_ctx_struct);
+    pub fn fq_nmod_mpoly_ctx_nvars(ctx: *const fq_nmod_mpoly_ctx_struct) -> slong;
+    pub fn fq_nmod_mpoly_ctx_ord(ctx: *const fq_nmod_mpoly_ctx_struct) -> ordering_t;
+    pub fn fq_nmod_mpoly_init(
+        A: *mut fq_nmod_mpoly_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
+    pub fn fq_nmod_mpoly_clear(
+        A: *mut fq_nmod_mpoly_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
     pub fn fq_nmod_mpoly_init2(
         A: *mut fq_nmod_mpoly_struct,
         alloc: slong,
@@ -33983,6 +37242,25 @@ unsafe extern "C" {
         len: slong,
         bits: flint_bitcnt_t,
         ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
+    pub fn _fq_nmod_mpoly_fit_length(
+        coeffs: *mut *mut ulong,
+        coeffs_alloc: *mut slong,
+        d: slong,
+        exps: *mut *mut ulong,
+        exps_alloc: *mut slong,
+        N: slong,
+        length: slong,
+    );
+    pub fn _fq_nmod_mpoly_set_length(
+        A: *mut fq_nmod_mpoly_struct,
+        newlen: slong,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
+    pub fn fq_nmod_mpoly_truncate(
+        A: *mut fq_nmod_mpoly_struct,
+        newlen: slong,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
     );
     pub fn fq_nmod_mpoly_set_str_pretty(
         A: *mut fq_nmod_mpoly_struct,
@@ -34020,6 +37298,15 @@ unsafe extern "C" {
         B: *const fq_nmod_mpoly_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_nmod_mpoly_swap(
+        A: *mut fq_nmod_mpoly_struct,
+        B: *mut fq_nmod_mpoly_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
+    pub fn fq_nmod_mpoly_get_nonzero_n_fq(
+        A: *const fq_nmod_mpoly_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    ) -> *mut ulong;
     pub fn fq_nmod_mpoly_is_fq_nmod(
         A: *const fq_nmod_mpoly_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
@@ -34058,10 +37345,18 @@ unsafe extern "C" {
         c: *const nmod_poly_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_nmod_mpoly_zero(
+        A: *mut fq_nmod_mpoly_struct,
+        ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
     pub fn fq_nmod_mpoly_one(
         A: *mut fq_nmod_mpoly_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     );
+    pub fn fq_nmod_mpoly_is_zero(
+        A: *const fq_nmod_mpoly_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_nmod_mpoly_is_one(
         A: *const fq_nmod_mpoly_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
@@ -34159,6 +37454,10 @@ unsafe extern "C" {
         length: slong,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     );
+    pub fn _fq_nmod_mpoly_leadcoeff(
+        A: *const fq_nmod_mpoly_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    ) -> *mut ulong;
     pub fn fq_nmod_mpoly_is_monic(
         A: *const fq_nmod_mpoly_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
@@ -34197,6 +37496,10 @@ unsafe extern "C" {
         A: *const fq_nmod_mpoly_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_nmod_mpoly_length(
+        A: *const fq_nmod_mpoly_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    ) -> slong;
     pub fn fq_nmod_mpoly_resize(
         A: *mut fq_nmod_mpoly_struct,
         new_length: slong,
@@ -34573,6 +37876,12 @@ unsafe extern "C" {
         len: slong,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     );
+    pub fn fq_nmod_mpoly_divexact(
+        Q: *mut fq_nmod_mpoly_struct,
+        A: *const fq_nmod_mpoly_struct,
+        B: *const fq_nmod_mpoly_struct,
+        ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
     pub fn fq_nmod_mpoly_divides_monagan_pearce(
         poly1: *mut fq_nmod_mpoly_struct,
         poly2: *const fq_nmod_mpoly_struct,
@@ -34615,6 +37924,15 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn fq_nmod_mpoly_sqrt_heap(
         Q: *mut fq_nmod_mpoly_struct,
+        A: *const fq_nmod_mpoly_struct,
+        ctx: *const fq_nmod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_nmod_mpoly_sqrt(
+        Q: *mut fq_nmod_mpoly_struct,
+        A: *const fq_nmod_mpoly_struct,
+        ctx: *const fq_nmod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_nmod_mpoly_is_square(
         A: *const fq_nmod_mpoly_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
@@ -34834,6 +38152,10 @@ unsafe extern "C" {
         A: *mut fq_nmod_mpoly_univar_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     );
+    pub fn fq_nmod_mpoly_univar_zero(
+        A: *mut fq_nmod_mpoly_univar_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
     pub fn fq_nmod_mpoly_univar_set_coeff_ui(
         A: *mut fq_nmod_mpoly_univar_struct,
         e: ulong,
@@ -34859,15 +38181,36 @@ unsafe extern "C" {
         var: slong,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     );
+    pub fn fq_nmod_mpoly_univar_swap(
+        A: *mut fq_nmod_mpoly_univar_struct,
+        B: *mut fq_nmod_mpoly_univar_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
     pub fn fq_nmod_mpoly_univar_degree_fits_si(
         A: *const fq_nmod_mpoly_univar_struct,
         UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_nmod_mpoly_univar_length(
+        A: *const fq_nmod_mpoly_univar_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    ) -> slong;
     pub fn fq_nmod_mpoly_univar_get_term_exp_si(
         A: *mut fq_nmod_mpoly_univar_struct,
         i: slong,
         UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
     ) -> slong;
+    pub fn fq_nmod_mpoly_univar_get_term_coeff(
+        c: *mut fq_nmod_mpoly_struct,
+        A: *const fq_nmod_mpoly_univar_struct,
+        i: slong,
+        ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
+    pub fn fq_nmod_mpoly_univar_swap_term_coeff(
+        c: *mut fq_nmod_mpoly_struct,
+        A: *mut fq_nmod_mpoly_univar_struct,
+        i: slong,
+        ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
     pub fn fq_nmod_mpoly_univar_pseudo_gcd(
         Gx: *mut fq_nmod_mpoly_univar_struct,
         Ax: *const fq_nmod_mpoly_univar_struct,
@@ -34910,6 +38253,11 @@ unsafe extern "C" {
     pub fn fq_nmod_mpolyu_clear(
         A: *mut fq_nmod_mpolyu_struct,
         uctx: *const fq_nmod_mpoly_ctx_struct,
+    );
+    pub fn fq_nmod_mpolyu_swap(
+        A: *mut fq_nmod_mpolyu_struct,
+        B: *mut fq_nmod_mpolyu_struct,
+        UNUSED_uctx: *const fq_nmod_mpoly_ctx_struct,
     );
     pub fn fq_nmod_mpolyu_zero(
         A: *mut fq_nmod_mpolyu_struct,
@@ -35028,6 +38376,10 @@ unsafe extern "C" {
         ctx: *mut fq_nmod_mpoly_ctx_struct,
         randstate: *mut flint_rand_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_nmod_mpolyu_leadcoeff(
+        A: *const fq_nmod_mpolyu_struct,
+        ctx: *const fq_nmod_mpoly_ctx_struct,
+    ) -> *mut ulong;
     pub fn fq_nmod_mpolyn_init(
         A: *mut fq_nmod_mpolyn_struct,
         bits: flint_bitcnt_t,
@@ -35077,6 +38429,14 @@ unsafe extern "C" {
         B: *const fq_nmod_mpolyn_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     );
+    pub fn fq_nmod_mpolyn_leadcoeff(
+        A: *mut fq_nmod_mpolyn_struct,
+        ctx: *const fq_nmod_mpoly_ctx_struct,
+    ) -> *mut ulong;
+    pub fn fq_nmod_mpolyn_leadcoeff_poly(
+        A: *const fq_nmod_mpolyn_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    ) -> *mut n_poly_struct;
     pub fn fq_nmod_mpoly_to_mpolyn_perm_deflate(
         A: *mut fq_nmod_mpolyn_struct,
         nctx: *const fq_nmod_mpoly_ctx_struct,
@@ -35222,6 +38582,10 @@ unsafe extern "C" {
         var: slong,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     );
+    pub fn fq_nmod_mpolyun_leadcoeff_poly(
+        A: *const fq_nmod_mpolyun_struct,
+        ctx: *const fq_nmod_mpoly_ctx_struct,
+    ) -> *mut n_poly_struct;
     /// gcd
     pub fn fq_nmod_next(
         alpha: *mut nmod_poly_struct,
@@ -35779,9 +39143,25 @@ unsafe extern "C" {
         f: *mut fq_nmod_mpoly_factor_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     );
+    pub fn fq_nmod_mpoly_factor_length(
+        f: *const fq_nmod_mpoly_factor_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    ) -> slong;
     pub fn fq_nmod_mpoly_factor_get_constant_fq_nmod(
         c: *mut nmod_poly_struct,
         f: *const fq_nmod_mpoly_factor_struct,
+        ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
+    pub fn fq_nmod_mpoly_factor_get_base(
+        p: *mut fq_nmod_mpoly_struct,
+        f: *const fq_nmod_mpoly_factor_struct,
+        i: slong,
+        ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
+    pub fn fq_nmod_mpoly_factor_swap_base(
+        p: *mut fq_nmod_mpoly_struct,
+        f: *const fq_nmod_mpoly_factor_struct,
+        i: slong,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     );
     pub fn fq_nmod_mpoly_factor_get_exp_si(
@@ -35841,12 +39221,22 @@ unsafe extern "C" {
         B: *const fq_nmod_mpoly_factor_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_nmod_mpoly_factor_swap(
+        A: *mut fq_nmod_mpoly_factor_struct,
+        B: *mut fq_nmod_mpoly_factor_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
     pub fn fq_nmod_mpoly_factor_one(
         a: *mut fq_nmod_mpoly_factor_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     );
     pub fn fq_nmod_mpoly_factor_expand(
         A: *mut fq_nmod_mpoly_struct,
+        f: *const fq_nmod_mpoly_factor_struct,
+        ctx: *const fq_nmod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_nmod_mpoly_factor_matches(
+        a: *const fq_nmod_mpoly_struct,
         f: *const fq_nmod_mpoly_factor_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
@@ -35964,6 +39354,15 @@ unsafe extern "C" {
         A: *const n_polyun_struct,
         ctx: *const fq_nmod_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_nmod_mpolyv_init(
+        A: *mut fq_nmod_mpolyv_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
+    pub fn fq_nmod_mpolyv_swap(
+        A: *mut fq_nmod_mpolyv_struct,
+        B: *mut fq_nmod_mpolyv_struct,
+        UNUSED_ctx: *const fq_nmod_mpoly_ctx_struct,
+    );
     pub fn fq_nmod_mpolyv_clear(
         A: *mut fq_nmod_mpolyv_struct,
         ctx: *const fq_nmod_mpoly_ctx_struct,
@@ -36500,7 +39899,20 @@ unsafe extern "C" {
         type_: ::std::os::raw::c_int,
     );
     pub fn fq_zech_ctx_clear(ctx: *mut fq_zech_ctx_struct);
+    pub fn fq_zech_ctx_modulus(
+        ctx: *const fq_zech_ctx_struct,
+    ) -> *const nmod_poly_struct;
+    pub fn fq_zech_ctx_degree(ctx: *const fq_zech_ctx_struct) -> slong;
+    pub fn fq_zech_ctx_prime(ctx: *const fq_zech_ctx_struct) -> ulong;
+    pub fn fq_zech_ctx_order_ui(ctx: *const fq_zech_ctx_struct) -> ulong;
     pub fn fq_zech_ctx_print(ctx: *const fq_zech_ctx_struct);
+    pub fn fq_zech_init(rop: *mut fq_zech_struct, ctx: *const fq_zech_ctx_struct);
+    pub fn fq_zech_init2(rop: *mut fq_zech_struct, ctx: *const fq_zech_ctx_struct);
+    pub fn fq_zech_clear(
+        UNUSED_rop: *mut fq_zech_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
+    );
+    pub fn fq_zech_reduce(rop: *mut fq_zech_struct, ctx: *const fq_zech_ctx_struct);
     pub fn fq_zech_add(
         rop: *mut fq_zech_struct,
         op1: *const fq_zech_struct,
@@ -36613,6 +40025,24 @@ unsafe extern "C" {
         state: *mut flint_rand_struct,
         ctx: *const fq_zech_ctx_struct,
     );
+    pub fn fq_zech_equal(
+        op1: *const fq_zech_struct,
+        op2: *const fq_zech_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_zech_is_zero(
+        op: *const fq_zech_struct,
+        ctx: *const fq_zech_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_zech_is_one(
+        op: *const fq_zech_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_zech_set(
+        rop: *mut fq_zech_struct,
+        op: *const fq_zech_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
+    );
     pub fn fq_zech_set_fmpz(
         rop: *mut fq_zech_struct,
         x: *const fmpz,
@@ -36628,6 +40058,14 @@ unsafe extern "C" {
         x: ulong,
         ctx: *const fq_zech_ctx_struct,
     );
+    pub fn fq_zech_swap(
+        op1: *mut fq_zech_struct,
+        op2: *mut fq_zech_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
+    );
+    pub fn fq_zech_zero(rop: *mut fq_zech_struct, ctx: *const fq_zech_ctx_struct);
+    pub fn fq_zech_one(rop: *mut fq_zech_struct, UNUSED_ctx: *const fq_zech_ctx_struct);
+    pub fn fq_zech_gen(rop: *mut fq_zech_struct, UNUSED_ctx: *const fq_zech_ctx_struct);
     pub fn fq_zech_get_fmpz(
         a: *mut fmpz,
         op: *const fq_zech_struct,
@@ -36872,6 +40310,7 @@ impl Default for fq_zech_mpoly_geobucket {
 pub type fq_zech_mpoly_geobucket_struct = fq_zech_mpoly_geobucket;
 pub type fq_zech_mpoly_geobucket_t = [fq_zech_mpoly_geobucket_struct; 1usize];
 unsafe extern "C" {
+    pub fn fq_zech_ctx_mod(ctx: *const fq_zech_ctx_struct) -> nmod_t;
     pub fn fq_zech_mpoly_ctx_init_deg(
         ctx: *mut fq_zech_mpoly_ctx_struct,
         nvars: slong,
@@ -36880,6 +40319,8 @@ unsafe extern "C" {
         deg: slong,
     );
     pub fn fq_zech_mpoly_ctx_clear(ctx: *mut fq_zech_mpoly_ctx_struct);
+    pub fn fq_zech_mpoly_ctx_nvars(ctx: *const fq_zech_mpoly_ctx_struct) -> slong;
+    pub fn fq_zech_mpoly_ctx_ord(ctx: *const fq_zech_mpoly_ctx_struct) -> ordering_t;
     pub fn fq_zech_mpoly_init(
         A: *mut fq_zech_mpoly_struct,
         ctx: *const fq_zech_mpoly_ctx_struct,
@@ -36923,6 +40364,16 @@ unsafe extern "C" {
         A: *mut fq_zech_mpoly_struct,
         ctx: *const fq_zech_mpoly_ctx_struct,
     );
+    pub fn _fq_zech_mpoly_set_length(
+        A: *mut fq_zech_mpoly_struct,
+        newlen: slong,
+        UNUSED_ctx: *const fq_zech_mpoly_ctx_struct,
+    );
+    pub fn fq_zech_mpoly_truncate(
+        A: *mut fq_zech_mpoly_struct,
+        newlen: slong,
+        UNUSED_ctx: *const fq_zech_mpoly_ctx_struct,
+    );
     pub fn fq_zech_mpoly_fit_bits(
         A: *mut fq_zech_mpoly_struct,
         bits: slong,
@@ -36964,6 +40415,11 @@ unsafe extern "C" {
         B: *const fq_zech_mpoly_struct,
         ctx: *const fq_zech_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_zech_mpoly_swap(
+        A: *mut fq_zech_mpoly_struct,
+        B: *mut fq_zech_mpoly_struct,
+        UNUSED_ctx: *const fq_zech_mpoly_ctx_struct,
+    );
     pub fn fq_zech_mpoly_is_fq_zech(
         A: *const fq_zech_mpoly_struct,
         ctx: *const fq_zech_mpoly_ctx_struct,
@@ -36991,6 +40447,18 @@ unsafe extern "C" {
         A: *const fq_zech_mpoly_struct,
         c: *const fq_zech_struct,
         ctx: *const fq_zech_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_zech_mpoly_zero(
+        A: *mut fq_zech_mpoly_struct,
+        ctx: *const fq_zech_mpoly_ctx_struct,
+    );
+    pub fn fq_zech_mpoly_one(
+        A: *mut fq_zech_mpoly_struct,
+        ctx: *const fq_zech_mpoly_ctx_struct,
+    );
+    pub fn fq_zech_mpoly_is_zero(
+        A: *const fq_zech_mpoly_struct,
+        UNUSED_ctx: *const fq_zech_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn fq_zech_mpoly_is_one(
         A: *const fq_zech_mpoly_struct,
@@ -37084,6 +40552,10 @@ unsafe extern "C" {
         length: slong,
         ctx: *const fq_zech_mpoly_ctx_struct,
     );
+    pub fn fq_zech_mpoly_leadcoeff(
+        A: *const fq_zech_mpoly_struct,
+        UNUSED_ctx: *const fq_zech_mpoly_ctx_struct,
+    ) -> *mut fq_zech_struct;
     pub fn fq_zech_mpoly_cmp(
         A: *const fq_zech_mpoly_struct,
         B: *const fq_zech_mpoly_struct,
@@ -37093,6 +40565,10 @@ unsafe extern "C" {
         A: *const fq_zech_mpoly_struct,
         ctx: *const fq_zech_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_zech_mpoly_length(
+        A: *const fq_zech_mpoly_struct,
+        UNUSED_ctx: *const fq_zech_mpoly_ctx_struct,
+    ) -> slong;
     pub fn fq_zech_mpoly_resize(
         A: *mut fq_zech_mpoly_struct,
         new_length: slong,
@@ -37583,15 +41059,36 @@ unsafe extern "C" {
         var: slong,
         ctx: *const fq_zech_mpoly_ctx_struct,
     );
+    pub fn fq_zech_mpoly_univar_swap(
+        A: *mut fq_zech_mpoly_univar_struct,
+        B: *mut fq_zech_mpoly_univar_struct,
+        UNUSED_ctx: *const fq_zech_mpoly_ctx_struct,
+    );
     pub fn fq_zech_mpoly_univar_degree_fits_si(
         A: *const fq_zech_mpoly_univar_struct,
         UNUSED_ctx: *const fq_zech_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_zech_mpoly_univar_length(
+        A: *const fq_zech_mpoly_univar_struct,
+        UNUSED_ctx: *const fq_zech_mpoly_ctx_struct,
+    ) -> slong;
     pub fn fq_zech_mpoly_univar_get_term_exp_si(
         A: *mut fq_zech_mpoly_univar_struct,
         i: slong,
         UNUSED_ctx: *const fq_zech_mpoly_ctx_struct,
     ) -> slong;
+    pub fn fq_zech_mpoly_univar_get_term_coeff(
+        c: *mut fq_zech_mpoly_struct,
+        A: *const fq_zech_mpoly_univar_struct,
+        i: slong,
+        ctx: *const fq_zech_mpoly_ctx_struct,
+    );
+    pub fn fq_zech_mpoly_univar_swap_term_coeff(
+        c: *mut fq_zech_mpoly_struct,
+        A: *mut fq_zech_mpoly_univar_struct,
+        i: slong,
+        ctx: *const fq_zech_mpoly_ctx_struct,
+    );
     ///Internal functions (guaranteed to change without notice)
     pub fn _fq_zech_mpoly_get_nmod_mpoly(
         s: *mut nmod_mpoly_struct,
@@ -37815,9 +41312,18 @@ impl Default for fq_zech_mpoly_pfrac_struct {
 }
 pub type fq_zech_mpoly_pfrac_t = [fq_zech_mpoly_pfrac_struct; 1usize];
 unsafe extern "C" {
+    pub fn fq_zech_bpoly_init(
+        A: *mut fq_zech_bpoly_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
+    );
     pub fn fq_zech_bpoly_clear(
         A: *mut fq_zech_bpoly_struct,
         ctx: *const fq_zech_ctx_struct,
+    );
+    pub fn fq_zech_bpoly_swap(
+        A: *mut fq_zech_bpoly_struct,
+        B: *mut fq_zech_bpoly_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
     );
     pub fn fq_zech_bpoly_normalise(
         A: *mut fq_zech_bpoly_struct,
@@ -37828,6 +41334,19 @@ unsafe extern "C" {
         len: slong,
         ctx: *const fq_zech_ctx_struct,
     );
+    pub fn fq_zech_bpoly_fit_length(
+        A: *mut fq_zech_bpoly_struct,
+        len: slong,
+        ctx: *const fq_zech_ctx_struct,
+    );
+    pub fn fq_zech_bpoly_zero(
+        A: *mut fq_zech_bpoly_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
+    );
+    pub fn fq_zech_bpoly_is_zero(
+        A: *const fq_zech_bpoly_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_zech_bpoly_equal(
         A: *const fq_zech_bpoly_struct,
         B: *const fq_zech_bpoly_struct,
@@ -37840,6 +41359,10 @@ unsafe extern "C" {
         e1: slong,
         ctx: *const fq_zech_ctx_struct,
     );
+    pub fn fq_zech_bpoly_degree0(
+        A: *const fq_zech_bpoly_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
+    ) -> slong;
     pub fn fq_zech_bpoly_degree1(
         A: *const fq_zech_bpoly_struct,
         UNUSED_ctx: *const fq_zech_ctx_struct,
@@ -37989,6 +41512,15 @@ unsafe extern "C" {
         ctx: *const fq_zech_ctx_struct,
         state: *mut flint_rand_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_zech_tpoly_init(
+        A: *mut fq_zech_tpoly_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
+    );
+    pub fn fq_zech_tpoly_swap(
+        A: *mut fq_zech_tpoly_struct,
+        B: *mut fq_zech_tpoly_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
+    );
     pub fn fq_zech_tpoly_fit_length(
         A: *mut fq_zech_tpoly_struct,
         len: slong,
@@ -37998,6 +41530,10 @@ unsafe extern "C" {
         A: *mut fq_zech_tpoly_struct,
         ctx: *const fq_zech_ctx_struct,
     );
+    pub fn fq_zech_polyu_init(
+        A: *mut fq_zech_polyu_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
+    );
     pub fn fq_zech_polyu_clear(
         A: *mut fq_zech_polyu_struct,
         UNUSED_ctx: *const fq_zech_ctx_struct,
@@ -38006,6 +41542,16 @@ unsafe extern "C" {
         A: *mut fq_zech_polyu_struct,
         len: slong,
         ctx: *const fq_zech_ctx_struct,
+    );
+    pub fn fq_zech_polyu_fit_length(
+        A: *mut fq_zech_polyu_struct,
+        len: slong,
+        ctx: *const fq_zech_ctx_struct,
+    );
+    pub fn fq_zech_polyu_swap(
+        A: *mut fq_zech_polyu_struct,
+        B: *mut fq_zech_polyu_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
     );
     pub fn fq_zech_polyu3_print_pretty(
         A: *const fq_zech_polyu_struct,
@@ -38024,6 +41570,10 @@ unsafe extern "C" {
         A: *const fq_zech_polyu_struct,
         ctx: *const fq_zech_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_zech_polyun_init(
+        A: *mut fq_zech_polyun_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
+    );
     pub fn fq_zech_polyun_clear(
         A: *mut fq_zech_polyun_struct,
         ctx: *const fq_zech_ctx_struct,
@@ -38032,6 +41582,16 @@ unsafe extern "C" {
         A: *mut fq_zech_polyun_struct,
         len: slong,
         ctx: *const fq_zech_ctx_struct,
+    );
+    pub fn fq_zech_polyun_fit_length(
+        A: *mut fq_zech_polyun_struct,
+        len: slong,
+        ctx: *const fq_zech_ctx_struct,
+    );
+    pub fn fq_zech_polyun_swap(
+        A: *mut fq_zech_polyun_struct,
+        B: *mut fq_zech_polyun_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
     );
     pub fn fq_zech_polyu2n_print_pretty(
         A: *const fq_zech_polyun_struct,
@@ -38127,12 +41687,22 @@ unsafe extern "C" {
         A: *const fq_zech_mpoly_struct,
         ctx: *const fq_zech_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn fq_zech_mpoly_factor_swap(
+        A: *mut fq_zech_mpoly_factor_struct,
+        B: *mut fq_zech_mpoly_factor_struct,
+        UNUSED_ctx: *const fq_zech_mpoly_ctx_struct,
+    );
     pub fn fq_zech_mpoly_factor_one(
         a: *mut fq_zech_mpoly_factor_struct,
         ctx: *const fq_zech_mpoly_ctx_struct,
     );
     pub fn fq_zech_mpoly_factor_expand(
         A: *mut fq_zech_mpoly_struct,
+        f: *const fq_zech_mpoly_factor_struct,
+        ctx: *const fq_zech_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_zech_mpoly_factor_matches(
+        a: *const fq_zech_mpoly_struct,
         f: *const fq_zech_mpoly_factor_struct,
         ctx: *const fq_zech_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
@@ -38146,6 +41716,15 @@ unsafe extern "C" {
         B: *const fq_zech_mpoly_struct,
         c: *const fq_zech_mpoly_struct,
         ctx: *const fq_zech_mpoly_ctx_struct,
+    );
+    pub fn fq_zech_mpolyv_init(
+        A: *mut fq_zech_mpolyv_struct,
+        UNUSED_ctx: *const fq_zech_mpoly_ctx_struct,
+    );
+    pub fn fq_zech_mpolyv_swap(
+        A: *mut fq_zech_mpolyv_struct,
+        B: *mut fq_zech_mpolyv_struct,
+        UNUSED_ctx: *const fq_zech_mpoly_ctx_struct,
     );
     pub fn fq_zech_mpolyv_clear(
         A: *mut fq_zech_mpolyv_struct,
@@ -39876,6 +43455,12 @@ impl Default for matrix_ctx_t {
     }
 }
 unsafe extern "C" {
+    pub fn truth_and(x: truth_t, y: truth_t) -> truth_t;
+    pub fn truth_or(x: truth_t, y: truth_t) -> truth_t;
+    pub fn truth_not(x: truth_t) -> truth_t;
+    pub fn gr_in_domain(status: ::std::os::raw::c_int) -> truth_t;
+    pub fn gr_check(t: truth_t) -> ::std::os::raw::c_int;
+    pub fn truth_println(x: truth_t);
     pub fn gr_stream_init_str(out: *mut gr_stream_struct);
     pub fn gr_stream_write(
         out: *mut gr_stream_struct,
@@ -39897,8 +43482,817 @@ unsafe extern "C" {
         out: *mut gr_stream_struct,
         x: *const fmpz,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_not_implemented() -> ::std::os::raw::c_int;
+    pub fn gr_not_in_domain() -> ::std::os::raw::c_int;
     pub fn gr_method_tab_init(methods: *mut gr_funcptr, tab: *mut gr_method_tab_input);
     pub fn gr_method_tab_extend(methods: *mut gr_funcptr, tab: *mut gr_method_tab_input);
+    pub fn gr_ctx_data_ptr(ctx: *mut gr_ctx_struct) -> *mut ::std::os::raw::c_void;
+    pub fn gr_ctx_data_as_ptr(ctx: *mut gr_ctx_struct) -> *mut ::std::os::raw::c_void;
+    pub fn gr_ctx_sizeof_ctx() -> slong;
+    pub fn gr_ctx_sizeof_elem(ctx: *mut gr_ctx_struct) -> slong;
+    pub fn gr_ctx_clear(ctx: *mut gr_ctx_struct);
+    pub fn gr_ctx_write(
+        out: *mut gr_stream_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ctx_is_ring(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_commutative_ring(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_integral_domain(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_field(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_zero_ring(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_rational_vector_space(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_real_vector_space(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_complex_vector_space(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_unique_factorization_domain(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_finite(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_finite_characteristic(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_algebraically_closed(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_ordered_ring(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_approx_commutative_ring(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_multiplicative_group(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_exact(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_canonical(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_is_threadsafe(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_has_real_prec(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_set_real_prec(
+        ctx: *mut gr_ctx_struct,
+        prec: slong,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ctx_get_real_prec(
+        prec: *mut slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ctx_set_is_field(
+        ctx: *mut gr_ctx_struct,
+        is_field: truth_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ctx_set_gen_name(
+        ctx: *mut gr_ctx_struct,
+        s: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ctx_set_gen_names(
+        ctx: *mut gr_ctx_struct,
+        s: *mut *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ctx_ngens(
+        ngens: *mut slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ctx_gen_name(
+        name: *mut *mut ::std::os::raw::c_char,
+        i: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_ctx_get_real_prec(ctx: *mut gr_ctx_struct) -> slong;
+    pub fn gr_ctx_base(ctx: *mut gr_ctx_struct) -> gr_ptr;
+    pub fn gr_init(res: gr_ptr, ctx: *mut gr_ctx_struct);
+    pub fn gr_clear(res: gr_ptr, ctx: *mut gr_ctx_struct);
+    pub fn gr_swap(x: gr_ptr, y: gr_ptr, ctx: *mut gr_ctx_struct);
+    pub fn gr_set_shallow(res: gr_ptr, x: gr_srcptr, ctx: *mut gr_ctx_struct);
+    pub fn _gr_length(x: gr_srcptr, ctx: *mut gr_ctx_struct);
+    pub fn gr_randtest(
+        x: gr_ptr,
+        state: *mut flint_rand_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_randtest_not_zero(
+        x: gr_ptr,
+        state: *mut flint_rand_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_randtest_invertible(
+        x: gr_ptr,
+        state: *mut flint_rand_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_randtest_small(
+        x: gr_ptr,
+        state: *mut flint_rand_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_write(
+        out: *mut gr_stream_struct,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_write_n(
+        out: *mut gr_stream_struct,
+        x: gr_srcptr,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_zero(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_one(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_neg_one(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_set(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_set_si(
+        res: gr_ptr,
+        x: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_set_ui(
+        res: gr_ptr,
+        x: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_set_fmpz(
+        res: gr_ptr,
+        x: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_set_fmpq(
+        res: gr_ptr,
+        x: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_set_d(
+        res: gr_ptr,
+        x: f64,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_set_other(
+        res: gr_ptr,
+        x: gr_srcptr,
+        x_ctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_set_str(
+        res: gr_ptr,
+        x: *const ::std::os::raw::c_char,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_get_si(
+        res: *mut slong,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_get_ui(
+        res: *mut ulong,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_get_fmpz(
+        res: *mut fmpz,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_get_fmpq(
+        res: *mut fmpq,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_get_d(
+        res: *mut f64,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_is_zero(x: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_is_one(x: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_is_neg_one(x: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_equal(x: gr_srcptr, y: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_not_equal(x: gr_srcptr, y: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_neg(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_add(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_add_ui(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_add_si(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_add_fmpz(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_add_fmpq(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_add_other(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        y_ctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_other_add(
+        res: gr_ptr,
+        x: gr_srcptr,
+        x_ctx: *mut gr_ctx_struct,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sub(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sub_ui(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sub_si(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sub_fmpz(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sub_fmpq(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sub_other(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        y_ctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_other_sub(
+        res: gr_ptr,
+        x: gr_srcptr,
+        x_ctx: *mut gr_ctx_struct,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mul(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mul_ui(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mul_si(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mul_fmpz(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mul_fmpq(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mul_other(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        y_ctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_other_mul(
+        res: gr_ptr,
+        x: gr_srcptr,
+        x_ctx: *mut gr_ctx_struct,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_addmul(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_addmul_ui(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_addmul_si(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_addmul_fmpz(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_addmul_fmpq(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_addmul_other(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        y_ctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_submul(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_submul_ui(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_submul_si(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_submul_fmpz(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_submul_fmpq(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_submul_other(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        y_ctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mul_two(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sqr(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mul_2exp_si(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mul_2exp_fmpz(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_set_fmpz_2exp_fmpz(
+        res: gr_ptr,
+        x: *const fmpz,
+        y: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_get_fmpz_2exp_fmpz(
+        res1: *mut fmpz,
+        res2: *mut fmpz,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_set_fmpz_10exp_fmpz(
+        res: gr_ptr,
+        x: *const fmpz,
+        y: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_get_d_2exp_si(
+        res: *mut f64,
+        exp: *mut slong,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_inv(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_is_invertible(x: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_div(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_div_ui(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_div_si(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_div_fmpz(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_div_fmpq(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_div_other(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        y_ctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_other_div(
+        res: gr_ptr,
+        x: gr_srcptr,
+        x_ctx: *mut gr_ctx_struct,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_div_nonunique(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_divides(x: gr_srcptr, y: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_divexact(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_divexact_ui(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_divexact_si(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_divexact_fmpz(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_divexact_fmpq(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_divexact_other(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        y_ctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_other_divexact(
+        res: gr_ptr,
+        x: gr_srcptr,
+        x_ctx: *mut gr_ctx_struct,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_euclidean_div(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_euclidean_rem(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_euclidean_divrem(
+        res1: gr_ptr,
+        res2: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_gcd(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_lcm(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_numerator(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_denominator(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_factor(
+        c: gr_ptr,
+        factors: *mut gr_vec_struct,
+        exponents: *mut gr_vec_struct,
+        x: gr_srcptr,
+        flags: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_pow(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_pow_ui(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_pow_si(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_pow_fmpz(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_pow_fmpq(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_pow_other(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        y_ctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_other_pow(
+        res: gr_ptr,
+        x: gr_srcptr,
+        x_ctx: *mut gr_ctx_struct,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_derivative_gen(
+        res: gr_ptr,
+        x: gr_srcptr,
+        var: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sqrt(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_rsqrt(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_is_square(x: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_floor(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ceil(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_trunc(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_nint(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_abs(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_i(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_conj(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_re(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_im(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sgn(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_csgn(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_arg(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_canonical_associate(
+        res1: gr_ptr,
+        res2: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_pos_inf(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_neg_inf(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_uinf(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_undefined(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_unknown(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_cmp(
+        res: *mut ::std::os::raw::c_int,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_cmpabs(
+        res: *mut ::std::os::raw::c_int,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_cmp_other(
+        res: *mut ::std::os::raw::c_int,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        y_ctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_cmpabs_other(
+        res: *mut ::std::os::raw::c_int,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        y_ctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_le(x: gr_srcptr, y: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_lt(x: gr_srcptr, y: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ge(x: gr_srcptr, y: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_gt(x: gr_srcptr, y: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_abs_le(x: gr_srcptr, y: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_abs_lt(x: gr_srcptr, y: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_abs_ge(x: gr_srcptr, y: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_abs_gt(x: gr_srcptr, y: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_min(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_max(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_gen(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_gens(
+        res: *mut gr_vec_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_gens_recursive(
+        res: *mut gr_vec_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ctx_fq_prime(
+        res: *mut fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ctx_fq_degree(
+        res: *mut slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ctx_fq_order(
+        res: *mut fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fq_frobenius(
+        res: gr_ptr,
+        x: gr_srcptr,
+        e: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fq_multiplicative_order(
+        res: *mut fmpz,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fq_norm(
+        res: *mut fmpz,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fq_trace(
+        res: *mut fmpz,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fq_is_primitive(x: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_fq_pth_root(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_set_interval_mid_rad(
+        res: gr_ptr,
+        m: gr_srcptr,
+        r: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_init(vec: gr_ptr, len: slong, ctx: *mut gr_ctx_struct);
+    pub fn _gr_vec_clear(vec: gr_ptr, len: slong, ctx: *mut gr_ctx_struct);
+    pub fn _gr_vec_swap(vec1: gr_ptr, vec2: gr_ptr, len: slong, ctx: *mut gr_ctx_struct);
     pub fn gr_ctx_print(ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
     pub fn gr_ctx_println(ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
     pub fn gr_print(x: gr_srcptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
@@ -39918,6 +44312,10 @@ unsafe extern "C" {
         n: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_heap_init(ctx: *mut gr_ctx_struct) -> gr_ptr;
+    pub fn gr_heap_clear(x: gr_ptr, ctx: *mut gr_ctx_struct);
+    pub fn gr_heap_init_vec(len: slong, ctx: *mut gr_ctx_struct) -> gr_ptr;
+    pub fn gr_heap_clear_vec(x: gr_ptr, len: slong, ctx: *mut gr_ctx_struct);
     pub fn gr_generic_ctx_predicate(ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn gr_generic_ctx_predicate_true(ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn gr_generic_ctx_predicate_false(ctx: *mut gr_ctx_struct) -> truth_t;
@@ -40060,6 +44458,11 @@ unsafe extern "C" {
         ncols: slong,
     );
     pub fn gr_ctx_matrix_is_fixed_size(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_ctx_init_matrix_ring(
+        ctx: *mut gr_ctx_struct,
+        base_ring: *mut gr_ctx_struct,
+        n: slong,
+    );
     pub fn gr_ctx_init_fexpr(ctx: *mut gr_ctx_struct);
     pub fn gr_ctx_cmp_coercion(
         ctx1: *mut gr_ctx_struct,
@@ -41433,6 +45836,18 @@ pub type __gr_method_vec_scalar_op = ::std::option::Option<
     ) -> ::std::os::raw::c_int,
 >;
 unsafe extern "C" {
+    pub fn gr_mat_entry_ptr(
+        mat: *mut gr_mat_struct,
+        i: slong,
+        j: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> gr_ptr;
+    pub fn gr_mat_entry_srcptr(
+        mat: *const gr_mat_struct,
+        i: slong,
+        j: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> gr_srcptr;
     pub fn gr_mat_init(
         mat: *mut gr_mat_struct,
         rows: slong,
@@ -41451,6 +45866,11 @@ unsafe extern "C" {
         c: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_mat_swap(
+        mat1: *mut gr_mat_struct,
+        mat2: *mut gr_mat_struct,
+        UNUSED_ctx: *mut gr_ctx_struct,
+    );
     pub fn gr_mat_swap_rows(
         mat: *mut gr_mat_struct,
         perm: *mut slong,
@@ -41481,6 +45901,19 @@ unsafe extern "C" {
         new_i: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_mat_window_init(
+        window: *mut gr_mat_struct,
+        mat: *const gr_mat_struct,
+        r1: slong,
+        c1: slong,
+        r2: slong,
+        c2: slong,
+        ctx: *mut gr_ctx_struct,
+    );
+    pub fn gr_mat_window_clear(
+        UNUSED_window: *mut gr_mat_struct,
+        UNUSED_ctx: *mut gr_ctx_struct,
+    );
     pub fn gr_mat_concat_horizontal(
         res: *mut gr_mat_struct,
         mat1: *const gr_mat_struct,
@@ -41533,6 +45966,14 @@ unsafe extern "C" {
         opcount: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_mat_is_empty(
+        mat: *const gr_mat_struct,
+        UNUSED_ctx: *mut gr_ctx_struct,
+    ) -> truth_t;
+    pub fn gr_mat_is_square(
+        mat: *const gr_mat_struct,
+        UNUSED_ctx: *mut gr_ctx_struct,
+    ) -> truth_t;
     pub fn gr_mat_equal(
         mat1: *const gr_mat_struct,
         mat2: *const gr_mat_struct,
@@ -41853,6 +46294,11 @@ unsafe extern "C" {
         C: *mut gr_mat_struct,
         A: *const gr_mat_struct,
         B: *const gr_mat_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mat_sqr(
+        res: *mut gr_mat_struct,
+        mat: *const gr_mat_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_mat_pow_ui(
@@ -42844,6 +47290,7 @@ unsafe extern "C" {
     pub fn gr_mpoly_ctx_is_integral_domain(ctx: *mut gr_mpoly_ctx_struct) -> truth_t;
     pub fn gr_mpoly_ctx_is_field(ctx: *mut gr_mpoly_ctx_struct) -> truth_t;
     pub fn gr_mpoly_ctx_is_threadsafe(ctx: *mut gr_mpoly_ctx_struct) -> truth_t;
+    pub fn gr_mpoly_init(A: *mut gr_mpoly_struct, ctx: *mut gr_mpoly_ctx_struct);
     pub fn gr_mpoly_init3(
         A: *mut gr_mpoly_struct,
         alloc: slong,
@@ -42855,6 +47302,7 @@ unsafe extern "C" {
         alloc: slong,
         ctx: *mut gr_mpoly_ctx_struct,
     );
+    pub fn gr_mpoly_clear(A: *mut gr_mpoly_struct, ctx: *mut gr_mpoly_ctx_struct);
     pub fn _gr_mpoly_fit_length(
         coeffs: *mut gr_ptr,
         coeffs_alloc: *mut slong,
@@ -42886,10 +47334,33 @@ unsafe extern "C" {
         bits: flint_bitcnt_t,
         ctx: *mut gr_mpoly_ctx_struct,
     );
+    pub fn _gr_mpoly_set_length(
+        A: *mut gr_mpoly_struct,
+        newlen: slong,
+        ctx: *mut gr_mpoly_ctx_struct,
+    );
+    pub fn gr_mpoly_length(
+        x: *const gr_mpoly_struct,
+        ctx: *mut gr_mpoly_ctx_struct,
+    ) -> slong;
     pub fn _gr_mpoly_normalise(A: *mut gr_mpoly_struct, ctx: *mut gr_mpoly_ctx_struct);
+    pub fn gr_mpoly_swap(
+        A: *mut gr_mpoly_struct,
+        B: *mut gr_mpoly_struct,
+        ctx: *mut gr_mpoly_ctx_struct,
+    );
+    pub fn gr_mpoly_set_shallow(
+        res: *mut gr_mpoly_struct,
+        poly: *const gr_mpoly_struct,
+        ctx: *mut gr_mpoly_ctx_struct,
+    );
     pub fn gr_mpoly_set(
         A: *mut gr_mpoly_struct,
         B: *const gr_mpoly_struct,
+        ctx: *mut gr_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mpoly_zero(
+        A: *mut gr_mpoly_struct,
         ctx: *mut gr_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_mpoly_is_zero(
@@ -42960,6 +47431,11 @@ unsafe extern "C" {
         exp_bound: ulong,
         ctx: *mut gr_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn _gr_mpoly_randtest_default(
+        res: *mut gr_mpoly_struct,
+        state: *mut flint_rand_struct,
+        ctx: *mut gr_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn gr_mpoly_write_pretty(
         out: *mut gr_stream_struct,
         A: *const gr_mpoly_struct,
@@ -43003,6 +47479,10 @@ unsafe extern "C" {
     pub fn gr_mpoly_set_fmpq(
         A: *mut gr_mpoly_struct,
         c: *const fmpq,
+        ctx: *mut gr_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mpoly_one(
+        A: *mut gr_mpoly_struct,
         ctx: *mut gr_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_mpoly_is_one(
@@ -43262,6 +47742,9 @@ impl Default for _gr_ore_poly_ctx_struct {
 }
 unsafe extern "C" {
     pub fn ore_algebra_randtest(state: *mut flint_rand_struct) -> ore_algebra_t;
+    pub fn gr_ore_poly_ctx_data_ptr(
+        ctx: *mut gr_ore_poly_ctx_struct,
+    ) -> *mut ::std::os::raw::c_void;
     pub fn gr_ctx_init_gr_ore_poly(
         ctx: *mut gr_ctx_struct,
         base_ring: *mut gr_ctx_struct,
@@ -43341,6 +47824,30 @@ unsafe extern "C" {
         poly: *mut gr_ore_poly_struct,
         ctx: *mut gr_ore_poly_ctx_struct,
     );
+    pub fn gr_ore_poly_coeff_ptr(
+        poly: *mut gr_ore_poly_struct,
+        i: slong,
+        ctx: *mut gr_ore_poly_ctx_struct,
+    ) -> gr_ptr;
+    pub fn gr_ore_poly_coeff_srcptr(
+        poly: *const gr_ore_poly_struct,
+        i: slong,
+        ctx: *mut gr_ore_poly_ctx_struct,
+    ) -> gr_srcptr;
+    pub fn gr_ore_poly_length(
+        poly: *const gr_ore_poly_struct,
+        UNUSED_ctx: *mut gr_ore_poly_ctx_struct,
+    ) -> slong;
+    pub fn gr_ore_poly_swap(
+        poly1: *mut gr_ore_poly_struct,
+        poly2: *mut gr_ore_poly_struct,
+        UNUSED_ctx: *mut gr_ore_poly_ctx_struct,
+    );
+    pub fn gr_ore_poly_set_shallow(
+        res: *mut gr_ore_poly_struct,
+        x: *const gr_ore_poly_struct,
+        ctx: *const gr_ore_poly_ctx_struct,
+    );
     pub fn gr_ore_poly_fit_length(
         poly: *mut gr_ore_poly_struct,
         len: slong,
@@ -43364,6 +47871,10 @@ unsafe extern "C" {
         poly: *mut gr_ore_poly_struct,
         src: *const gr_ore_poly_struct,
         newlen: slong,
+        ctx: *mut gr_ore_poly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ore_poly_zero(
+        poly: *mut gr_ore_poly_struct,
         ctx: *mut gr_ore_poly_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_ore_poly_one(
@@ -43443,6 +47954,11 @@ unsafe extern "C" {
         poly: *mut gr_ore_poly_struct,
         state: *mut flint_rand_struct,
         len: slong,
+        ctx: *mut gr_ore_poly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_ore_poly_randtest_default(
+        res: *mut gr_ore_poly_struct,
+        state: *mut flint_rand_struct,
         ctx: *mut gr_ore_poly_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_ore_poly_set_si(
@@ -43534,6 +48050,22 @@ unsafe extern "C" {
     pub fn sigma_delta_frobenius(
         sigma: gr_ptr,
         delta: gr_ptr,
+        a: gr_srcptr,
+        ctx: *mut gr_ore_poly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ore_poly_sigma_delta(
+        sigma: gr_ptr,
+        delta: gr_ptr,
+        a: gr_srcptr,
+        ctx: *mut gr_ore_poly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ore_poly_sigma(
+        res: gr_ptr,
+        a: gr_srcptr,
+        ctx: *mut gr_ore_poly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ore_poly_delta(
+        res: gr_ptr,
         a: gr_srcptr,
         ctx: *mut gr_ore_poly_ctx_struct,
     ) -> ::std::os::raw::c_int;
@@ -43740,6 +48272,35 @@ unsafe extern "C" {
     pub fn gr_poly_init(poly: *mut gr_poly_struct, ctx: *mut gr_ctx_struct);
     pub fn gr_poly_init2(poly: *mut gr_poly_struct, len: slong, ctx: *mut gr_ctx_struct);
     pub fn gr_poly_clear(poly: *mut gr_poly_struct, ctx: *mut gr_ctx_struct);
+    pub fn gr_poly_coeff_ptr(
+        poly: *mut gr_poly_struct,
+        i: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> gr_ptr;
+    pub fn gr_poly_entry_ptr(
+        poly: *mut gr_poly_struct,
+        i: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> gr_ptr;
+    pub fn gr_poly_coeff_srcptr(
+        poly: *const gr_poly_struct,
+        i: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> gr_srcptr;
+    pub fn gr_poly_entry_srcptr(
+        poly: *const gr_poly_struct,
+        i: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> gr_srcptr;
+    pub fn gr_poly_length(
+        poly: *const gr_poly_struct,
+        UNUSED_ctx: *mut gr_ctx_struct,
+    ) -> slong;
+    pub fn gr_poly_swap(
+        poly1: *mut gr_poly_struct,
+        poly2: *mut gr_poly_struct,
+        UNUSED_ctx: *mut gr_ctx_struct,
+    );
     pub fn gr_poly_fit_length(
         poly: *mut gr_poly_struct,
         len: slong,
@@ -43773,6 +48334,10 @@ unsafe extern "C" {
         poly: *mut gr_poly_struct,
         src: *const gr_poly_struct,
         newlen: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_zero(
+        poly: *mut gr_poly_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_poly_one(
@@ -43988,6 +48553,15 @@ unsafe extern "C" {
         poly2: *const gr_poly_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_mullow(
+        res: gr_ptr,
+        poly1: gr_srcptr,
+        len1: slong,
+        poly2: gr_srcptr,
+        len2: slong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_mullow_generic(
         res: gr_ptr,
         poly1: gr_srcptr,
@@ -44082,6 +48656,16 @@ unsafe extern "C" {
         splitting_degree: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_mulmid(
+        res: gr_ptr,
+        poly1: gr_srcptr,
+        len1: slong,
+        poly2: gr_srcptr,
+        len2: slong,
+        nlo: slong,
+        nhi: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_mulmid_generic(
         res: gr_ptr,
         poly1: gr_srcptr,
@@ -44134,6 +48718,15 @@ unsafe extern "C" {
         poly2: *const gr_poly_struct,
         nlo: slong,
         nhi: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_mullow_classical(
+        res: gr_ptr,
+        poly1: gr_srcptr,
+        len1: slong,
+        poly2: gr_srcptr,
+        len2: slong,
+        n: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_poly_mullow_classical(
@@ -44484,6 +49077,15 @@ unsafe extern "C" {
         B: *const gr_poly_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_divrem(
+        Q: gr_ptr,
+        R: gr_ptr,
+        A: gr_srcptr,
+        lenA: slong,
+        B: gr_srcptr,
+        lenB: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_divrem_generic(
         Q: gr_ptr,
         R: gr_ptr,
@@ -44578,6 +49180,14 @@ unsafe extern "C" {
         Q: *mut gr_poly_struct,
         A: *const gr_poly_struct,
         B: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_div(
+        Q: gr_ptr,
+        A: gr_srcptr,
+        lenA: slong,
+        B: gr_srcptr,
+        lenB: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_div_generic(
@@ -44677,6 +49287,20 @@ unsafe extern "C" {
     pub fn gr_poly_inv_series_basecase(
         Qinv: *mut gr_poly_struct,
         Q: *const gr_poly_struct,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_inv_series_basecase(
+        res: gr_ptr,
+        f: gr_srcptr,
+        flen: slong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_inv_series(
+        res: gr_ptr,
+        f: gr_srcptr,
+        flen: slong,
         len: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
@@ -44780,6 +49404,24 @@ unsafe extern "C" {
         len: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_div_series_basecase(
+        res: gr_ptr,
+        f: gr_srcptr,
+        flen: slong,
+        g: gr_srcptr,
+        glen: slong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_div_series(
+        res: gr_ptr,
+        f: gr_srcptr,
+        flen: slong,
+        g: gr_srcptr,
+        glen: slong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_div_series_generic(
         Q: gr_ptr,
         A: gr_srcptr,
@@ -44844,6 +49486,14 @@ unsafe extern "C" {
         Q: *mut gr_poly_struct,
         A: *const gr_poly_struct,
         B: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_divexact(
+        Q: gr_ptr,
+        A: gr_srcptr,
+        lenA: slong,
+        B: gr_srcptr,
+        lenB: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_divexact_generic(
@@ -44926,6 +49576,13 @@ unsafe extern "C" {
         len: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_sqrt_series(
+        res: gr_ptr,
+        f: gr_srcptr,
+        flen: slong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_sqrt_series_generic(
         res: gr_ptr,
         f: gr_srcptr,
@@ -44977,6 +49634,13 @@ unsafe extern "C" {
     pub fn gr_poly_rsqrt_series_miller(
         res: *mut gr_poly_struct,
         f: *const gr_poly_struct,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_rsqrt_series(
+        res: gr_ptr,
+        f: gr_srcptr,
+        flen: slong,
         len: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
@@ -45132,6 +49796,13 @@ unsafe extern "C" {
     pub fn _gr_poly_taylor_shift_generic(
         res: gr_ptr,
         poly: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_taylor_shift(
+        res: gr_ptr,
+        f: gr_srcptr,
         len: slong,
         c: gr_srcptr,
         ctx: *mut gr_ctx_struct,
@@ -45442,6 +50113,15 @@ unsafe extern "C" {
         lenB: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_gcd(
+        G: gr_ptr,
+        lenG: *mut slong,
+        A: gr_srcptr,
+        lenA: slong,
+        B: gr_srcptr,
+        lenB: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn gr_poly_gcd(
         G: *mut gr_poly_struct,
         A: *const gr_poly_struct,
@@ -45496,6 +50176,17 @@ unsafe extern "C" {
         B: *const gr_poly_struct,
         hgcd_cutoff: slong,
         cutoff: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_xgcd(
+        Glen: *mut slong,
+        G: gr_ptr,
+        S: gr_ptr,
+        T: gr_ptr,
+        A: gr_srcptr,
+        lenA: slong,
+        B: gr_srcptr,
+        lenB: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_xgcd_generic(
@@ -45902,6 +50593,21 @@ unsafe extern "C" {
         progressive: ::std::os::raw::c_int,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_roots(
+        roots: *mut gr_vec_struct,
+        mult: *mut gr_vec_struct,
+        poly: *const gr_poly_struct,
+        flags: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_roots_other(
+        roots: *mut gr_vec_struct,
+        mult: *mut gr_vec_struct,
+        poly: *const gr_poly_struct,
+        poly_ctx: *mut gr_ctx_struct,
+        flags: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_asin_series(
         res: gr_ptr,
         f: gr_srcptr,
@@ -46046,6 +50752,13 @@ unsafe extern "C" {
         h: *const gr_poly_struct,
         n: slong,
         cutoff: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_exp_series(
+        res: gr_ptr,
+        f: gr_srcptr,
+        flen: slong,
+        len: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_exp_series_generic(
@@ -47248,6 +51961,1220 @@ pub type gr_method_pfq_op_op = ::std::option::Option<
     ) -> ::std::os::raw::c_int,
 >;
 unsafe extern "C" {
+    pub fn gr_pi(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_euler(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_catalan(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_khinchin(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_glaisher(res: gr_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn gr_exp(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_expm1(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_exp2(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_exp10(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_exp_pi_i(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_log(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_log1p(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_log_pi_i(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_log2(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_log10(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sin(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_cos(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sin_cos(
+        res1: gr_ptr,
+        res2: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_tan(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_cot(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sec(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_csc(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sin_pi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_cos_pi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sin_cos_pi(
+        res1: gr_ptr,
+        res2: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_tan_pi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_cot_pi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sec_pi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_csc_pi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sinc(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sinc_pi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sinh(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_cosh(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sinh_cosh(
+        res1: gr_ptr,
+        res2: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_tanh(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_coth(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sech(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_csch(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_asin(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_acos(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_atan(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_atan2(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_acot(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_asec(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_acsc(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_asin_pi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_acos_pi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_atan_pi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_acot_pi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_asec_pi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_acsc_pi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_asinh(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_acosh(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_atanh(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_acoth(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_asech(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_acsch(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_lambertw(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_lambertw_fmpz(
+        res: gr_ptr,
+        x: gr_srcptr,
+        k: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fac(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fac_ui(
+        res: gr_ptr,
+        x: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fac_fmpz(
+        res: gr_ptr,
+        x: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fac_vec(
+        res: gr_ptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_rfac(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_rfac_ui(
+        res: gr_ptr,
+        x: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_rfac_fmpz(
+        res: gr_ptr,
+        x: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_rfac_vec(
+        res: gr_ptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bin(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bin_ui(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bin_uiui(
+        res: gr_ptr,
+        x: ulong,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bin_vec(
+        res: gr_ptr,
+        x: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bin_ui_vec(
+        res: gr_ptr,
+        x: ulong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_rising(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_rising_ui(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_falling(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_falling_ui(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_gamma(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_gamma_fmpz(
+        res: gr_ptr,
+        x: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_gamma_fmpq(
+        res: gr_ptr,
+        x: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_rgamma(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_lgamma(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_digamma(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_beta(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_barnes_g(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_log_barnes_g(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_doublefac(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_doublefac_ui(
+        res: gr_ptr,
+        x: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_harmonic(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_harmonic_ui(
+        res: gr_ptr,
+        x: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bernoulli_ui(
+        res: gr_ptr,
+        x: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bernoulli_fmpz(
+        res: gr_ptr,
+        x: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bernoulli_vec(
+        res: gr_ptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fib_ui(
+        res: gr_ptr,
+        x: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fib_fmpz(
+        res: gr_ptr,
+        x: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fib_vec(
+        res: gr_ptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_eulernum_ui(
+        res: gr_ptr,
+        x: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_eulernum_fmpz(
+        res: gr_ptr,
+        x: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_eulernum_vec(
+        res: gr_ptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bernpoly_ui(
+        res: gr_ptr,
+        n: ulong,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_eulerpoly_ui(
+        res: gr_ptr,
+        n: ulong,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bellnum_ui(
+        res: gr_ptr,
+        x: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bellnum_fmpz(
+        res: gr_ptr,
+        x: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bellnum_vec(
+        res: gr_ptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_stirling_s1u_uiui(
+        res: gr_ptr,
+        x: ulong,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_stirling_s1_uiui(
+        res: gr_ptr,
+        x: ulong,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_stirling_s2_uiui(
+        res: gr_ptr,
+        x: ulong,
+        y: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_stirling_s1u_ui_vec(
+        res: gr_ptr,
+        x: ulong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_stirling_s1_ui_vec(
+        res: gr_ptr,
+        x: ulong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_stirling_s2_ui_vec(
+        res: gr_ptr,
+        x: ulong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_partitions_ui(
+        res: gr_ptr,
+        x: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_partitions_fmpz(
+        res: gr_ptr,
+        x: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_partitions_vec(
+        res: gr_ptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_erf(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_erfc(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_erfcx(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_erfi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_erfinv(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_erfcinv(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fresnel_s(
+        res: gr_ptr,
+        x: gr_srcptr,
+        normalized: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fresnel_c(
+        res: gr_ptr,
+        x: gr_srcptr,
+        normalized: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_fresnel(
+        res1: gr_ptr,
+        res2: gr_ptr,
+        x: gr_srcptr,
+        normalized: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_gamma_upper(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        regularized: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_gamma_lower(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        regularized: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_beta_lower(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        z: gr_srcptr,
+        regularized: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_exp_integral(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_exp_integral_ei(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sin_integral(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_cos_integral(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_sinh_integral(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_cosh_integral(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_log_integral(
+        res: gr_ptr,
+        x: gr_srcptr,
+        offset: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_dilog(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bessel_j(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bessel_y(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bessel_i(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bessel_k(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bessel_j_y(
+        res1: gr_ptr,
+        res2: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bessel_i_scaled(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_bessel_k_scaled(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_airy(
+        res1: gr_ptr,
+        res2: gr_ptr,
+        res3: gr_ptr,
+        res4: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_airy_ai(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_airy_bi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_airy_ai_prime(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_airy_bi_prime(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_airy_ai_zero(
+        res: gr_ptr,
+        n: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_airy_bi_zero(
+        res: gr_ptr,
+        n: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_airy_ai_prime_zero(
+        res: gr_ptr,
+        n: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_airy_bi_prime_zero(
+        res: gr_ptr,
+        n: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_coulomb(
+        res1: gr_ptr,
+        res2: gr_ptr,
+        res3: gr_ptr,
+        res4: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        z: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_coulomb_f(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        z: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_coulomb_g(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        z: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_coulomb_hpos(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        z: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_coulomb_hneg(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        z: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_chebyshev_t_fmpz(
+        res: gr_ptr,
+        n: *const fmpz,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_chebyshev_t(
+        res: gr_ptr,
+        n: gr_srcptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_chebyshev_u_fmpz(
+        res: gr_ptr,
+        n: *const fmpz,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_chebyshev_u(
+        res: gr_ptr,
+        n: gr_srcptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_jacobi_p(
+        res: gr_ptr,
+        n: gr_srcptr,
+        a: gr_srcptr,
+        b: gr_srcptr,
+        z: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_gegenbauer_c(
+        res: gr_ptr,
+        n: gr_srcptr,
+        m: gr_srcptr,
+        z: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_laguerre_l(
+        res: gr_ptr,
+        n: gr_srcptr,
+        m: gr_srcptr,
+        z: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_hermite_h(
+        res: gr_ptr,
+        n: gr_srcptr,
+        z: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_legendre_p(
+        res: gr_ptr,
+        n: gr_srcptr,
+        m: gr_srcptr,
+        z: gr_srcptr,
+        type_: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_legendre_q(
+        res: gr_ptr,
+        n: gr_srcptr,
+        m: gr_srcptr,
+        z: gr_srcptr,
+        type_: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_spherical_y_si(
+        res: gr_ptr,
+        n: slong,
+        m: slong,
+        theta: gr_srcptr,
+        phi: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_legendre_p_root_ui(
+        root: gr_ptr,
+        weight: gr_ptr,
+        n: ulong,
+        k: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_hypgeom_0f1(
+        res: gr_ptr,
+        a: gr_srcptr,
+        z: gr_srcptr,
+        flags: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_hypgeom_1f1(
+        res: gr_ptr,
+        a: gr_srcptr,
+        b: gr_srcptr,
+        z: gr_srcptr,
+        flags: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_hypgeom_u(
+        res: gr_ptr,
+        a: gr_srcptr,
+        b: gr_srcptr,
+        z: gr_srcptr,
+        flags: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_hypgeom_2f1(
+        res: gr_ptr,
+        a: gr_srcptr,
+        b: gr_srcptr,
+        c: gr_srcptr,
+        z: gr_srcptr,
+        flags: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_hypgeom_pfq(
+        res: gr_ptr,
+        a: *const gr_vec_struct,
+        b: *const gr_vec_struct,
+        z: gr_srcptr,
+        flags: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_zeta(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_zeta_ui(
+        res: gr_ptr,
+        x: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_hurwitz_zeta(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_polylog(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_polygamma(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_lerch_phi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        z: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_stieltjes(
+        res: gr_ptr,
+        x: *const fmpz,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_dirichlet_eta(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_dirichlet_beta(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_riemann_xi(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_zeta_zero(
+        res: gr_ptr,
+        n: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_zeta_zero_vec(
+        res: gr_ptr,
+        n: *const fmpz,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_zeta_nzeros(
+        res: gr_ptr,
+        t: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_jacobi_theta(
+        res1: gr_ptr,
+        res2: gr_ptr,
+        res3: gr_ptr,
+        res4: gr_ptr,
+        z: gr_srcptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_jacobi_theta_1(
+        res: gr_ptr,
+        z: gr_srcptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_jacobi_theta_2(
+        res: gr_ptr,
+        z: gr_srcptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_jacobi_theta_3(
+        res: gr_ptr,
+        z: gr_srcptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_jacobi_theta_4(
+        res: gr_ptr,
+        z: gr_srcptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_modular_j(
+        res: gr_ptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_modular_lambda(
+        res: gr_ptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_modular_delta(
+        res: gr_ptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_hilbert_class_poly(
+        res: gr_ptr,
+        D: slong,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_dedekind_eta(
+        res: gr_ptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_dedekind_eta_q(
+        res: gr_ptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_eisenstein_e(
+        res: gr_ptr,
+        n: ulong,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_eisenstein_g(
+        res: gr_ptr,
+        n: ulong,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_eisenstein_g_vec(
+        res: gr_ptr,
+        tau: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_agm1(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_agm(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_elliptic_k(
+        res: gr_ptr,
+        m: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_elliptic_e(
+        res: gr_ptr,
+        m: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_elliptic_pi(
+        res: gr_ptr,
+        n: gr_srcptr,
+        m: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_elliptic_f(
+        res: gr_ptr,
+        phi: gr_srcptr,
+        m: gr_srcptr,
+        pi: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_elliptic_e_inc(
+        res: gr_ptr,
+        phi: gr_srcptr,
+        m: gr_srcptr,
+        pi: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_elliptic_pi_inc(
+        res: gr_ptr,
+        n: gr_srcptr,
+        phi: gr_srcptr,
+        m: gr_srcptr,
+        pi: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_carlson_rc(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        flags: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_carlson_rf(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        z: gr_srcptr,
+        flags: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_carlson_rd(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        z: gr_srcptr,
+        flags: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_carlson_rg(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        z: gr_srcptr,
+        flags: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_carlson_rj(
+        res: gr_ptr,
+        x: gr_srcptr,
+        y: gr_srcptr,
+        z: gr_srcptr,
+        w: gr_srcptr,
+        flags: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_elliptic_invariants(
+        res1: gr_ptr,
+        res2: gr_ptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_elliptic_roots(
+        res1: gr_ptr,
+        res2: gr_ptr,
+        res3: gr_ptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_weierstrass_p(
+        res: gr_ptr,
+        z: gr_srcptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_weierstrass_p_prime(
+        res: gr_ptr,
+        z: gr_srcptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_weierstrass_p_inv(
+        res: gr_ptr,
+        z: gr_srcptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_weierstrass_zeta(
+        res: gr_ptr,
+        z: gr_srcptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_weierstrass_sigma(
+        res: gr_ptr,
+        z: gr_srcptr,
+        tau: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn gr_generic_exp(
         res: gr_ptr,
         x: gr_srcptr,
@@ -47741,6 +53668,20 @@ unsafe extern "C" {
         n: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_vec_entry_ptr(
+        vec: *mut gr_vec_struct,
+        i: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> gr_ptr;
+    pub fn gr_vec_entry_srcptr(
+        vec: *const gr_vec_struct,
+        i: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> gr_srcptr;
+    pub fn gr_vec_length(
+        vec: *const gr_vec_struct,
+        UNUSED_ctx: *mut gr_ctx_struct,
+    ) -> slong;
     pub fn gr_vec_fit_length(
         vec: *mut gr_vec_struct,
         len: slong,
@@ -47769,6 +53710,11 @@ unsafe extern "C" {
     pub fn _gr_vec_contains(
         vec: gr_srcptr,
         len: slong,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> truth_t;
+    pub fn gr_vec_contains(
+        vec: *const gr_vec_struct,
         x: gr_srcptr,
         ctx: *mut gr_ctx_struct,
     ) -> truth_t;
@@ -47818,6 +53764,641 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn gr_vec_print(
         vec: *const gr_vec_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_zero(
+        vec: gr_ptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_set(
+        res: gr_ptr,
+        src: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_neg(
+        res: gr_ptr,
+        src: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_normalise(
+        res: *mut slong,
+        vec: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_normalise_weak(
+        vec: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> slong;
+    pub fn _gr_vec_add(
+        res: gr_ptr,
+        src1: gr_srcptr,
+        src2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_sub(
+        res: gr_ptr,
+        src1: gr_srcptr,
+        src2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_mul(
+        res: gr_ptr,
+        src1: gr_srcptr,
+        src2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_div(
+        res: gr_ptr,
+        src1: gr_srcptr,
+        src2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_divexact(
+        res: gr_ptr,
+        src1: gr_srcptr,
+        src2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_pow(
+        res: gr_ptr,
+        src1: gr_srcptr,
+        src2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_add_scalar(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_sub_scalar(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_mul_scalar(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_div_scalar(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_divexact_scalar(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_pow_scalar(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_add_scalar_si(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_sub_scalar_si(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_mul_scalar_si(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_div_scalar_si(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_divexact_scalar_si(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_pow_scalar_si(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_add_scalar_ui(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_sub_scalar_ui(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_mul_scalar_ui(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_div_scalar_ui(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_divexact_scalar_ui(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_pow_scalar_ui(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_add_scalar_fmpz(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_sub_scalar_fmpz(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_mul_scalar_fmpz(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_div_scalar_fmpz(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_divexact_scalar_fmpz(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_pow_scalar_fmpz(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_add_scalar_fmpq(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_sub_scalar_fmpq(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_mul_scalar_fmpq(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_div_scalar_fmpq(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_divexact_scalar_fmpq(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_pow_scalar_fmpq(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: *const fmpq,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_scalar_add_vec(
+        vec1: gr_ptr,
+        c: gr_srcptr,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_scalar_sub_vec(
+        vec1: gr_ptr,
+        c: gr_srcptr,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_scalar_mul_vec(
+        vec1: gr_ptr,
+        c: gr_srcptr,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_scalar_div_vec(
+        vec1: gr_ptr,
+        c: gr_srcptr,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_scalar_divexact_vec(
+        vec1: gr_ptr,
+        c: gr_srcptr,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_scalar_pow_vec(
+        vec1: gr_ptr,
+        c: gr_srcptr,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_add_other(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        vec3: gr_srcptr,
+        ctx3: *mut gr_ctx_struct,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_sub_other(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        vec3: gr_srcptr,
+        ctx3: *mut gr_ctx_struct,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_mul_other(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        vec3: gr_srcptr,
+        ctx3: *mut gr_ctx_struct,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_div_other(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        vec3: gr_srcptr,
+        ctx3: *mut gr_ctx_struct,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_divexact_other(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        vec3: gr_srcptr,
+        ctx3: *mut gr_ctx_struct,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_pow_other(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        vec3: gr_srcptr,
+        ctx3: *mut gr_ctx_struct,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_other_add_vec(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        ctx2: *mut gr_ctx_struct,
+        vec3: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_other_sub_vec(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        ctx2: *mut gr_ctx_struct,
+        vec3: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_other_mul_vec(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        ctx2: *mut gr_ctx_struct,
+        vec3: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_other_div_vec(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        ctx2: *mut gr_ctx_struct,
+        vec3: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_other_divexact_vec(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        ctx2: *mut gr_ctx_struct,
+        vec3: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_other_pow_vec(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        ctx2: *mut gr_ctx_struct,
+        vec3: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_add_scalar_other(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        cctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_sub_scalar_other(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        cctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_mul_scalar_other(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        cctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_div_scalar_other(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        cctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_divexact_scalar_other(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        cctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_pow_scalar_other(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        cctx: *mut gr_ctx_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_scalar_other_add_vec(
+        vec1: gr_ptr,
+        c: gr_srcptr,
+        cctx: *mut gr_ctx_struct,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_scalar_other_sub_vec(
+        vec1: gr_ptr,
+        c: gr_srcptr,
+        cctx: *mut gr_ctx_struct,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_scalar_other_mul_vec(
+        vec1: gr_ptr,
+        c: gr_srcptr,
+        cctx: *mut gr_ctx_struct,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_scalar_other_div_vec(
+        vec1: gr_ptr,
+        c: gr_srcptr,
+        cctx: *mut gr_ctx_struct,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_scalar_other_divexact_vec(
+        vec1: gr_ptr,
+        c: gr_srcptr,
+        cctx: *mut gr_ctx_struct,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_scalar_other_pow_vec(
+        vec1: gr_ptr,
+        c: gr_srcptr,
+        cctx: *mut gr_ctx_struct,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_mul_scalar_2exp_si(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_addmul_scalar(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_submul_scalar(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_addmul_scalar_si(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_submul_scalar_si(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_addmul_scalar_fmpz(
+        vec1: gr_ptr,
+        vec2: gr_srcptr,
+        len: slong,
+        c: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_equal(
+        vec1: gr_srcptr,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> truth_t;
+    pub fn _gr_vec_is_zero(
+        vec: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> truth_t;
+    pub fn _gr_vec_sum(
+        res: gr_ptr,
+        vec: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_product(
+        res: gr_ptr,
+        vec: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_dot(
+        res: gr_ptr,
+        initial: gr_srcptr,
+        subtract: ::std::os::raw::c_int,
+        vec1: gr_srcptr,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_dot_rev(
+        res: gr_ptr,
+        initial: gr_srcptr,
+        subtract: ::std::os::raw::c_int,
+        vec1: gr_srcptr,
+        vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_dot_si(
+        res: gr_ptr,
+        initial: gr_srcptr,
+        subtract: ::std::os::raw::c_int,
+        vec1: gr_srcptr,
+        vec2: *const slong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_dot_ui(
+        res: gr_ptr,
+        initial: gr_srcptr,
+        subtract: ::std::os::raw::c_int,
+        vec1: gr_srcptr,
+        vec2: *const ulong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_dot_fmpz(
+        res: gr_ptr,
+        initial: gr_srcptr,
+        subtract: ::std::os::raw::c_int,
+        vec1: gr_srcptr,
+        vec2: *const fmpz,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_reciprocals(
+        res: gr_ptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_set_powers(
+        res: gr_ptr,
+        x: gr_srcptr,
+        len: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn _gr_vec_randtest(
@@ -48005,6 +54586,14 @@ pub type n_primes_t = [n_primes_struct; 1usize];
 
 unsafe extern "C" {
     pub fn z_sizeinbase(n: slong, b: ::std::os::raw::c_int) -> usize;
+    pub fn z_mul_checked(a: *mut slong, b: slong, c: slong) -> ::std::os::raw::c_int;
+    pub fn z_add_checked(a: *mut slong, b: slong, c: slong) -> ::std::os::raw::c_int;
+    pub fn z_mat22_det_is_negative(
+        m11: slong,
+        m12: slong,
+        m21: slong,
+        m22: slong,
+    ) -> ::std::os::raw::c_int;
     pub fn z_randtest(state: *mut flint_rand_struct) -> slong;
     pub fn z_randtest_not_zero(state: *mut flint_rand_struct) -> slong;
     pub fn z_randint(state: *mut flint_rand_struct, limit: ulong) -> slong;
@@ -48015,7 +54604,22 @@ unsafe extern "C" {
 /* mag.h */
 
 unsafe extern "C" {
+    pub fn mag_init(x: *mut mag_struct);
+    pub fn mag_init_set(x: *mut mag_struct, y: *const mag_struct);
     pub fn mag_clear(x: *mut mag_struct);
+    pub fn mag_swap(x: *mut mag_struct, y: *mut mag_struct);
+    pub fn mag_set(x: *mut mag_struct, y: *const mag_struct);
+    pub fn mag_zero(x: *mut mag_struct);
+    pub fn mag_one(x: *mut mag_struct);
+    pub fn mag_is_special(x: *const mag_struct) -> ::std::os::raw::c_int;
+    pub fn mag_is_zero(x: *const mag_struct) -> ::std::os::raw::c_int;
+    pub fn mag_inf(x: *mut mag_struct);
+    pub fn mag_is_inf(x: *const mag_struct) -> ::std::os::raw::c_int;
+    pub fn mag_is_finite(x: *const mag_struct) -> ::std::os::raw::c_int;
+    pub fn mag_equal(
+        x: *const mag_struct,
+        y: *const mag_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn mag_mul(z: *mut mag_struct, x: *const mag_struct, y: *const mag_struct);
     pub fn mag_mul_lower(z: *mut mag_struct, x: *const mag_struct, y: *const mag_struct);
     pub fn mag_addmul(z: *mut mag_struct, x: *const mag_struct, y: *const mag_struct);
@@ -48032,10 +54636,23 @@ unsafe extern "C" {
     );
     pub fn mag_div(z: *mut mag_struct, x: *const mag_struct, y: *const mag_struct);
     pub fn mag_div_lower(z: *mut mag_struct, x: *const mag_struct, y: *const mag_struct);
+    pub fn mag_inv(res: *mut mag_struct, x: *const mag_struct);
+    pub fn mag_inv_lower(res: *mut mag_struct, x: *const mag_struct);
     pub fn mag_mul_2exp_si(z: *mut mag_struct, x: *const mag_struct, y: slong);
     pub fn mag_mul_2exp_fmpz(z: *mut mag_struct, x: *const mag_struct, y: *const fmpz);
     pub fn mag_sub(z: *mut mag_struct, x: *const mag_struct, y: *const mag_struct);
     pub fn mag_sub_lower(z: *mut mag_struct, x: *const mag_struct, y: *const mag_struct);
+    pub fn mag_fast_init_set(x: *mut mag_struct, y: *const mag_struct);
+    pub fn mag_fast_zero(x: *mut mag_struct);
+    pub fn mag_fast_is_zero(x: *const mag_struct) -> ::std::os::raw::c_int;
+    pub fn mag_fast_mul(z: *mut mag_struct, x: *const mag_struct, y: *const mag_struct);
+    pub fn mag_fast_mul_2exp_si(z: *mut mag_struct, x: *const mag_struct, y: slong);
+    pub fn mag_fast_addmul(
+        z: *mut mag_struct,
+        x: *const mag_struct,
+        y: *const mag_struct,
+    );
+    pub fn mag_fast_add_2exp_si(z: *mut mag_struct, x: *const mag_struct, e: slong);
     pub fn mag_set_d(z: *mut mag_struct, x: f64);
     pub fn mag_set_d_lower(z: *mut mag_struct, x: f64);
     pub fn mag_set_d_2exp_fmpz(z: *mut mag_struct, c: f64, exp: *const fmpz);
@@ -48062,6 +54679,10 @@ unsafe extern "C" {
     pub fn mag_get_fmpz_lower(res: *mut fmpz, x: *const mag_struct);
     pub fn mag_cmp(x: *const mag_struct, y: *const mag_struct) -> ::std::os::raw::c_int;
     pub fn mag_cmp_2exp_si(x: *const mag_struct, e: slong) -> ::std::os::raw::c_int;
+    pub fn mag_min(z: *mut mag_struct, x: *const mag_struct, y: *const mag_struct);
+    pub fn mag_max(z: *mut mag_struct, x: *const mag_struct, y: *const mag_struct);
+    pub fn _mag_vec_init(n: slong) -> mag_ptr;
+    pub fn _mag_vec_clear(v: mag_ptr, n: slong);
     pub fn mag_get_d(z: *const mag_struct) -> f64;
     pub fn mag_get_d_log2_approx(x: *const mag_struct) -> f64;
     pub fn mag_d_log_upper_bound(x: f64) -> f64;
@@ -48118,6 +54739,15 @@ unsafe extern "C" {
     pub fn mag_set_ui(z: *mut mag_struct, x: ulong);
     pub fn mag_set_ui_lower(z: *mut mag_struct, x: ulong);
     pub fn mag_set_ui_2exp_si(z: *mut mag_struct, v: ulong, e: slong);
+    pub fn mag_set_fmpz(z: *mut mag_struct, x: *const fmpz);
+    pub fn mag_set_fmpz_lower(z: *mut mag_struct, x: *const fmpz);
+    pub fn mag_mul_ui(z: *mut mag_struct, x: *const mag_struct, y: ulong);
+    pub fn mag_mul_ui_lower(z: *mut mag_struct, x: *const mag_struct, y: ulong);
+    pub fn mag_mul_fmpz(z: *mut mag_struct, x: *const mag_struct, y: *const fmpz);
+    pub fn mag_mul_fmpz_lower(z: *mut mag_struct, x: *const mag_struct, y: *const fmpz);
+    pub fn mag_div_ui(z: *mut mag_struct, x: *const mag_struct, y: ulong);
+    pub fn mag_div_fmpz(z: *mut mag_struct, x: *const mag_struct, y: *const fmpz);
+    pub fn mag_allocated_bytes(x: *const mag_struct) -> slong;
     pub fn mag_load_str(
         res: *mut mag_struct,
         data: *const ::std::os::raw::c_char,
@@ -48147,11 +54777,26 @@ impl Default for _mpn_mod_ctx_struct {
     }
 }
 unsafe extern "C" {
+    pub fn mpn_mod_ctx_set_is_field(
+        ctx: *mut gr_ctx_struct,
+        is_field: truth_t,
+    ) -> ::std::os::raw::c_int;
     pub fn mpn_mod_ctx_write(
         out: *mut gr_stream_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn mpn_mod_ctx_clear(ctx: *mut gr_ctx_struct);
+    pub fn mpn_mod_ctx_is_field(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn mpn_mod_init(x: nn_ptr, ctx: *mut gr_ctx_struct);
+    pub fn mpn_mod_clear(UNUSED_x: nn_ptr, UNUSED_ctx: *mut gr_ctx_struct);
+    pub fn mpn_mod_swap(x: nn_ptr, y: nn_ptr, ctx: *mut gr_ctx_struct);
+    pub fn mpn_mod_set(
+        res: nn_ptr,
+        x: nn_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn mpn_mod_zero(res: nn_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn mpn_mod_one(res: nn_ptr, ctx: *mut gr_ctx_struct) -> ::std::os::raw::c_int;
     pub fn mpn_mod_set_ui(
         res: nn_ptr,
         x: ulong,
@@ -48192,7 +54837,10 @@ unsafe extern "C" {
         x: nn_srcptr,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn mpn_mod_is_zero(x: nn_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn mpn_mod_is_one(x: nn_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn mpn_mod_is_neg_one(x: gr_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn mpn_mod_equal(x: nn_srcptr, y: nn_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn mpn_mod_neg(
         res: nn_ptr,
         x: nn_srcptr,
@@ -48316,6 +54964,11 @@ unsafe extern "C" {
         res: nn_ptr,
         x: nn_srcptr,
         y: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn mpn_mod_sqr(
+        res: nn_ptr,
+        x: nn_srcptr,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn mpn_mod_fmma(
@@ -48655,6 +55308,9 @@ unsafe extern "C" {
         its_new: *mut ::std::os::raw::c_int,
         key: *const fmpz,
     ) -> *mut ::std::os::raw::c_void;
+    pub fn mpoly_ordering_randtest(state: *mut flint_rand_struct) -> ordering_t;
+    pub fn mpoly_ordering_isdeg(mctx: *const mpoly_ctx_struct) -> ::std::os::raw::c_int;
+    pub fn mpoly_ordering_isrev(mctx: *const mpoly_ctx_struct) -> ::std::os::raw::c_int;
     pub fn mpoly_ordering_print(ord: ordering_t);
     pub fn mpoly_monomial_msub_ui_array(
         exp1: *mut ulong,
@@ -48713,6 +55369,13 @@ unsafe extern "C" {
         exp3: *const ulong,
         N: slong,
         c: *const fmpz,
+    );
+    pub fn mpoly_max_degrees_tight(
+        max_exp: *mut slong,
+        exps: *mut ulong,
+        len: slong,
+        prods: *mut slong,
+        num: slong,
     );
     pub fn _mpoly_bidegree(
         Aexps: *const ulong,
@@ -48889,6 +55552,18 @@ unsafe extern "C" {
         bits: flint_bitcnt_t,
         mctx: *const mpoly_ctx_struct,
     );
+    pub fn mpoly_get_monomial_ui(
+        user_exps: *mut ulong,
+        poly_exps: *const ulong,
+        bits: flint_bitcnt_t,
+        mctx: *const mpoly_ctx_struct,
+    );
+    pub fn mpoly_get_monomial_si(
+        user_exps: *mut slong,
+        poly_exps: *const ulong,
+        bits: flint_bitcnt_t,
+        mctx: *const mpoly_ctx_struct,
+    );
     pub fn mpoly_get_monomial_var_exp_ui_sp(
         poly_exps: *const ulong,
         var: slong,
@@ -48907,6 +55582,18 @@ unsafe extern "C" {
         bits: flint_bitcnt_t,
         mctx: *const mpoly_ctx_struct,
     ) -> ulong;
+    pub fn mpoly_get_monomial_var_exp_ui(
+        poly_exps: *const ulong,
+        var: slong,
+        bits: flint_bitcnt_t,
+        mctx: *const mpoly_ctx_struct,
+    ) -> ulong;
+    pub fn mpoly_get_monomial_var_exp_si(
+        poly_exps: *const ulong,
+        var: slong,
+        bits: flint_bitcnt_t,
+        mctx: *const mpoly_ctx_struct,
+    ) -> slong;
     pub fn mpoly_get_monomial_ffmpz(
         exps: *mut fmpz,
         poly_exps: *const ulong,
@@ -51344,6 +58031,7 @@ unsafe extern "C" {
         bits: flint_bitcnt_t,
         nf: *const nf_struct,
     );
+    pub fn nf_elem_canonicalise(a: *mut nf_elem_struct, nf: *const nf_struct);
     pub fn _nf_elem_reduce(a: *mut nf_elem_struct, nf: *const nf_struct);
     pub fn nf_elem_reduce(a: *mut nf_elem_struct, nf: *const nf_struct);
     pub fn _nf_elem_invertible_check(
@@ -51360,7 +58048,23 @@ unsafe extern "C" {
         b: *const nf_elem_struct,
         nf: *const nf_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn nf_elem_is_zero(
+        a: *const nf_elem_struct,
+        nf: *const nf_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nf_elem_is_one(
+        a: *const nf_elem_struct,
+        nf: *const nf_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn nf_elem_is_gen(
+        a: *const nf_elem_struct,
+        nf: *const nf_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nf_elem_is_integer(
+        a: *const nf_elem_struct,
+        nf: *const nf_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nf_elem_is_rational(
         a: *const nf_elem_struct,
         nf: *const nf_struct,
     ) -> ::std::os::raw::c_int;
@@ -51473,6 +58177,8 @@ unsafe extern "C" {
         nf: *const nf_struct,
         ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn nf_elem_get_den(d: *mut fmpz, b: *const nf_elem_struct, nf: *const nf_struct);
+    pub fn nf_elem_set_den(b: *mut nf_elem_struct, d: *mut fmpz, nf: *const nf_struct);
     pub fn nf_elem_get_coeff_fmpq(
         a: *mut fmpq,
         b: *const nf_elem_struct,
@@ -51485,6 +58191,10 @@ unsafe extern "C" {
         i: slong,
         nf: *const nf_struct,
     );
+    pub fn nf_elem_den_is_one(
+        a: *const nf_elem_struct,
+        nf: *const nf_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _nf_elem_set_coeff_num_fmpz(
         a: *mut nf_elem_struct,
         i: slong,
@@ -51969,6 +58679,8 @@ unsafe extern "C" {
         out: *mut gr_stream_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn nfloat_init(res: nfloat_ptr, ctx: *mut gr_ctx_struct);
+    pub fn nfloat_clear(res: nfloat_ptr, ctx: *mut gr_ctx_struct);
     pub fn nfloat_swap(x: nfloat_ptr, y: nfloat_ptr, ctx: *mut gr_ctx_struct);
     pub fn nfloat_set(
         res: nfloat_ptr,
@@ -51980,6 +58692,18 @@ unsafe extern "C" {
         y: nfloat_srcptr,
         ctx: *mut gr_ctx_struct,
     ) -> truth_t;
+    pub fn nfloat_ctx_set_real_prec(
+        ctx: *mut gr_ctx_struct,
+        prec: slong,
+    ) -> ::std::os::raw::c_int;
+    pub fn nfloat_ctx_get_real_prec(
+        res: *mut slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nfloat_zero(
+        res: nfloat_ptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn nfloat_pos_inf(
         res: nfloat_ptr,
         ctx: *mut gr_ctx_struct,
@@ -52004,6 +58728,7 @@ unsafe extern "C" {
         res: nfloat_ptr,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn nfloat_is_zero(x: nfloat_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn nfloat_is_one(x: nfloat_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn nfloat_is_neg_one(x: nfloat_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn nfloat_set_ui(
@@ -52014,6 +58739,42 @@ unsafe extern "C" {
     pub fn nfloat_set_si(
         res: nfloat_ptr,
         x: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nfloat_1_set_2_2exp(
+        res: nfloat_ptr,
+        x1: ulong,
+        x0: ulong,
+        exp: slong,
+        xsgnbit: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nfloat_1_set_3_2exp(
+        res: nfloat_ptr,
+        x2: ulong,
+        x1: ulong,
+        x0: ulong,
+        exp: slong,
+        xsgnbit: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nfloat_2_set_3_2exp(
+        res: nfloat_ptr,
+        x2: ulong,
+        x1: ulong,
+        x0: ulong,
+        exp: slong,
+        xsgnbit: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nfloat_2_set_4_2exp(
+        res: nfloat_ptr,
+        x3: ulong,
+        x2: ulong,
+        x1: ulong,
+        x0: ulong,
+        exp: slong,
+        xsgnbit: ::std::os::raw::c_int,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn nfloat_set_fmpz(
@@ -52488,6 +59249,12 @@ unsafe extern "C" {
         ctx: *mut gr_ctx_struct,
         prec: slong,
         flags: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+    pub fn nfloat_complex_init(res: nfloat_complex_ptr, ctx: *mut gr_ctx_struct);
+    pub fn nfloat_complex_clear(res: nfloat_complex_ptr, ctx: *mut gr_ctx_struct);
+    pub fn nfloat_complex_zero(
+        res: nfloat_complex_ptr,
+        ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn nfloat_complex_write(
         out: *mut gr_stream_struct,
@@ -53084,6 +59851,21 @@ impl Default for nmod_discrete_log_pohlig_hellman_struct {
 pub type nmod_discrete_log_pohlig_hellman_t = [nmod_discrete_log_pohlig_hellman_struct; 1usize];
 pub type __uint128_t = u128;
 unsafe extern "C" {
+    pub fn nmod_set_ui(x: ulong, mod_: nmod_t) -> ulong;
+    pub fn nmod_set_si(x: slong, mod_: nmod_t) -> ulong;
+    pub fn _nmod_add(a: ulong, b: ulong, mod_: nmod_t) -> ulong;
+    pub fn _nmod_sub(a: ulong, b: ulong, mod_: nmod_t) -> ulong;
+    pub fn nmod_add(a: ulong, b: ulong, mod_: nmod_t) -> ulong;
+    pub fn nmod_ui_add_ui(a: ulong, b: ulong, mod_: nmod_t) -> ulong;
+    pub fn nmod_sub(a: ulong, b: ulong, mod_: nmod_t) -> ulong;
+    pub fn nmod_neg(a: ulong, mod_: nmod_t) -> ulong;
+    pub fn nmod_mul(a: ulong, b: ulong, mod_: nmod_t) -> ulong;
+    pub fn nmod_ui_mul_ui(a: ulong, b: ulong, mod_: nmod_t) -> ulong;
+    pub fn _nmod_mul_fullword(a: ulong, b: ulong, mod_: nmod_t) -> ulong;
+    pub fn nmod_addmul(s: ulong, a: ulong, b: ulong, mod_: nmod_t) -> ulong;
+    pub fn nmod_fmma(a: ulong, b: ulong, c: ulong, d: ulong, mod_: nmod_t) -> ulong;
+    pub fn nmod_inv(a: ulong, mod_: nmod_t) -> ulong;
+    pub fn nmod_div(a: ulong, b: ulong, mod_: nmod_t) -> ulong;
     pub fn nmod_divides(
         a: *mut ulong,
         b: ulong,
@@ -53093,8 +59875,47 @@ unsafe extern "C" {
     pub fn _nmod_pow_ui_redc(a: ulong, exp: ulong, mod_: nmod_t) -> ulong;
     pub fn _nmod_pow_ui_binexp(a: ulong, exp: ulong, mod_: nmod_t) -> ulong;
     pub fn nmod_pow_ui(a: ulong, exp: ulong, mod_: nmod_t) -> ulong;
+    pub fn nmod_ui_pow_ui(a: ulong, exp: ulong, mod_: nmod_t) -> ulong;
     pub fn _nmod_2_pow_ui_binexp(exp: ulong, mod_: nmod_t) -> ulong;
     pub fn nmod_2_pow_ui(exp: ulong, mod_: nmod_t) -> ulong;
+    pub fn nmod_pow_fmpz(a: ulong, exp: *const fmpz, mod_: nmod_t) -> ulong;
+    pub fn nmod_init(mod_: *mut nmod_t, n: ulong);
+    pub fn ull_hi(x: ull_t) -> ulong;
+    pub fn ull_lo(x: ull_t) -> ulong;
+    pub fn ull_add(x: ull_t, y: ull_t) -> ull_t;
+    pub fn ull_add_u(x: ull_t, y: ulong) -> ull_t;
+    pub fn ull_u_mul_u(x: ulong, y: ulong) -> ull_t;
+    pub fn ull(hi: ulong, lo: ulong) -> ull_t;
+    pub fn nmod_redc_ctx_init_nmod(ctx: *mut nmod_redc_ctx_struct, mod_: nmod_t);
+    pub fn nmod_redc_ctx_init_ui(ctx: *mut nmod_redc_ctx_struct, n: ulong);
+    pub fn nmod_redc_set_nmod(x: ulong, ctx: *const nmod_redc_ctx_struct) -> ulong;
+    pub fn nmod_redc_set_ui(x: ulong, ctx: *const nmod_redc_ctx_struct) -> ulong;
+    pub fn nmod_redc_get_nmod(x: ulong, ctx: *const nmod_redc_ctx_struct) -> ulong;
+    pub fn nmod_redc_neg(x: ulong, ctx: *const nmod_redc_ctx_struct) -> ulong;
+    pub fn nmod_redc_add(x: ulong, y: ulong, ctx: *const nmod_redc_ctx_struct) -> ulong;
+    pub fn nmod_redc_sub(x: ulong, y: ulong, ctx: *const nmod_redc_ctx_struct) -> ulong;
+    pub fn nmod_redc_mul(x: ulong, y: ulong, ctx: *const nmod_redc_ctx_struct) -> ulong;
+    pub fn nmod_redc_can_use_fast(
+        ctx: *const nmod_redc_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nmod_redc_fast_mul(
+        x: ulong,
+        y: ulong,
+        ctx: *const nmod_redc_ctx_struct,
+    ) -> ulong;
+    pub fn nmod_redc_fast_neg(x: ulong, ctx: *const nmod_redc_ctx_struct) -> ulong;
+    pub fn nmod_redc_fast_add(
+        x: ulong,
+        y: ulong,
+        ctx: *const nmod_redc_ctx_struct,
+    ) -> ulong;
+    pub fn nmod_redc_fast_sub(
+        x: ulong,
+        y: ulong,
+        ctx: *const nmod_redc_ctx_struct,
+    ) -> ulong;
+    pub fn nmod_redc_fast_normalise(x: ulong, ctx: *const nmod_redc_ctx_struct) -> ulong;
+    pub fn nmod_redc_fast_mul_two(x: ulong, ctx: *const nmod_redc_ctx_struct) -> ulong;
     pub fn _nmod_redc_pow_ui(
         a: ulong,
         exp: ulong,
@@ -53108,6 +59929,44 @@ unsafe extern "C" {
     pub fn _nmod_redc_2_pow_ui(exp: ulong, ctx: *const nmod_redc_ctx_struct) -> ulong;
     pub fn _nmod_redc_fast_2_pow_ui(
         exp: ulong,
+        ctx: *const nmod_redc_ctx_struct,
+    ) -> ulong;
+    pub fn nmod_redc_half_ctx_init_nmod(ctx: *mut nmod_redc_ctx_struct, mod_: nmod_t);
+    pub fn nmod_redc_half_ctx_init_ui(ctx: *mut nmod_redc_ctx_struct, n: ulong);
+    pub fn nmod_redc_half_set_nmod(x: ulong, ctx: *const nmod_redc_ctx_struct) -> ulong;
+    pub fn nmod_redc_half_set_ui(x: ulong, ctx: *const nmod_redc_ctx_struct) -> ulong;
+    pub fn nmod_redc_half_get_nmod(x: ulong, ctx: *const nmod_redc_ctx_struct) -> ulong;
+    pub fn nmod_redc_half_add(
+        x: ulong,
+        y: ulong,
+        ctx: *const nmod_redc_ctx_struct,
+    ) -> ulong;
+    pub fn nmod_redc_half_sub(
+        x: ulong,
+        y: ulong,
+        ctx: *const nmod_redc_ctx_struct,
+    ) -> ulong;
+    pub fn nmod_redc_half_mul(
+        x: ulong,
+        y: ulong,
+        ctx: *const nmod_redc_ctx_struct,
+    ) -> ulong;
+    pub fn nmod_redc_half_can_use_fast(
+        ctx: *const nmod_redc_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nmod_redc_half_fast_mul(
+        x: ulong,
+        y: ulong,
+        ctx: *const nmod_redc_ctx_struct,
+    ) -> ulong;
+    pub fn nmod_redc_half_fast_add(
+        x: ulong,
+        y: ulong,
+        ctx: *const nmod_redc_ctx_struct,
+    ) -> ulong;
+    pub fn nmod_redc_half_fast_sub(
+        x: ulong,
+        y: ulong,
         ctx: *const nmod_redc_ctx_struct,
     ) -> ulong;
     pub fn gr_ctx_init_nmod_redc(
@@ -53132,18 +59991,44 @@ unsafe extern "C" {
         L: *const nmod_discrete_log_pohlig_hellman_struct,
         y: ulong,
     ) -> ulong;
+    pub fn nmod_discrete_log_pohlig_hellman_primitive_root(
+        L: *const nmod_discrete_log_pohlig_hellman_struct,
+    ) -> ulong;
 }
 
 
 /* nmod_mat.h */
 
 unsafe extern "C" {
+    pub fn nmod_mat_get_entry(mat: *const nmod_mat_struct, i: slong, j: slong) -> ulong;
+    pub fn nmod_mat_entry_ptr(
+        mat: *const nmod_mat_struct,
+        i: slong,
+        j: slong,
+    ) -> *mut ulong;
+    pub fn nmod_mat_row_ptr(mat: *const nmod_mat_struct, i: slong) -> *mut ulong;
+    pub fn nmod_mat_nrows(mat: *const nmod_mat_struct) -> slong;
+    pub fn nmod_mat_ncols(mat: *const nmod_mat_struct) -> slong;
     pub fn nmod_mat_set_mod(mat: *mut nmod_mat_struct, n: ulong);
+    pub fn nmod_mat_mod(mat: *const nmod_mat_struct) -> nmod_t;
     pub fn nmod_mat_init(mat: *mut nmod_mat_struct, rows: slong, cols: slong, n: ulong);
     pub fn nmod_mat_init_set(mat: *mut nmod_mat_struct, src: *const nmod_mat_struct);
     pub fn nmod_mat_clear(mat: *mut nmod_mat_struct);
     pub fn nmod_mat_one(mat: *mut nmod_mat_struct);
     pub fn nmod_mat_swap(mat1: *mut nmod_mat_struct, mat2: *mut nmod_mat_struct);
+    pub fn nmod_mat_swap_entrywise(
+        mat1: *mut nmod_mat_struct,
+        mat2: *mut nmod_mat_struct,
+    );
+    pub fn nmod_mat_window_init(
+        window: *mut nmod_mat_struct,
+        mat: *const nmod_mat_struct,
+        r1: slong,
+        c1: slong,
+        r2: slong,
+        c2: slong,
+    );
+    pub fn nmod_mat_window_clear(UNUSED_window: *mut nmod_mat_struct);
     pub fn nmod_mat_concat_horizontal(
         res: *mut nmod_mat_struct,
         mat1: *const nmod_mat_struct,
@@ -53196,6 +60081,8 @@ unsafe extern "C" {
         mat: *const nmod_mat_struct,
         i: slong,
     ) -> ::std::os::raw::c_int;
+    pub fn nmod_mat_is_empty(mat: *const nmod_mat_struct) -> ::std::os::raw::c_int;
+    pub fn nmod_mat_is_square(mat: *const nmod_mat_struct) -> ::std::os::raw::c_int;
     pub fn nmod_mat_set(B: *mut nmod_mat_struct, A: *const nmod_mat_struct);
     pub fn nmod_mat_transpose(B: *mut nmod_mat_struct, A: *const nmod_mat_struct);
     pub fn nmod_mat_add(
@@ -53346,6 +60233,20 @@ unsafe extern "C" {
         B: *mut nmod_mat_struct,
         A: *const nmod_mat_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn nmod_mat_swap_rows(
+        mat: *mut nmod_mat_struct,
+        perm: *mut slong,
+        r: slong,
+        s: slong,
+    );
+    pub fn nmod_mat_invert_rows(mat: *mut nmod_mat_struct, perm: *mut slong);
+    pub fn nmod_mat_swap_cols(
+        mat: *mut nmod_mat_struct,
+        perm: *mut slong,
+        r: slong,
+        s: slong,
+    );
+    pub fn nmod_mat_invert_cols(mat: *mut nmod_mat_struct, perm: *mut slong);
     pub fn nmod_mat_permute_rows(
         mat: *mut nmod_mat_struct,
         perm_act: *const slong,
@@ -53642,6 +60543,13 @@ unsafe extern "C" {
     );
     pub fn nmod_mpoly_ctx_clear(ctx: *mut nmod_mpoly_ctx_struct);
     pub fn nmod_mpoly_ctx_set_modulus(ctx: *mut nmod_mpoly_ctx_struct, modulus: ulong);
+    pub fn nmod_mpoly_ctx_nvars(ctx: *const nmod_mpoly_ctx_struct) -> slong;
+    pub fn nmod_mpoly_ctx_ord(ctx: *const nmod_mpoly_ctx_struct) -> ordering_t;
+    pub fn nmod_mpoly_ctx_modulus(ctx: *const nmod_mpoly_ctx_struct) -> ulong;
+    pub fn nmod_mpoly_init(
+        A: *mut nmod_mpoly_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    );
     pub fn nmod_mpoly_init2(
         A: *mut nmod_mpoly_struct,
         alloc: slong,
@@ -53657,6 +60565,10 @@ unsafe extern "C" {
         A: *mut nmod_mpoly_struct,
         alloc: slong,
         ctx: *const nmod_mpoly_ctx_struct,
+    );
+    pub fn nmod_mpoly_clear(
+        A: *mut nmod_mpoly_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
     );
     pub fn nmod_mpoly_fit_length(
         A: *mut nmod_mpoly_struct,
@@ -53674,6 +60586,24 @@ unsafe extern "C" {
         len: slong,
         bits: flint_bitcnt_t,
         ctx: *const nmod_mpoly_ctx_struct,
+    );
+    pub fn _nmod_mpoly_fit_length(
+        coeffs: *mut *mut ulong,
+        coeffs_alloc: *mut slong,
+        exps: *mut *mut ulong,
+        exps_alloc: *mut slong,
+        N: slong,
+        length: slong,
+    );
+    pub fn _nmod_mpoly_set_length(
+        A: *mut nmod_mpoly_struct,
+        newlen: slong,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    );
+    pub fn nmod_mpoly_truncate(
+        A: *mut nmod_mpoly_struct,
+        newlen: slong,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
     );
     pub fn nmod_mpoly_set_str_pretty(
         A: *mut nmod_mpoly_struct,
@@ -53711,6 +60641,11 @@ unsafe extern "C" {
         B: *const nmod_mpoly_struct,
         ctx: *const nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn nmod_mpoly_swap(
+        A: *mut nmod_mpoly_struct,
+        B: *mut nmod_mpoly_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    );
     pub fn nmod_mpoly_is_ui(
         A: *const nmod_mpoly_struct,
         ctx: *const nmod_mpoly_ctx_struct,
@@ -53729,9 +60664,19 @@ unsafe extern "C" {
         c: *const fmpz,
         ctx: *const nmod_mpoly_ctx_struct,
     );
+    pub fn nmod_mpoly_zero(A: *mut nmod_mpoly_struct, ctx: *const nmod_mpoly_ctx_struct);
+    pub fn nmod_mpoly_one(A: *mut nmod_mpoly_struct, ctx: *const nmod_mpoly_ctx_struct);
     pub fn nmod_mpoly_equal_ui(
         A: *const nmod_mpoly_struct,
         c: ulong,
+        ctx: *const nmod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nmod_mpoly_is_zero(
+        A: *const nmod_mpoly_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nmod_mpoly_is_one(
+        A: *const nmod_mpoly_struct,
         ctx: *const nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn nmod_mpoly_degrees_fit_si(
@@ -53824,6 +60769,10 @@ unsafe extern "C" {
         length: slong,
         ctx: *const nmod_mpoly_ctx_struct,
     );
+    pub fn nmod_mpoly_leadcoeff(
+        A: *mut nmod_mpoly_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    ) -> ulong;
     pub fn nmod_mpoly_is_nmod_poly(
         A: *const nmod_mpoly_struct,
         var: slong,
@@ -53870,6 +60819,10 @@ unsafe extern "C" {
         A: *const nmod_mpoly_struct,
         ctx: *const nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn nmod_mpoly_length(
+        A: *const nmod_mpoly_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    ) -> slong;
     pub fn nmod_mpoly_resize(
         A: *mut nmod_mpoly_struct,
         new_length: slong,
@@ -54452,6 +61405,12 @@ unsafe extern "C" {
         len: slong,
         ctx: *const nmod_mpoly_ctx_struct,
     );
+    pub fn nmod_mpoly_divexact(
+        Q: *mut nmod_mpoly_struct,
+        A: *const nmod_mpoly_struct,
+        B: *const nmod_mpoly_struct,
+        ctx: *const nmod_mpoly_ctx_struct,
+    );
     pub fn _nmod_mpoly_divides_monagan_pearce(
         Q: *mut nmod_mpoly_struct,
         coeff2: *const ulong,
@@ -54488,6 +61447,15 @@ unsafe extern "C" {
     );
     pub fn nmod_mpoly_sqrt_heap(
         Q: *mut nmod_mpoly_struct,
+        A: *const nmod_mpoly_struct,
+        ctx: *const nmod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nmod_mpoly_sqrt(
+        Q: *mut nmod_mpoly_struct,
+        A: *const nmod_mpoly_struct,
+        ctx: *const nmod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nmod_mpoly_is_square(
         A: *const nmod_mpoly_struct,
         ctx: *const nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
@@ -54652,6 +61620,10 @@ unsafe extern "C" {
         A: *mut nmod_mpoly_univar_struct,
         ctx: *const nmod_mpoly_ctx_struct,
     );
+    pub fn nmod_mpoly_univar_zero(
+        A: *mut nmod_mpoly_univar_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    );
     pub fn nmod_mpoly_univar_set_coeff_ui(
         A: *mut nmod_mpoly_univar_struct,
         e: ulong,
@@ -54677,15 +61649,36 @@ unsafe extern "C" {
         var: slong,
         ctx: *const nmod_mpoly_ctx_struct,
     );
+    pub fn nmod_mpoly_univar_swap(
+        A: *mut nmod_mpoly_univar_struct,
+        B: *mut nmod_mpoly_univar_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    );
     pub fn nmod_mpoly_univar_degree_fits_si(
         A: *const nmod_mpoly_univar_struct,
         ctx: *const nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn nmod_mpoly_univar_length(
+        A: *const nmod_mpoly_univar_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    ) -> slong;
     pub fn nmod_mpoly_univar_get_term_exp_si(
         A: *mut nmod_mpoly_univar_struct,
         i: slong,
         ctx: *const nmod_mpoly_ctx_struct,
     ) -> slong;
+    pub fn nmod_mpoly_univar_get_term_coeff(
+        c: *mut nmod_mpoly_struct,
+        A: *const nmod_mpoly_univar_struct,
+        i: slong,
+        ctx: *const nmod_mpoly_ctx_struct,
+    );
+    pub fn nmod_mpoly_univar_swap_term_coeff(
+        c: *mut nmod_mpoly_struct,
+        A: *mut nmod_mpoly_univar_struct,
+        i: slong,
+        ctx: *const nmod_mpoly_ctx_struct,
+    );
     pub fn nmod_mpoly_univar_pseudo_gcd(
         Gx: *mut nmod_mpoly_univar_struct,
         Ax: *const nmod_mpoly_univar_struct,
@@ -55011,6 +62004,10 @@ unsafe extern "C" {
         ctx: *mut nmod_mpoly_ctx_struct,
         randstate: *mut flint_rand_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn nmod_mpolyu_leadcoeff(
+        A: *mut nmod_mpolyu_struct,
+        ctx: *const nmod_mpoly_ctx_struct,
+    ) -> ulong;
     pub fn nmod_mpolyn_init(
         A: *mut nmod_mpolyn_struct,
         bits: flint_bitcnt_t,
@@ -55081,6 +62078,14 @@ unsafe extern "C" {
         var: slong,
         ctx: *const nmod_mpoly_ctx_struct,
     );
+    pub fn nmod_mpolyn_leadcoeff(
+        A: *mut nmod_mpolyn_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    ) -> ulong;
+    pub fn nmod_mpolyn_leadcoeff_poly(
+        A: *mut nmod_mpolyn_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    ) -> *mut n_poly_struct;
     pub fn nmod_mpolyun_init(
         A: *mut nmod_mpolyun_struct,
         bits: flint_bitcnt_t,
@@ -55275,6 +62280,14 @@ unsafe extern "C" {
         shift: *const ulong,
         stride: *const ulong,
     );
+    pub fn nmod_mpolyun_leadcoeff(
+        A: *mut nmod_mpolyun_struct,
+        ctx: *const nmod_mpoly_ctx_struct,
+    ) -> ulong;
+    pub fn nmod_mpolyun_leadcoeff_poly(
+        A: *mut nmod_mpolyun_struct,
+        ctx: *const nmod_mpoly_ctx_struct,
+    ) -> *mut n_poly_struct;
     pub fn mpoly_gcd_get_use_first(
         rGdeg: slong,
         Adeg: slong,
@@ -55686,6 +62699,10 @@ unsafe extern "C" {
         X: *mut nmod_mat_struct,
         tmp: *mut nmod_mat_struct,
     );
+    pub fn nmod_mpoly_factor_init(
+        f: *mut nmod_mpoly_factor_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    );
     pub fn nmod_mpoly_factor_init2(
         f: *mut nmod_mpoly_factor_struct,
         alloc: slong,
@@ -55703,6 +62720,26 @@ unsafe extern "C" {
     );
     pub fn nmod_mpoly_factor_clear(
         f: *mut nmod_mpoly_factor_struct,
+        ctx: *const nmod_mpoly_ctx_struct,
+    );
+    pub fn nmod_mpoly_factor_length(
+        f: *const nmod_mpoly_factor_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    ) -> slong;
+    pub fn nmod_mpoly_factor_get_constant_ui(
+        f: *const nmod_mpoly_factor_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    ) -> ulong;
+    pub fn nmod_mpoly_factor_get_base(
+        p: *mut nmod_mpoly_struct,
+        f: *const nmod_mpoly_factor_struct,
+        i: slong,
+        ctx: *const nmod_mpoly_ctx_struct,
+    );
+    pub fn nmod_mpoly_factor_swap_base(
+        p: *mut nmod_mpoly_struct,
+        f: *mut nmod_mpoly_factor_struct,
+        i: slong,
         ctx: *const nmod_mpoly_ctx_struct,
     );
     pub fn nmod_mpoly_factor_get_exp_si(
@@ -55767,10 +62804,24 @@ unsafe extern "C" {
         f: *const nmod_mpoly_factor_struct,
         ctx: *const nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn nmod_mpoly_factor_matches(
+        a: *const nmod_mpoly_struct,
+        f: *const nmod_mpoly_factor_struct,
+        ctx: *const nmod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn nmod_mpoly_factor_fix_units(
         f: *mut nmod_mpoly_factor_struct,
         ctx: *const nmod_mpoly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn nmod_mpoly_factor_swap(
+        f: *mut nmod_mpoly_factor_struct,
+        g: *mut nmod_mpoly_factor_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    );
+    pub fn nmod_mpoly_factor_one(
+        f: *mut nmod_mpoly_factor_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    );
     pub fn _nmod_mpoly_get_lead0(
         c: *mut nmod_mpoly_struct,
         A: *const nmod_mpoly_struct,
@@ -55826,6 +62877,15 @@ unsafe extern "C" {
         varx: slong,
         vary: slong,
         ctx: *const nmod_mpoly_ctx_struct,
+    );
+    pub fn nmod_mpolyv_init(
+        A: *mut nmod_mpolyv_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
+    );
+    pub fn nmod_mpolyv_swap(
+        A: *mut nmod_mpolyv_struct,
+        B: *mut nmod_mpolyv_struct,
+        UNUSED_ctx: *const nmod_mpoly_ctx_struct,
     );
     pub fn nmod_mpolyv_clear(
         A: *mut nmod_mpolyv_struct,
@@ -56381,13 +63441,25 @@ unsafe extern "C" {
     pub fn nmod_poly_realloc(poly: *mut nmod_poly_struct, alloc: slong);
     pub fn nmod_poly_clear(poly: *mut nmod_poly_struct);
     pub fn nmod_poly_fit_length(poly: *mut nmod_poly_struct, alloc: slong);
+    pub fn nmod_poly_init_mod(poly: *mut nmod_poly_struct, mod_: nmod_t);
+    pub fn nmod_poly_set_mod(poly: *mut nmod_poly_struct, mod_: nmod_t);
+    pub fn _nmod_poly_set_length(poly: *mut nmod_poly_struct, len: slong);
+    pub fn _nmod_poly_normalise(poly: *mut nmod_poly_struct);
+    pub fn nmod_poly_length(poly: *const nmod_poly_struct) -> slong;
+    pub fn nmod_poly_degree(poly: *const nmod_poly_struct) -> slong;
+    pub fn nmod_poly_modulus(poly: *const nmod_poly_struct) -> ulong;
     pub fn nmod_poly_max_bits(poly: *const nmod_poly_struct) -> flint_bitcnt_t;
+    pub fn nmod_poly_lead(poly: *const nmod_poly_struct) -> nn_ptr;
     pub fn nmod_poly_set(a: *mut nmod_poly_struct, b: *const nmod_poly_struct);
+    pub fn nmod_poly_swap(poly1: *mut nmod_poly_struct, poly2: *mut nmod_poly_struct);
+    pub fn nmod_poly_zero(res: *mut nmod_poly_struct);
+    pub fn nmod_poly_one(res: *mut nmod_poly_struct);
     pub fn nmod_poly_set_trunc(
         res: *mut nmod_poly_struct,
         poly: *const nmod_poly_struct,
         len: slong,
     );
+    pub fn nmod_poly_truncate(poly: *mut nmod_poly_struct, len: slong);
     pub fn _nmod_poly_reverse(output: nn_ptr, input: nn_srcptr, len: slong, m: slong);
     pub fn nmod_poly_reverse(
         output: *mut nmod_poly_struct,
@@ -56411,7 +63483,17 @@ unsafe extern "C" {
         poly2: *const nmod_poly_struct,
         n: slong,
     ) -> ::std::os::raw::c_int;
+    pub fn nmod_poly_is_zero(poly: *const nmod_poly_struct) -> ::std::os::raw::c_int;
+    pub fn nmod_poly_is_one(poly: *const nmod_poly_struct) -> ::std::os::raw::c_int;
+    pub fn nmod_poly_is_unit(poly: *const nmod_poly_struct) -> ::std::os::raw::c_int;
+    pub fn nmod_poly_is_gen(poly: *const nmod_poly_struct) -> ::std::os::raw::c_int;
+    pub fn nmod_poly_is_monic(poly: *const nmod_poly_struct) -> ::std::os::raw::c_int;
     pub fn nmod_poly_randtest(
+        poly: *mut nmod_poly_struct,
+        state: *mut flint_rand_struct,
+        len: slong,
+    );
+    pub fn nmod_poly_randtest_not_zero(
         poly: *mut nmod_poly_struct,
         state: *mut flint_rand_struct,
         len: slong,
@@ -56464,6 +63546,7 @@ unsafe extern "C" {
         state: *mut flint_rand_struct,
         len: slong,
     );
+    pub fn nmod_poly_get_coeff_ui(poly: *const nmod_poly_struct, j: slong) -> ulong;
     pub fn nmod_poly_set_coeff_ui(poly: *mut nmod_poly_struct, j: slong, c: ulong);
     pub fn nmod_poly_get_str(
         poly: *const nmod_poly_struct,
@@ -57528,6 +64611,11 @@ unsafe extern "C" {
         poly: *const nmod_poly_struct,
         c: *const nmod_mat_struct,
     );
+    pub fn nmod_poly_evaluate_mat(
+        dest: *mut nmod_mat_struct,
+        poly: *const nmod_poly_struct,
+        c: *const nmod_mat_struct,
+    );
     pub fn _nmod_poly_tree_alloc(len: slong) -> *mut nn_ptr;
     pub fn _nmod_poly_tree_free(tree: *mut nn_ptr, len: slong);
     pub fn _nmod_poly_tree_build(
@@ -57921,6 +65009,8 @@ unsafe extern "C" {
         Q: *const nmod_poly_struct,
         n: slong,
     );
+    pub fn _nmod_poly_hamming_weight(a: nn_srcptr, len: slong) -> slong;
+    pub fn nmod_poly_hamming_weight(A: *const nmod_poly_struct) -> slong;
     pub fn nmod_poly_hgcd_iter_recursive_cutoff(mod_: nmod_t) -> slong;
     pub fn nmod_poly_hgcd_outer_cutoff(mod_: nmod_t) -> slong;
     pub fn nmod_poly_gcd_hgcd_cutoff(mod_: nmod_t) -> slong;
@@ -58410,6 +65500,9 @@ unsafe extern "C" {
         values: *const nmod_poly_struct,
         len: slong,
     ) -> ::std::os::raw::c_int;
+    pub fn _nmod_poly_multi_crt_local_size(
+        CRT: *const nmod_poly_multi_crt_struct,
+    ) -> slong;
     pub fn _nmod_poly_multi_crt_run(
         outputs: *mut nmod_poly_struct,
         CRT: *const nmod_poly_multi_crt_struct,
@@ -58475,6 +65568,18 @@ unsafe extern "C" {
     pub fn nmod_berlekamp_massey_reduce(
         B: *mut nmod_berlekamp_massey_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn nmod_berlekamp_massey_points(
+        B: *const nmod_berlekamp_massey_struct,
+    ) -> *const ulong;
+    pub fn nmod_berlekamp_massey_point_count(
+        B: *const nmod_berlekamp_massey_struct,
+    ) -> slong;
+    pub fn nmod_berlekamp_massey_V_poly(
+        B: *const nmod_berlekamp_massey_struct,
+    ) -> *const nmod_poly_struct;
+    pub fn nmod_berlekamp_massey_R_poly(
+        B: *const nmod_berlekamp_massey_struct,
+    ) -> *const nmod_poly_struct;
 }
 
 
@@ -58507,6 +65612,10 @@ unsafe extern "C" {
     pub fn nmod_poly_factor_set(
         res: *mut nmod_poly_factor_struct,
         fac: *const nmod_poly_factor_struct,
+    );
+    pub fn nmod_poly_factor_swap(
+        a: *mut nmod_poly_factor_struct,
+        b: *mut nmod_poly_factor_struct,
     );
     pub fn nmod_poly_factor_get_poly(
         a: *mut nmod_poly_struct,
@@ -58612,6 +65721,13 @@ unsafe extern "C" {
 /* nmod_poly_mat.h */
 
 unsafe extern "C" {
+    pub fn nmod_poly_mat_entry(
+        mat: *const nmod_poly_mat_struct,
+        i: slong,
+        j: slong,
+    ) -> *mut nmod_poly_struct;
+    pub fn nmod_poly_mat_nrows(mat: *const nmod_poly_mat_struct) -> slong;
+    pub fn nmod_poly_mat_ncols(mat: *const nmod_poly_mat_struct) -> slong;
     pub fn nmod_poly_mat_init(
         mat: *mut nmod_poly_mat_struct,
         rows: slong,
@@ -58621,6 +65737,14 @@ unsafe extern "C" {
     pub fn nmod_poly_mat_init_set(
         mat: *mut nmod_poly_mat_struct,
         src: *const nmod_poly_mat_struct,
+    );
+    pub fn nmod_poly_mat_swap(
+        mat1: *mut nmod_poly_mat_struct,
+        mat2: *mut nmod_poly_mat_struct,
+    );
+    pub fn nmod_poly_mat_swap_entrywise(
+        mat1: *mut nmod_poly_mat_struct,
+        mat2: *mut nmod_poly_mat_struct,
     );
     pub fn nmod_poly_mat_set(
         mat1: *mut nmod_poly_mat_struct,
@@ -58640,6 +65764,10 @@ unsafe extern "C" {
         pmat: *const nmod_poly_mat_struct,
         len: ::std::os::raw::c_long,
     );
+    pub fn nmod_poly_mat_truncate(
+        pmat: *mut nmod_poly_mat_struct,
+        len: ::std::os::raw::c_long,
+    );
     pub fn nmod_poly_mat_shift_left(
         res: *mut nmod_poly_mat_struct,
         pmat: *const nmod_poly_mat_struct,
@@ -58650,6 +65778,7 @@ unsafe extern "C" {
         pmat: *const nmod_poly_mat_struct,
         k: slong,
     );
+    pub fn nmod_poly_mat_modulus(mat: *const nmod_poly_mat_struct) -> ulong;
     pub fn nmod_poly_mat_get_coeff_mat(
         coeff: *mut nmod_mat_struct,
         pmat: *const nmod_poly_mat_struct,
@@ -58672,6 +65801,12 @@ unsafe extern "C" {
         mat: *const nmod_poly_mat_struct,
     ) -> ::std::os::raw::c_int;
     pub fn nmod_poly_mat_is_one(
+        mat: *const nmod_poly_mat_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nmod_poly_mat_is_empty(
+        mat: *const nmod_poly_mat_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nmod_poly_mat_is_square(
         mat: *const nmod_poly_mat_struct,
     ) -> ::std::os::raw::c_int;
     pub fn nmod_poly_mat_zero(mat: *mut nmod_poly_mat_struct);
@@ -58711,6 +65846,7 @@ unsafe extern "C" {
         x: *const ::std::os::raw::c_char,
     );
     pub fn nmod_poly_mat_max_length(A: *const nmod_poly_mat_struct) -> slong;
+    pub fn nmod_poly_mat_degree(pmat: *const nmod_poly_mat_struct) -> slong;
     pub fn nmod_poly_mat_scalar_mul_nmod_poly(
         B: *mut nmod_poly_mat_struct,
         A: *const nmod_poly_mat_struct,
@@ -58986,6 +66122,8 @@ impl Default for dot_params_t {
 /* nmod_vec.h */
 
 unsafe extern "C" {
+    pub fn _nmod_vec_init(len: slong) -> nn_ptr;
+    pub fn _nmod_vec_clear(vec: nn_ptr);
     pub fn _nmod_vec_randtest(
         vec: nn_ptr,
         state: *mut flint_rand_struct,
@@ -58998,7 +66136,16 @@ unsafe extern "C" {
         len: slong,
         mod_: nmod_t,
     );
+    pub fn _nmod_vec_zero(vec: nn_ptr, len: slong);
     pub fn _nmod_vec_max_bits(vec: nn_srcptr, len: slong) -> flint_bitcnt_t;
+    pub fn _nmod_vec_set(res: nn_ptr, vec: nn_srcptr, len: slong);
+    pub fn _nmod_vec_swap(a: nn_ptr, b: nn_ptr, length: slong);
+    pub fn _nmod_vec_equal(
+        vec: nn_srcptr,
+        vec2: nn_srcptr,
+        len: slong,
+    ) -> ::std::os::raw::c_int;
+    pub fn _nmod_vec_is_zero(vec: nn_srcptr, len: slong) -> ::std::os::raw::c_int;
     pub fn _nmod_vec_print_pretty(vec: nn_srcptr, len: slong, mod_: nmod_t);
     pub fn _nmod_vec_print(
         vec: nn_srcptr,
@@ -59069,6 +66216,12 @@ unsafe extern "C" {
         len: slong,
         c: ulong,
         mod_: nmod_t,
+    );
+    pub fn _nmod_vec_nored_scalar_addmul_halflimb(
+        res: nn_ptr,
+        vec: nn_srcptr,
+        len: slong,
+        c: ulong,
     );
     pub fn _nmod_vec_nored_ll_scalar_addmul_halflimb(
         res: nn_ptr,
@@ -59246,6 +66399,9 @@ unsafe extern "C" {
 /* padic.h */
 
 unsafe extern "C" {
+    pub fn padic_unit(x: *const padic_struct) -> *mut fmpz;
+    pub fn padic_get_val(x: *const padic_struct) -> slong;
+    pub fn padic_get_prec(x: *const padic_struct) -> slong;
     pub fn padic_ctx_init(
         ctx: *mut padic_ctx_struct,
         p: *const fmpz,
@@ -59254,9 +66410,16 @@ unsafe extern "C" {
         mode: padic_print_mode,
     );
     pub fn padic_ctx_clear(ctx: *mut padic_ctx_struct);
+    pub fn _padic_ctx_pow_ui(
+        rop: *mut fmpz,
+        e: ulong,
+        ctx: *const padic_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_ctx_pow_ui(rop: *mut fmpz, e: ulong, ctx: *const padic_ctx_struct);
     pub fn padic_init(rop: *mut padic_struct);
     pub fn padic_init2(rop: *mut padic_struct, N: slong);
     pub fn padic_clear(rop: *mut padic_struct);
+    pub fn _padic_canonicalise(rop: *mut padic_struct, ctx: *const padic_ctx_struct);
     pub fn _padic_reduce(rop: *mut padic_struct, ctx: *const padic_ctx_struct);
     pub fn padic_reduce(rop: *mut padic_struct, ctx: *const padic_ctx_struct);
     pub fn padic_randtest(
@@ -59301,6 +66464,15 @@ unsafe extern "C" {
         op: *const padic_struct,
         ctx: *const padic_ctx_struct,
     );
+    pub fn padic_swap(op1: *mut padic_struct, op2: *mut padic_struct);
+    pub fn padic_zero(rop: *mut padic_struct);
+    pub fn padic_one(rop: *mut padic_struct);
+    pub fn padic_is_zero(op: *const padic_struct) -> ::std::os::raw::c_int;
+    pub fn padic_is_one(op: *const padic_struct) -> ::std::os::raw::c_int;
+    pub fn padic_equal(
+        op1: *const padic_struct,
+        op2: *const padic_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _padic_lifts_exps(n: *mut slong, N: slong) -> *mut slong;
     pub fn _padic_lifts_pows(pow: *mut fmpz, a: *const slong, n: slong, p: *const fmpz);
     pub fn padic_add(
@@ -59484,6 +66656,12 @@ unsafe extern "C" {
 /* padic_mat.h */
 
 unsafe extern "C" {
+    pub fn padic_mat(A: *const padic_mat_struct) -> *mut fmpz_mat_struct;
+    pub fn padic_mat_entry(A: *const padic_mat_struct, i: slong, j: slong) -> *mut fmpz;
+    pub fn padic_mat_get_val(A: *const padic_mat_struct) -> slong;
+    pub fn padic_mat_get_prec(A: *const padic_mat_struct) -> slong;
+    pub fn padic_mat_nrows(A: *const padic_mat_struct) -> slong;
+    pub fn padic_mat_ncols(A: *const padic_mat_struct) -> slong;
     pub fn padic_mat_init(A: *mut padic_mat_struct, r: slong, c: slong);
     pub fn padic_mat_init2(A: *mut padic_mat_struct, r: slong, c: slong, prec: slong);
     pub fn padic_mat_clear(A: *mut padic_mat_struct);
@@ -59493,6 +66671,8 @@ unsafe extern "C" {
     );
     pub fn _padic_mat_reduce(A: *mut padic_mat_struct, ctx: *const padic_ctx_struct);
     pub fn padic_mat_reduce(A: *mut padic_mat_struct, ctx: *const padic_ctx_struct);
+    pub fn padic_mat_is_empty(A: *const padic_mat_struct) -> ::std::os::raw::c_int;
+    pub fn padic_mat_is_square(A: *const padic_mat_struct) -> ::std::os::raw::c_int;
     pub fn padic_mat_is_canonical(
         A: *const padic_mat_struct,
         ctx: *const padic_ctx_struct,
@@ -59507,6 +66687,10 @@ unsafe extern "C" {
         ctx: *const padic_ctx_struct,
     );
     pub fn padic_mat_swap(A: *mut padic_mat_struct, B: *mut padic_mat_struct);
+    pub fn padic_mat_swap_entrywise(
+        mat1: *mut padic_mat_struct,
+        mat2: *mut padic_mat_struct,
+    );
     pub fn padic_mat_zero(A: *mut padic_mat_struct);
     pub fn padic_mat_one(A: *mut padic_mat_struct);
     pub fn padic_mat_set_fmpq_mat(
@@ -59624,6 +66808,7 @@ unsafe extern "C" {
 /* padic_poly.h */
 
 unsafe extern "C" {
+    pub fn _fmpz_vec_ord_p(vec: *const fmpz, len: slong, p: *const fmpz) -> slong;
     pub fn padic_poly_init(poly: *mut padic_poly_struct);
     pub fn padic_poly_init2(poly: *mut padic_poly_struct, alloc: slong, prec: slong);
     pub fn padic_poly_clear(poly: *mut padic_poly_struct);
@@ -59633,6 +66818,7 @@ unsafe extern "C" {
         p: *const fmpz,
     );
     pub fn padic_poly_fit_length(poly: *mut padic_poly_struct, len: slong);
+    pub fn _padic_poly_set_length(poly: *mut padic_poly_struct, len: slong);
     pub fn _padic_poly_normalise(poly: *mut padic_poly_struct);
     pub fn _padic_poly_canonicalise(
         poly: *mut fmpz,
@@ -59642,6 +66828,10 @@ unsafe extern "C" {
     );
     pub fn padic_poly_canonicalise(poly: *mut padic_poly_struct, p: *const fmpz);
     pub fn padic_poly_reduce(poly: *mut padic_poly_struct, ctx: *const padic_ctx_struct);
+    pub fn padic_poly_truncate(poly: *mut padic_poly_struct, n: slong, p: *const fmpz);
+    pub fn padic_poly_degree(poly: *const padic_poly_struct) -> slong;
+    pub fn padic_poly_length(poly: *const padic_poly_struct) -> slong;
+    pub fn padic_poly_val(poly: *const padic_poly_struct) -> slong;
     pub fn padic_poly_randtest(
         f: *mut padic_poly_struct,
         state: *mut flint_rand_struct,
@@ -59711,6 +66901,8 @@ unsafe extern "C" {
         op: *const padic_poly_struct,
         ctx: *const padic_ctx_struct,
     );
+    pub fn padic_poly_zero(poly: *mut padic_poly_struct);
+    pub fn padic_poly_one(poly: *mut padic_poly_struct);
     pub fn padic_poly_swap(poly1: *mut padic_poly_struct, poly2: *mut padic_poly_struct);
     pub fn padic_poly_get_coeff_padic(
         c: *mut padic_struct,
@@ -59728,6 +66920,8 @@ unsafe extern "C" {
         poly1: *const padic_poly_struct,
         poly2: *const padic_poly_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn padic_poly_is_zero(poly: *const padic_poly_struct) -> ::std::os::raw::c_int;
+    pub fn padic_poly_is_one(poly: *const padic_poly_struct) -> ::std::os::raw::c_int;
     pub fn _padic_poly_add(
         rop: *mut fmpz,
         rval: *mut slong,
@@ -60069,6 +67263,18 @@ unsafe extern "C" {
 /* perm.h */
 
 unsafe extern "C" {
+    pub fn _perm_init(n: slong) -> *mut slong;
+    pub fn _perm_clear(vec: *mut slong);
+    pub fn _perm_equal(vec1: *const slong, vec2: *const slong, n: slong) -> slong;
+    pub fn _perm_set(res: *mut slong, vec: *const slong, n: slong);
+    pub fn _perm_one(vec: *mut slong, n: slong);
+    pub fn _perm_inv(res: *mut slong, vec: *const slong, n: slong);
+    pub fn _perm_compose(
+        res: *mut slong,
+        vec1: *const slong,
+        vec2: *const slong,
+        n: slong,
+    );
     pub fn _perm_randtest(
         vec: *mut slong,
         n: slong,
@@ -60105,6 +67311,8 @@ pub struct qadic2_sqrt_precomp {
     _unused: [u8; 0],
 }
 unsafe extern "C" {
+    pub fn qadic_val(op: *const padic_poly_struct) -> slong;
+    pub fn qadic_prec(op: *const padic_poly_struct) -> slong;
     pub fn _qadic_ctx_init_conway_ui(
         ctx: *mut qadic_ctx_struct,
         p: ulong,
@@ -60151,9 +67359,92 @@ unsafe extern "C" {
         mode: padic_print_mode,
     );
     pub fn qadic_ctx_clear(ctx: *mut qadic_ctx_struct);
+    pub fn qadic_ctx_degree(ctx: *const qadic_ctx_struct) -> slong;
+    pub fn qadic_ctx_print(ctx: *const qadic_ctx_struct);
+    pub fn qadic_init(x: *mut padic_poly_struct);
+    pub fn qadic_init2(rop: *mut padic_poly_struct, prec: slong);
+    pub fn qadic_clear(x: *mut padic_poly_struct);
+    pub fn _fmpz_poly_reduce(
+        R: *mut fmpz,
+        lenR: slong,
+        a: *const fmpz,
+        j: *const slong,
+        len: slong,
+    );
+    pub fn _fmpz_mod_poly_reduce(
+        R: *mut fmpz,
+        lenR: slong,
+        a: *const fmpz,
+        j: *const slong,
+        len: slong,
+        p: *const fmpz,
+    );
+    pub fn qadic_reduce(x: *mut padic_poly_struct, ctx: *const qadic_ctx_struct);
+    pub fn qadic_randtest(
+        x: *mut padic_poly_struct,
+        state: *mut flint_rand_struct,
+        ctx: *const qadic_ctx_struct,
+    );
+    pub fn qadic_randtest_not_zero(
+        x: *mut padic_poly_struct,
+        state: *mut flint_rand_struct,
+        ctx: *const qadic_ctx_struct,
+    );
+    pub fn qadic_randtest_val(
+        x: *mut padic_poly_struct,
+        state: *mut flint_rand_struct,
+        val: slong,
+        ctx: *const qadic_ctx_struct,
+    );
+    pub fn qadic_randtest_int(
+        x: *mut padic_poly_struct,
+        state: *mut flint_rand_struct,
+        ctx: *const qadic_ctx_struct,
+    );
+    pub fn qadic_zero(op: *mut padic_poly_struct);
+    pub fn qadic_one(op: *mut padic_poly_struct);
+    pub fn qadic_gen(x: *mut padic_poly_struct, ctx: *const qadic_ctx_struct);
+    pub fn qadic_set_ui(
+        rop: *mut padic_poly_struct,
+        op: ulong,
+        ctx: *const qadic_ctx_struct,
+    );
+    pub fn qadic_get_padic(
+        rop: *mut padic_struct,
+        op: *const padic_poly_struct,
+        ctx: *const qadic_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn qadic_set(
+        rop: *mut padic_poly_struct,
+        op: *const padic_poly_struct,
+        ctx: *const qadic_ctx_struct,
+    );
     pub fn qadic_set_fmpz_poly(
         rop: *mut padic_poly_struct,
         op: *const fmpz_poly_struct,
+        ctx: *const qadic_ctx_struct,
+    );
+    pub fn qadic_is_zero(op: *const padic_poly_struct) -> ::std::os::raw::c_int;
+    pub fn qadic_is_one(op: *const padic_poly_struct) -> ::std::os::raw::c_int;
+    pub fn qadic_equal(
+        op1: *const padic_poly_struct,
+        op2: *const padic_poly_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn qadic_add(
+        x: *mut padic_poly_struct,
+        y: *const padic_poly_struct,
+        z: *const padic_poly_struct,
+        ctx: *const qadic_ctx_struct,
+    );
+    pub fn qadic_sub(
+        x: *mut padic_poly_struct,
+        y: *const padic_poly_struct,
+        z: *const padic_poly_struct,
+        ctx: *const qadic_ctx_struct,
+    );
+    pub fn qadic_neg(
+        x: *mut padic_poly_struct,
+        y: *const padic_poly_struct,
         ctx: *const qadic_ctx_struct,
     );
     pub fn qadic_mul(
@@ -60452,7 +67743,13 @@ impl Default for qfb_hash_t {
     }
 }
 unsafe extern "C" {
+    pub fn qfb_init(q: *mut qfb);
+    pub fn qfb_clear(q: *mut qfb);
+    pub fn qfb_equal(f: *mut qfb, g: *mut qfb) -> ::std::os::raw::c_int;
+    pub fn qfb_set(f: *mut qfb, g: *mut qfb);
+    pub fn qfb_discriminant(D: *mut fmpz, f: *mut qfb);
     pub fn qfb_print(q: *mut qfb);
+    pub fn qfb_array_clear(forms: *mut *mut qfb, num: slong);
     pub fn qfb_hash_init(depth: slong) -> *mut qfb_hash_t;
     pub fn qfb_hash_clear(qhash: *mut qfb_hash_t, depth: slong);
     pub fn qfb_hash_insert(
@@ -60484,6 +67781,10 @@ unsafe extern "C" {
         e: *mut fmpz,
         L: *mut fmpz,
     );
+    pub fn qfb_inverse(r: *mut qfb, f: *mut qfb);
+    pub fn qfb_is_principal_form(f: *mut qfb, D: *mut fmpz) -> ::std::os::raw::c_int;
+    pub fn qfb_principal_form(f: *mut qfb, D: *mut fmpz);
+    pub fn qfb_is_primitive(f: *mut qfb) -> ::std::os::raw::c_int;
     pub fn qfb_prime_form(r: *mut qfb, D: *mut fmpz, p: *mut fmpz);
     pub fn qfb_exponent_element(
         exponent: *mut fmpz,
@@ -60530,6 +67831,8 @@ pub type qqbar_srcptr = *const qqbar_struct;
 unsafe extern "C" {
     pub fn qqbar_init(res: *mut qqbar_struct);
     pub fn qqbar_clear(res: *mut qqbar_struct);
+    pub fn _qqbar_vec_init(len: slong) -> qqbar_ptr;
+    pub fn _qqbar_vec_clear(vec: qqbar_ptr, len: slong);
     pub fn qqbar_swap(x: *mut qqbar_struct, y: *mut qqbar_struct);
     pub fn qqbar_set(res: *mut qqbar_struct, x: *const qqbar_struct);
     pub fn qqbar_set_si(res: *mut qqbar_struct, x: slong);
@@ -60547,13 +67850,36 @@ unsafe extern "C" {
         x: f64,
         y: f64,
     ) -> ::std::os::raw::c_int;
+    pub fn qqbar_degree(x: *const qqbar_struct) -> slong;
+    pub fn qqbar_is_rational(x: *const qqbar_struct) -> ::std::os::raw::c_int;
+    pub fn qqbar_is_integer(x: *const qqbar_struct) -> ::std::os::raw::c_int;
+    pub fn qqbar_is_algebraic_integer(x: *const qqbar_struct) -> ::std::os::raw::c_int;
+    pub fn qqbar_is_zero(x: *const qqbar_struct) -> ::std::os::raw::c_int;
+    pub fn qqbar_is_one(x: *const qqbar_struct) -> ::std::os::raw::c_int;
+    pub fn qqbar_is_neg_one(x: *const qqbar_struct) -> ::std::os::raw::c_int;
+    pub fn qqbar_is_i(x: *const qqbar_struct) -> ::std::os::raw::c_int;
+    pub fn qqbar_is_neg_i(x: *const qqbar_struct) -> ::std::os::raw::c_int;
     pub fn qqbar_sgn_re(x: *const qqbar_struct) -> ::std::os::raw::c_int;
     pub fn qqbar_sgn_im(x: *const qqbar_struct) -> ::std::os::raw::c_int;
+    pub fn qqbar_is_real(x: *const qqbar_struct) -> ::std::os::raw::c_int;
     pub fn qqbar_height_bits(x: *const qqbar_struct) -> slong;
     pub fn qqbar_height(res: *mut fmpz, x: *const qqbar_struct);
+    pub fn qqbar_within_limits(
+        x: *const qqbar_struct,
+        deg_limit: slong,
+        bits_limit: slong,
+    ) -> ::std::os::raw::c_int;
+    pub fn qqbar_binop_within_limits(
+        x: *const qqbar_struct,
+        y: *const qqbar_struct,
+        deg_limit: slong,
+        bits_limit: slong,
+    ) -> ::std::os::raw::c_int;
     pub fn _qqbar_get_fmpq(num: *mut fmpz, den: *mut fmpz, x: *const qqbar_struct);
     pub fn qqbar_get_fmpq(res: *mut fmpq, x: *const qqbar_struct);
     pub fn qqbar_get_fmpz(res: *mut fmpz, x: *const qqbar_struct);
+    pub fn qqbar_zero(res: *mut qqbar_struct);
+    pub fn qqbar_one(res: *mut qqbar_struct);
     pub fn qqbar_i(res: *mut qqbar_struct);
     pub fn qqbar_phi(res: *mut qqbar_struct);
     pub fn qqbar_randtest(
@@ -60724,6 +68050,7 @@ unsafe extern "C" {
     );
     pub fn qqbar_ui_div(res: *mut qqbar_struct, x: ulong, y: *const qqbar_struct);
     pub fn qqbar_si_div(res: *mut qqbar_struct, x: slong, y: *const qqbar_struct);
+    pub fn qqbar_sqr(res: *mut qqbar_struct, x: *const qqbar_struct);
     pub fn qqbar_inv(res: *mut qqbar_struct, x: *const qqbar_struct);
     pub fn qqbar_mul_2exp_si(res: *mut qqbar_struct, x: *const qqbar_struct, exp: slong);
     pub fn qqbar_pow_ui(res: *mut qqbar_struct, x: *const qqbar_struct, e: ulong);
@@ -60747,6 +68074,9 @@ unsafe extern "C" {
         x: *const qqbar_struct,
     ) -> ::std::os::raw::c_int;
     pub fn qqbar_root_ui(res: *mut qqbar_struct, x: *const qqbar_struct, n: ulong);
+    pub fn qqbar_sqrt(res: *mut qqbar_struct, x: *const qqbar_struct);
+    pub fn qqbar_sqrt_ui(res: *mut qqbar_struct, x: ulong);
+    pub fn qqbar_rsqrt(res: *mut qqbar_struct, x: *const qqbar_struct);
     pub fn qqbar_fmpq_root_ui(res: *mut qqbar_struct, x: *const fmpq, b: ulong);
     pub fn qqbar_fmpq_pow_si_ui(
         res: *mut qqbar_struct,
@@ -61360,6 +68690,22 @@ unsafe extern "C" {
     pub fn radix_init(radix: *mut radix_struct, b: ulong, exp: ::std::os::raw::c_uint);
     pub fn radix_clear(radix: *mut radix_struct);
     pub fn radix_init_randtest(radix: *mut radix_struct, state: *mut flint_rand_struct);
+    pub fn radix_digit_radix(radix: *const radix_struct) -> ulong;
+    pub fn radix_limb_radix(radix: *const radix_struct) -> ulong;
+    pub fn radix_limb_exponent(radix: *const radix_struct) -> ulong;
+    pub fn _radix_size_digits_1(c: ulong, radix: *const radix_struct) -> ulong;
+    pub fn radix_size_digits_1(c: ulong, radix: *const radix_struct) -> ulong;
+    pub fn _radix_size_digits(
+        x: nn_srcptr,
+        n: slong,
+        radix: *const radix_struct,
+    ) -> ulong;
+    pub fn radix_size_digits(
+        x: nn_srcptr,
+        n: slong,
+        radix: *const radix_struct,
+    ) -> ulong;
+    pub fn _radix_valuation_digits_1(c: ulong, radix: *const radix_struct) -> ulong;
     pub fn radix_rand_limbs(
         res: nn_ptr,
         state: *mut flint_rand_struct,
@@ -61467,6 +68813,31 @@ unsafe extern "C" {
         hi: slong,
         radix: *const radix_struct,
     );
+    pub fn radix_mulmid(
+        res: nn_ptr,
+        a: nn_srcptr,
+        an: slong,
+        b: nn_srcptr,
+        bn: slong,
+        lo: slong,
+        hi: slong,
+        radix: *const radix_struct,
+    );
+    pub fn radix_mul(
+        res: nn_ptr,
+        a: nn_srcptr,
+        an: slong,
+        b: nn_srcptr,
+        bn: slong,
+        radix: *const radix_struct,
+    );
+    pub fn radix_sqr(res: nn_ptr, a: nn_srcptr, an: slong, radix: *const radix_struct);
+    pub fn radix_mul_two(
+        res: nn_ptr,
+        a: nn_srcptr,
+        an: slong,
+        radix: *const radix_struct,
+    ) -> ulong;
     pub fn radix_divrem_1(
         res: nn_ptr,
         a: nn_srcptr,
@@ -61577,6 +68948,11 @@ unsafe extern "C" {
         res: nn_ptr,
         x: nn_srcptr,
         xn: slong,
+        n: slong,
+        radix: *const radix_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn radix_cmp_bn_half(
+        x: nn_srcptr,
         n: slong,
         radix: *const radix_struct,
     ) -> ::std::os::raw::c_int;
@@ -61735,6 +69111,27 @@ unsafe extern "C" {
         x: *const radix_integer_struct,
         radix: *const radix_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn radix_integer_size_limbs(
+        x: *const radix_integer_struct,
+        UNUSED_radix: *const radix_struct,
+    ) -> slong;
+    pub fn radix_integer_ssize_limbs(
+        x: *const radix_integer_struct,
+        UNUSED_radix: *const radix_struct,
+    ) -> slong;
+    pub fn radix_integer_size_digits(
+        x: *const radix_integer_struct,
+        radix: *const radix_struct,
+    ) -> slong;
+    pub fn radix_integer_ssize_digits(
+        x: *const radix_integer_struct,
+        radix: *const radix_struct,
+    ) -> slong;
+    pub fn radix_integer_get_limb(
+        x: *const radix_integer_struct,
+        n: slong,
+        UNUSED_radix: *const radix_struct,
+    ) -> ulong;
     pub fn radix_integer_set_limb(
         res: *mut radix_integer_struct,
         x: *const radix_integer_struct,
@@ -61778,6 +69175,14 @@ unsafe extern "C" {
         n: slong,
         radix: *const radix_struct,
     );
+    pub fn radix_integer_valuation_limbs(
+        x: *const radix_integer_struct,
+        UNUSED_radix: *const radix_struct,
+    ) -> slong;
+    pub fn radix_integer_valuation_digits(
+        x: *const radix_integer_struct,
+        radix: *const radix_struct,
+    ) -> slong;
     pub fn radix_integer_trunc_limbs(
         res: *mut radix_integer_struct,
         x: *const radix_integer_struct,
@@ -61878,6 +69283,76 @@ unsafe extern "C" {
         b: *const radix_integer_struct,
         radix: *const radix_struct,
     );
+    pub fn n_div_precomp_init(pre: *mut n_div_precomp_struct, d: ulong);
+    pub fn n_div_precomp_m0(x: ulong, pre: *const n_div_precomp_struct) -> ulong;
+    pub fn n_div_precomp_c0(x: ulong, pre: *const n_div_precomp_struct) -> ulong;
+    pub fn n_incsat(x: ulong) -> ulong;
+    pub fn n_div_precomp_c1_bounded(x: ulong, pre: *const n_div_precomp_struct) -> ulong;
+    pub fn n_div_precomp_c1(x: ulong, pre: *const n_div_precomp_struct) -> ulong;
+    pub fn n_div_precomp(x: ulong, pre: *const n_div_precomp_struct) -> ulong;
+    pub fn n_div_precomp_bounded(x: ulong, pre: *const n_div_precomp_struct) -> ulong;
+    pub fn n_rem_precomp_m0(
+        x: ulong,
+        UNUSED_d: ulong,
+        pre: *const n_div_precomp_struct,
+    ) -> ulong;
+    pub fn n_rem_precomp_c0(
+        x: ulong,
+        d: ulong,
+        pre: *const n_div_precomp_struct,
+    ) -> ulong;
+    pub fn n_rem_precomp_c1(
+        x: ulong,
+        d: ulong,
+        pre: *const n_div_precomp_struct,
+    ) -> ulong;
+    pub fn n_rem_precomp_bounded(
+        x: ulong,
+        d: ulong,
+        pre: *const n_div_precomp_struct,
+    ) -> ulong;
+    pub fn n_rem_precomp_c1_bounded(
+        x: ulong,
+        d: ulong,
+        pre: *const n_div_precomp_struct,
+    ) -> ulong;
+    pub fn n_rem_precomp(x: ulong, d: ulong, pre: *const n_div_precomp_struct) -> ulong;
+    pub fn n_divrem_precomp_m0(
+        r: *mut ulong,
+        x: ulong,
+        d: ulong,
+        pre: *const n_div_precomp_struct,
+    ) -> ulong;
+    pub fn n_divrem_precomp_c0(
+        r: *mut ulong,
+        x: ulong,
+        d: ulong,
+        pre: *const n_div_precomp_struct,
+    ) -> ulong;
+    pub fn n_divrem_precomp_c1(
+        r: *mut ulong,
+        x: ulong,
+        d: ulong,
+        pre: *const n_div_precomp_struct,
+    ) -> ulong;
+    pub fn n_divrem_precomp_c1_bounded(
+        r: *mut ulong,
+        x: ulong,
+        d: ulong,
+        pre: *const n_div_precomp_struct,
+    ) -> ulong;
+    pub fn n_divrem_precomp(
+        r: *mut ulong,
+        x: ulong,
+        d: ulong,
+        pre: *const n_div_precomp_struct,
+    ) -> ulong;
+    pub fn n_divrem_precomp_bounded(
+        r: *mut ulong,
+        x: ulong,
+        d: ulong,
+        pre: *const n_div_precomp_struct,
+    ) -> ulong;
 }
 
 
@@ -62091,11 +69566,34 @@ unsafe extern "C" {
         state: *mut flint_rand_struct,
         proved: ::std::os::raw::c_int,
     ) -> ulong;
+    pub fn n_mulhi(a: ulong, b: ulong) -> ulong;
+    pub fn _n_randlimb(state: *mut flint_rand_struct) -> ulong;
+    pub fn _n_randint(state: *mut flint_rand_struct, limit: ulong) -> ulong;
     pub fn n_revbin(in_: ulong, bits: ulong) -> ulong;
     pub fn n_divides(q: *mut ulong, n: ulong, p: ulong) -> ::std::os::raw::c_int;
+    pub fn n_divisible_odd_gm(
+        n: ulong,
+        inv1: ulong,
+        inv2: ulong,
+    ) -> ::std::os::raw::c_int;
     pub fn n_divrem2_precomp(q: *mut ulong, a: ulong, n: ulong, npre: f64) -> ulong;
     pub fn n_divrem2_preinv(q: *mut ulong, a: ulong, n: ulong, ninv: ulong) -> ulong;
     pub fn n_div2_preinv(a: ulong, n: ulong, ninv: ulong) -> ulong;
+    pub fn n_divrem_preinv(
+        q: *mut ulong,
+        a: ulong,
+        n: ulong,
+        ninv: ulong,
+        norm: ::std::os::raw::c_uint,
+    ) -> ulong;
+    pub fn n_divrem_preinv_unnorm(
+        q: *mut ulong,
+        a: ulong,
+        n: ulong,
+        ninv: ulong,
+        norm: ::std::os::raw::c_uint,
+    ) -> ulong;
+    pub fn n_divrem_norm(q: *mut ulong, a: ulong, n: ulong) -> ulong;
     pub fn n_factorial_mod2_preinv(n: ulong, p: ulong, pinv: ulong) -> ulong;
     pub fn n_factorial_fast_mod2_preinv(n: ulong, p: ulong, pinv: ulong) -> ulong;
     pub fn n_sqrt(a: ulong) -> ulong;
@@ -62124,9 +69622,14 @@ unsafe extern "C" {
         arg2: ::std::os::raw::c_long,
         arg3: ulong,
     ) -> ulong;
+    pub fn n_gcd(x: ulong, y: ulong) -> ulong;
     pub fn n_xgcd(a: *mut ulong, b: *mut ulong, x: ulong, y: ulong) -> ulong;
     pub fn n_gcdinv(a: *mut ulong, x: ulong, y: ulong) -> ulong;
     pub fn n_CRT(r1: ulong, m1: ulong, r2: ulong, m2: ulong) -> ulong;
+    pub fn n_mul_checked(a: *mut ulong, b: ulong, c: ulong) -> ::std::os::raw::c_int;
+    pub fn n_add_checked(a: *mut ulong, b: ulong, c: ulong) -> ::std::os::raw::c_int;
+    pub fn n_sub_checked(a: *mut ulong, b: ulong, c: ulong) -> ::std::os::raw::c_int;
+    pub fn n_precompute_inverse(n: ulong) -> f64;
     pub fn n_preinvert_limb(n: ulong) -> ulong;
     pub fn n_preinvert_limb_prenorm(n: ulong) -> ulong;
     pub fn n_mod_precomp(a: ulong, n: ulong, ninv: f64) -> ulong;
@@ -62148,6 +69651,8 @@ unsafe extern "C" {
         ninv: ulong,
         norm: ulong,
     ) -> ulong;
+    pub fn n_mulmod2_preinv(a: ulong, b: ulong, n: ulong, ninv: ulong) -> ulong;
+    pub fn n_mulmod2(a: ulong, b: ulong, n: ulong) -> ulong;
     pub fn n_powmod_ui_precomp(a: ulong, exp: ulong, n: ulong, npre: f64) -> ulong;
     pub fn n_powmod_ui_preinv(
         a: ulong,
@@ -62157,6 +69662,7 @@ unsafe extern "C" {
         norm: ulong,
     ) -> ulong;
     pub fn n_powmod_precomp(a: ulong, exp: slong, n: ulong, npre: f64) -> ulong;
+    pub fn n_powmod(a: ulong, exp: slong, n: ulong) -> ulong;
     pub fn n_powmod2_fmpz_preinv(
         a: ulong,
         exp: *const fmpz,
@@ -62165,6 +69671,10 @@ unsafe extern "C" {
     ) -> ulong;
     pub fn n_powmod2_preinv(a: ulong, exp: slong, n: ulong, ninv: ulong) -> ulong;
     pub fn n_powmod2_ui_preinv(a: ulong, exp: ulong, n: ulong, ninv: ulong) -> ulong;
+    pub fn n_powmod2(a: ulong, exp: slong, n: ulong) -> ulong;
+    pub fn n_addmod(x: ulong, y: ulong, n: ulong) -> ulong;
+    pub fn n_submod(x: ulong, y: ulong, n: ulong) -> ulong;
+    pub fn n_negmod(x: ulong, n: ulong) -> ulong;
     pub fn n_sqrtmod(a: ulong, p: ulong) -> ulong;
     pub fn n_sqrtmod_2pow(sqrt: *mut *mut ulong, a: ulong, exp: slong) -> slong;
     pub fn n_sqrtmod_primepow(
@@ -62174,7 +69684,13 @@ unsafe extern "C" {
         exp: slong,
     ) -> slong;
     pub fn n_sqrtmodn(sqrt: *mut *mut ulong, a: ulong, fac: *mut n_factor_t) -> slong;
+    pub fn n_invmod(x: ulong, y: ulong) -> ulong;
     pub fn n_binvert(a: ulong) -> ulong;
+    pub fn n_barrett_precomp(n: ulong) -> ulong;
+    pub fn n_mod_barrett_lazy(x: ulong, n: ulong, npre: ulong) -> ulong;
+    pub fn n_mod_barrett(x: ulong, n: ulong, npre: ulong) -> ulong;
+    pub fn n_lemire_precomp(n: ulong) -> ulong;
+    pub fn n_mod_lemire(x: ulong, n: ulong, npre: ulong) -> ulong;
     pub fn n_ll_small_preinv(minv: nn_ptr, m: nn_srcptr);
     pub fn n_ll_small_powmod_triple(
         res1: nn_ptr,
@@ -62192,6 +69708,25 @@ unsafe extern "C" {
         exp: nn_srcptr,
         m: nn_srcptr,
         minv: nn_srcptr,
+    );
+    pub fn n_mulmod_precomp_shoup(a: ulong, n: ulong) -> ulong;
+    pub fn n_mulmod_shoup(a: ulong, b: ulong, a_precomp: ulong, n: ulong) -> ulong;
+    pub fn n_mulmod_precomp_shoup_quo_rem(
+        a_pr_quo: *mut ulong,
+        a_pr_rem: *mut ulong,
+        a: ulong,
+        n: ulong,
+    );
+    pub fn n_mulmod_precomp_shoup_rem_from_quo(a_pr_quo: ulong, n: ulong) -> ulong;
+    pub fn n_mulmod_and_precomp_shoup(
+        ab: *mut ulong,
+        ab_precomp: *mut ulong,
+        a: ulong,
+        b: ulong,
+        a_pr_quo: ulong,
+        a_pr_rem: ulong,
+        b_precomp: ulong,
+        n: ulong,
     );
     pub fn n_primitive_root_prime_prefactor(p: ulong, factors: *mut n_factor_t) -> ulong;
     pub fn n_primitive_root_prime(p: ulong) -> ulong;
@@ -62243,6 +69778,7 @@ unsafe extern "C" {
     pub fn n_prime_pi_bounds(lo: *mut ulong, hi: *mut ulong, n: ulong);
     pub fn n_nextprime(n: ulong, UNUSED_proved: ::std::os::raw::c_int) -> ulong;
     pub fn n_ll_is_prime(nhi: ulong, nlo: ulong) -> ::std::os::raw::c_int;
+    pub fn n_factor_init(factors: *mut n_factor_t);
     pub fn n_factor_evaluate(fac: *const n_factor_t) -> ulong;
     pub fn n_factor(
         factors: *mut n_factor_t,

@@ -5,8 +5,8 @@ use flint3_sys::*;
 #[test]
 fn main() {
     unsafe {
-        let mut x: fmpq = std::mem::zeroed();
-        let mut tot: fmpq = std::mem::zeroed();
+        let mut x: fmpq = Default::default();
+        let mut tot: fmpq = Default::default();
         fmpq_init(&mut x);
         fmpq_init(&mut tot);
 
