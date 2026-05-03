@@ -1,12 +1,22 @@
 use std::{
-    ffi::OsStr,
     path::{Path, PathBuf},
     process::Command,
 };
 
 use anyhow::{Context, Result};
 
-// Build FLINT, install it into OUT_DIR, then prepare Rust bindings.
+// Build or locate FLINT, then provide `flint.rs` to the crate.
+//
+// Normal builds copy the checked-in bindings from `bindgen/flint.rs`.
+// `--features force-bindgen` regenerates that file by running bindgen once per
+// FLINT header. Per-header bindgen is much faster than a single mega-header, but
+// it requires a few explicit policies below to avoid duplicate declarations.
+
+const GENERATED_BINDINGS: &str = "bindgen/flint.rs";
+
+// This is an undocumented convenience for the maintainer of this crate, so that
+// FLINT is not compiled over and over.
+const LOCAL_FLINT_INSTALL: &str = "flint-install";
 
 fn run(mut command: Command) -> Result<()> {
     let command_string = format!("{command:?}");
@@ -27,9 +37,12 @@ fn run(mut command: Command) -> Result<()> {
     Ok(())
 }
 
+// Temporary workaround for FLINT headers where `mpoly_void_ring_t` is an
+// array typedef over an anonymous struct. Bindgen then emits unstable
+// `_bindgen_ty_*` names in unrelated headers. Naming the struct gives
+// bindgen a stable Rust type. Remove this when upstream FLINT has the fix.
 fn patch_flint_mpoly_void_ring_type(header: &Path) -> Result<()> {
     println!("cargo::rerun-if-changed={}", header.display());
-
     let source = std::fs::read_to_string(header)
         .with_context(|| format!("Failed to read `{}`", header.display()))?;
 
@@ -53,20 +66,28 @@ fn patch_flint_mpoly_void_ring_type(header: &Path) -> Result<()> {
     Ok(())
 }
 
+// Paths selected once at startup and shared by the build and binding phases.
 struct Build {
+    // Cargo build-script scratch directory.
     out_dir: PathBuf,
+    // Destination consumed by src/lib.rs through include!(env!("FLINT_RS")).
     flint_rs: PathBuf,
+    // FLINT include prefix, either OUT_DIR/include or <FLINT_INSTALL>/include.
     flint_include_dir: PathBuf,
+    // FLINT library prefix, either OUT_DIR/lib or <FLINT_INSTALL>/lib.
     flint_lib_dir: PathBuf,
+    // Existing FLINT install prefix. None means build bundled FLINT in OUT_DIR.
     flint_install_dir: Option<PathBuf>,
 }
 
 impl Build {
     fn new() -> Result<Self> {
-        let out_dir = PathBuf::from(std::env::var("OUT_DIR").unwrap())
+        let out_dir = PathBuf::from(std::env::var("OUT_DIR").context("Missing OUT_DIR")?)
             .canonicalize()
-            .unwrap();
+            .context("Failed to canonicalize OUT_DIR")?;
 
+        // Prefer an existing FLINT install while developing. Otherwise build and
+        // install the bundled FLINT into OUT_DIR.
         let flint_install_dir = flint_install_dir()?;
         let (flint_include_dir, flint_lib_dir) = if let Some(prefix) = &flint_install_dir {
             (prefix.join("include"), prefix.join("lib"))
@@ -85,6 +106,9 @@ impl Build {
 
     fn build_flint(&self) -> Result<()> {
         if self.flint_install_dir.is_some() {
+            // `FLINT_INSTALL` or `flint-install` points to a complete install
+            // prefix. We still patch the installed header so force-bindgen sees
+            // the same workaround as vendored builds.
             patch_flint_mpoly_void_ring_type(&self.flint_include_dir.join("flint/mpoly_types.h"))?;
             self.emit_flint_metadata();
             return Ok(());
@@ -95,10 +119,10 @@ impl Build {
         std::fs::create_dir_all(&tmp_dir)
             .context(format!("Failed to create `{}`", tmp_dir.display()))?;
 
-        // FLINT does not support out-of-tree compilation.
+        // FLINT does not support out-of-tree compilation, so Cargo builds a
+        // private copy under OUT_DIR.
         let mut cp = Command::new("cp");
         cp.arg("-Rp").arg("flint").arg(&self.out_dir);
-
         run(cp)?;
 
         patch_flint_mpoly_void_ring_type(&flint_root_dir.join("src/mpoly_types.h"))?;
@@ -120,7 +144,7 @@ impl Build {
                 .current_dir(&flint_root_dir)
                 .env("TMPDIR", &tmp_dir)
                 .arg("./configure")
-                .arg("--prefix") // ask that the files are install in OUT_DIR, not `/usr`
+                .arg("--prefix")
                 .arg(&self.out_dir)
                 .arg("--disable-shared");
 
@@ -169,17 +193,20 @@ impl Build {
 
 fn flint_install_dir() -> Result<Option<PathBuf>> {
     println!("cargo::rerun-if-env-changed=FLINT_INSTALL");
-    println!("cargo::rerun-if-changed=flint-install");
+    println!("cargo::rerun-if-changed={LOCAL_FLINT_INSTALL}");
 
     if let Some(path) = std::env::var_os("FLINT_INSTALL") {
-        anyhow::ensure!(!os_str_is_empty(&path), "`FLINT_INSTALL` is set but empty");
+        anyhow::ensure!(
+            !path.as_encoded_bytes().is_empty(),
+            "`FLINT_INSTALL` is set but empty"
+        );
         let prefix = PathBuf::from(path);
         return validate_flint_install_dir(&prefix)
             .with_context(|| format!("Invalid `FLINT_INSTALL={}`", prefix.display()))
             .map(Some);
     }
 
-    let prefix = Path::new("flint-install");
+    let prefix = Path::new(LOCAL_FLINT_INSTALL);
     if std::fs::symlink_metadata(prefix).is_ok() {
         return validate_flint_install_dir(prefix)
             .context("Invalid `flint-install` FLINT install prefix")
@@ -187,10 +214,6 @@ fn flint_install_dir() -> Result<Option<PathBuf>> {
     }
 
     Ok(None)
-}
-
-fn os_str_is_empty(value: &OsStr) -> bool {
-    value.as_encoded_bytes().is_empty()
 }
 
 fn validate_flint_install_dir(prefix: &Path) -> Result<PathBuf> {
@@ -218,12 +241,13 @@ fn validate_flint_install_dir(prefix: &Path) -> Result<PathBuf> {
         .with_context(|| format!("Failed to canonicalize `{}`", prefix.display()))
 }
 
-// Copy pregenerated type bindings for normal crate builds.
+// Normal crate builds must not require libclang/bindgen. They use the checked-in
+// file generated by `KEEP_BINDGEN_OUTPUT=1 cargo build --features force-bindgen`.
 #[cfg(not(feature = "force-bindgen"))]
 impl Build {
     fn prepare_bindings(&self) -> Result<()> {
-        println!("cargo::rerun-if-changed=./bindgen/flint.rs");
-        std::fs::copy("./bindgen/flint.rs", &self.flint_rs)
+        println!("cargo::rerun-if-changed={GENERATED_BINDINGS}");
+        std::fs::copy(GENERATED_BINDINGS, &self.flint_rs)
             .context("Failed to copy pregenerated bindings")?;
 
         Ok(())
@@ -232,6 +256,8 @@ impl Build {
 
 #[cfg(feature = "force-bindgen")]
 static SKIP_HEADERS: &[&str] = &[
+    // Headers that are platform/configuration internals, test helpers, or pull
+    // in dependencies we intentionally do not expose yet.
     r"^NTL-interface\.h$",
     r"^config\.h$",
     r"^flint-config\.h$",
@@ -251,6 +277,8 @@ static SKIP_HEADERS: &[&str] = &[
 
 #[cfg(feature = "force-bindgen")]
 static SKIP_ITEMS: &[(&str, &[&str])] = &[
+    // Some public headers repeat declarations from other headers. Keep this as
+    // a small hand-curated list rather than adding fragile global dedup logic.
     (
         "flint.h",
         &["n_randlimb", "n_randtest", "n_randtest_not_zero"],
@@ -287,11 +315,11 @@ impl Build {
             .with_context(|| format!("Failed to read `{}`", flint_header_dir.display()))?
         {
             let path = entry?.path();
-            if path.extension().and_then(OsStr::to_str) != Some("h") {
+            if path.extension().and_then(std::ffi::OsStr::to_str) != Some("h") {
                 continue;
             }
 
-            let Some(file_name) = path.file_name().and_then(OsStr::to_str) else {
+            let Some(file_name) = path.file_name().and_then(std::ffi::OsStr::to_str) else {
                 continue;
             };
 
@@ -314,6 +342,12 @@ impl Build {
         };
 
         let headers = self.flint_headers()?;
+
+        // FLINT implements many inline functions by compiling module-specific
+        // `inlines.c` files into libflint. Defining the matching `*_INLINES_C`
+        // macros tells headers to expose those functions as external
+        // declarations, so bindgen can generate Rust bindings without creating
+        // wrapper C files.
         let inline_macro_pattern =
             regex::Regex::new(r"(?m)^\s*#\s*ifdef\s+([A-Z0-9_]+_INLINES_C)\b")
                 .context("Invalid inline macro regex")?;
@@ -329,11 +363,6 @@ impl Build {
         }
         inline_macros.sort();
         inline_macros.dedup();
-
-        // let mut builder = bindgen::Builder::default()
-        //     .raw_line("pub use crate::ffi_prelude::*;")
-        //     .clang_arg("-DFLINT_NOSTDIO")
-        //     .clang_arg("-DFLINT_NOSTDARG");
 
         let _flint_rs = std::fs::File::create(&self.flint_rs)?;
         let mut flint_rs = std::io::BufWriter::new(_flint_rs);
@@ -354,6 +383,10 @@ impl Build {
         let worker_count = std::thread::available_parallelism()
             .map_or(1, usize::from)
             .min(header_strings.len());
+
+        // Bindgen is invoked once per header. This keeps each clang parse small
+        // and makes the work easy to parallelize. The final file is assembled in
+        // sorted header order, so output remains deterministic.
         std::thread::scope(|scope| -> Result<()> {
             let mut tasks = Vec::with_capacity(worker_count);
             for _ in 0..worker_count {
@@ -372,8 +405,9 @@ impl Build {
                             println!("cargo::rerun-if-changed={h}");
                             let header_name = Path::new(&h)
                                 .file_name()
-                                .and_then(OsStr::to_str)
+                                .and_then(std::ffi::OsStr::to_str)
                                 .context("Header path has no file name")?;
+
                             let mut builder = bindgen::Builder::default()
                                 .clang_arg("-DFLINT_NOSTDIO")
                                 .clang_arg("-DFLINT_NOSTDARG")
@@ -396,9 +430,11 @@ impl Build {
                                 .rust_edition(bindgen::RustEdition::Edition2021)
                                 .layout_tests(false)
                                 .formatter(bindgen::Formatter::Prettyplease);
+
                             for inline_macro in inline_macros {
                                 builder = builder.clang_arg(format!("-D{inline_macro}"));
                             }
+
                             for (_, items) in SKIP_ITEMS
                                 .iter()
                                 .filter(|(header, _)| *header == header_name)
@@ -412,9 +448,13 @@ impl Build {
                                 .context("Failed to generate FLINT type bindings")?;
                             let stem = Path::new(&h)
                                 .file_stem()
-                                .and_then(OsStr::to_str)
+                                .and_then(std::ffi::OsStr::to_str)
                                 .context("Header path has no file stem")?
                                 .to_owned();
+
+                            // Each bindgen run starts anonymous names at
+                            // `_bindgen_ty_1`. Prefix them with the header stem
+                            // before concatenating all generated fragments.
                             generated.push((
                                 index,
                                 h,
@@ -447,7 +487,7 @@ impl Build {
 
         println!("cargo::rerun-if-env-changed=KEEP_BINDGEN_OUTPUT");
         if std::env::var_os("KEEP_BINDGEN_OUTPUT").is_some() {
-            std::fs::copy(&self.flint_rs, "bindgen/flint.rs")
+            std::fs::copy(&self.flint_rs, GENERATED_BINDINGS)
                 .context("Failed to copy generated bindings")?;
         }
 
