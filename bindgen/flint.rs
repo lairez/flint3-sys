@@ -733,6 +733,9 @@ unsafe extern "C" {
         prec: slong,
     );
     pub fn _acb_vec_sqr(res: acb_ptr, vec: acb_srcptr, len: slong, prec: slong);
+    pub fn acb_fprint(file: *mut FILE, x: *const acb_struct);
+    pub fn acb_fprintd(file: *mut FILE, z: *const acb_struct, digits: slong);
+    pub fn acb_fprintn(fp: *mut FILE, z: *const acb_struct, digits: slong, flags: ulong);
     pub fn acb_print(x: *const acb_struct);
     pub fn acb_printd(z: *const acb_struct, digits: slong);
     pub fn acb_printn(x: *const acb_struct, digits: slong, flags: ulong);
@@ -3473,6 +3476,7 @@ unsafe extern "C" {
         E: acb_srcptr,
         prec: slong,
     );
+    pub fn acb_mat_fprintd(file: *mut FILE, mat: *const acb_mat_struct, digits: slong);
     pub fn acb_mat_printd(mat: *const acb_mat_struct, digits: slong);
     pub fn acb_mat_eq(
         mat1: *const acb_mat_struct,
@@ -3980,6 +3984,7 @@ unsafe extern "C" {
     pub fn psl2z_swap(f: *mut psl2z_struct, g: *mut psl2z_struct);
     pub fn psl2z_set(h: *mut psl2z_struct, g: *const psl2z_struct);
     pub fn psl2z_one(g: *mut psl2z_struct);
+    pub fn psl2z_fprint(file: *mut FILE, g: *const psl2z_struct);
     pub fn psl2z_print(g: *const psl2z_struct);
     pub fn psl2z_equal(
         f: *const psl2z_struct,
@@ -4238,6 +4243,11 @@ unsafe extern "C" {
         res: *mut arb_poly_struct,
         poly: *const acb_poly_struct,
         prec: slong,
+    );
+    pub fn acb_poly_fprintd(
+        file: *mut FILE,
+        poly: *const acb_poly_struct,
+        digits: slong,
     );
     pub fn acb_poly_printd(poly: *const acb_poly_struct, digits: slong);
     pub fn _acb_poly_evaluate_horner(
@@ -6897,6 +6907,14 @@ unsafe extern "C" {
     pub fn arb_set_round_fmpz(y: *mut arb_struct, x: *const fmpz, prec: slong);
     pub fn arb_is_one(f: *const arb_struct) -> ::std::os::raw::c_int;
     pub fn arb_one(f: *mut arb_struct);
+    pub fn arb_fprint(file: *mut FILE, x: *const arb_struct);
+    pub fn arb_fprintd(file: *mut FILE, x: *const arb_struct, digits: slong);
+    pub fn arb_fprintn(
+        file: *mut FILE,
+        x: *const arb_struct,
+        digits: slong,
+        flags: ulong,
+    );
     pub fn arb_print(x: *const arb_struct);
     pub fn arb_printd(x: *const arb_struct, digits: slong);
     pub fn arb_printn(x: *const arb_struct, digits: slong, flags: ulong);
@@ -7980,6 +7998,14 @@ unsafe extern "C" {
         data: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
     pub fn arb_dump_str(x: *const arb_struct) -> *mut ::std::os::raw::c_char;
+    pub fn arb_load_file(
+        res: *mut arb_struct,
+        stream: *mut FILE,
+    ) -> ::std::os::raw::c_int;
+    pub fn arb_dump_file(
+        stream: *mut FILE,
+        x: *const arb_struct,
+    ) -> ::std::os::raw::c_int;
 }
 
 
@@ -7995,6 +8021,11 @@ pub type arb_calc_func_t = ::std::option::Option<
     ) -> ::std::os::raw::c_int,
 >;
 unsafe extern "C" {
+    pub fn arf_interval_fprintd(
+        file: *mut FILE,
+        v: *const arf_interval_struct,
+        n: slong,
+    );
     pub fn arf_interval_printd(v: *const arf_interval_struct, n: slong);
     pub fn arb_calc_partition(
         L: *mut arf_interval_struct,
@@ -10239,6 +10270,7 @@ unsafe extern "C" {
         prec: slong,
         mag_bits: slong,
     );
+    pub fn arb_mat_fprintd(file: *mut FILE, mat: *const arb_mat_struct, digits: slong);
     pub fn arb_mat_printd(mat: *const arb_mat_struct, digits: slong);
     pub fn arb_mat_eq(
         mat1: *const arb_mat_struct,
@@ -10835,6 +10867,11 @@ unsafe extern "C" {
         res: *mut arb_poly_struct,
         poly: *const arb_poly_struct,
         prec: slong,
+    );
+    pub fn arb_poly_fprintd(
+        file: *mut FILE,
+        poly: *const arb_poly_struct,
+        digits: slong,
     );
     pub fn arb_poly_printd(poly: *const arb_poly_struct, digits: slong);
     pub fn arb_poly_randtest(
@@ -12347,6 +12384,8 @@ unsafe extern "C" {
     pub fn arf_nint(z: *mut arf_struct, x: *const arf_struct);
     pub fn arf_debug(x: *const arf_struct);
     pub fn arf_get_str(x: *const arf_struct, d: slong) -> *mut ::std::os::raw::c_char;
+    pub fn arf_fprint(file: *mut FILE, x: *const arf_struct);
+    pub fn arf_fprintd(file: *mut FILE, y: *const arf_struct, d: slong);
     pub fn arf_print(x: *const arf_struct);
     pub fn arf_printd(y: *const arf_struct, d: slong);
     pub fn arf_randtest(
@@ -12718,6 +12757,14 @@ unsafe extern "C" {
         data: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
     pub fn arf_dump_str(x: *const arf_struct) -> *mut ::std::os::raw::c_char;
+    pub fn arf_load_file(
+        res: *mut arf_struct,
+        stream: *mut FILE,
+    ) -> ::std::os::raw::c_int;
+    pub fn arf_dump_file(
+        stream: *mut FILE,
+        x: *const arf_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn arf_dot(
         res: *mut arf_struct,
         initial: *const arf_struct,
@@ -12999,6 +13046,7 @@ unsafe extern "C" {
         mat: *mut bool_mat_struct,
         state: *mut flint_rand_struct,
     );
+    pub fn bool_mat_fprint(file: *mut FILE, mat: *const bool_mat_struct);
     pub fn bool_mat_print(mat: *const bool_mat_struct);
     pub fn bool_mat_equal(
         mat1: *const bool_mat_struct,
@@ -13183,6 +13231,7 @@ unsafe extern "C" {
         expr: *const fexpr_struct,
         ctx: *mut ca_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn ca_fprint(fp: *mut FILE, x: *const ca_struct, ctx: *mut ca_ctx_struct);
     pub fn ca_print(x: *const ca_struct, ctx: *mut ca_ctx_struct);
     pub fn ca_printn(x: *const ca_struct, n: slong, ctx: *mut ca_ctx_struct);
     pub fn ca_get_str(
@@ -15491,6 +15540,7 @@ unsafe extern "C" {
 /* calcium.h */
 
 unsafe extern "C" {
+    pub fn calcium_stream_init_file(out: *mut gr_stream_struct, fp: *mut FILE);
     pub fn calcium_stream_init_str(out: *mut gr_stream_struct);
     pub fn calcium_write(out: *mut gr_stream_struct, s: *const ::std::os::raw::c_char);
     pub fn calcium_write_si(out: *mut gr_stream_struct, x: slong);
@@ -17555,6 +17605,16 @@ unsafe extern "C" {
         str_: *const ::std::os::raw::c_char,
         ...
     ) -> ::std::os::raw::c_int;
+    pub fn flint_fprintf(
+        f: *mut FILE,
+        str_: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+    pub fn flint_fscanf(
+        f: *mut FILE,
+        str_: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
     pub fn flint_throw(exc: flint_err_t, msg: *const ::std::os::raw::c_char, ...);
 }
 
@@ -17863,6 +17923,12 @@ unsafe extern "C" {
     );
     pub fn fmpq_addmul(res: *mut fmpq, op1: *const fmpq, op2: *const fmpq);
     pub fn fmpq_submul(res: *mut fmpq, op1: *const fmpq, op2: *const fmpq);
+    pub fn _fmpq_fprint(
+        file: *mut FILE,
+        num: *const fmpz,
+        den: *const fmpz,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpq_fprint(file: *mut FILE, x: *const fmpq) -> ::std::os::raw::c_int;
     pub fn _fmpq_print(num: *const fmpz, den: *const fmpz) -> ::std::os::raw::c_int;
     pub fn fmpq_print(x: *const fmpq) -> ::std::os::raw::c_int;
     pub fn _fmpq_randtest(
@@ -18525,6 +18591,12 @@ unsafe extern "C" {
         x: *mut *const ::std::os::raw::c_char,
         ctx: *const fmpq_mpoly_ctx_struct,
     ) -> *mut ::std::os::raw::c_char;
+    pub fn fmpq_mpoly_fprint_pretty(
+        file: *mut FILE,
+        A: *const fmpq_mpoly_struct,
+        x: *mut *const ::std::os::raw::c_char,
+        ctx: *const fmpq_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fmpq_mpoly_print_pretty(
         A: *const fmpq_mpoly_struct,
         x: *mut *const ::std::os::raw::c_char,
@@ -20762,6 +20834,32 @@ unsafe extern "C" {
         len: slong,
     );
     pub fn fmpq_poly_discriminant(res: *mut fmpq, poly: *const fmpq_poly_struct);
+    pub fn _fmpq_poly_fprint(
+        file: *mut FILE,
+        poly: *const fmpz,
+        den: *const fmpz,
+        len: slong,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpq_poly_fprint(
+        file: *mut FILE,
+        poly: *const fmpq_poly_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _fmpq_poly_fprint_pretty(
+        file: *mut FILE,
+        poly: *const fmpz,
+        den: *const fmpz,
+        len: slong,
+        x: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpq_poly_fprint_pretty(
+        file: *mut FILE,
+        poly: *const fmpq_poly_struct,
+        var: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpq_poly_fread(
+        file: *mut FILE,
+        poly: *mut fmpq_poly_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _fmpq_poly_print(
         poly: *const fmpz,
         den: *const fmpz,
@@ -20892,6 +20990,11 @@ unsafe extern "C" {
         vec2: *const fmpq,
         len: slong,
     );
+    pub fn _fmpq_vec_fprint(
+        file: *mut FILE,
+        vec: *const fmpq,
+        len: slong,
+    ) -> ::std::os::raw::c_int;
     pub fn _fmpq_vec_print(vec: *const fmpq, len: slong) -> ::std::os::raw::c_int;
 }
 
@@ -21186,6 +21289,10 @@ unsafe extern "C" {
         b: ::std::os::raw::c_int,
         f: *const fmpz,
     ) -> *mut ::std::os::raw::c_char;
+    pub fn fmpz_fread(file: *mut FILE, f: *mut fmpz) -> ::std::os::raw::c_int;
+    pub fn fmpz_fprint(file: *mut FILE, x: *const fmpz) -> ::std::os::raw::c_int;
+    pub fn fmpz_inp_raw(x: *mut fmpz, fin: *mut FILE) -> usize;
+    pub fn fmpz_out_raw(fout: *mut FILE, x: *const fmpz) -> usize;
     pub fn fmpz_add(f: *mut fmpz, g: *const fmpz, h: *const fmpz);
     pub fn fmpz_add_ui(f: *mut fmpz, g: *const fmpz, x: ulong);
     pub fn fmpz_sub(f: *mut fmpz, g: *const fmpz, h: *const fmpz);
@@ -21671,6 +21778,10 @@ unsafe extern "C" {
         factor2: *mut fmpz_factor_struct,
         exp: ulong,
     );
+    pub fn fmpz_factor_fprint(
+        fs: *mut FILE,
+        factor: *const fmpz_factor_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fmpz_factor_print(factor: *const fmpz_factor_struct) -> ::std::os::raw::c_int;
     pub fn _fmpz_factor_extend_factor_ui(factor: *mut fmpz_factor_struct, n: ulong);
     pub fn fmpz_factor_trial_range(
@@ -22142,6 +22253,18 @@ unsafe extern "C" {
         mat1: *const fmpz_mat_struct,
         mat2: *const fmpz_mat_struct,
     );
+    pub fn fmpz_mat_fprint(
+        file: *mut FILE,
+        mat: *const fmpz_mat_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mat_fprint_pretty(
+        file: *mut FILE,
+        mat: *const fmpz_mat_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mat_fread(
+        file: *mut FILE,
+        mat: *mut fmpz_mat_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fmpz_mat_print(mat: *const fmpz_mat_struct) -> ::std::os::raw::c_int;
     pub fn fmpz_mat_print_pretty(mat: *const fmpz_mat_struct) -> ::std::os::raw::c_int;
     pub fn fmpz_mat_read(mat: *mut fmpz_mat_struct) -> ::std::os::raw::c_int;
@@ -23262,6 +23385,16 @@ unsafe extern "C" {
         mat2: *const fmpz_mod_mat_struct,
         UNUSED_ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn fmpz_mod_mat_fprint(
+        file: *mut FILE,
+        mat: *const fmpz_mod_mat_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_mat_fprint_pretty(
+        file: *mut FILE,
+        mat: *const fmpz_mod_mat_struct,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fmpz_mod_mat_print(
         mat: *const fmpz_mod_mat_struct,
         UNUSED_ctx: *const fmpz_mod_ctx_struct,
@@ -23658,6 +23791,12 @@ unsafe extern "C" {
         x: *mut *const ::std::os::raw::c_char,
         ctx: *const fmpz_mod_mpoly_ctx_struct,
     ) -> *mut ::std::os::raw::c_char;
+    pub fn fmpz_mod_mpoly_fprint_pretty(
+        file: *mut FILE,
+        A: *const fmpz_mod_mpoly_struct,
+        x: *mut *const ::std::os::raw::c_char,
+        ctx: *const fmpz_mod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fmpz_mod_mpoly_print_pretty(
         A: *const fmpz_mod_mpoly_struct,
         x: *mut *const ::std::os::raw::c_char,
@@ -28249,6 +28388,28 @@ unsafe extern "C" {
         x: *const ::std::os::raw::c_char,
         UNUSED_ctx: *const fmpz_mod_ctx_struct,
     ) -> *mut ::std::os::raw::c_char;
+    pub fn _fmpz_mod_poly_fprint(
+        file: *mut FILE,
+        poly: *const fmpz,
+        len: slong,
+        p: *const fmpz,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_poly_fprint(
+        file: *mut FILE,
+        poly: *const fmpz_mod_poly_struct,
+        ctx: *const fmpz_mod_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_poly_fprint_pretty(
+        file: *mut FILE,
+        poly: *const fmpz_mod_poly_struct,
+        x: *const ::std::os::raw::c_char,
+        UNUSED_ctx: *const fmpz_mod_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mod_poly_fread(
+        file: *mut FILE,
+        poly: *mut fmpz_mod_poly_struct,
+        ctx: *mut fmpz_mod_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _fmpz_mod_poly_print(
         poly: *const fmpz,
         len: slong,
@@ -29058,6 +29219,21 @@ unsafe extern "C" {
         x: *mut *const ::std::os::raw::c_char,
         ctx: *const fmpz_mpoly_ctx_struct,
     ) -> *mut ::std::os::raw::c_char;
+    pub fn _fmpz_mpoly_fprint_pretty(
+        file: *mut FILE,
+        poly: *const fmpz,
+        exps: *const ulong,
+        len: slong,
+        x_in: *mut *const ::std::os::raw::c_char,
+        bits: flint_bitcnt_t,
+        mctx: *const mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mpoly_fprint_pretty(
+        file: *mut FILE,
+        A: *const fmpz_mpoly_struct,
+        x: *mut *const ::std::os::raw::c_char,
+        ctx: *const fmpz_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _fmpz_mpoly_print_pretty(
         poly: *const fmpz,
         exps: *const ulong,
@@ -33627,6 +33803,35 @@ unsafe extern "C" {
         r2: *mut slong,
         poly: *const fmpz_poly_struct,
     );
+    pub fn _fmpz_poly_fprint(
+        file: *mut FILE,
+        poly: *const fmpz,
+        len: slong,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_poly_fprint(
+        file: *mut FILE,
+        poly: *const fmpz_poly_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _fmpz_poly_fprint_pretty(
+        file: *mut FILE,
+        poly: *const fmpz,
+        len: slong,
+        x: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_poly_fprint_pretty(
+        file: *mut FILE,
+        poly: *const fmpz_poly_struct,
+        x: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_poly_fread(
+        file: *mut FILE,
+        poly: *mut fmpz_poly_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_poly_fread_pretty(
+        file: *mut FILE,
+        poly: *mut fmpz_poly_struct,
+        x: *mut *mut ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
     pub fn _fmpz_poly_print_pretty(
         poly: *const fmpz,
         len: slong,
@@ -34699,6 +34904,16 @@ unsafe extern "C" {
     pub fn _fmpz_vec_max_limbs(vec: *const fmpz, len: slong) -> slong;
     pub fn _fmpz_vec_height(height: *mut fmpz, vec: *const fmpz, len: slong);
     pub fn _fmpz_vec_height_index(vec: *const fmpz, len: slong) -> slong;
+    pub fn _fmpz_vec_fprint(
+        file: *mut FILE,
+        vec: *const fmpz,
+        len: slong,
+    ) -> ::std::os::raw::c_int;
+    pub fn _fmpz_vec_fread(
+        file: *mut FILE,
+        vec: *mut *mut fmpz,
+        len: *mut slong,
+    ) -> ::std::os::raw::c_int;
     pub fn _fmpz_vec_print(vec: *const fmpz, len: slong) -> ::std::os::raw::c_int;
     pub fn _fmpz_vec_read(vec: *mut *mut fmpz, len: *mut slong) -> ::std::os::raw::c_int;
     pub fn _fmpz_vec_get_nmod_vec(
@@ -35113,6 +35328,10 @@ unsafe extern "C" {
     pub fn fq_ctx_degree(ctx: *const fq_ctx_struct) -> slong;
     pub fn fq_ctx_prime(ctx: *const fq_ctx_struct) -> *const fmpz;
     pub fn fq_ctx_order(f: *mut fmpz, ctx: *const fq_ctx_struct);
+    pub fn fq_ctx_fprint(
+        file: *mut FILE,
+        ctx: *const fq_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_ctx_print(ctx: *const fq_ctx_struct);
     pub fn fq_init(rop: *mut fmpz_poly_struct, UNUSED_ctx: *const fq_ctx_struct);
     pub fn fq_init2(rop: *mut fmpz_poly_struct, ctx: *const fq_ctx_struct);
@@ -35293,6 +35512,21 @@ unsafe extern "C" {
         UNUSED_ctx: *const fq_ctx_struct,
     );
     pub fn fq_gen(rop: *mut fmpz_poly_struct, ctx: *const fq_ctx_struct);
+    pub fn fq_fprint(
+        file: *mut FILE,
+        op: *const fmpz_poly_struct,
+        UNUSED_ctx: *const fq_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_print(op: *const fmpz_poly_struct, UNUSED_ctx: *const fq_ctx_struct);
+    pub fn fq_fprint_pretty(
+        file: *mut FILE,
+        op: *const fmpz_poly_struct,
+        ctx: *const fq_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_print_pretty(
+        op: *const fmpz_poly_struct,
+        ctx: *const fq_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_get_str(
         op: *const fmpz_poly_struct,
         UNUSED_ctx: *const fq_ctx_struct,
@@ -35441,6 +35675,10 @@ unsafe extern "C" {
         ctx: *const fq_default_ctx_struct,
     );
     pub fn fq_default_ctx_order(f: *mut fmpz, ctx: *const fq_default_ctx_struct);
+    pub fn fq_default_ctx_fprint(
+        file: *mut FILE,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_default_ctx_print(ctx: *const fq_default_ctx_struct);
     pub fn fq_default_ctx_init_randtest(
         ctx: *mut fq_default_ctx_struct,
@@ -35661,6 +35899,16 @@ unsafe extern "C" {
         n: slong,
         ctx: *const fq_default_ctx_struct,
     );
+    pub fn fq_default_fprint(
+        file: *mut FILE,
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_fprint_pretty(
+        file: *mut FILE,
+        op: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_default_print(
         op: *const fq_default_struct,
         ctx: *const fq_default_ctx_struct,
@@ -35869,6 +36117,16 @@ unsafe extern "C" {
         mat2: *const fq_default_mat_struct,
         ctx: *const fq_default_ctx_struct,
     );
+    pub fn fq_default_mat_fprint(
+        file: *mut FILE,
+        mat: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_mat_fprint_pretty(
+        file: *mut FILE,
+        mat: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_default_mat_print(
         mat: *const fq_default_mat_struct,
         ctx: *const fq_default_ctx_struct,
@@ -36435,6 +36693,17 @@ unsafe extern "C" {
         poly3: *const fq_default_poly_struct,
         ctx: *const fq_default_ctx_struct,
     );
+    pub fn fq_default_poly_fprint(
+        file: *mut FILE,
+        poly: *const fq_default_poly_struct,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_default_poly_fprint_pretty(
+        file: *mut FILE,
+        poly: *const fq_default_poly_struct,
+        x: *const ::std::os::raw::c_char,
+        ctx: *const fq_default_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_default_poly_print(
         poly: *const fq_default_poly_struct,
         ctx: *const fq_default_ctx_struct,
@@ -36671,6 +36940,10 @@ unsafe extern "C" {
     pub fn fq_nmod_ctx_degree(ctx: *const fq_nmod_ctx_struct) -> slong;
     pub fn fq_nmod_ctx_prime(ctx: *const fq_nmod_ctx_struct) -> ulong;
     pub fn fq_nmod_ctx_order(f: *mut fmpz, ctx: *const fq_nmod_ctx_struct);
+    pub fn fq_nmod_ctx_fprint(
+        file: *mut FILE,
+        ctx: *const fq_nmod_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_nmod_ctx_print(ctx: *const fq_nmod_ctx_struct);
     pub fn fq_nmod_init(rop: *mut nmod_poly_struct, ctx: *const fq_nmod_ctx_struct);
     pub fn fq_nmod_init2(rop: *mut nmod_poly_struct, ctx: *const fq_nmod_ctx_struct);
@@ -36871,6 +37144,16 @@ unsafe extern "C" {
         UNUSED_ctx: *const fq_nmod_ctx_struct,
     );
     pub fn fq_nmod_gen(rop: *mut nmod_poly_struct, ctx: *const fq_nmod_ctx_struct);
+    pub fn fq_nmod_fprint(
+        file: *mut FILE,
+        op: *const nmod_poly_struct,
+        UNUSED_ctx: *const fq_nmod_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_nmod_fprint_pretty(
+        file: *mut FILE,
+        op: *const nmod_poly_struct,
+        ctx: *const fq_nmod_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_nmod_print(
         op: *const nmod_poly_struct,
         UNUSED_ctx: *const fq_nmod_ctx_struct,
@@ -37273,6 +37556,12 @@ unsafe extern "C" {
         x: *mut *const ::std::os::raw::c_char,
         ctx: *const fq_nmod_mpoly_ctx_struct,
     ) -> *mut ::std::os::raw::c_char;
+    pub fn fq_nmod_mpoly_fprint_pretty(
+        file: *mut FILE,
+        A: *const fq_nmod_mpoly_struct,
+        x: *mut *const ::std::os::raw::c_char,
+        ctx: *const fq_nmod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_nmod_mpoly_print_pretty(
         A: *const fq_nmod_mpoly_struct,
         x: *mut *const ::std::os::raw::c_char,
@@ -39905,6 +40194,10 @@ unsafe extern "C" {
     pub fn fq_zech_ctx_degree(ctx: *const fq_zech_ctx_struct) -> slong;
     pub fn fq_zech_ctx_prime(ctx: *const fq_zech_ctx_struct) -> ulong;
     pub fn fq_zech_ctx_order_ui(ctx: *const fq_zech_ctx_struct) -> ulong;
+    pub fn fq_zech_ctx_fprint(
+        file: *mut FILE,
+        ctx: *const fq_zech_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_zech_ctx_print(ctx: *const fq_zech_ctx_struct);
     pub fn fq_zech_init(rop: *mut fq_zech_struct, ctx: *const fq_zech_ctx_struct);
     pub fn fq_zech_init2(rop: *mut fq_zech_struct, ctx: *const fq_zech_ctx_struct);
@@ -40091,6 +40384,16 @@ unsafe extern "C" {
         b: *const nmod_poly_struct,
         ctx: *const fq_zech_ctx_struct,
     );
+    pub fn fq_zech_fprint(
+        file: *mut FILE,
+        op: *const fq_zech_struct,
+        UNUSED_ctx: *const fq_zech_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fq_zech_fprint_pretty(
+        file: *mut FILE,
+        op: *const fq_zech_struct,
+        ctx: *const fq_zech_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_zech_print(op: *const fq_zech_struct, ctx: *const fq_zech_ctx_struct);
     pub fn fq_zech_print_pretty(
         op: *const fq_zech_struct,
@@ -40390,6 +40693,12 @@ unsafe extern "C" {
         x: *mut *const ::std::os::raw::c_char,
         ctx: *const fq_zech_mpoly_ctx_struct,
     ) -> *mut ::std::os::raw::c_char;
+    pub fn fq_zech_mpoly_fprint_pretty(
+        file: *mut FILE,
+        A: *const fq_zech_mpoly_struct,
+        x: *mut *const ::std::os::raw::c_char,
+        ctx: *const fq_zech_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn fq_zech_mpoly_print_pretty(
         A: *const fq_zech_mpoly_struct,
         x: *mut *const ::std::os::raw::c_char,
@@ -43461,6 +43770,7 @@ unsafe extern "C" {
     pub fn gr_in_domain(status: ::std::os::raw::c_int) -> truth_t;
     pub fn gr_check(t: truth_t) -> ::std::os::raw::c_int;
     pub fn truth_println(x: truth_t);
+    pub fn gr_stream_init_file(out: *mut gr_stream_struct, fp: *mut FILE);
     pub fn gr_stream_init_str(out: *mut gr_stream_struct);
     pub fn gr_stream_write(
         out: *mut gr_stream_struct,
@@ -54672,6 +54982,8 @@ unsafe extern "C" {
         state: *mut flint_rand_struct,
         expbits: slong,
     );
+    pub fn mag_fprint(file: *mut FILE, x: *const mag_struct);
+    pub fn mag_fprintd(file: *mut FILE, x: *const mag_struct, d: slong);
     pub fn mag_print(x: *const mag_struct);
     pub fn mag_printd(x: *const mag_struct, d: slong);
     pub fn mag_get_fmpq(y: *mut fmpq, x: *const mag_struct);
@@ -54753,6 +55065,14 @@ unsafe extern "C" {
         data: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
     pub fn mag_dump_str(x: *const mag_struct) -> *mut ::std::os::raw::c_char;
+    pub fn mag_load_file(
+        res: *mut mag_struct,
+        stream: *mut FILE,
+    ) -> ::std::os::raw::c_int;
+    pub fn mag_dump_file(
+        stream: *mut FILE,
+        x: *const mag_struct,
+    ) -> ::std::os::raw::c_int;
 }
 
 
@@ -56792,6 +57112,11 @@ unsafe extern "C" {
         a: *const ulong,
         ctx: *const fq_nmod_ctx_struct,
     ) -> *mut ::std::os::raw::c_char;
+    pub fn n_fq_fprint_pretty(
+        file: *mut FILE,
+        a: *const ulong,
+        ctx: *const fq_nmod_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn n_fq_print_pretty(a: *const ulong, ctx: *const fq_nmod_ctx_struct);
     pub fn n_fq_get_n_poly(
         a: *mut n_poly_struct,
@@ -60068,6 +60393,14 @@ unsafe extern "C" {
         state: *mut flint_rand_struct,
         unit: ::std::os::raw::c_int,
     );
+    pub fn nmod_mat_fprint_pretty(
+        file: *mut FILE,
+        mat: *const nmod_mat_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nmod_mat_fprint(
+        f: *mut FILE,
+        mat: *const nmod_mat_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn nmod_mat_print_pretty(mat: *const nmod_mat_struct);
     pub fn nmod_mat_print(mat: *const nmod_mat_struct) -> ::std::os::raw::c_int;
     pub fn nmod_mat_equal(
@@ -60616,6 +60949,12 @@ unsafe extern "C" {
         x: *mut *const ::std::os::raw::c_char,
         ctx: *const nmod_mpoly_ctx_struct,
     ) -> *mut ::std::os::raw::c_char;
+    pub fn nmod_mpoly_fprint_pretty(
+        file: *mut FILE,
+        A: *const nmod_mpoly_struct,
+        x: *mut *const ::std::os::raw::c_char,
+        ctx: *const nmod_mpoly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn nmod_mpoly_print_pretty(
         A: *const nmod_mpoly_struct,
         x: *mut *const ::std::os::raw::c_char,
@@ -63559,6 +63898,19 @@ unsafe extern "C" {
         poly: *mut nmod_poly_struct,
         s: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
+    pub fn nmod_poly_fprint(
+        f: *mut FILE,
+        poly: *const nmod_poly_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn nmod_poly_fprint_pretty(
+        f: *mut FILE,
+        a: *const nmod_poly_struct,
+        x: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+    pub fn nmod_poly_fread(
+        f: *mut FILE,
+        poly: *mut nmod_poly_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn nmod_poly_print(a: *const nmod_poly_struct) -> ::std::os::raw::c_int;
     pub fn nmod_poly_print_pretty(
         a: *const nmod_poly_struct,
@@ -66146,6 +66498,18 @@ unsafe extern "C" {
         len: slong,
     ) -> ::std::os::raw::c_int;
     pub fn _nmod_vec_is_zero(vec: nn_srcptr, len: slong) -> ::std::os::raw::c_int;
+    pub fn _nmod_vec_fprint_pretty(
+        file: *mut FILE,
+        vec: nn_srcptr,
+        len: slong,
+        mod_: nmod_t,
+    ) -> ::std::os::raw::c_int;
+    pub fn _nmod_vec_fprint(
+        f: *mut FILE,
+        vec: nn_srcptr,
+        len: slong,
+        mod_: nmod_t,
+    ) -> ::std::os::raw::c_int;
     pub fn _nmod_vec_print_pretty(vec: nn_srcptr, len: slong, mod_: nmod_t);
     pub fn _nmod_vec_print(
         vec: nn_srcptr,
@@ -66640,6 +67004,17 @@ unsafe extern "C" {
         op: *const padic_struct,
         ctx: *const padic_ctx_struct,
     ) -> *mut ::std::os::raw::c_char;
+    pub fn _padic_fprint(
+        file: *mut FILE,
+        u: *const fmpz,
+        v: slong,
+        ctx: *const padic_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_fprint(
+        file: *mut FILE,
+        op: *const padic_struct,
+        ctx: *const padic_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _padic_print(
         u: *const fmpz,
         v: slong,
@@ -66722,6 +67097,16 @@ unsafe extern "C" {
         B: *const padic_mat_struct,
     ) -> ::std::os::raw::c_int;
     pub fn padic_mat_is_zero(A: *const padic_mat_struct) -> ::std::os::raw::c_int;
+    pub fn padic_mat_fprint(
+        file: *mut FILE,
+        A: *const padic_mat_struct,
+        ctx: *const padic_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_mat_fprint_pretty(
+        file: *mut FILE,
+        A: *const padic_mat_struct,
+        ctx: *const padic_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn padic_mat_print(
         A: *const padic_mat_struct,
         ctx: *const padic_ctx_struct,
@@ -67100,6 +67485,32 @@ unsafe extern "C" {
         k: slong,
         ctx: *const padic_ctx_struct,
     );
+    pub fn _padic_poly_fprint(
+        file: *mut FILE,
+        poly: *const fmpz,
+        val: slong,
+        len: slong,
+        ctx: *const padic_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_poly_fprint(
+        file: *mut FILE,
+        poly: *const padic_poly_struct,
+        ctx: *const padic_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _padic_poly_fprint_pretty(
+        file: *mut FILE,
+        poly: *const fmpz,
+        len: slong,
+        val: slong,
+        var: *const ::std::os::raw::c_char,
+        ctx: *const padic_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_poly_fprint_pretty(
+        file: *mut FILE,
+        poly: *const padic_poly_struct,
+        var: *const ::std::os::raw::c_char,
+        ctx: *const padic_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _padic_poly_print(
         poly: *const fmpz,
         val: slong,
@@ -67701,6 +68112,11 @@ unsafe extern "C" {
         data: *const qadic2_sqrt_precomp,
     ) -> ::std::os::raw::c_int;
     pub fn _qadic_char2_sqrt_precomp_clear(data: *mut qadic2_sqrt_precomp);
+    pub fn qadic_fprint_pretty(
+        file: *mut FILE,
+        op: *const padic_poly_struct,
+        ctx: *const qadic_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn qadic_print_pretty(
         op: *const padic_poly_struct,
         ctx: *const qadic_ctx_struct,

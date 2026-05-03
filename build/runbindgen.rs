@@ -223,7 +223,6 @@ impl BindingGeneration {
                                 .context("Header path has no file name")?;
 
                             let mut builder = bindgen::Builder::default()
-                                .clang_arg("-DFLINT_NOSTDIO")
                                 .clang_arg("-DFLINT_NOSTDARG")
                                 .disable_header_comment()
                                 .header(&h)
