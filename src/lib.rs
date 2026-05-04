@@ -10,13 +10,7 @@ pub use libc::{
 
 pub use libc::FILE;
 
-pub use libc::{
-    pthread_attr_t, pthread_cond_t, pthread_condattr_t, pthread_key_t, pthread_mutex_t,
-    pthread_mutexattr_t, pthread_once_t, pthread_rwlock_t, pthread_rwlockattr_t, pthread_t,
-};
-
-#[cfg(not(target_os = "macos"))]
-pub use libc::{pthread_barrier_t, pthread_barrierattr_t, pthread_spinlock_t};
+pub use libc::pthread_mutex_t;
 
 pub type size_t = libc::size_t;
 pub type ssize_t = libc::ssize_t;
