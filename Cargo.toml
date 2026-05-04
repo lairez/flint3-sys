@@ -15,7 +15,7 @@ build = "build/main.rs"
 default = []
 run-bindgen = ["dep:bindgen", "dep:regex", "dep:tempfile"]
 gmp-mpfr-sys = ["dep:gmp-mpfr-sys"]
-use-system-libs = ["dep:pkg-config", "dep:gmp-mpfr-sys", "gmp-mpfr-sys/use-system-libs"]
+use-system-libs = ["dep:pkg-config"]
 
 [dependencies]
 gmp-mpfr-sys = { version = "1.7.1", optional = true }

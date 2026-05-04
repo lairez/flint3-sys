@@ -12,9 +12,11 @@ This crate follows FLINT's versioning, except for the patch version, which may i
 
 - `run-bindgen`: Adds [bindgen](https://github.com/rust-lang/rust-bindgen) as a build dependency and regenerates the bindings. Useful for maintenance (see below) or for using system libraries.
 
-- `use-system-libs`: Links dynamically against a system FLINT discovered with `pkg-config`, and enables `gmp-mpfr-sys/use-system-libs` so GMP and MPFR are also treated as system libraries when that crate participates. This uses the checked-in bindings unless `run-bindgen` is also enabled. The detected FLINT major/minor version must match the bundled FLINT version when using checked-in bindings.
+- `use-system-libs`: Links dynamically against a system FLINT discovered with `pkg-config`. The detected FLINT major/minor version must match the bundled FLINT version,  unless `run-bindgen` is also enabled.
 
   This feature is experimental and will probably remain so forever. The reason is that we cannot provide a stable Rust API when linking against an unknown system library. But this sometimes works, and it cuts compilation time significantly.
+  
+  If `gmp-mpfr-sys` is enabled, then its own feature `gmp-mpfr-sys/use-system-libs` should also be enabled.
 
 ## Metadata
 
