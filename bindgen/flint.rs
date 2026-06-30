@@ -209,6 +209,12 @@ unsafe extern "C" {
     pub fn acb_neg(z: *mut acb_struct, x: *const acb_struct);
     pub fn acb_conj(z: *mut acb_struct, x: *const acb_struct);
     pub fn acb_abs(u: *mut arb_struct, z: *const acb_struct, prec: slong);
+    pub fn acb_mul_arf(
+        z: *mut acb_struct,
+        x: *const acb_struct,
+        y: *const arf_struct,
+        prec: slong,
+    );
     pub fn acb_mul_ui(z: *mut acb_struct, x: *const acb_struct, y: ulong, prec: slong);
     pub fn acb_mul_si(z: *mut acb_struct, x: *const acb_struct, y: slong, prec: slong);
     pub fn acb_mul_fmpz(
@@ -676,11 +682,39 @@ unsafe extern "C" {
         c: *const acb_struct,
         prec: slong,
     );
+    pub fn _acb_vec_scalar_mul_arb(
+        res: acb_ptr,
+        vec: acb_srcptr,
+        len: slong,
+        c: *const arb_struct,
+        prec: slong,
+    );
+    pub fn _acb_vec_scalar_mul_arf(
+        res: acb_ptr,
+        vec: acb_srcptr,
+        len: slong,
+        c: *const arf_struct,
+        prec: slong,
+    );
     pub fn _acb_vec_scalar_mul_ui(
         res: acb_ptr,
         vec: acb_srcptr,
         len: slong,
         c: ulong,
+        prec: slong,
+    );
+    pub fn _acb_vec_scalar_mul_si(
+        res: acb_ptr,
+        vec: acb_srcptr,
+        len: slong,
+        c: slong,
+        prec: slong,
+    );
+    pub fn _acb_vec_scalar_mul_fmpz(
+        res: acb_ptr,
+        vec: acb_srcptr,
+        len: slong,
+        c: *const fmpz,
         prec: slong,
     );
     pub fn _acb_vec_scalar_mul_2exp_si(
@@ -704,25 +738,11 @@ unsafe extern "C" {
         c: *const acb_struct,
         prec: slong,
     );
-    pub fn _acb_vec_scalar_mul_arb(
-        res: acb_ptr,
-        vec: acb_srcptr,
-        len: slong,
-        c: *const arb_struct,
-        prec: slong,
-    );
     pub fn _acb_vec_scalar_div_arb(
         res: acb_ptr,
         vec: acb_srcptr,
         len: slong,
         c: *const arb_struct,
-        prec: slong,
-    );
-    pub fn _acb_vec_scalar_mul_fmpz(
-        res: acb_ptr,
-        vec: acb_srcptr,
-        len: slong,
-        c: *const fmpz,
         prec: slong,
     );
     pub fn _acb_vec_scalar_div_fmpz(
@@ -1942,6 +1962,11 @@ unsafe extern "C" {
     pub fn acb_dirichlet_backlund_s_bound(res: *mut mag_struct, t: *const arb_struct);
     pub fn acb_dirichlet_zeta_nzeros_gram(res: *mut fmpz, n: *const fmpz);
     pub fn acb_dirichlet_backlund_s_gram(n: *const fmpz) -> slong;
+    pub fn acb_dirichlet_secondary_zeta(
+        res: *mut acb_struct,
+        s: *const acb_struct,
+        prec: slong,
+    );
     pub fn acb_dirichlet_vec_mellin_arb(
         res: acb_ptr,
         G: *const dirichlet_group_struct,
@@ -2753,6 +2778,21 @@ unsafe extern "C" {
         res: *mut acb_struct,
         nu: *const acb_struct,
         z: *const acb_struct,
+        prec: slong,
+    );
+    pub fn _acb_hypgeom_bessel_j_series(
+        res: acb_ptr,
+        nu: *const acb_struct,
+        z: acb_srcptr,
+        zlen: slong,
+        len: slong,
+        prec: slong,
+    );
+    pub fn acb_hypgeom_bessel_j_series(
+        res: *mut acb_poly_struct,
+        nu: *const acb_struct,
+        z: *const acb_poly_struct,
+        len: slong,
         prec: slong,
     );
     pub fn acb_hypgeom_bessel_i_0f1(
@@ -4576,6 +4616,12 @@ unsafe extern "C" {
         c: *const acb_struct,
         prec: slong,
     );
+    pub fn acb_poly_scalar_mul_si(
+        res: *mut acb_poly_struct,
+        poly: *const acb_poly_struct,
+        c: slong,
+        prec: slong,
+    );
     pub fn acb_poly_scalar_div(
         res: *mut acb_poly_struct,
         poly: *const acb_poly_struct,
@@ -5098,6 +5144,71 @@ unsafe extern "C" {
         n: slong,
         prec: slong,
     );
+    pub fn _acb_poly_atanh_series(
+        g: acb_ptr,
+        h: acb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn acb_poly_atanh_series(
+        g: *mut acb_poly_struct,
+        h: *const acb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
+    pub fn _acb_poly_asin_series(
+        g: acb_ptr,
+        h: acb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn acb_poly_asin_series(
+        g: *mut acb_poly_struct,
+        h: *const acb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
+    pub fn _acb_poly_asinh_series(
+        g: acb_ptr,
+        h: acb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn acb_poly_asinh_series(
+        g: *mut acb_poly_struct,
+        h: *const acb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
+    pub fn _acb_poly_acos_series(
+        g: acb_ptr,
+        h: acb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn acb_poly_acos_series(
+        g: *mut acb_poly_struct,
+        h: *const acb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
+    pub fn _acb_poly_acosh_series(
+        g: acb_ptr,
+        h: acb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn acb_poly_acosh_series(
+        g: *mut acb_poly_struct,
+        h: *const acb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
     pub fn _acb_poly_exp_series_basecase(
         f: acb_ptr,
         h: acb_srcptr,
@@ -5208,6 +5319,19 @@ unsafe extern "C" {
         n: slong,
         prec: slong,
     );
+    pub fn _acb_poly_tanh_series(
+        g: acb_ptr,
+        h: acb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn acb_poly_tanh_series(
+        g: *mut acb_poly_struct,
+        h: *const acb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
     pub fn _acb_poly_sin_cos_series(
         s: acb_ptr,
         c: acb_ptr,
@@ -5303,6 +5427,32 @@ unsafe extern "C" {
         len: slong,
         prec: slong,
     );
+    pub fn _acb_poly_cot_series(
+        g: acb_ptr,
+        h: acb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn acb_poly_cot_series(
+        g: *mut acb_poly_struct,
+        h: *const acb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
+    pub fn _acb_poly_coth_series(
+        g: acb_ptr,
+        h: acb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn acb_poly_coth_series(
+        g: *mut acb_poly_struct,
+        h: *const acb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
     pub fn _acb_poly_tan_series(
         g: acb_ptr,
         h: acb_srcptr,
@@ -5311,6 +5461,19 @@ unsafe extern "C" {
         prec: slong,
     );
     pub fn acb_poly_tan_series(
+        g: *mut acb_poly_struct,
+        h: *const acb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
+    pub fn _acb_poly_tan_pi_series(
+        g: acb_ptr,
+        h: acb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn acb_poly_tan_pi_series(
         g: *mut acb_poly_struct,
         h: *const acb_poly_struct,
         n: slong,
@@ -7026,6 +7189,10 @@ unsafe extern "C" {
         z: *mut fmpz,
         x: *const arb_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn arb_get_simplest_fmpq(
+        res: *mut fmpq,
+        x: *const arb_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn arb_get_fmpz_mid_rad_10exp(
         mid: *mut fmpz,
         rad: *mut fmpz,
@@ -7767,6 +7934,27 @@ unsafe extern "C" {
         c: *const arb_struct,
         prec: slong,
     );
+    pub fn _arb_vec_scalar_mul_arf(
+        res: arb_ptr,
+        vec: arb_srcptr,
+        len: slong,
+        c: *const arf_struct,
+        prec: slong,
+    );
+    pub fn _arb_vec_scalar_mul_ui(
+        res: arb_ptr,
+        vec: arb_srcptr,
+        len: slong,
+        c: ulong,
+        prec: slong,
+    );
+    pub fn _arb_vec_scalar_mul_si(
+        res: arb_ptr,
+        vec: arb_srcptr,
+        len: slong,
+        c: slong,
+        prec: slong,
+    );
     pub fn _arb_vec_scalar_mul_fmpz(
         res: arb_ptr,
         vec: arb_srcptr,
@@ -8170,6 +8358,18 @@ unsafe extern "C" {
         deflation: ulong,
     );
     pub fn arb_fmpz_poly_deflation(input: *const fmpz_poly_struct) -> ulong;
+    pub fn arb_fmpz_poly_refine_root_arb(
+        res: *mut arb_struct,
+        poly: *const fmpz_poly_struct,
+        initial: *const arb_struct,
+        prec: slong,
+    );
+    pub fn arb_fmpz_poly_real_roots(
+        roots: arb_ptr,
+        poly: *const fmpz_poly_struct,
+        flags: ::std::os::raw::c_int,
+        target_prec: slong,
+    ) -> slong;
     pub fn arb_fmpz_poly_complex_roots(
         roots: acb_ptr,
         poly: *const fmpz_poly_struct,
@@ -9755,6 +9955,21 @@ unsafe extern "C" {
         z: *const arb_struct,
         prec: slong,
     );
+    pub fn _arb_hypgeom_bessel_j_series(
+        res: arb_ptr,
+        nu: *const arb_struct,
+        z: arb_srcptr,
+        zlen: slong,
+        len: slong,
+        prec: slong,
+    );
+    pub fn arb_hypgeom_bessel_j_series(
+        res: *mut arb_poly_struct,
+        nu: *const arb_struct,
+        z: *const arb_poly_struct,
+        len: slong,
+        prec: slong,
+    );
     pub fn arb_hypgeom_bessel_i_scaled(
         res: *mut arb_struct,
         nu: *const arb_struct,
@@ -10941,6 +11156,12 @@ unsafe extern "C" {
         c: *const arb_struct,
         prec: slong,
     );
+    pub fn arb_poly_scalar_mul_si(
+        res: *mut arb_poly_struct,
+        poly: *const arb_poly_struct,
+        c: slong,
+        prec: slong,
+    );
     pub fn arb_poly_scalar_div(
         res: *mut arb_poly_struct,
         poly: *const arb_poly_struct,
@@ -11633,6 +11854,19 @@ unsafe extern "C" {
         n: slong,
         prec: slong,
     );
+    pub fn _arb_poly_atanh_series(
+        g: arb_ptr,
+        h: arb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn arb_poly_atanh_series(
+        g: *mut arb_poly_struct,
+        h: *const arb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
     pub fn _arb_poly_asin_series(
         res: arb_ptr,
         f: arb_srcptr,
@@ -11646,6 +11880,19 @@ unsafe extern "C" {
         n: slong,
         prec: slong,
     );
+    pub fn _arb_poly_asinh_series(
+        g: arb_ptr,
+        h: arb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn arb_poly_asinh_series(
+        g: *mut arb_poly_struct,
+        h: *const arb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
     pub fn _arb_poly_acos_series(
         res: arb_ptr,
         f: arb_srcptr,
@@ -11656,6 +11903,19 @@ unsafe extern "C" {
     pub fn arb_poly_acos_series(
         res: *mut arb_poly_struct,
         f: *const arb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
+    pub fn _arb_poly_acosh_series(
+        g: arb_ptr,
+        h: arb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn arb_poly_acosh_series(
+        g: *mut arb_poly_struct,
+        h: *const arb_poly_struct,
         n: slong,
         prec: slong,
     );
@@ -11756,6 +12016,19 @@ unsafe extern "C" {
         n: slong,
         prec: slong,
     );
+    pub fn _arb_poly_tanh_series(
+        g: arb_ptr,
+        h: arb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn arb_poly_tanh_series(
+        g: *mut arb_poly_struct,
+        h: *const arb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
     pub fn _arb_poly_sin_cos_series(
         s: arb_ptr,
         c: arb_ptr,
@@ -11838,6 +12111,19 @@ unsafe extern "C" {
         n: slong,
         prec: slong,
     );
+    pub fn _arb_poly_cot_series(
+        g: arb_ptr,
+        h: arb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn arb_poly_cot_series(
+        g: *mut arb_poly_struct,
+        h: *const arb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
     pub fn _arb_poly_cot_pi_series(
         g: arb_ptr,
         h: arb_srcptr,
@@ -11851,6 +12137,19 @@ unsafe extern "C" {
         n: slong,
         prec: slong,
     );
+    pub fn _arb_poly_coth_series(
+        g: arb_ptr,
+        h: arb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn arb_poly_coth_series(
+        g: *mut arb_poly_struct,
+        h: *const arb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
     pub fn _arb_poly_tan_series(
         g: arb_ptr,
         h: arb_srcptr,
@@ -11859,6 +12158,19 @@ unsafe extern "C" {
         prec: slong,
     );
     pub fn arb_poly_tan_series(
+        g: *mut arb_poly_struct,
+        h: *const arb_poly_struct,
+        n: slong,
+        prec: slong,
+    );
+    pub fn _arb_poly_tan_pi_series(
+        g: arb_ptr,
+        h: arb_srcptr,
+        hlen: slong,
+        n: slong,
+        prec: slong,
+    );
+    pub fn arb_poly_tan_pi_series(
         g: *mut arb_poly_struct,
         h: *const arb_poly_struct,
         n: slong,
@@ -13268,11 +13580,11 @@ unsafe extern "C" {
     );
     pub fn ca_is_special(
         x: *const ca_struct,
-        ctx: *mut ca_ctx_struct,
+        UNUSED_ctx: *mut ca_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn ca_is_unknown(
         x: *const ca_struct,
-        ctx: *mut ca_ctx_struct,
+        UNUSED_ctx: *mut ca_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn ca_is_qq_elem(
         x: *const ca_struct,
@@ -13886,14 +14198,17 @@ unsafe extern "C" {
         ctx: *mut ca_ctx_struct,
     );
     pub fn ca_ext_clear(res: *mut ca_ext_struct, ctx: *mut ca_ctx_struct);
-    pub fn ca_ext_nargs(x: *const ca_ext_struct, ctx: *mut ca_ctx_struct) -> slong;
+    pub fn ca_ext_nargs(
+        x: *const ca_ext_struct,
+        UNUSED_ctx: *mut ca_ctx_struct,
+    ) -> slong;
     pub fn ca_ext_get_arg(
         res: *mut ca_struct,
         x: *const ca_ext_struct,
         i: slong,
         ctx: *mut ca_ctx_struct,
     );
-    pub fn ca_ext_hash(x: *const ca_ext_struct, ctx: *mut ca_ctx_struct) -> ulong;
+    pub fn ca_ext_hash(x: *const ca_ext_struct, UNUSED_ctx: *mut ca_ctx_struct) -> ulong;
     pub fn ca_ext_equal_repr(
         x: *const ca_ext_struct,
         y: *const ca_ext_struct,
@@ -14000,7 +14315,7 @@ unsafe extern "C" {
     pub fn ca_mat_swap(
         mat1: *mut ca_mat_struct,
         mat2: *mut ca_mat_struct,
-        ctx: *mut ca_ctx_struct,
+        UNUSED_ctx: *mut ca_ctx_struct,
     );
     pub fn ca_mat_window_init(
         window: *mut ca_mat_struct,
@@ -14612,7 +14927,7 @@ unsafe extern "C" {
     pub fn ca_poly_swap(
         poly1: *mut ca_poly_struct,
         poly2: *mut ca_poly_struct,
-        ctx: *mut ca_ctx_struct,
+        UNUSED_ctx: *mut ca_ctx_struct,
     );
     pub fn ca_poly_set_ca(
         poly: *mut ca_poly_struct,
@@ -15423,9 +15738,12 @@ unsafe extern "C" {
     pub fn ca_vec_swap(
         vec1: *mut ca_vec_struct,
         vec2: *mut ca_vec_struct,
-        ctx: *mut ca_ctx_struct,
+        UNUSED_ctx: *mut ca_ctx_struct,
     );
-    pub fn ca_vec_length(vec: *const ca_vec_struct, ctx: *mut ca_ctx_struct) -> slong;
+    pub fn ca_vec_length(
+        vec: *const ca_vec_struct,
+        UNUSED_ctx: *mut ca_ctx_struct,
+    ) -> slong;
     pub fn _ca_vec_fit_length(
         vec: *mut ca_vec_struct,
         len: slong,
@@ -15518,7 +15836,7 @@ unsafe extern "C" {
     pub fn _ca_vec_fmpq_vec_is_fmpz_vec(
         vec: ca_srcptr,
         len: slong,
-        ctx: *mut ca_ctx_struct,
+        UNUSED_ctx: *mut ca_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn _ca_vec_fmpq_vec_get_fmpz_vec_den(
         c: *mut fmpz,
@@ -15797,7 +16115,7 @@ unsafe extern "C" {
         m: ulong,
     );
     pub fn dirichlet_char_exp(
-        G: *const dirichlet_group_struct,
+        UNUSED_G: *const dirichlet_group_struct,
         x: *const dirichlet_char_struct,
     ) -> ulong;
     pub fn _dirichlet_char_exp(
@@ -15864,7 +16182,7 @@ unsafe extern "C" {
         b: *const dirichlet_char_struct,
     ) -> ulong;
     pub fn dirichlet_char_is_principal(
-        G: *const dirichlet_group_struct,
+        UNUSED_G: *const dirichlet_group_struct,
         chi: *const dirichlet_char_struct,
     ) -> ::std::os::raw::c_int;
     pub fn dirichlet_char_is_real(
@@ -16192,13 +16510,13 @@ unsafe extern "C" {
     );
     pub fn dlog_rho_init(t: *mut dlog_rho_struct, a: ulong, mod_: ulong, n: ulong);
     pub fn dlog_once(b: ulong, a: ulong, mod_: nmod_t, n: ulong) -> ulong;
-    pub fn dlog_order23_clear(t: *mut ulong);
+    pub fn dlog_order23_clear(UNUSED_t: *mut ulong);
     pub fn dlog_table_clear(t: *mut dlog_table_struct);
     pub fn dlog_crt_clear(t: *mut dlog_crt_struct);
     pub fn dlog_power_clear(t: *mut dlog_power_struct);
     pub fn dlog_modpe_clear(t: *mut dlog_modpe_struct);
     pub fn dlog_bsgs_clear(t: *mut dlog_bsgs_struct);
-    pub fn dlog_rho_clear(t: *mut dlog_rho_struct);
+    pub fn dlog_rho_clear(UNUSED_t: *mut dlog_rho_struct);
     pub fn dlog_bsgs_size(n: ulong, num: ulong) -> ulong;
     pub fn dlog_order23(t: *const ulong, b: ulong) -> ulong;
     pub fn dlog_table(t: *const dlog_table_struct, b: ulong) -> ulong;
@@ -18225,20 +18543,40 @@ unsafe extern "C" {
         mat2: *const fmpq_mat_struct,
     );
     pub fn fmpq_mat_neg(rop: *mut fmpq_mat_struct, op: *const fmpq_mat_struct);
-    pub fn fmpq_mat_scalar_mul_fmpz(
-        rop: *mut fmpq_mat_struct,
-        op: *const fmpq_mat_struct,
-        x: *const fmpz,
-    );
     pub fn fmpq_mat_scalar_mul_fmpq(
         rop: *mut fmpq_mat_struct,
         op: *const fmpq_mat_struct,
         x: *const fmpq,
     );
+    pub fn fmpq_mat_scalar_mul_fmpz(
+        rop: *mut fmpq_mat_struct,
+        op: *const fmpq_mat_struct,
+        x: *const fmpz,
+    );
+    pub fn fmpq_mat_scalar_mul_si(
+        rop: *mut fmpq_mat_struct,
+        op: *const fmpq_mat_struct,
+        x: slong,
+    );
+    pub fn fmpq_mat_scalar_mul_ui(
+        rop: *mut fmpq_mat_struct,
+        op: *const fmpq_mat_struct,
+        x: ulong,
+    );
     pub fn fmpq_mat_scalar_div_fmpz(
         rop: *mut fmpq_mat_struct,
         op: *const fmpq_mat_struct,
         x: *const fmpz,
+    );
+    pub fn fmpq_mat_scalar_div_si(
+        rop: *mut fmpq_mat_struct,
+        op: *const fmpq_mat_struct,
+        x: slong,
+    );
+    pub fn fmpq_mat_scalar_div_ui(
+        rop: *mut fmpq_mat_struct,
+        op: *const fmpq_mat_struct,
+        x: ulong,
     );
     pub fn fmpq_mat_equal(
         mat1: *const fmpq_mat_struct,
@@ -20285,6 +20623,14 @@ unsafe extern "C" {
         len: slong,
     );
     pub fn fmpq_poly_integral(res: *mut fmpq_poly_struct, poly: *const fmpq_poly_struct);
+    pub fn _fmpq_poly_integral_offset(
+        rpoly: *mut fmpz,
+        rden: *mut fmpz,
+        poly: *const fmpz,
+        den: *const fmpz,
+        len: slong,
+        m: slong,
+    );
     pub fn _fmpq_poly_invsqrt_series(
         rpoly: *mut fmpz,
         rden: *mut fmpz,
@@ -20468,6 +20814,27 @@ unsafe extern "C" {
     pub fn fmpq_poly_cos_series(
         res: *mut fmpq_poly_struct,
         poly: *const fmpq_poly_struct,
+        n: slong,
+    );
+    pub fn _fmpq_poly_sin_cos_series_basecase(
+        S: *mut fmpz,
+        Sden: *mut fmpz,
+        C: *mut fmpz,
+        Cden: *mut fmpz,
+        A: *const fmpz,
+        Aden: *const fmpz,
+        Alen: slong,
+        n: slong,
+    );
+    pub fn _fmpq_poly_sin_cos_series_newton(
+        S: *mut fmpz,
+        Sden: *mut fmpz,
+        C: *mut fmpz,
+        Cden: *mut fmpz,
+        h: *const fmpz,
+        hden: *const fmpz,
+        hlen: slong,
+        cutoff: slong,
         n: slong,
     );
     pub fn _fmpq_poly_sin_cos_series(
@@ -20715,6 +21082,23 @@ unsafe extern "C" {
         n: slong,
     );
     pub fn fmpq_poly_compose_series_brent_kung(
+        res: *mut fmpq_poly_struct,
+        poly1: *const fmpq_poly_struct,
+        poly2: *const fmpq_poly_struct,
+        n: slong,
+    );
+    pub fn _fmpq_poly_compose_series_kinoshita_li(
+        res: *mut fmpz,
+        den: *mut fmpz,
+        poly1: *const fmpz,
+        den1: *const fmpz,
+        len1: slong,
+        poly2: *const fmpz,
+        den2: *const fmpz,
+        len2: slong,
+        n: slong,
+    );
+    pub fn fmpq_poly_compose_series_kinoshita_li(
         res: *mut fmpq_poly_struct,
         poly1: *const fmpq_poly_struct,
         poly2: *const fmpq_poly_struct,
@@ -22609,6 +22993,20 @@ unsafe extern "C" {
         den: *mut fmpz,
         A: *const fmpz_mat_struct,
     ) -> slong;
+    pub fn fmpz_mat_rref_upper_certify_lu_mod_p(
+        E: *mut fmpz_mat_struct,
+        den: *mut fmpz,
+        A: *const fmpz_mat_struct,
+        rank: slong,
+        P: *const slong,
+        pivs: *const slong,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_mat_rank_certify_lu_mod_p(
+        A: *const fmpz_mat_struct,
+        rank: slong,
+        P: *const slong,
+        pivs: *const slong,
+    ) -> ::std::os::raw::c_int;
     pub fn fmpz_mat_is_in_rref_with_rank(
         A: *const fmpz_mat_struct,
         den: *const fmpz,
@@ -22637,13 +23035,14 @@ unsafe extern "C" {
     );
     pub fn fmpz_mat_det(det: *mut fmpz, A: *const fmpz_mat_struct);
     pub fn fmpz_mat_det_bound(bound: *mut fmpz, A: *const fmpz_mat_struct);
-    pub fn fmpz_mat_det_bound_nonzero(bound: *mut fmpz, A: *const fmpz_mat_struct);
+    pub fn fmpz_mat_det_bound_submatrix(bound: *mut fmpz, A: *const fmpz_mat_struct);
     pub fn fmpz_mat_det_divisor(d: *mut fmpz, A: *const fmpz_mat_struct);
     pub fn fmpz_mat_permanent(
         res: *mut fmpz,
         A: *const fmpz_mat_struct,
     ) -> ::std::os::raw::c_int;
     pub fn fmpz_mat_similarity(A: *mut fmpz_mat_struct, r: slong, d: *mut fmpz);
+    pub fn fmpz_mat_charpoly_bound(bound: *mut fmpz, A: *const fmpz_mat_struct);
     pub fn _fmpz_mat_charpoly_berkowitz(rop: *mut fmpz, op: *const fmpz_mat_struct);
     pub fn fmpz_mat_charpoly_berkowitz(
         cp: *mut fmpz_poly_struct,
@@ -28922,6 +29321,12 @@ unsafe extern "C" {
         len: slong,
         ctx: *const fmpz_mod_ctx_struct,
     );
+    pub fn _fmpz_mod_vec_get_fmpz_vec_smod(
+        res: *mut fmpz,
+        vec: *const fmpz,
+        len: slong,
+        ctx: *const fmpz_mod_ctx_struct,
+    );
     pub fn _fmpz_mod_vec_neg(
         A: *mut fmpz,
         B: *const fmpz,
@@ -33065,6 +33470,10 @@ unsafe extern "C" {
         poly1: *const fmpz_poly_struct,
         poly2: *const fmpz_poly_struct,
     );
+    pub fn fmpz_poly_squarefree_part(
+        res: *mut fmpz_poly_struct,
+        poly: *const fmpz_poly_struct,
+    );
     pub fn _fmpz_poly_discriminant(res: *mut fmpz, poly: *const fmpz, len: slong);
     pub fn fmpz_poly_discriminant(res: *mut fmpz, poly: *const fmpz_poly_struct);
     pub fn _fmpz_poly_content(res: *mut fmpz, poly: *const fmpz, len: slong);
@@ -34111,8 +34520,59 @@ unsafe extern "C" {
         len: slong,
     );
     pub fn fmpz_poly_num_real_roots_sturm(poly: *const fmpz_poly_struct) -> slong;
+    pub fn _fmpz_poly_num_real_roots_vca(pol: *const fmpz, len: slong) -> slong;
+    pub fn fmpz_poly_num_real_roots_vca(pol: *const fmpz_poly_struct) -> slong;
     pub fn _fmpz_poly_num_real_roots(pol: *const fmpz, len: slong) -> slong;
     pub fn fmpz_poly_num_real_roots(poly: *const fmpz_poly_struct) -> slong;
+    pub fn fmpz_poly_num_real_roots_upper_bound(pol: *const fmpz_poly_struct) -> slong;
+    pub fn _fmpz_poly_descartes_bound_0_1(
+        p: *const fmpz,
+        len: slong,
+        bound: slong,
+    ) -> slong;
+    pub fn _fmpz_poly_has_real_root(p: *const fmpz, len: slong) -> ::std::os::raw::c_int;
+    pub fn fmpz_poly_has_real_root(
+        pol: *const fmpz_poly_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn fmpz_poly_num_real_roots_0_1_sturm(pol: *const fmpz_poly_struct) -> slong;
+    pub fn fmpz_poly_num_real_roots_0_1_vca(pol: *const fmpz_poly_struct) -> slong;
+    pub fn fmpz_poly_num_real_roots_0_1(pol: *const fmpz_poly_struct) -> slong;
+    pub fn _fmpz_poly_positive_root_upper_bound_2exp_local_max(
+        pol: *const fmpz,
+        len: slong,
+    ) -> slong;
+    pub fn _fmpz_poly_positive_root_upper_bound_2exp(
+        pol: *const fmpz,
+        len: slong,
+    ) -> slong;
+    pub fn fmpz_poly_positive_root_upper_bound_2exp(
+        pol: *const fmpz_poly_struct,
+    ) -> slong;
+    pub fn _fmpz_poly_isolate_real_roots_0_1_vca(
+        exact_roots: *mut fmpq,
+        n_exact: *mut slong,
+        c_array: *mut fmpz,
+        k_array: *mut slong,
+        n_intervals: *mut slong,
+        pol: *const fmpz,
+        len: slong,
+    );
+    pub fn fmpz_poly_isolate_real_roots(
+        exact_roots: *mut fmpq,
+        n_exact: *mut slong,
+        c_array: *mut fmpz,
+        k_array: *mut slong,
+        n_interval: *mut slong,
+        pol: *const fmpz_poly_struct,
+    );
+    pub fn fmpz_poly_isolate_positive_roots(
+        exact_roots: *mut fmpq,
+        n_exact: *mut slong,
+        c_array: *mut fmpz,
+        k_array: *mut slong,
+        n_interval: *mut slong,
+        pol: *const fmpz_poly_struct,
+    );
     pub fn fmpz_poly_CLD_bound(res: *mut fmpz, f: *const fmpz_poly_struct, n: slong);
     pub fn _fmpz_poly_cyclotomic(
         a: *mut fmpz,
@@ -34725,6 +35185,22 @@ impl Default for fmpz_preinvn_struct {
 }
 pub type fmpz_preinvn_t = [fmpz_preinvn_struct; 1usize];
 #[repr(C)]
+pub struct fmpz_vec_struct {
+    pub entries: *mut fmpz,
+    pub alloc: slong,
+    pub length: slong,
+}
+impl Default for fmpz_vec_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+pub type fmpz_vec_t = [fmpz_vec_struct; 1usize];
+#[repr(C)]
 pub struct fmpz_poly_struct {
     pub coeffs: *mut fmpz,
     pub alloc: slong,
@@ -34881,6 +35357,16 @@ pub type fmpzi_t = [fmpzi_struct; 1usize];
 unsafe extern "C" {
     pub fn _fmpz_vec_init(len: slong) -> *mut fmpz;
     pub fn _fmpz_vec_clear(vec: *mut fmpz, len: slong);
+    pub fn fmpz_vec_init(vec: *mut fmpz_vec_struct, len: slong);
+    pub fn fmpz_vec_clear(vec: *mut fmpz_vec_struct);
+    pub fn fmpz_vec_set(res: *mut fmpz_vec_struct, src: *const fmpz_vec_struct);
+    pub fn fmpz_vec_fit_length(vec: *mut fmpz_vec_struct, len: slong);
+    pub fn fmpz_vec_set_length(vec: *mut fmpz_vec_struct, len: slong);
+    pub fn fmpz_vec_append(vec: *mut fmpz_vec_struct, f: *const fmpz);
+    pub fn fmpz_vec_append_ui(vec: *mut fmpz_vec_struct, f: ulong);
+    pub fn fmpz_vec_length(vec: *const fmpz_vec_struct) -> slong;
+    pub fn fmpz_vec_entry_ptr(vec: *mut fmpz_vec_struct, i: slong) -> *mut fmpz;
+    pub fn fmpz_vec_entry_srcptr(vec: *const fmpz_vec_struct, i: slong) -> *const fmpz;
     pub fn _fmpz_vec_randtest(
         f: *mut fmpz,
         state: *mut flint_rand_struct,
@@ -35138,6 +35624,14 @@ unsafe extern "C" {
         vec: *const fmpz,
         len: slong,
         p: *const fmpz,
+    );
+    pub fn _fmpz_vec_multi_CRT_ui(
+        res: *mut fmpz,
+        residues: *mut nn_srcptr,
+        len: slong,
+        primes: nn_srcptr,
+        num_primes: slong,
+        sign: ::std::os::raw::c_int,
     );
     pub fn _fmpz_vec_content(res: *mut fmpz, vec: *const fmpz, len: slong);
     pub fn _fmpz_vec_content_chained(
@@ -36186,6 +36680,30 @@ unsafe extern "C" {
         C: *const fq_default_mat_struct,
         A: *const fq_default_mat_struct,
         B: *const fq_default_mat_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_scalar_mul(
+        B: *mut fq_default_mat_struct,
+        A: *const fq_default_mat_struct,
+        c: *const fq_default_struct,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_scalar_mul_fmpz(
+        B: *mut fq_default_mat_struct,
+        A: *const fq_default_mat_struct,
+        c: *const fmpz,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_scalar_mul_si(
+        B: *mut fq_default_mat_struct,
+        A: *const fq_default_mat_struct,
+        c: slong,
+        ctx: *const fq_default_ctx_struct,
+    );
+    pub fn fq_default_mat_scalar_mul_ui(
+        B: *mut fq_default_mat_struct,
+        A: *const fq_default_mat_struct,
+        c: ulong,
         ctx: *const fq_default_ctx_struct,
     );
     pub fn fq_default_mat_mul(
@@ -42798,141 +43316,143 @@ pub const gr_method_GR_METHOD_WEIERSTRASS_SIGMA: gr_method = 417;
 pub const gr_method_GR_METHOD_GEN: gr_method = 418;
 pub const gr_method_GR_METHOD_GENS: gr_method = 419;
 pub const gr_method_GR_METHOD_GENS_RECURSIVE: gr_method = 420;
-pub const gr_method_GR_METHOD_CTX_FQ_PRIME: gr_method = 421;
-pub const gr_method_GR_METHOD_CTX_FQ_DEGREE: gr_method = 422;
-pub const gr_method_GR_METHOD_CTX_FQ_ORDER: gr_method = 423;
-pub const gr_method_GR_METHOD_FQ_FROBENIUS: gr_method = 424;
-pub const gr_method_GR_METHOD_FQ_MULTIPLICATIVE_ORDER: gr_method = 425;
-pub const gr_method_GR_METHOD_FQ_NORM: gr_method = 426;
-pub const gr_method_GR_METHOD_FQ_TRACE: gr_method = 427;
-pub const gr_method_GR_METHOD_FQ_IS_PRIMITIVE: gr_method = 428;
-pub const gr_method_GR_METHOD_FQ_PTH_ROOT: gr_method = 429;
-pub const gr_method_GR_METHOD_VEC_INIT: gr_method = 430;
-pub const gr_method_GR_METHOD_VEC_CLEAR: gr_method = 431;
-pub const gr_method_GR_METHOD_VEC_SWAP: gr_method = 432;
-pub const gr_method_GR_METHOD_VEC_SET: gr_method = 433;
-pub const gr_method_GR_METHOD_VEC_ZERO: gr_method = 434;
-pub const gr_method_GR_METHOD_VEC_EQUAL: gr_method = 435;
-pub const gr_method_GR_METHOD_VEC_IS_ZERO: gr_method = 436;
-pub const gr_method_GR_METHOD_VEC_NEG: gr_method = 437;
-pub const gr_method_GR_METHOD_VEC_NORMALISE: gr_method = 438;
-pub const gr_method_GR_METHOD_VEC_NORMALISE_WEAK: gr_method = 439;
-pub const gr_method_GR_METHOD_VEC_ADD: gr_method = 440;
-pub const gr_method_GR_METHOD_VEC_SUB: gr_method = 441;
-pub const gr_method_GR_METHOD_VEC_MUL: gr_method = 442;
-pub const gr_method_GR_METHOD_VEC_DIV: gr_method = 443;
-pub const gr_method_GR_METHOD_VEC_DIVEXACT: gr_method = 444;
-pub const gr_method_GR_METHOD_VEC_POW: gr_method = 445;
-pub const gr_method_GR_METHOD_VEC_ADD_SCALAR: gr_method = 446;
-pub const gr_method_GR_METHOD_VEC_SUB_SCALAR: gr_method = 447;
-pub const gr_method_GR_METHOD_VEC_MUL_SCALAR: gr_method = 448;
-pub const gr_method_GR_METHOD_VEC_DIV_SCALAR: gr_method = 449;
-pub const gr_method_GR_METHOD_VEC_DIVEXACT_SCALAR: gr_method = 450;
-pub const gr_method_GR_METHOD_VEC_POW_SCALAR: gr_method = 451;
-pub const gr_method_GR_METHOD_SCALAR_ADD_VEC: gr_method = 452;
-pub const gr_method_GR_METHOD_SCALAR_SUB_VEC: gr_method = 453;
-pub const gr_method_GR_METHOD_SCALAR_MUL_VEC: gr_method = 454;
-pub const gr_method_GR_METHOD_SCALAR_DIV_VEC: gr_method = 455;
-pub const gr_method_GR_METHOD_SCALAR_DIVEXACT_VEC: gr_method = 456;
-pub const gr_method_GR_METHOD_SCALAR_POW_VEC: gr_method = 457;
-pub const gr_method_GR_METHOD_VEC_ADD_OTHER: gr_method = 458;
-pub const gr_method_GR_METHOD_VEC_SUB_OTHER: gr_method = 459;
-pub const gr_method_GR_METHOD_VEC_MUL_OTHER: gr_method = 460;
-pub const gr_method_GR_METHOD_VEC_DIV_OTHER: gr_method = 461;
-pub const gr_method_GR_METHOD_VEC_DIVEXACT_OTHER: gr_method = 462;
-pub const gr_method_GR_METHOD_VEC_POW_OTHER: gr_method = 463;
-pub const gr_method_GR_METHOD_OTHER_ADD_VEC: gr_method = 464;
-pub const gr_method_GR_METHOD_OTHER_SUB_VEC: gr_method = 465;
-pub const gr_method_GR_METHOD_OTHER_MUL_VEC: gr_method = 466;
-pub const gr_method_GR_METHOD_OTHER_DIV_VEC: gr_method = 467;
-pub const gr_method_GR_METHOD_OTHER_DIVEXACT_VEC: gr_method = 468;
-pub const gr_method_GR_METHOD_OTHER_POW_VEC: gr_method = 469;
-pub const gr_method_GR_METHOD_VEC_ADD_SCALAR_OTHER: gr_method = 470;
-pub const gr_method_GR_METHOD_VEC_SUB_SCALAR_OTHER: gr_method = 471;
-pub const gr_method_GR_METHOD_VEC_MUL_SCALAR_OTHER: gr_method = 472;
-pub const gr_method_GR_METHOD_VEC_DIV_SCALAR_OTHER: gr_method = 473;
-pub const gr_method_GR_METHOD_VEC_DIVEXACT_SCALAR_OTHER: gr_method = 474;
-pub const gr_method_GR_METHOD_VEC_POW_SCALAR_OTHER: gr_method = 475;
-pub const gr_method_GR_METHOD_SCALAR_OTHER_ADD_VEC: gr_method = 476;
-pub const gr_method_GR_METHOD_SCALAR_OTHER_SUB_VEC: gr_method = 477;
-pub const gr_method_GR_METHOD_SCALAR_OTHER_MUL_VEC: gr_method = 478;
-pub const gr_method_GR_METHOD_SCALAR_OTHER_DIV_VEC: gr_method = 479;
-pub const gr_method_GR_METHOD_SCALAR_OTHER_DIVEXACT_VEC: gr_method = 480;
-pub const gr_method_GR_METHOD_SCALAR_OTHER_POW_VEC: gr_method = 481;
-pub const gr_method_GR_METHOD_VEC_ADD_SCALAR_SI: gr_method = 482;
-pub const gr_method_GR_METHOD_VEC_ADD_SCALAR_UI: gr_method = 483;
-pub const gr_method_GR_METHOD_VEC_ADD_SCALAR_FMPZ: gr_method = 484;
-pub const gr_method_GR_METHOD_VEC_ADD_SCALAR_FMPQ: gr_method = 485;
-pub const gr_method_GR_METHOD_VEC_SUB_SCALAR_SI: gr_method = 486;
-pub const gr_method_GR_METHOD_VEC_SUB_SCALAR_UI: gr_method = 487;
-pub const gr_method_GR_METHOD_VEC_SUB_SCALAR_FMPZ: gr_method = 488;
-pub const gr_method_GR_METHOD_VEC_SUB_SCALAR_FMPQ: gr_method = 489;
-pub const gr_method_GR_METHOD_VEC_MUL_SCALAR_SI: gr_method = 490;
-pub const gr_method_GR_METHOD_VEC_MUL_SCALAR_UI: gr_method = 491;
-pub const gr_method_GR_METHOD_VEC_MUL_SCALAR_FMPZ: gr_method = 492;
-pub const gr_method_GR_METHOD_VEC_MUL_SCALAR_FMPQ: gr_method = 493;
-pub const gr_method_GR_METHOD_VEC_DIV_SCALAR_SI: gr_method = 494;
-pub const gr_method_GR_METHOD_VEC_DIV_SCALAR_UI: gr_method = 495;
-pub const gr_method_GR_METHOD_VEC_DIV_SCALAR_FMPZ: gr_method = 496;
-pub const gr_method_GR_METHOD_VEC_DIV_SCALAR_FMPQ: gr_method = 497;
-pub const gr_method_GR_METHOD_VEC_DIVEXACT_SCALAR_SI: gr_method = 498;
-pub const gr_method_GR_METHOD_VEC_DIVEXACT_SCALAR_UI: gr_method = 499;
-pub const gr_method_GR_METHOD_VEC_DIVEXACT_SCALAR_FMPZ: gr_method = 500;
-pub const gr_method_GR_METHOD_VEC_DIVEXACT_SCALAR_FMPQ: gr_method = 501;
-pub const gr_method_GR_METHOD_VEC_POW_SCALAR_SI: gr_method = 502;
-pub const gr_method_GR_METHOD_VEC_POW_SCALAR_UI: gr_method = 503;
-pub const gr_method_GR_METHOD_VEC_POW_SCALAR_FMPZ: gr_method = 504;
-pub const gr_method_GR_METHOD_VEC_POW_SCALAR_FMPQ: gr_method = 505;
-pub const gr_method_GR_METHOD_VEC_MUL_SCALAR_2EXP_SI: gr_method = 506;
-pub const gr_method_GR_METHOD_VEC_MUL_SCALAR_2EXP_FMPZ: gr_method = 507;
-pub const gr_method_GR_METHOD_VEC_ADDMUL_SCALAR: gr_method = 508;
-pub const gr_method_GR_METHOD_VEC_SUBMUL_SCALAR: gr_method = 509;
-pub const gr_method_GR_METHOD_VEC_ADDMUL_SCALAR_SI: gr_method = 510;
-pub const gr_method_GR_METHOD_VEC_SUBMUL_SCALAR_SI: gr_method = 511;
-pub const gr_method_GR_METHOD_VEC_ADDMUL_SCALAR_FMPZ: gr_method = 512;
-pub const gr_method_GR_METHOD_VEC_SUM: gr_method = 513;
-pub const gr_method_GR_METHOD_VEC_PRODUCT: gr_method = 514;
-pub const gr_method_GR_METHOD_VEC_DOT: gr_method = 515;
-pub const gr_method_GR_METHOD_VEC_DOT_REV: gr_method = 516;
-pub const gr_method_GR_METHOD_VEC_DOT_UI: gr_method = 517;
-pub const gr_method_GR_METHOD_VEC_DOT_SI: gr_method = 518;
-pub const gr_method_GR_METHOD_VEC_DOT_FMPZ: gr_method = 519;
-pub const gr_method_GR_METHOD_VEC_SET_POWERS: gr_method = 520;
-pub const gr_method_GR_METHOD_VEC_RECIPROCALS: gr_method = 521;
-pub const gr_method_GR_METHOD_POLY_MULLOW: gr_method = 522;
-pub const gr_method_GR_METHOD_POLY_MULMID: gr_method = 523;
-pub const gr_method_GR_METHOD_POLY_DIV: gr_method = 524;
-pub const gr_method_GR_METHOD_POLY_DIVREM: gr_method = 525;
-pub const gr_method_GR_METHOD_POLY_DIVEXACT: gr_method = 526;
-pub const gr_method_GR_METHOD_POLY_GCD: gr_method = 527;
-pub const gr_method_GR_METHOD_POLY_XGCD: gr_method = 528;
-pub const gr_method_GR_METHOD_POLY_TAYLOR_SHIFT: gr_method = 529;
-pub const gr_method_GR_METHOD_POLY_INV_SERIES: gr_method = 530;
-pub const gr_method_GR_METHOD_POLY_INV_SERIES_BASECASE: gr_method = 531;
-pub const gr_method_GR_METHOD_POLY_DIV_SERIES: gr_method = 532;
-pub const gr_method_GR_METHOD_POLY_DIV_SERIES_BASECASE: gr_method = 533;
-pub const gr_method_GR_METHOD_POLY_RSQRT_SERIES: gr_method = 534;
-pub const gr_method_GR_METHOD_POLY_SQRT_SERIES: gr_method = 535;
-pub const gr_method_GR_METHOD_POLY_EXP_SERIES: gr_method = 536;
-pub const gr_method_GR_METHOD_POLY_FACTOR: gr_method = 537;
-pub const gr_method_GR_METHOD_POLY_ROOTS: gr_method = 538;
-pub const gr_method_GR_METHOD_POLY_ROOTS_OTHER: gr_method = 539;
-pub const gr_method_GR_METHOD_MAT_MUL: gr_method = 540;
-pub const gr_method_GR_METHOD_MAT_NONSINGULAR_SOLVE_TRIL: gr_method = 541;
-pub const gr_method_GR_METHOD_MAT_NONSINGULAR_SOLVE_TRIU: gr_method = 542;
-pub const gr_method_GR_METHOD_MAT_LU: gr_method = 543;
-pub const gr_method_GR_METHOD_MAT_DET: gr_method = 544;
-pub const gr_method_GR_METHOD_MAT_LQ: gr_method = 545;
-pub const gr_method_GR_METHOD_MAT_EXP: gr_method = 546;
-pub const gr_method_GR_METHOD_MAT_LOG: gr_method = 547;
-pub const gr_method_GR_METHOD_MAT_FIND_NONZERO_PIVOT: gr_method = 548;
-pub const gr_method_GR_METHOD_MAT_DIAGONALIZATION: gr_method = 549;
-pub const gr_method_GR_METHOD_MAT_CHARPOLY: gr_method = 550;
-pub const gr_method_GR_METHOD_MAT_REDUCE_ROW: gr_method = 551;
-pub const gr_method_GR_METHOD_MAT_PERMANENT: gr_method = 552;
-pub const gr_method_GR_METHOD_TAB_SIZE: gr_method = 553;
+pub const gr_method_GR_METHOD_BIG_O_BASE_FMPZ: gr_method = 421;
+pub const gr_method_GR_METHOD_CTX_FQ_PRIME: gr_method = 422;
+pub const gr_method_GR_METHOD_CTX_FQ_DEGREE: gr_method = 423;
+pub const gr_method_GR_METHOD_CTX_FQ_ORDER: gr_method = 424;
+pub const gr_method_GR_METHOD_FQ_FROBENIUS: gr_method = 425;
+pub const gr_method_GR_METHOD_FQ_MULTIPLICATIVE_ORDER: gr_method = 426;
+pub const gr_method_GR_METHOD_FQ_NORM: gr_method = 427;
+pub const gr_method_GR_METHOD_FQ_TRACE: gr_method = 428;
+pub const gr_method_GR_METHOD_FQ_IS_PRIMITIVE: gr_method = 429;
+pub const gr_method_GR_METHOD_FQ_PTH_ROOT: gr_method = 430;
+pub const gr_method_GR_METHOD_VEC_INIT: gr_method = 431;
+pub const gr_method_GR_METHOD_VEC_CLEAR: gr_method = 432;
+pub const gr_method_GR_METHOD_VEC_SWAP: gr_method = 433;
+pub const gr_method_GR_METHOD_VEC_SET: gr_method = 434;
+pub const gr_method_GR_METHOD_VEC_ZERO: gr_method = 435;
+pub const gr_method_GR_METHOD_VEC_EQUAL: gr_method = 436;
+pub const gr_method_GR_METHOD_VEC_IS_ZERO: gr_method = 437;
+pub const gr_method_GR_METHOD_VEC_NEG: gr_method = 438;
+pub const gr_method_GR_METHOD_VEC_NORMALISE: gr_method = 439;
+pub const gr_method_GR_METHOD_VEC_NORMALISE_WEAK: gr_method = 440;
+pub const gr_method_GR_METHOD_VEC_ADD: gr_method = 441;
+pub const gr_method_GR_METHOD_VEC_SUB: gr_method = 442;
+pub const gr_method_GR_METHOD_VEC_MUL: gr_method = 443;
+pub const gr_method_GR_METHOD_VEC_DIV: gr_method = 444;
+pub const gr_method_GR_METHOD_VEC_DIVEXACT: gr_method = 445;
+pub const gr_method_GR_METHOD_VEC_POW: gr_method = 446;
+pub const gr_method_GR_METHOD_VEC_ADD_SCALAR: gr_method = 447;
+pub const gr_method_GR_METHOD_VEC_SUB_SCALAR: gr_method = 448;
+pub const gr_method_GR_METHOD_VEC_MUL_SCALAR: gr_method = 449;
+pub const gr_method_GR_METHOD_VEC_DIV_SCALAR: gr_method = 450;
+pub const gr_method_GR_METHOD_VEC_DIVEXACT_SCALAR: gr_method = 451;
+pub const gr_method_GR_METHOD_VEC_POW_SCALAR: gr_method = 452;
+pub const gr_method_GR_METHOD_SCALAR_ADD_VEC: gr_method = 453;
+pub const gr_method_GR_METHOD_SCALAR_SUB_VEC: gr_method = 454;
+pub const gr_method_GR_METHOD_SCALAR_MUL_VEC: gr_method = 455;
+pub const gr_method_GR_METHOD_SCALAR_DIV_VEC: gr_method = 456;
+pub const gr_method_GR_METHOD_SCALAR_DIVEXACT_VEC: gr_method = 457;
+pub const gr_method_GR_METHOD_SCALAR_POW_VEC: gr_method = 458;
+pub const gr_method_GR_METHOD_VEC_ADD_OTHER: gr_method = 459;
+pub const gr_method_GR_METHOD_VEC_SUB_OTHER: gr_method = 460;
+pub const gr_method_GR_METHOD_VEC_MUL_OTHER: gr_method = 461;
+pub const gr_method_GR_METHOD_VEC_DIV_OTHER: gr_method = 462;
+pub const gr_method_GR_METHOD_VEC_DIVEXACT_OTHER: gr_method = 463;
+pub const gr_method_GR_METHOD_VEC_POW_OTHER: gr_method = 464;
+pub const gr_method_GR_METHOD_OTHER_ADD_VEC: gr_method = 465;
+pub const gr_method_GR_METHOD_OTHER_SUB_VEC: gr_method = 466;
+pub const gr_method_GR_METHOD_OTHER_MUL_VEC: gr_method = 467;
+pub const gr_method_GR_METHOD_OTHER_DIV_VEC: gr_method = 468;
+pub const gr_method_GR_METHOD_OTHER_DIVEXACT_VEC: gr_method = 469;
+pub const gr_method_GR_METHOD_OTHER_POW_VEC: gr_method = 470;
+pub const gr_method_GR_METHOD_VEC_ADD_SCALAR_OTHER: gr_method = 471;
+pub const gr_method_GR_METHOD_VEC_SUB_SCALAR_OTHER: gr_method = 472;
+pub const gr_method_GR_METHOD_VEC_MUL_SCALAR_OTHER: gr_method = 473;
+pub const gr_method_GR_METHOD_VEC_DIV_SCALAR_OTHER: gr_method = 474;
+pub const gr_method_GR_METHOD_VEC_DIVEXACT_SCALAR_OTHER: gr_method = 475;
+pub const gr_method_GR_METHOD_VEC_POW_SCALAR_OTHER: gr_method = 476;
+pub const gr_method_GR_METHOD_SCALAR_OTHER_ADD_VEC: gr_method = 477;
+pub const gr_method_GR_METHOD_SCALAR_OTHER_SUB_VEC: gr_method = 478;
+pub const gr_method_GR_METHOD_SCALAR_OTHER_MUL_VEC: gr_method = 479;
+pub const gr_method_GR_METHOD_SCALAR_OTHER_DIV_VEC: gr_method = 480;
+pub const gr_method_GR_METHOD_SCALAR_OTHER_DIVEXACT_VEC: gr_method = 481;
+pub const gr_method_GR_METHOD_SCALAR_OTHER_POW_VEC: gr_method = 482;
+pub const gr_method_GR_METHOD_VEC_ADD_SCALAR_SI: gr_method = 483;
+pub const gr_method_GR_METHOD_VEC_ADD_SCALAR_UI: gr_method = 484;
+pub const gr_method_GR_METHOD_VEC_ADD_SCALAR_FMPZ: gr_method = 485;
+pub const gr_method_GR_METHOD_VEC_ADD_SCALAR_FMPQ: gr_method = 486;
+pub const gr_method_GR_METHOD_VEC_SUB_SCALAR_SI: gr_method = 487;
+pub const gr_method_GR_METHOD_VEC_SUB_SCALAR_UI: gr_method = 488;
+pub const gr_method_GR_METHOD_VEC_SUB_SCALAR_FMPZ: gr_method = 489;
+pub const gr_method_GR_METHOD_VEC_SUB_SCALAR_FMPQ: gr_method = 490;
+pub const gr_method_GR_METHOD_VEC_MUL_SCALAR_SI: gr_method = 491;
+pub const gr_method_GR_METHOD_VEC_MUL_SCALAR_UI: gr_method = 492;
+pub const gr_method_GR_METHOD_VEC_MUL_SCALAR_FMPZ: gr_method = 493;
+pub const gr_method_GR_METHOD_VEC_MUL_SCALAR_FMPQ: gr_method = 494;
+pub const gr_method_GR_METHOD_VEC_DIV_SCALAR_SI: gr_method = 495;
+pub const gr_method_GR_METHOD_VEC_DIV_SCALAR_UI: gr_method = 496;
+pub const gr_method_GR_METHOD_VEC_DIV_SCALAR_FMPZ: gr_method = 497;
+pub const gr_method_GR_METHOD_VEC_DIV_SCALAR_FMPQ: gr_method = 498;
+pub const gr_method_GR_METHOD_VEC_DIVEXACT_SCALAR_SI: gr_method = 499;
+pub const gr_method_GR_METHOD_VEC_DIVEXACT_SCALAR_UI: gr_method = 500;
+pub const gr_method_GR_METHOD_VEC_DIVEXACT_SCALAR_FMPZ: gr_method = 501;
+pub const gr_method_GR_METHOD_VEC_DIVEXACT_SCALAR_FMPQ: gr_method = 502;
+pub const gr_method_GR_METHOD_VEC_POW_SCALAR_SI: gr_method = 503;
+pub const gr_method_GR_METHOD_VEC_POW_SCALAR_UI: gr_method = 504;
+pub const gr_method_GR_METHOD_VEC_POW_SCALAR_FMPZ: gr_method = 505;
+pub const gr_method_GR_METHOD_VEC_POW_SCALAR_FMPQ: gr_method = 506;
+pub const gr_method_GR_METHOD_VEC_MUL_SCALAR_2EXP_SI: gr_method = 507;
+pub const gr_method_GR_METHOD_VEC_MUL_SCALAR_2EXP_FMPZ: gr_method = 508;
+pub const gr_method_GR_METHOD_VEC_ADDMUL_SCALAR: gr_method = 509;
+pub const gr_method_GR_METHOD_VEC_SUBMUL_SCALAR: gr_method = 510;
+pub const gr_method_GR_METHOD_VEC_ADDMUL_SCALAR_SI: gr_method = 511;
+pub const gr_method_GR_METHOD_VEC_SUBMUL_SCALAR_SI: gr_method = 512;
+pub const gr_method_GR_METHOD_VEC_ADDMUL_SCALAR_FMPZ: gr_method = 513;
+pub const gr_method_GR_METHOD_VEC_SUM: gr_method = 514;
+pub const gr_method_GR_METHOD_VEC_PRODUCT: gr_method = 515;
+pub const gr_method_GR_METHOD_VEC_DOT: gr_method = 516;
+pub const gr_method_GR_METHOD_VEC_DOT_REV: gr_method = 517;
+pub const gr_method_GR_METHOD_VEC_DOT_STRIDED: gr_method = 518;
+pub const gr_method_GR_METHOD_VEC_DOT_UI: gr_method = 519;
+pub const gr_method_GR_METHOD_VEC_DOT_SI: gr_method = 520;
+pub const gr_method_GR_METHOD_VEC_DOT_FMPZ: gr_method = 521;
+pub const gr_method_GR_METHOD_VEC_SET_POWERS: gr_method = 522;
+pub const gr_method_GR_METHOD_VEC_RECIPROCALS: gr_method = 523;
+pub const gr_method_GR_METHOD_POLY_MULLOW: gr_method = 524;
+pub const gr_method_GR_METHOD_POLY_MULMID: gr_method = 525;
+pub const gr_method_GR_METHOD_POLY_DIV: gr_method = 526;
+pub const gr_method_GR_METHOD_POLY_DIVREM: gr_method = 527;
+pub const gr_method_GR_METHOD_POLY_DIVEXACT: gr_method = 528;
+pub const gr_method_GR_METHOD_POLY_GCD: gr_method = 529;
+pub const gr_method_GR_METHOD_POLY_XGCD: gr_method = 530;
+pub const gr_method_GR_METHOD_POLY_TAYLOR_SHIFT: gr_method = 531;
+pub const gr_method_GR_METHOD_POLY_INV_SERIES: gr_method = 532;
+pub const gr_method_GR_METHOD_POLY_INV_SERIES_BASECASE: gr_method = 533;
+pub const gr_method_GR_METHOD_POLY_DIV_SERIES: gr_method = 534;
+pub const gr_method_GR_METHOD_POLY_DIV_SERIES_BASECASE: gr_method = 535;
+pub const gr_method_GR_METHOD_POLY_RSQRT_SERIES: gr_method = 536;
+pub const gr_method_GR_METHOD_POLY_SQRT_SERIES: gr_method = 537;
+pub const gr_method_GR_METHOD_POLY_EXP_SERIES: gr_method = 538;
+pub const gr_method_GR_METHOD_POLY_FACTOR: gr_method = 539;
+pub const gr_method_GR_METHOD_POLY_ROOTS: gr_method = 540;
+pub const gr_method_GR_METHOD_POLY_ROOTS_OTHER: gr_method = 541;
+pub const gr_method_GR_METHOD_MAT_MUL: gr_method = 542;
+pub const gr_method_GR_METHOD_MAT_NONSINGULAR_SOLVE_TRIL: gr_method = 543;
+pub const gr_method_GR_METHOD_MAT_NONSINGULAR_SOLVE_TRIU: gr_method = 544;
+pub const gr_method_GR_METHOD_MAT_LU: gr_method = 545;
+pub const gr_method_GR_METHOD_MAT_DET: gr_method = 546;
+pub const gr_method_GR_METHOD_MAT_LQ: gr_method = 547;
+pub const gr_method_GR_METHOD_MAT_EXP: gr_method = 548;
+pub const gr_method_GR_METHOD_MAT_LOG: gr_method = 549;
+pub const gr_method_GR_METHOD_MAT_FIND_NONZERO_PIVOT: gr_method = 550;
+pub const gr_method_GR_METHOD_MAT_DIAGONALIZATION: gr_method = 551;
+pub const gr_method_GR_METHOD_MAT_CHARPOLY: gr_method = 552;
+pub const gr_method_GR_METHOD_MAT_REDUCE_ROW: gr_method = 553;
+pub const gr_method_GR_METHOD_MAT_PERMANENT: gr_method = 554;
+pub const gr_method_GR_METHOD_TAB_SIZE: gr_method = 555;
 pub type gr_method = ::std::os::raw::c_uint;
-pub type gr_static_method_table = [gr_funcptr; 553usize];
+pub type gr_static_method_table = [gr_funcptr; 555usize];
 #[repr(C)]
 pub struct gr_method_tab_input {
     pub index: gr_method,
@@ -42962,43 +43482,44 @@ pub const gr_which_structure_GR_CTX_FQ: gr_which_structure = 11;
 pub const gr_which_structure_GR_CTX_FQ_NMOD: gr_which_structure = 12;
 pub const gr_which_structure_GR_CTX_FQ_ZECH: gr_which_structure = 13;
 pub const gr_which_structure_GR_CTX_NF: gr_which_structure = 14;
-pub const gr_which_structure_GR_CTX_REAL_ALGEBRAIC_QQBAR: gr_which_structure = 15;
-pub const gr_which_structure_GR_CTX_COMPLEX_ALGEBRAIC_QQBAR: gr_which_structure = 16;
-pub const gr_which_structure_GR_CTX_REAL_ALGEBRAIC_CA: gr_which_structure = 17;
-pub const gr_which_structure_GR_CTX_COMPLEX_ALGEBRAIC_CA: gr_which_structure = 18;
-pub const gr_which_structure_GR_CTX_RR_CA: gr_which_structure = 19;
-pub const gr_which_structure_GR_CTX_CC_CA: gr_which_structure = 20;
-pub const gr_which_structure_GR_CTX_COMPLEX_EXTENDED_CA: gr_which_structure = 21;
-pub const gr_which_structure_GR_CTX_RR_ARB: gr_which_structure = 22;
-pub const gr_which_structure_GR_CTX_CC_ACB: gr_which_structure = 23;
-pub const gr_which_structure_GR_CTX_REAL_FLOAT_ARF: gr_which_structure = 24;
-pub const gr_which_structure_GR_CTX_COMPLEX_FLOAT_ACF: gr_which_structure = 25;
-pub const gr_which_structure_GR_CTX_NFLOAT: gr_which_structure = 26;
-pub const gr_which_structure_GR_CTX_NFLOAT_COMPLEX: gr_which_structure = 27;
-pub const gr_which_structure_GR_CTX_MPF: gr_which_structure = 28;
-pub const gr_which_structure_GR_CTX_FMPZ_POLY: gr_which_structure = 29;
-pub const gr_which_structure_GR_CTX_FMPQ_POLY: gr_which_structure = 30;
-pub const gr_which_structure_GR_CTX_GR_POLY: gr_which_structure = 31;
-pub const gr_which_structure_GR_CTX_FMPZ_MPOLY: gr_which_structure = 32;
-pub const gr_which_structure_GR_CTX_FMPQ_MPOLY: gr_which_structure = 33;
-pub const gr_which_structure_GR_CTX_GR_MPOLY: gr_which_structure = 34;
-pub const gr_which_structure_GR_CTX_FMPZ_MPOLY_Q: gr_which_structure = 35;
-pub const gr_which_structure_GR_CTX_FMPZ_MOD_MPOLY_Q: gr_which_structure = 36;
-pub const gr_which_structure_GR_CTX_GR_ORE_POLY: gr_which_structure = 37;
-pub const gr_which_structure_GR_CTX_GR_FRACTION: gr_which_structure = 38;
-pub const gr_which_structure_GR_CTX_GR_COMPLEX: gr_which_structure = 39;
-pub const gr_which_structure_GR_CTX_GR_SERIES: gr_which_structure = 40;
-pub const gr_which_structure_GR_CTX_SERIES_MOD_GR_POLY: gr_which_structure = 41;
-pub const gr_which_structure_GR_CTX_GR_MAT: gr_which_structure = 42;
-pub const gr_which_structure_GR_CTX_GR_VEC: gr_which_structure = 43;
-pub const gr_which_structure_GR_CTX_PSL2Z: gr_which_structure = 44;
-pub const gr_which_structure_GR_CTX_DIRICHLET_GROUP: gr_which_structure = 45;
-pub const gr_which_structure_GR_CTX_PERM: gr_which_structure = 46;
-pub const gr_which_structure_GR_CTX_FEXPR: gr_which_structure = 47;
-pub const gr_which_structure_GR_CTX_DEBUG: gr_which_structure = 48;
-pub const gr_which_structure_GR_CTX_UNINITIALIZED: gr_which_structure = 49;
-pub const gr_which_structure_GR_CTX_UNKNOWN_DOMAIN: gr_which_structure = 50;
-pub const gr_which_structure_GR_CTX_WHICH_STRUCTURE_TAB_SIZE: gr_which_structure = 51;
+pub const gr_which_structure_GR_CTX_PADIC_RADIX: gr_which_structure = 15;
+pub const gr_which_structure_GR_CTX_REAL_ALGEBRAIC_QQBAR: gr_which_structure = 16;
+pub const gr_which_structure_GR_CTX_COMPLEX_ALGEBRAIC_QQBAR: gr_which_structure = 17;
+pub const gr_which_structure_GR_CTX_REAL_ALGEBRAIC_CA: gr_which_structure = 18;
+pub const gr_which_structure_GR_CTX_COMPLEX_ALGEBRAIC_CA: gr_which_structure = 19;
+pub const gr_which_structure_GR_CTX_RR_CA: gr_which_structure = 20;
+pub const gr_which_structure_GR_CTX_CC_CA: gr_which_structure = 21;
+pub const gr_which_structure_GR_CTX_COMPLEX_EXTENDED_CA: gr_which_structure = 22;
+pub const gr_which_structure_GR_CTX_RR_ARB: gr_which_structure = 23;
+pub const gr_which_structure_GR_CTX_CC_ACB: gr_which_structure = 24;
+pub const gr_which_structure_GR_CTX_REAL_FLOAT_ARF: gr_which_structure = 25;
+pub const gr_which_structure_GR_CTX_COMPLEX_FLOAT_ACF: gr_which_structure = 26;
+pub const gr_which_structure_GR_CTX_NFLOAT: gr_which_structure = 27;
+pub const gr_which_structure_GR_CTX_NFLOAT_COMPLEX: gr_which_structure = 28;
+pub const gr_which_structure_GR_CTX_MPF: gr_which_structure = 29;
+pub const gr_which_structure_GR_CTX_FMPZ_POLY: gr_which_structure = 30;
+pub const gr_which_structure_GR_CTX_FMPQ_POLY: gr_which_structure = 31;
+pub const gr_which_structure_GR_CTX_GR_POLY: gr_which_structure = 32;
+pub const gr_which_structure_GR_CTX_FMPZ_MPOLY: gr_which_structure = 33;
+pub const gr_which_structure_GR_CTX_FMPQ_MPOLY: gr_which_structure = 34;
+pub const gr_which_structure_GR_CTX_GR_MPOLY: gr_which_structure = 35;
+pub const gr_which_structure_GR_CTX_FMPZ_MPOLY_Q: gr_which_structure = 36;
+pub const gr_which_structure_GR_CTX_FMPZ_MOD_MPOLY_Q: gr_which_structure = 37;
+pub const gr_which_structure_GR_CTX_GR_ORE_POLY: gr_which_structure = 38;
+pub const gr_which_structure_GR_CTX_GR_FRACTION: gr_which_structure = 39;
+pub const gr_which_structure_GR_CTX_GR_COMPLEX: gr_which_structure = 40;
+pub const gr_which_structure_GR_CTX_GR_SERIES: gr_which_structure = 41;
+pub const gr_which_structure_GR_CTX_SERIES_MOD_GR_POLY: gr_which_structure = 42;
+pub const gr_which_structure_GR_CTX_GR_MAT: gr_which_structure = 43;
+pub const gr_which_structure_GR_CTX_GR_VEC: gr_which_structure = 44;
+pub const gr_which_structure_GR_CTX_PSL2Z: gr_which_structure = 45;
+pub const gr_which_structure_GR_CTX_DIRICHLET_GROUP: gr_which_structure = 46;
+pub const gr_which_structure_GR_CTX_PERM: gr_which_structure = 47;
+pub const gr_which_structure_GR_CTX_FEXPR: gr_which_structure = 48;
+pub const gr_which_structure_GR_CTX_DEBUG: gr_which_structure = 49;
+pub const gr_which_structure_GR_CTX_UNINITIALIZED: gr_which_structure = 50;
+pub const gr_which_structure_GR_CTX_UNKNOWN_DOMAIN: gr_which_structure = 51;
+pub const gr_which_structure_GR_CTX_WHICH_STRUCTURE_TAB_SIZE: gr_which_structure = 52;
 pub type gr_which_structure = ::std::os::raw::c_uint;
 pub type gr_method_init_clear_op = ::std::option::Option<
     unsafe extern "C" fn(arg1: gr_ptr, arg2: gr_ctx_ptr),
@@ -43625,7 +44146,7 @@ pub type gr_method_factor_op = ::std::option::Option<
     unsafe extern "C" fn(
         arg1: gr_ptr,
         arg2: *mut gr_vec_struct,
-        arg3: *mut gr_vec_struct,
+        arg3: *mut fmpz_vec_struct,
         arg4: gr_srcptr,
         arg5: ::std::os::raw::c_int,
         arg6: gr_ctx_ptr,
@@ -44367,7 +44888,7 @@ unsafe extern "C" {
     pub fn gr_factor(
         c: gr_ptr,
         factors: *mut gr_vec_struct,
-        exponents: *mut gr_vec_struct,
+        exponents: *mut fmpz_vec_struct,
         x: gr_srcptr,
         flags: ::std::os::raw::c_int,
         ctx: *mut gr_ctx_struct,
@@ -44555,6 +45076,12 @@ unsafe extern "C" {
         res: *mut gr_vec_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_big_o_base_fmpz(
+        res: gr_ptr,
+        base: gr_srcptr,
+        exp: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn gr_ctx_fq_prime(
         res: *mut fmpz,
         ctx: *mut gr_ctx_struct,
@@ -44636,6 +45163,10 @@ unsafe extern "C" {
         state: *mut flint_rand_struct,
     );
     pub fn gr_ctx_init_random_field(
+        ctx: *mut gr_ctx_struct,
+        state: *mut flint_rand_struct,
+    );
+    pub fn gr_ctx_init_random_finite_field(
         ctx: *mut gr_ctx_struct,
         state: *mut flint_rand_struct,
     );
@@ -45342,7 +45873,7 @@ unsafe extern "C" {
     pub fn gr_generic_poly_factor_roots(
         c: gr_ptr,
         fac: *mut gr_vec_struct,
-        mult: *mut gr_vec_struct,
+        mult: *mut fmpz_vec_struct,
         elt: gr_srcptr,
         flags: ::std::os::raw::c_int,
         ctx: *mut gr_ctx_struct,
@@ -45517,6 +46048,17 @@ unsafe extern "C" {
         subtract: ::std::os::raw::c_int,
         vec1: gr_srcptr,
         vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_generic_vec_dot_strided(
+        res: gr_ptr,
+        initial: gr_srcptr,
+        subtract: ::std::os::raw::c_int,
+        vec1: gr_srcptr,
+        stride1: slong,
+        vec2: gr_srcptr,
+        stride2: slong,
         len: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
@@ -46181,6 +46723,13 @@ unsafe extern "C" {
         mat2: *mut gr_mat_struct,
         UNUSED_ctx: *mut gr_ctx_struct,
     );
+    pub fn _gr_mat_swap_rows(
+        mat: *mut gr_mat_struct,
+        perm: *mut slong,
+        r: slong,
+        s: slong,
+        ctx: *mut gr_ctx_struct,
+    );
     pub fn gr_mat_swap_rows(
         mat: *mut gr_mat_struct,
         perm: *mut slong,
@@ -46193,6 +46742,25 @@ unsafe extern "C" {
         perm: *mut slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_mat_permute_rows(
+        mat: *mut gr_mat_struct,
+        perm_store: *mut slong,
+        perm_act: *const slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mat_permute_rows_inv(
+        mat: *mut gr_mat_struct,
+        perm_store: *mut slong,
+        perm_act: *const slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_mat_swap_cols(
+        mat: *mut gr_mat_struct,
+        perm: *mut slong,
+        r: slong,
+        s: slong,
+        ctx: *mut gr_ctx_struct,
+    );
     pub fn gr_mat_swap_cols(
         mat: *mut gr_mat_struct,
         perm: *mut slong,
@@ -46203,6 +46771,18 @@ unsafe extern "C" {
     pub fn gr_mat_invert_cols(
         mat: *mut gr_mat_struct,
         perm: *mut slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mat_permute_cols(
+        mat: *mut gr_mat_struct,
+        perm_store: *mut slong,
+        perm_act: *const slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mat_permute_cols_inv(
+        mat: *mut gr_mat_struct,
+        perm_store: *mut slong,
+        perm_act: *const slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_mat_move_row(
@@ -46243,6 +46823,12 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn gr_mat_print(
         mat: *const gr_mat_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_mat_set_str(
+        mat: *mut gr_mat_struct,
+        s: *const ::std::os::raw::c_char,
+        resize: ::std::os::raw::c_int,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_mat_randtest(
@@ -47174,14 +47760,14 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn gr_mat_eigenvalues(
         lambda: *mut gr_vec_struct,
-        mult: *mut gr_vec_struct,
+        mult: *mut fmpz_vec_struct,
         mat: *const gr_mat_struct,
         flags: ::std::os::raw::c_int,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_mat_eigenvalues_other(
         lambda: *mut gr_vec_struct,
-        mult: *mut gr_vec_struct,
+        mult: *mut fmpz_vec_struct,
         mat: *const gr_mat_struct,
         mat_ctx: *mut gr_ctx_struct,
         flags: ::std::os::raw::c_int,
@@ -47193,7 +47779,7 @@ unsafe extern "C" {
         R: *mut gr_mat_struct,
         A: *const gr_mat_struct,
         eigenvalues: *const gr_vec_struct,
-        mult: *const gr_vec_struct,
+        mult: *const fmpz_vec_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_mat_diagonalization_generic(
@@ -47600,7 +48186,7 @@ unsafe extern "C" {
     pub fn gr_mpoly_ctx_is_integral_domain(ctx: *mut gr_mpoly_ctx_struct) -> truth_t;
     pub fn gr_mpoly_ctx_is_field(ctx: *mut gr_mpoly_ctx_struct) -> truth_t;
     pub fn gr_mpoly_ctx_is_threadsafe(ctx: *mut gr_mpoly_ctx_struct) -> truth_t;
-    pub fn gr_mpoly_init(A: *mut gr_mpoly_struct, ctx: *mut gr_mpoly_ctx_struct);
+    pub fn gr_mpoly_init(A: *mut gr_mpoly_struct, UNUSED_ctx: *mut gr_mpoly_ctx_struct);
     pub fn gr_mpoly_init3(
         A: *mut gr_mpoly_struct,
         alloc: slong,
@@ -47647,22 +48233,22 @@ unsafe extern "C" {
     pub fn _gr_mpoly_set_length(
         A: *mut gr_mpoly_struct,
         newlen: slong,
-        ctx: *mut gr_mpoly_ctx_struct,
+        UNUSED_ctx: *mut gr_mpoly_ctx_struct,
     );
     pub fn gr_mpoly_length(
         x: *const gr_mpoly_struct,
-        ctx: *mut gr_mpoly_ctx_struct,
+        UNUSED_ctx: *mut gr_mpoly_ctx_struct,
     ) -> slong;
     pub fn _gr_mpoly_normalise(A: *mut gr_mpoly_struct, ctx: *mut gr_mpoly_ctx_struct);
     pub fn gr_mpoly_swap(
         A: *mut gr_mpoly_struct,
         B: *mut gr_mpoly_struct,
-        ctx: *mut gr_mpoly_ctx_struct,
+        UNUSED_ctx: *mut gr_mpoly_ctx_struct,
     );
     pub fn gr_mpoly_set_shallow(
         res: *mut gr_mpoly_struct,
         poly: *const gr_mpoly_struct,
-        ctx: *mut gr_mpoly_ctx_struct,
+        UNUSED_ctx: *mut gr_mpoly_ctx_struct,
     );
     pub fn gr_mpoly_set(
         A: *mut gr_mpoly_struct,
@@ -48156,7 +48742,7 @@ unsafe extern "C" {
     pub fn gr_ore_poly_set_shallow(
         res: *mut gr_ore_poly_struct,
         x: *const gr_ore_poly_struct,
-        ctx: *const gr_ore_poly_ctx_struct,
+        UNUSED_ctx: *const gr_ore_poly_ctx_struct,
     );
     pub fn gr_ore_poly_fit_length(
         poly: *mut gr_ore_poly_struct,
@@ -48530,6 +49116,34 @@ unsafe extern "C" {
         poly2: *const gr_ore_poly_struct,
         ctx: *mut gr_ore_poly_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn _gr_ore_poly_divrem(
+        Q: gr_ptr,
+        R: gr_ptr,
+        U: gr_srcptr,
+        lenU: slong,
+        V: gr_srcptr,
+        lenV: slong,
+        ctx: *mut gr_ore_poly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ore_poly_divrem(
+        Q: *mut gr_ore_poly_struct,
+        R: *mut gr_ore_poly_struct,
+        U: *const gr_ore_poly_struct,
+        V: *mut gr_ore_poly_struct,
+        ctx: *mut gr_ore_poly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ore_poly_div(
+        Q: *mut gr_ore_poly_struct,
+        U: *const gr_ore_poly_struct,
+        V: *mut gr_ore_poly_struct,
+        ctx: *mut gr_ore_poly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ore_poly_rem(
+        R: *mut gr_ore_poly_struct,
+        U: *const gr_ore_poly_struct,
+        V: *mut gr_ore_poly_struct,
+        ctx: *mut gr_ore_poly_ctx_struct,
+    ) -> ::std::os::raw::c_int;
 }
 
 
@@ -48538,7 +49152,7 @@ unsafe extern "C" {
 pub type gr_poly_roots_op = ::std::option::Option<
     unsafe extern "C" fn(
         arg1: *mut gr_vec_struct,
-        arg2: *mut gr_vec_struct,
+        arg2: *mut fmpz_vec_struct,
         arg3: *const gr_poly_struct,
         arg4: ::std::os::raw::c_int,
         arg5: gr_ctx_ptr,
@@ -48547,7 +49161,7 @@ pub type gr_poly_roots_op = ::std::option::Option<
 pub type gr_poly_roots_op_other = ::std::option::Option<
     unsafe extern "C" fn(
         arg1: *mut gr_vec_struct,
-        arg2: *mut gr_vec_struct,
+        arg2: *mut fmpz_vec_struct,
         arg3: *const gr_poly_struct,
         arg4: gr_ctx_ptr,
         arg5: ::std::os::raw::c_int,
@@ -48622,6 +49236,46 @@ unsafe extern "C" {
         ctx: *mut gr_ctx_struct,
     );
     pub fn _gr_poly_normalise(poly: *mut gr_poly_struct, ctx: *mut gr_ctx_struct);
+    pub fn gr_poly_vec_init(
+        vec: *mut gr_poly_vec_struct,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    );
+    pub fn gr_poly_vec_clear(vec: *mut gr_poly_vec_struct, ctx: *mut gr_ctx_struct);
+    pub fn gr_poly_vec_set(
+        res: *mut gr_poly_vec_struct,
+        src: *const gr_poly_vec_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_vec_fit_length(
+        vec: *mut gr_poly_vec_struct,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    );
+    pub fn gr_poly_vec_set_length(
+        vec: *mut gr_poly_vec_struct,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    );
+    pub fn gr_poly_vec_append(
+        vec: *mut gr_poly_vec_struct,
+        f: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_vec_length(
+        vec: *const gr_poly_vec_struct,
+        UNUSED_ctx: *mut gr_ctx_struct,
+    ) -> slong;
+    pub fn gr_poly_vec_entry_ptr(
+        vec: *mut gr_poly_vec_struct,
+        i: slong,
+        UNUSED_ctx: *mut gr_ctx_struct,
+    ) -> *mut gr_poly_struct;
+    pub fn gr_poly_vec_entry_srcptr(
+        vec: *const gr_poly_vec_struct,
+        i: slong,
+        UNUSED_ctx: *mut gr_ctx_struct,
+    ) -> *const gr_poly_struct;
     pub fn gr_poly_set(
         res: *mut gr_poly_struct,
         src: *const gr_poly_struct,
@@ -49287,6 +49941,12 @@ unsafe extern "C" {
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_poly_div_scalar(
+        res: *mut gr_poly_struct,
+        poly: *const gr_poly_struct,
+        c: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_divexact_scalar(
         res: *mut gr_poly_struct,
         poly: *const gr_poly_struct,
         c: gr_srcptr,
@@ -50213,6 +50873,22 @@ unsafe extern "C" {
         n: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_compose_series_kinoshita_li(
+        res: gr_ptr,
+        poly1: gr_srcptr,
+        len1: slong,
+        poly2: gr_srcptr,
+        len2: slong,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_compose_series_kinoshita_li(
+        res: *mut gr_poly_struct,
+        poly1: *const gr_poly_struct,
+        poly2: *const gr_poly_struct,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_compose_series(
         res: gr_ptr,
         poly1: gr_srcptr,
@@ -50488,6 +51164,25 @@ unsafe extern "C" {
         cutoff: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_xgcd_subresultant(
+        lenG: *mut slong,
+        G: gr_ptr,
+        S: gr_ptr,
+        T: gr_ptr,
+        A: gr_srcptr,
+        lenA: slong,
+        B: gr_srcptr,
+        lenB: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_xgcd_subresultant(
+        G: *mut gr_poly_struct,
+        S: *mut gr_poly_struct,
+        T: *mut gr_poly_struct,
+        A: *const gr_poly_struct,
+        B: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_xgcd(
         Glen: *mut slong,
         G: gr_ptr,
@@ -50568,6 +51263,20 @@ unsafe extern "C" {
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_poly_resultant_sylvester(
+        r: gr_ptr,
+        f: *const gr_poly_struct,
+        g: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_resultant_subresultant(
+        res: gr_ptr,
+        poly1: gr_srcptr,
+        len1: slong,
+        poly2: gr_srcptr,
+        len2: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_resultant_subresultant(
         r: gr_ptr,
         f: *const gr_poly_struct,
         g: *const gr_poly_struct,
@@ -50804,8 +51513,8 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn gr_poly_factor_squarefree(
         c: gr_ptr,
-        fac: *mut gr_vec_struct,
-        exp: *mut gr_vec_struct,
+        fac: *mut gr_poly_vec_struct,
+        exp: *mut fmpz_vec_struct,
         F: *const gr_poly_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
@@ -50836,8 +51545,8 @@ unsafe extern "C" {
     pub fn gr_poly_dispersion_from_factors(
         disp: *mut fmpz,
         disp_set: *mut gr_vec_struct,
-        ffac: *const gr_vec_struct,
-        gfac: *const gr_vec_struct,
+        ffac: *const gr_poly_vec_struct,
+        gfac: *const gr_poly_vec_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_poly_dispersion_factor(
@@ -50855,24 +51564,24 @@ unsafe extern "C" {
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_shiftless_decomposition_from_factors(
-        slfac: *mut gr_vec_struct,
+        slfac: *mut gr_poly_vec_struct,
         slshifts: *mut gr_vec_struct,
         slmult: *mut gr_vec_struct,
-        fac: *const gr_vec_struct,
-        mult: *const gr_vec_struct,
+        fac: *const gr_poly_vec_struct,
+        mult: *const fmpz_vec_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_poly_shiftless_decomposition_from_factors(
-        slfac: *mut gr_vec_struct,
+        slfac: *mut gr_poly_vec_struct,
         slshifts: *mut gr_vec_struct,
         slmult: *mut gr_vec_struct,
-        fac: *const gr_vec_struct,
-        mult: *const gr_vec_struct,
+        fac: *const gr_poly_vec_struct,
+        mult: *const fmpz_vec_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_poly_shiftless_decomposition_factor(
         c: gr_ptr,
-        slfac: *mut gr_vec_struct,
+        slfac: *mut gr_poly_vec_struct,
         slshifts: *mut gr_vec_struct,
         slmult: *mut gr_vec_struct,
         pol: *const gr_poly_struct,
@@ -50880,7 +51589,7 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn gr_poly_shiftless_decomposition(
         c: gr_ptr,
-        slfac: *mut gr_vec_struct,
+        slfac: *mut gr_poly_vec_struct,
         slshifts: *mut gr_vec_struct,
         slmult: *mut gr_vec_struct,
         pol: *const gr_poly_struct,
@@ -50905,14 +51614,14 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn gr_poly_roots(
         roots: *mut gr_vec_struct,
-        mult: *mut gr_vec_struct,
+        mult: *mut fmpz_vec_struct,
         poly: *const gr_poly_struct,
         flags: ::std::os::raw::c_int,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_poly_roots_other(
         roots: *mut gr_vec_struct,
-        mult: *mut gr_vec_struct,
+        mult: *mut fmpz_vec_struct,
         poly: *const gr_poly_struct,
         poly_ctx: *mut gr_ctx_struct,
         flags: ::std::os::raw::c_int,
@@ -51118,17 +51827,120 @@ unsafe extern "C" {
         times_pi: ::std::os::raw::c_int,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_sin_cos_series_newton(
+        s: gr_ptr,
+        c: gr_ptr,
+        h: gr_srcptr,
+        hlen: slong,
+        n: slong,
+        cutoff: slong,
+        times_pi: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_sin_cos_series_newton(
+        s: *mut gr_poly_struct,
+        c: *mut gr_poly_struct,
+        h: *const gr_poly_struct,
+        n: slong,
+        cutoff: slong,
+        times_pi: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_sin_cos_series(
+        s: gr_ptr,
+        c: gr_ptr,
+        h: gr_srcptr,
+        hlen: slong,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_sin_cos_pi_series(
+        s: gr_ptr,
+        c: gr_ptr,
+        h: gr_srcptr,
+        hlen: slong,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_sin_series(
+        s: gr_ptr,
+        h: gr_srcptr,
+        hlen: slong,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_sin_pi_series(
+        s: gr_ptr,
+        h: gr_srcptr,
+        hlen: slong,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_cos_series(
+        c: gr_ptr,
+        h: gr_srcptr,
+        hlen: slong,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_cos_pi_series(
+        c: gr_ptr,
+        h: gr_srcptr,
+        hlen: slong,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_sin_cos_series(
+        s: *mut gr_poly_struct,
+        c: *mut gr_poly_struct,
+        h: *const gr_poly_struct,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_sin_cos_pi_series(
+        s: *mut gr_poly_struct,
+        c: *mut gr_poly_struct,
+        h: *const gr_poly_struct,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_sin_series(
+        s: *mut gr_poly_struct,
+        h: *const gr_poly_struct,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_sin_pi_series(
+        s: *mut gr_poly_struct,
+        h: *const gr_poly_struct,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_cos_series(
+        c: *mut gr_poly_struct,
+        h: *const gr_poly_struct,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_cos_pi_series(
+        c: *mut gr_poly_struct,
+        h: *const gr_poly_struct,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_tan_series_basecase(
         f: gr_ptr,
         h: gr_srcptr,
         hlen: slong,
         n: slong,
+        func: ::std::os::raw::c_int,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_poly_tan_series_basecase(
         f: *mut gr_poly_struct,
         h: *const gr_poly_struct,
         n: slong,
+        func: ::std::os::raw::c_int,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_tan_series_newton(
@@ -51137,6 +51949,7 @@ unsafe extern "C" {
         hlen: slong,
         n: slong,
         cutoff: slong,
+        func: ::std::os::raw::c_int,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_poly_tan_series_newton(
@@ -51144,9 +51957,75 @@ unsafe extern "C" {
         h: *const gr_poly_struct,
         n: slong,
         cutoff: slong,
+        func: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_tan_series_sine_cosine(
+        f: gr_ptr,
+        h: gr_srcptr,
+        hlen: slong,
+        n: slong,
+        func: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_tan_series_sine_cosine(
+        res: *mut gr_poly_struct,
+        h: *const gr_poly_struct,
+        len: slong,
+        func: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_tan_series_exponential(
+        f: gr_ptr,
+        h: gr_srcptr,
+        hlen: slong,
+        n: slong,
+        func: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_tan_series_exponential(
+        res: *mut gr_poly_struct,
+        h: *const gr_poly_struct,
+        len: slong,
+        func: ::std::os::raw::c_int,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_tan_series(
+        f: gr_ptr,
+        h: gr_srcptr,
+        hlen: slong,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_tanh_series(
+        f: gr_ptr,
+        h: gr_srcptr,
+        hlen: slong,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_cot_series(
+        f: gr_ptr,
+        h: gr_srcptr,
+        hlen: slong,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_coth_series(
+        f: gr_ptr,
+        h: gr_srcptr,
+        hlen: slong,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_tan_pi_series(
+        f: gr_ptr,
+        h: gr_srcptr,
+        hlen: slong,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_cot_pi_series(
         f: gr_ptr,
         h: gr_srcptr,
         hlen: slong,
@@ -51157,6 +52036,51 @@ unsafe extern "C" {
         f: *mut gr_poly_struct,
         h: *const gr_poly_struct,
         n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_tanh_series(
+        f: *mut gr_poly_struct,
+        h: *const gr_poly_struct,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_cot_series(
+        f: *mut gr_poly_struct,
+        h: *const gr_poly_struct,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_coth_series(
+        f: *mut gr_poly_struct,
+        h: *const gr_poly_struct,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_tan_pi_series(
+        f: *mut gr_poly_struct,
+        h: *const gr_poly_struct,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_cot_pi_series(
+        f: *mut gr_poly_struct,
+        h: *const gr_poly_struct,
+        n: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_poly_bessel_j_series(
+        res: gr_ptr,
+        nu: gr_srcptr,
+        z: gr_srcptr,
+        zlen: slong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_poly_bessel_j_series(
+        res: *mut gr_poly_struct,
+        nu: gr_srcptr,
+        z: *const gr_poly_struct,
+        len: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn _gr_poly_mulmod(
@@ -51533,6 +52457,7 @@ unsafe extern "C" {
         state: *mut flint_rand_struct,
         iters: slong,
         maxn: slong,
+        flags: ::std::os::raw::c_int,
         ctx: *mut gr_ctx_struct,
     );
 }
@@ -51618,6 +52543,7 @@ unsafe extern "C" {
     pub fn gr_series_ctx_is_rational_vector_space(ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn gr_series_ctx_is_real_vector_space(ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn gr_series_ctx_is_complex_vector_space(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_series_ctx_is_finite_characteristic(ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn gr_series_ctx_set_gen_name(
         ctx: *mut gr_ctx_struct,
         s: *const ::std::os::raw::c_char,
@@ -51681,6 +52607,12 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn gr_series_gens_recursive(
         vec: *mut gr_vec_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_big_o(
+        res: *mut gr_series_struct,
+        base: *const gr_series_struct,
+        exp: *const fmpz,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_series_neg(
@@ -51797,7 +52729,64 @@ unsafe extern "C" {
         x: *const gr_series_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_series_sin(
+        res: *mut gr_series_struct,
+        x: *const gr_series_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_cos(
+        res: *mut gr_series_struct,
+        x: *const gr_series_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_sin_pi(
+        res: *mut gr_series_struct,
+        x: *const gr_series_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_cos_pi(
+        res: *mut gr_series_struct,
+        x: *const gr_series_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_sin_cos(
+        res1: *mut gr_series_struct,
+        res2: *mut gr_series_struct,
+        x: *const gr_series_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_sin_cos_pi(
+        res1: *mut gr_series_struct,
+        res2: *mut gr_series_struct,
+        x: *const gr_series_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn gr_series_tan(
+        res: *mut gr_series_struct,
+        x: *const gr_series_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_tanh(
+        res: *mut gr_series_struct,
+        x: *const gr_series_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_cot(
+        res: *mut gr_series_struct,
+        x: *const gr_series_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_coth(
+        res: *mut gr_series_struct,
+        x: *const gr_series_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_tan_pi(
+        res: *mut gr_series_struct,
+        x: *const gr_series_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_cot_pi(
         res: *mut gr_series_struct,
         x: *const gr_series_struct,
         ctx: *mut gr_ctx_struct,
@@ -51890,6 +52879,12 @@ unsafe extern "C" {
     pub fn gr_series_sinh_integral(
         res: *mut gr_series_struct,
         x: *const gr_series_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_bessel_j(
+        res: *mut gr_series_struct,
+        nu: gr_srcptr,
+        z: *const gr_series_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_series_fresnel(
@@ -52076,6 +53071,9 @@ unsafe extern "C" {
     pub fn gr_series_mod_ctx_is_real_vector_space(ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn gr_series_mod_ctx_is_complex_vector_space(ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn gr_series_mod_ctx_is_field(ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn gr_series_mod_ctx_is_finite_characteristic(
+        ctx: *mut gr_ctx_struct,
+    ) -> truth_t;
     pub fn gr_series_mod_ctx_set_gen_name(
         ctx: *mut gr_ctx_struct,
         s: *const ::std::os::raw::c_char,
@@ -52086,6 +53084,12 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn gr_series_mod_gens_recursive(
         vec: *mut gr_vec_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_mod_big_o(
+        res: *mut gr_poly_struct,
+        base: *const gr_poly_struct,
+        exp: *const fmpz,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn gr_series_mod_init(res: *mut gr_poly_struct, ctx: *mut gr_ctx_struct);
@@ -52220,7 +53224,64 @@ unsafe extern "C" {
         x: *const gr_poly_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_series_mod_sin(
+        res: *mut gr_poly_struct,
+        x: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_mod_cos(
+        res: *mut gr_poly_struct,
+        x: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_mod_sin_pi(
+        res: *mut gr_poly_struct,
+        x: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_mod_cos_pi(
+        res: *mut gr_poly_struct,
+        x: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_mod_sin_cos(
+        res1: *mut gr_poly_struct,
+        res2: *mut gr_poly_struct,
+        x: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_mod_sin_cos_pi(
+        res1: *mut gr_poly_struct,
+        res2: *mut gr_poly_struct,
+        x: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn gr_series_mod_tan(
+        res: *mut gr_poly_struct,
+        x: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_mod_tanh(
+        res: *mut gr_poly_struct,
+        x: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_mod_cot(
+        res: *mut gr_poly_struct,
+        x: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_mod_coth(
+        res: *mut gr_poly_struct,
+        x: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_mod_tan_pi(
+        res: *mut gr_poly_struct,
+        x: *const gr_poly_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_series_mod_cot_pi(
         res: *mut gr_poly_struct,
         x: *const gr_poly_struct,
         ctx: *mut gr_ctx_struct,
@@ -52990,6 +54051,13 @@ unsafe extern "C" {
         y: gr_srcptr,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_bessel_j_jet(
+        res: gr_ptr,
+        nu: gr_srcptr,
+        z: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn gr_airy(
         res1: gr_ptr,
         res2: gr_ptr,
@@ -53546,6 +54614,11 @@ unsafe extern "C" {
         x: gr_srcptr,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_generic_tanh(
+        res: gr_ptr,
+        x: gr_srcptr,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn gr_generic_asin(
         res: gr_ptr,
         x: gr_srcptr,
@@ -53903,6 +54976,22 @@ impl Default for gr_poly_struct {
     }
 }
 pub type gr_poly_t = [gr_poly_struct; 1usize];
+#[repr(C)]
+pub struct gr_poly_vec_struct {
+    pub entries: *mut gr_poly_struct,
+    pub alloc: slong,
+    pub length: slong,
+}
+impl Default for gr_poly_vec_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+pub type gr_poly_vec_t = [gr_poly_vec_struct; 1usize];
 
 
 /* gr_vec.h */
@@ -53935,6 +55024,19 @@ pub type gr_method_vec_dot_op = ::std::option::Option<
         arg5: gr_srcptr,
         arg6: slong,
         arg7: gr_ctx_ptr,
+    ) -> ::std::os::raw::c_int,
+>;
+pub type gr_method_vec_dot_strided_op = ::std::option::Option<
+    unsafe extern "C" fn(
+        arg1: gr_ptr,
+        arg2: gr_srcptr,
+        arg3: ::std::os::raw::c_int,
+        arg4: gr_srcptr,
+        arg5: slong,
+        arg6: gr_srcptr,
+        arg7: slong,
+        arg8: slong,
+        arg9: gr_ctx_ptr,
     ) -> ::std::os::raw::c_int,
 >;
 pub type gr_method_vec_dot_si_op = ::std::option::Option<
@@ -54007,6 +55109,11 @@ unsafe extern "C" {
         src: *const gr_vec_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_vec_set_shallow(
+        res: *mut gr_vec_struct,
+        src: *const gr_vec_struct,
+        ctx: *mut gr_ctx_struct,
+    );
     pub fn gr_vec_append(
         vec: *mut gr_vec_struct,
         f: gr_srcptr,
@@ -54050,6 +55157,18 @@ unsafe extern "C" {
         perm: *mut slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_permute_inv(
+        vec: gr_ptr,
+        perm: *mut slong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    );
+    pub fn gr_vec_permute_inv(
+        dest: *mut gr_vec_struct,
+        src: *mut gr_vec_struct,
+        perm: *mut slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn _gr_vec_shuffle(
         vec: gr_ptr,
         state: *mut flint_rand_struct,
@@ -54076,6 +55195,44 @@ unsafe extern "C" {
         vec: *const gr_vec_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn gr_vec_set_str(
+        vec: *mut gr_vec_struct,
+        s: *const ::std::os::raw::c_char,
+        resize: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_vec_str_count_entries(
+        count: *mut slong,
+        s: *const ::std::os::raw::c_char,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_set_str(
+        res: gr_ptr,
+        s: *const ::std::os::raw::c_char,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_str_is_space(c: ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn _gr_str_find_sep(
+        s: *const ::std::os::raw::c_char,
+        end: *const ::std::os::raw::c_char,
+        err: *mut ::std::os::raw::c_int,
+    ) -> *const ::std::os::raw::c_char;
+    pub fn _gr_str_strip_brackets(
+        content_begin: *mut *const ::std::os::raw::c_char,
+        content_end: *mut *const ::std::os::raw::c_char,
+        s: *const ::std::os::raw::c_char,
+        open: ::std::os::raw::c_char,
+        close: ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_str_blank(
+        s: *const ::std::os::raw::c_char,
+        end: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_str_trim(
+        s: *mut *const ::std::os::raw::c_char,
+        end: *mut *const ::std::os::raw::c_char,
+    );
     pub fn _gr_vec_zero(
         vec: gr_ptr,
         len: slong,
@@ -54087,6 +55244,12 @@ unsafe extern "C" {
         len: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_set_shallow(
+        dest: gr_ptr,
+        src: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    );
     pub fn _gr_vec_neg(
         res: gr_ptr,
         src: gr_srcptr,
@@ -54670,6 +55833,17 @@ unsafe extern "C" {
         subtract: ::std::os::raw::c_int,
         vec1: gr_srcptr,
         vec2: gr_srcptr,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _gr_vec_dot_strided(
+        res: gr_ptr,
+        initial: gr_srcptr,
+        subtract: ::std::os::raw::c_int,
+        vec1: gr_srcptr,
+        stride1: slong,
+        vec2: gr_srcptr,
+        stride2: slong,
         len: slong,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
@@ -59004,8 +60178,8 @@ unsafe extern "C" {
         out: *mut gr_stream_struct,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
-    pub fn nfloat_init(res: nfloat_ptr, ctx: *mut gr_ctx_struct);
-    pub fn nfloat_clear(res: nfloat_ptr, ctx: *mut gr_ctx_struct);
+    pub fn nfloat_init(res: nfloat_ptr, UNUSED_ctx: *mut gr_ctx_struct);
+    pub fn nfloat_clear(UNUSED_res: nfloat_ptr, UNUSED_ctx: *mut gr_ctx_struct);
     pub fn nfloat_swap(x: nfloat_ptr, y: nfloat_ptr, ctx: *mut gr_ctx_struct);
     pub fn nfloat_set(
         res: nfloat_ptr,
@@ -59018,8 +60192,8 @@ unsafe extern "C" {
         ctx: *mut gr_ctx_struct,
     ) -> truth_t;
     pub fn nfloat_ctx_set_real_prec(
-        ctx: *mut gr_ctx_struct,
-        prec: slong,
+        UNUSED_ctx: *mut gr_ctx_struct,
+        UNUSED_prec: slong,
     ) -> ::std::os::raw::c_int;
     pub fn nfloat_ctx_get_real_prec(
         res: *mut slong,
@@ -59027,7 +60201,7 @@ unsafe extern "C" {
     ) -> ::std::os::raw::c_int;
     pub fn nfloat_zero(
         res: nfloat_ptr,
-        ctx: *mut gr_ctx_struct,
+        UNUSED_ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
     pub fn nfloat_pos_inf(
         res: nfloat_ptr,
@@ -59053,7 +60227,7 @@ unsafe extern "C" {
         res: nfloat_ptr,
         ctx: *mut gr_ctx_struct,
     ) -> ::std::os::raw::c_int;
-    pub fn nfloat_is_zero(x: nfloat_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
+    pub fn nfloat_is_zero(x: nfloat_srcptr, UNUSED_ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn nfloat_is_one(x: nfloat_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn nfloat_is_neg_one(x: nfloat_srcptr, ctx: *mut gr_ctx_struct) -> truth_t;
     pub fn nfloat_set_ui(
@@ -59576,7 +60750,10 @@ unsafe extern "C" {
         flags: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
     pub fn nfloat_complex_init(res: nfloat_complex_ptr, ctx: *mut gr_ctx_struct);
-    pub fn nfloat_complex_clear(res: nfloat_complex_ptr, ctx: *mut gr_ctx_struct);
+    pub fn nfloat_complex_clear(
+        UNUSED_res: nfloat_complex_ptr,
+        UNUSED_ctx: *mut gr_ctx_struct,
+    );
     pub fn nfloat_complex_zero(
         res: nfloat_complex_ptr,
         ctx: *mut gr_ctx_struct,
@@ -60640,6 +61817,11 @@ unsafe extern "C" {
         P: *mut slong,
         A: *mut nmod_mat_struct,
         rank_check: ::std::os::raw::c_int,
+    ) -> slong;
+    pub fn nmod_mat_lu_with_pivots(
+        P: *mut slong,
+        pivots_nonpivots: *mut slong,
+        A: *mut nmod_mat_struct,
     ) -> slong;
     pub fn nmod_mat_solve(
         X: *mut nmod_mat_struct,
@@ -63664,16 +64846,20 @@ impl Default for nmod_poly_compose_mod_precomp_preinv_arg_t {
 }
 #[repr(C)]
 pub struct nmod_geometric_progression_struct {
-    pub x: nn_ptr,
-    pub t: nn_ptr,
-    pub w: nn_ptr,
-    pub y: nn_ptr,
-    pub z: nn_ptr,
-    pub f: nmod_poly_t,
-    pub g1: nmod_poly_t,
-    pub g2: nmod_poly_t,
+    pub ev_s: nn_ptr,
+    pub ev_f: nmod_poly_t,
+    pub int_s1: nn_ptr,
+    pub int_s2: nn_ptr,
+    pub int_f: nmod_poly_t,
+    pub ext_ff: nmod_poly_t,
+    pub ext_fb: nmod_poly_t,
+    pub ext_s1f: nn_ptr,
+    pub ext_s1b: nn_ptr,
+    pub ext_s2: nn_ptr,
+    pub ext_s3: nn_ptr,
     pub mod_: nmod_t,
     pub len: slong,
+    pub function: ulong,
 }
 impl Default for nmod_geometric_progression_struct {
     fn default() -> Self {
@@ -64877,6 +66063,18 @@ unsafe extern "C" {
     );
     pub fn _nmod_poly_integral(x_int: nn_ptr, x: nn_srcptr, len: slong, mod_: nmod_t);
     pub fn nmod_poly_integral(x_int: *mut nmod_poly_struct, x: *const nmod_poly_struct);
+    pub fn _nmod_poly_evaluate_nmod_horner(
+        poly: nn_srcptr,
+        len: slong,
+        c: ulong,
+        mod_: nmod_t,
+    ) -> ulong;
+    pub fn _nmod_poly_evaluate_nmod_rectangular(
+        poly: nn_srcptr,
+        len: slong,
+        c: ulong,
+        mod_: nmod_t,
+    ) -> ulong;
     pub fn _nmod_poly_evaluate_nmod(
         poly: nn_srcptr,
         len: slong,
@@ -64901,52 +66099,52 @@ unsafe extern "C" {
     pub fn _nmod_poly_evaluate_nmod_vec(
         ys: nn_ptr,
         coeffs: nn_srcptr,
-        len: slong,
+        ilen: slong,
         xs: nn_srcptr,
-        n: slong,
+        olen: slong,
         mod_: nmod_t,
     );
     pub fn nmod_poly_evaluate_nmod_vec(
         ys: nn_ptr,
         poly: *const nmod_poly_struct,
         xs: nn_srcptr,
-        n: slong,
+        olen: slong,
     );
     pub fn _nmod_poly_evaluate_nmod_vec_iter(
         ys: nn_ptr,
         coeffs: nn_srcptr,
-        len: slong,
+        ilen: slong,
         xs: nn_srcptr,
-        n: slong,
+        olen: slong,
         mod_: nmod_t,
     );
     pub fn nmod_poly_evaluate_nmod_vec_iter(
         ys: nn_ptr,
         poly: *const nmod_poly_struct,
         xs: nn_srcptr,
-        n: slong,
+        olen: slong,
     );
     pub fn _nmod_poly_evaluate_nmod_vec_fast_precomp(
         vs: nn_ptr,
         poly: nn_srcptr,
-        plen: slong,
+        ilen: slong,
         tree: *const nn_ptr,
-        len: slong,
+        olen: slong,
         mod_: nmod_t,
     );
     pub fn _nmod_poly_evaluate_nmod_vec_fast(
         ys: nn_ptr,
         coeffs: nn_srcptr,
-        len: slong,
+        ilen: slong,
         xs: nn_srcptr,
-        n: slong,
+        olen: slong,
         mod_: nmod_t,
     );
     pub fn nmod_poly_evaluate_nmod_vec_fast(
         ys: nn_ptr,
         poly: *const nmod_poly_struct,
         xs: nn_srcptr,
-        n: slong,
+        olen: slong,
     );
     pub fn nmod_mat_one_addmul(
         dest: *mut nmod_mat_struct,
@@ -64976,6 +66174,13 @@ unsafe extern "C" {
         len: slong,
         mod_: nmod_t,
     );
+    pub fn _nmod_geometric_progression_init_function(
+        G: *mut nmod_geometric_progression_struct,
+        r: ulong,
+        len: slong,
+        mod_: nmod_t,
+        function: ulong,
+    );
     pub fn nmod_geometric_progression_init(
         G: *mut nmod_geometric_progression_struct,
         r: ulong,
@@ -64986,38 +66191,38 @@ unsafe extern "C" {
     pub fn _nmod_poly_evaluate_geometric_nmod_vec_iter(
         ys: nn_ptr,
         coeffs: nn_srcptr,
-        len: slong,
+        ilen: slong,
         r: ulong,
-        n: slong,
+        olen: slong,
         mod_: nmod_t,
     );
     pub fn nmod_poly_evaluate_geometric_nmod_vec_iter(
         ys: nn_ptr,
         poly: *const nmod_poly_struct,
         r: ulong,
-        n: slong,
+        olen: slong,
     );
     pub fn _nmod_poly_evaluate_geometric_nmod_vec_fast_precomp(
         vs: nn_ptr,
         poly: nn_srcptr,
-        plen: slong,
+        ilen: slong,
         G: *const nmod_geometric_progression_struct,
-        len: slong,
+        olen: slong,
         mod_: nmod_t,
     );
     pub fn _nmod_poly_evaluate_geometric_nmod_vec_fast(
         ys: nn_ptr,
         coeffs: nn_srcptr,
-        len: slong,
+        ilen: slong,
         r: ulong,
-        n: slong,
+        olen: slong,
         mod_: nmod_t,
     );
     pub fn nmod_poly_evaluate_geometric_nmod_vec_fast(
         ys: nn_ptr,
         poly: *const nmod_poly_struct,
         r: ulong,
-        n: slong,
+        olen: slong,
     );
     pub fn _nmod_poly_interpolate_geometric_nmod_vec_fast_precomp(
         poly: nn_ptr,
@@ -65036,13 +66241,30 @@ unsafe extern "C" {
         poly: *mut nmod_poly_struct,
         r: ulong,
         ys: nn_srcptr,
-        n: slong,
+        len: slong,
+    );
+    pub fn nmod_poly_extrapolate_geometric(
+        oval: nn_ptr,
+        olen: slong,
+        ival: nn_srcptr,
+        ilen: slong,
+        offset: slong,
+        r: ulong,
+        mod_: nmod_t,
+    );
+    pub fn nmod_poly_extrapolate_geometric_precomp(
+        oval: nn_ptr,
+        olen: slong,
+        ival: nn_srcptr,
+        ilen: slong,
+        offset: slong,
+        G: *const nmod_geometric_progression_struct,
     );
     pub fn _nmod_poly_interpolate_nmod_vec_newton(
         poly: nn_ptr,
         xs: nn_srcptr,
         ys: nn_srcptr,
-        n: slong,
+        len: slong,
         mod_: nmod_t,
     );
     pub fn nmod_poly_interpolate_nmod_vec_newton(
@@ -65055,27 +66277,27 @@ unsafe extern "C" {
         poly: nn_ptr,
         xs: nn_srcptr,
         ys: nn_srcptr,
-        n: slong,
+        len: slong,
         mod_: nmod_t,
     );
     pub fn nmod_poly_interpolate_nmod_vec_barycentric(
         poly: *mut nmod_poly_struct,
         xs: nn_srcptr,
         ys: nn_srcptr,
-        n: slong,
+        len: slong,
     );
     pub fn _nmod_poly_interpolate_nmod_vec(
         poly: nn_ptr,
         xs: nn_srcptr,
         ys: nn_srcptr,
-        n: slong,
+        len: slong,
         mod_: nmod_t,
     );
     pub fn nmod_poly_interpolate_nmod_vec(
         poly: *mut nmod_poly_struct,
         xs: nn_srcptr,
         ys: nn_srcptr,
-        n: slong,
+        len: slong,
     );
     pub fn _nmod_poly_interpolate_nmod_vec_fast(
         poly: nn_ptr,
@@ -65088,7 +66310,7 @@ unsafe extern "C" {
         poly: *mut nmod_poly_struct,
         xs: nn_srcptr,
         ys: nn_srcptr,
-        n: slong,
+        len: slong,
     );
     pub fn _nmod_poly_interpolate_nmod_vec_fast_precomp(
         poly: nn_ptr,
@@ -65705,13 +66927,25 @@ unsafe extern "C" {
         h: *const nmod_poly_struct,
         n: slong,
     );
-    pub fn _nmod_poly_sin_series(g: nn_ptr, h: nn_srcptr, n: slong, mod_: nmod_t);
+    pub fn _nmod_poly_sin_series(
+        g: nn_ptr,
+        h: nn_srcptr,
+        hlen: slong,
+        n: slong,
+        mod_: nmod_t,
+    );
     pub fn nmod_poly_sin_series(
         g: *mut nmod_poly_struct,
         h: *const nmod_poly_struct,
         n: slong,
     );
-    pub fn _nmod_poly_cos_series(g: nn_ptr, h: nn_srcptr, n: slong, mod_: nmod_t);
+    pub fn _nmod_poly_cos_series(
+        g: nn_ptr,
+        h: nn_srcptr,
+        hlen: slong,
+        n: slong,
+        mod_: nmod_t,
+    );
     pub fn nmod_poly_cos_series(
         g: *mut nmod_poly_struct,
         h: *const nmod_poly_struct,
@@ -65753,7 +66987,13 @@ unsafe extern "C" {
         h: *const nmod_poly_struct,
         n: slong,
     );
-    pub fn _nmod_poly_tanh_series(g: nn_ptr, h: nn_srcptr, n: slong, mod_: nmod_t);
+    pub fn _nmod_poly_tanh_series(
+        g: nn_ptr,
+        h: nn_srcptr,
+        hlen: slong,
+        n: slong,
+        mod_: nmod_t,
+    );
     pub fn nmod_poly_tanh_series(
         g: *mut nmod_poly_struct,
         h: *const nmod_poly_struct,
@@ -65888,7 +67128,7 @@ unsafe extern "C" {
     pub fn nmod_mat_charpoly_danilevsky(
         p: *mut nmod_poly_struct,
         M: *const nmod_mat_struct,
-    );
+    ) -> ::std::os::raw::c_int;
     pub fn nmod_mat_charpoly(p: *mut nmod_poly_struct, M: *const nmod_mat_struct);
     pub fn nmod_mat_minpoly_with_gens(
         p: *mut nmod_poly_struct,
@@ -66757,6 +67997,15 @@ unsafe extern "C" {
         mod_: nmod_t,
         pow2_precomp: ulong,
     ) -> ulong;
+    pub fn _nmod_vec_dot_strided(
+        vec1: nn_srcptr,
+        stride1: slong,
+        vec2: nn_srcptr,
+        stride2: slong,
+        len: slong,
+        mod_: nmod_t,
+        params: dot_params_t,
+    ) -> ulong;
 }
 
 
@@ -67558,6 +68807,349 @@ unsafe extern "C" {
 }
 
 
+/* padic_radix.h */
+
+#[repr(C)]
+pub struct padic_radix_struct {
+    pub u: radix_integer_struct,
+    pub v: slong,
+    pub N: slong,
+}
+impl Default for padic_radix_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+pub type padic_radix_t = [padic_radix_struct; 1usize];
+#[repr(C)]
+pub struct padic_radix_ctx_struct {
+    pub radix: radix_struct,
+    pub p: ulong,
+    pub prec_abs: slong,
+    pub prec_rel: slong,
+    pub flags: ::std::os::raw::c_int,
+}
+impl Default for padic_radix_ctx_struct {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+pub type padic_radix_ctx_t = [padic_radix_ctx_struct; 1usize];
+unsafe extern "C" {
+    pub fn gr_ctx_init_padic_radix(
+        ctx: *mut gr_ctx_struct,
+        p: ulong,
+        prec_rel: slong,
+        prec_abs: slong,
+        flags: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+    pub fn gr_ctx_init_padic_radix_randtest(
+        ctx: *mut gr_ctx_struct,
+        state: *mut flint_rand_struct,
+        maxprec: slong,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_ctx_clear(ctx: *mut gr_ctx_struct);
+    pub fn padic_radix_ctx_write(
+        out: *mut gr_stream_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_init(res: *mut padic_radix_struct, ctx: *mut gr_ctx_struct);
+    pub fn padic_radix_clear(res: *mut padic_radix_struct, ctx: *mut gr_ctx_struct);
+    pub fn padic_radix_swap(
+        x: *mut padic_radix_struct,
+        y: *mut padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    );
+    pub fn padic_radix_set_shallow(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    );
+    pub fn padic_radix_get_error(
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> slong;
+    pub fn padic_radix_is_exact(
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> truth_t;
+    pub fn _padic_radix_finalize(
+        res: *mut padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_randtest(
+        res: *mut padic_radix_struct,
+        state: *mut flint_rand_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_write(
+        out: *mut gr_stream_struct,
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_zero(
+        res: *mut padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_one(
+        res: *mut padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_set(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_set_ui(
+        res: *mut padic_radix_struct,
+        x: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_set_si(
+        res: *mut padic_radix_struct,
+        x: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_set_fmpz(
+        res: *mut padic_radix_struct,
+        x: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_exact_set_ui(
+        res: *mut padic_radix_struct,
+        x: ulong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_exact_set_si(
+        res: *mut padic_radix_struct,
+        x: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_exact_set_fmpz(
+        res: *mut padic_radix_struct,
+        x: *const fmpz,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_get_fmpz(
+        res: *mut fmpz,
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_neg(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_add(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        y: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_sub(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        y: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_mul(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        y: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_inv(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_div(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        y: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_sqrt(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_rsqrt(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_is_square(
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> truth_t;
+    pub fn padic_radix_is_zero(
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> truth_t;
+    pub fn padic_radix_is_one(
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> truth_t;
+    pub fn padic_radix_is_neg_one(
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> truth_t;
+    pub fn padic_radix_is_invertible(
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> truth_t;
+    pub fn padic_radix_equal(
+        x: *const padic_radix_struct,
+        y: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> truth_t;
+    pub fn padic_radix_dot(
+        res: *mut padic_radix_struct,
+        initial: *const padic_radix_struct,
+        subtract: ::std::os::raw::c_int,
+        vec1: *const padic_radix_struct,
+        vec2: *const padic_radix_struct,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_dot_rev(
+        res: *mut padic_radix_struct,
+        initial: *const padic_radix_struct,
+        subtract: ::std::os::raw::c_int,
+        vec1: *const padic_radix_struct,
+        vec2: *const padic_radix_struct,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_dot_strided(
+        res: *mut padic_radix_struct,
+        initial: *const padic_radix_struct,
+        subtract: ::std::os::raw::c_int,
+        vec1: *const padic_radix_struct,
+        stride1: slong,
+        vec2: *const padic_radix_struct,
+        stride2: slong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_dot_strided_delayed(
+        res: *mut padic_radix_struct,
+        initial: *const padic_radix_struct,
+        subtract: ::std::os::raw::c_int,
+        vec1: *const padic_radix_struct,
+        stride1: slong,
+        vec2: *const padic_radix_struct,
+        stride2: slong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_dot_strided_naive(
+        res: *mut padic_radix_struct,
+        initial: *const padic_radix_struct,
+        subtract: ::std::os::raw::c_int,
+        vec1: *const padic_radix_struct,
+        stride1: slong,
+        vec2: *const padic_radix_struct,
+        stride2: slong,
+        len: slong,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _padic_radix_exp_bound(v: slong, N: slong, p: ulong) -> slong;
+    pub fn _padic_radix_exp_rectangular(
+        rop: *mut radix_integer_struct,
+        u: *const radix_integer_struct,
+        v: slong,
+        N: slong,
+        radix: *const radix_struct,
+    );
+    pub fn _padic_radix_exp_balanced(
+        rop: *mut radix_integer_struct,
+        u: *const radix_integer_struct,
+        v: slong,
+        N: slong,
+        radix: *const radix_struct,
+    );
+    pub fn _padic_radix_exp(
+        rop: *mut radix_integer_struct,
+        u: *const radix_integer_struct,
+        v: slong,
+        N: slong,
+        radix: *const radix_struct,
+    );
+    pub fn padic_radix_exp_rectangular(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_exp_balanced(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_exp(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _padic_radix_log_bound(v: slong, N: slong, p: ulong) -> slong;
+    pub fn _padic_radix_log_rectangular(
+        rop: *mut radix_integer_struct,
+        y: *const radix_integer_struct,
+        N: slong,
+        radix: *const radix_struct,
+    );
+    pub fn _padic_radix_log_balanced(
+        rop: *mut radix_integer_struct,
+        y: *const radix_integer_struct,
+        N: slong,
+        radix: *const radix_struct,
+    );
+    pub fn _padic_radix_log(
+        rop: *mut radix_integer_struct,
+        y: *const radix_integer_struct,
+        N: slong,
+        radix: *const radix_struct,
+    );
+    pub fn padic_radix_log_rectangular(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_log_balanced(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn padic_radix_log(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _padic_radix_add_sub_reference(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        y: *const padic_radix_struct,
+        sub: ::std::os::raw::c_int,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn _padic_radix_mul_reference(
+        res: *mut padic_radix_struct,
+        x: *const padic_radix_struct,
+        y: *const padic_radix_struct,
+        ctx: *mut gr_ctx_struct,
+    ) -> ::std::os::raw::c_int;
+}
+
+
 /* padic_types.h */
 
 #[repr(C)]
@@ -67677,10 +69269,23 @@ unsafe extern "C" {
     pub fn _perm_init(n: slong) -> *mut slong;
     pub fn _perm_clear(vec: *mut slong);
     pub fn _perm_equal(vec1: *const slong, vec2: *const slong, n: slong) -> slong;
+    pub fn _perm_is_one(vec: *const slong, n: slong) -> slong;
     pub fn _perm_set(res: *mut slong, vec: *const slong, n: slong);
     pub fn _perm_one(vec: *mut slong, n: slong);
     pub fn _perm_inv(res: *mut slong, vec: *const slong, n: slong);
     pub fn _perm_compose(
+        res: *mut slong,
+        vec1: *const slong,
+        vec2: *const slong,
+        n: slong,
+    );
+    pub fn _perm_compose_inv1(
+        res: *mut slong,
+        vec1: *const slong,
+        vec2: *const slong,
+        n: slong,
+    );
+    pub fn _perm_compose_inv2(
         res: *mut slong,
         vec1: *const slong,
         vec2: *const slong,
@@ -67692,6 +69297,12 @@ unsafe extern "C" {
         state: *mut flint_rand_struct,
     ) -> ::std::os::raw::c_int;
     pub fn _perm_parity(vec: *const slong, n: slong) -> ::std::os::raw::c_int;
+    pub fn _perm_next_lex(perm: *mut slong, n: slong) -> ::std::os::raw::c_int;
+    pub fn _perm_next_heap(
+        perm: *mut slong,
+        n: slong,
+        stack: *mut slong,
+    ) -> ::std::os::raw::c_int;
 }
 
 
@@ -68830,6 +70441,7 @@ pub struct qs_s {
     pub n: fmpz_t,
     pub bits: flint_bitcnt_t,
     pub ks_primes: ulong,
+    pub fb_primes: slong,
     pub k: ulong,
     pub kn: fmpz_t,
     pub num_primes: slong,
@@ -68903,9 +70515,27 @@ impl Default for qs_s {
 pub type qs_t = [qs_s; 1usize];
 unsafe extern "C" {
     pub fn qsieve_init(qs_inf: *mut qs_s, n: *const fmpz);
+    pub fn qsieve_init_with_tune(
+        qs_inf: *mut qs_s,
+        n: *const fmpz,
+        ks_primes: ulong,
+        fb_primes: slong,
+        small_primes: slong,
+        sieve_size: slong,
+        sieve_bits: ulong,
+    );
     pub fn qsieve_knuth_schroeppel(qs_inf: *mut qs_s) -> ulong;
     pub fn qsieve_clear(qs_inf: *mut qs_s);
     pub fn qsieve_factor(factors: *mut fmpz_factor_struct, n: *const fmpz);
+    pub fn qsieve_factor_with_tune(
+        factors: *mut fmpz_factor_struct,
+        n: *const fmpz,
+        ks_primes: ulong,
+        fb_primes: slong,
+        small_primes: slong,
+        sieve_size: slong,
+        sieve_bits: ulong,
+    );
     pub fn compute_factor_base(
         small_factor: *mut ulong,
         qs_inf: *mut qs_s,
@@ -69106,6 +70736,10 @@ unsafe extern "C" {
     pub fn radix_init(radix: *mut radix_struct, b: ulong, exp: ::std::os::raw::c_uint);
     pub fn radix_clear(radix: *mut radix_struct);
     pub fn radix_init_randtest(radix: *mut radix_struct, state: *mut flint_rand_struct);
+    pub fn radix_init_randtest_prime(
+        radix: *mut radix_struct,
+        state: *mut flint_rand_struct,
+    );
     pub fn radix_digit_radix(radix: *const radix_struct) -> ulong;
     pub fn radix_limb_radix(radix: *const radix_struct) -> ulong;
     pub fn radix_limb_exponent(radix: *const radix_struct) -> ulong;
@@ -69182,6 +70816,41 @@ unsafe extern "C" {
         e: ::std::os::raw::c_uint,
         radix: *const radix_struct,
     ) -> ulong;
+    pub fn radix_addlsh(
+        res: nn_ptr,
+        a: nn_srcptr,
+        an: slong,
+        b: nn_srcptr,
+        bn: slong,
+        sh: ::std::os::raw::c_uint,
+        radix: *const radix_struct,
+    ) -> ulong;
+    pub fn radix_sublsh(
+        res: nn_ptr,
+        a: nn_srcptr,
+        an: slong,
+        b: nn_srcptr,
+        bn: slong,
+        sh: ::std::os::raw::c_uint,
+        radix: *const radix_struct,
+    ) -> ulong;
+    pub fn radix_lshsub(
+        res: nn_ptr,
+        b: nn_srcptr,
+        bn: slong,
+        sh: ::std::os::raw::c_uint,
+        a: nn_srcptr,
+        an: slong,
+        radix: *const radix_struct,
+    ) -> ulong;
+    pub fn radix_cmplsh(
+        a: nn_srcptr,
+        an: slong,
+        b: nn_srcptr,
+        bn: slong,
+        sh: ::std::os::raw::c_uint,
+        radix: *const radix_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn radix_mul_1(
         res: nn_ptr,
         a: nn_srcptr,
@@ -69254,6 +70923,19 @@ unsafe extern "C" {
         an: slong,
         radix: *const radix_struct,
     ) -> ulong;
+    pub fn _radix_mulhigh_known_low(
+        out: nn_ptr,
+        x: nn_srcptr,
+        xn: slong,
+        y: nn_srcptr,
+        yn: slong,
+        kl: nn_srcptr,
+        kl_len: slong,
+        klo: slong,
+        khi: slong,
+        scratch: nn_ptr,
+        radix: *const radix_struct,
+    );
     pub fn radix_divrem_1(
         res: nn_ptr,
         a: nn_srcptr,
@@ -69360,13 +71042,6 @@ unsafe extern "C" {
         bn: slong,
         radix: *const radix_struct,
     );
-    pub fn radix_invmod_bn(
-        res: nn_ptr,
-        x: nn_srcptr,
-        xn: slong,
-        n: slong,
-        radix: *const radix_struct,
-    ) -> ::std::os::raw::c_int;
     pub fn radix_cmp_bn_half(
         x: nn_srcptr,
         n: slong,
@@ -69384,6 +71059,66 @@ unsafe extern "C" {
         n: slong,
         radix: *const radix_struct,
     );
+    pub fn radix_invmod_bn(
+        res: nn_ptr,
+        x: nn_srcptr,
+        xn: slong,
+        n: slong,
+        radix: *const radix_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn radix_divmod_bn_1(
+        q: nn_ptr,
+        rem: nn_ptr,
+        a: nn_srcptr,
+        an: slong,
+        b: ulong,
+        n: slong,
+        radix: *const radix_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn radix_divmod_bn_classical(
+        q: nn_ptr,
+        rem: nn_ptr,
+        a: nn_srcptr,
+        an: slong,
+        b: nn_srcptr,
+        bn: slong,
+        n: slong,
+        radix: *const radix_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn radix_divmod_bn_karp_markstein(
+        q: nn_ptr,
+        rem: nn_ptr,
+        a: nn_srcptr,
+        an: slong,
+        b: nn_srcptr,
+        bn: slong,
+        n: slong,
+        radix: *const radix_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn radix_divmod_bn(
+        q: nn_ptr,
+        rem: nn_ptr,
+        a: nn_srcptr,
+        an: slong,
+        b: nn_srcptr,
+        bn: slong,
+        n: slong,
+        radix: *const radix_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn radix_rsqrtmod_bn(
+        res: nn_ptr,
+        x: nn_srcptr,
+        xn: slong,
+        n: slong,
+        radix: *const radix_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn radix_sqrtmod_bn(
+        res: nn_ptr,
+        x: nn_srcptr,
+        xn: slong,
+        n: slong,
+        radix: *const radix_struct,
+    ) -> ::std::os::raw::c_int;
     pub fn radix_powers_clear(powers: *mut radix_powers_struct);
     pub fn radix_get_str_decimal(
         res: *mut ::std::os::raw::c_char,
@@ -69591,6 +71326,20 @@ unsafe extern "C" {
         n: slong,
         radix: *const radix_struct,
     );
+    pub fn radix_integer_addlsh(
+        res: *mut radix_integer_struct,
+        x: *const radix_integer_struct,
+        y: *const radix_integer_struct,
+        v: slong,
+        radix: *const radix_struct,
+    );
+    pub fn radix_integer_sublsh(
+        res: *mut radix_integer_struct,
+        x: *const radix_integer_struct,
+        y: *const radix_integer_struct,
+        v: slong,
+        radix: *const radix_struct,
+    );
     pub fn radix_integer_valuation_limbs(
         x: *const radix_integer_struct,
         UNUSED_radix: *const radix_struct,
@@ -69617,6 +71366,18 @@ unsafe extern "C" {
         n: slong,
         radix: *const radix_struct,
     );
+    pub fn radix_integer_trunc_digits(
+        res: *mut radix_integer_struct,
+        x: *const radix_integer_struct,
+        n: slong,
+        radix: *const radix_struct,
+    );
+    pub fn radix_integer_mod_digits(
+        res: *mut radix_integer_struct,
+        x: *const radix_integer_struct,
+        n: slong,
+        radix: *const radix_struct,
+    );
     pub fn radix_integer_mullow_limbs(
         res: *mut radix_integer_struct,
         x: *const radix_integer_struct,
@@ -69625,6 +71386,25 @@ unsafe extern "C" {
         radix: *const radix_struct,
     );
     pub fn radix_integer_invmod_limbs(
+        res: *mut radix_integer_struct,
+        x: *const radix_integer_struct,
+        n: slong,
+        radix: *const radix_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn radix_integer_divmod_limbs(
+        res: *mut radix_integer_struct,
+        a: *const radix_integer_struct,
+        b: *const radix_integer_struct,
+        n: slong,
+        radix: *const radix_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn radix_integer_rsqrtmod_limbs(
+        res: *mut radix_integer_struct,
+        x: *const radix_integer_struct,
+        n: slong,
+        radix: *const radix_struct,
+    ) -> ::std::os::raw::c_int;
+    pub fn radix_integer_sqrtmod_limbs(
         res: *mut radix_integer_struct,
         x: *const radix_integer_struct,
         n: slong,
@@ -70043,6 +71823,7 @@ unsafe extern "C" {
         b_precomp: ulong,
         n: ulong,
     );
+    pub fn n_quadratic_nonresidue(n: ulong) -> ulong;
     pub fn n_primitive_root_prime_prefactor(p: ulong, factors: *mut n_factor_t) -> ulong;
     pub fn n_primitive_root_prime(p: ulong) -> ulong;
     pub fn n_discrete_log_bsgs(b: ulong, a: ulong, n: ulong) -> ulong;
